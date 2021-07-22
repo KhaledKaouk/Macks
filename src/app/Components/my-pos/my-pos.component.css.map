@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "my-pos.component.sass"
+    ],
+    "names": [],
+    "file": "my-pos.component.css"
+}

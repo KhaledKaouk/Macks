@@ -1,0 +1,38 @@
+<div class="AddressHeader">
+    <h1>Create Purchase Order</h1>
+    <h2>Home  /  Create Purchase Order</h2>
+</div>
+<div class="CreatePo" [formGroup]="CreatePo">
+
+    <div class="element">
+        <input name="DealerName" type="text" formControlName="DealerName" aria-label="Dealer Name" placeholder="Dealer Name">
+    </div>
+
+    <div class="element">
+        <input name="DealerPo" type="text" formControlName="DealerPo" aria-label="DealerPo" placeholder="Dealer Po">
+    </div>
+
+    <div class="element">
+        <input name="CorinthainPo" type="number" formControlName="CorinthainPo" aria-label="CorinthainPo" placeholder="CorinthainPo">
+    </div>
+
+    <div class="element">
+        <label for="CorinthainPo">Production Request Date</label>
+        <input name="CorinthainPo" type="date" formControlName="ProductionRequestDate" aria-label="CorinthainPo" placeholder="Production Request Date">
+    </div>
+
+    <div class="element">
+        <textarea name="Comments" type="text" formControlName="Comments" aria-label="Comments" placeholder="Comments"> </textarea>
+    </div>
+
+    <div class="element">
+        <label for="file">Upload Po</label>
+        <input class="file" type="file" id="file" (change)=UploadPo($event)>
+    </div>
+
+    <div class="element">
+        <button (click)=Submit() [disabled]="!CreatePo.valid">Submit</button>
+    </div>
+</div>
+
+<simple-notifications></simple-notifications>

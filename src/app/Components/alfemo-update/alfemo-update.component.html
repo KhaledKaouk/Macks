@@ -1,0 +1,51 @@
+
+<div class="Grid" >
+  <a class="Close"   (click)=Close()>X</a>
+
+  <h1 style="font-size: xx-large; color: rgb(3, 1, 88); font-weight: 400; margin-left: 37%;"
+    class="align-self-center">Update Po</h1>
+</div>
+<div class="CreatePo" id="AlfemoUpdate" [formGroup]="UpdatedPo">
+  
+  <div class="element">
+    <label for="Status">Status</label>
+    <select name="Status" aria-label="Default select example" formControlName="Status">
+      <option value="confirm Po Receipt">confirm Po Receipt</option>
+      <option value="Waiting For Production">Waiting For Production</option>
+      <option value="Production">In Production</option>
+      <option value="Loading">Loading</option>
+      <option value="Shipped">Shipped</option>
+    </select>
+  </div>
+
+  <div class="element">
+    <input name="ContainerNumber" type="text"  formControlName="ContainerNumber"
+       placeholder="Container Number">
+  </div>
+  <div class="element">
+    <input name="FinalDestination" type="text"  formControlName="FinalDestination"
+       placeholder="Final Destination">
+  </div>
+  <div class="element">
+
+    <label for="CorinthainPo">Factory Estimated arrival Date</label>
+    <input name="CorinthainPo" type="date"  formControlName="FactoryEstimatedArrivalDate"
+      aria-label="CorinthainPo" >
+  </div>
+  <div class="element">
+    <label for="CorinthainPo">Factory Estimated Ship Date</label>
+    <input name="CorinthainPo" type="date"  formControlName="FactoryEstimatedShipDate"
+      aria-label="CorinthainPo" >
+  </div>
+
+  <div class="element">
+    <label for="file">Upload Shipment Document</label>
+    <input type="file"  id="file" (change)=UploadPo($event) style="border: none;">
+  </div>
+
+  <div class="Options">
+    <button (click)=Update() style="margin-bottom: 10px;">Update</button>
+  </div>
+</div>
+
+<simple-notifications></simple-notifications>

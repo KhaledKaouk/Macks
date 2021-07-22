@@ -1,0 +1,97 @@
+<div class="AddressHeader">
+    <h1>My Pos</h1>
+    <h2>Home  /  My Pos</h2>
+</div>
+<div class="Grid">
+    <div class="ControlTool">
+        <div>
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [checked]="ShowDealerName"
+            (change)="ShowDealerName = !ShowDealerName">
+            <label class="form-check-label" for="flexCheckDefault">
+                Dealer Name
+            </label>
+        </div>
+        <div>
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [checked]="ShowCorinthainPoNo"
+                (change)="ShowCorinthainPoNo = !ShowCorinthainPoNo">
+            <label class="form-check-label" for="flexCheckDefault">
+                Corinthain Po No
+            </label>
+        </div>
+        <div>
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [checked]="ShowDate"
+                (change)="ShowDate = !ShowDate">
+            <label class="form-check-label" for="flexCheckDefault">
+                Date
+            </label>
+        </div>
+        <div>
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [checked]="ShowStatus"
+                (change)="ShowStatus = !ShowStatus">
+            <label class="form-check-label" for="flexCheckDefault">
+                status
+            </label>
+        </div>
+        <div>
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [checked]="ShowApproved"
+                (change)="ShowApproved = !ShowApproved">
+            <label class="form-check-label" for="flexCheckDefault">
+                Approved
+            </label>
+        </div>
+    
+    </div>
+    <table class="table">
+        <thead>
+            <tr class="tableheader">
+                <th *ngIf="ShowDealerName">Dealer
+                    Name</th>
+                <th *ngIf="ShowCorinthainPoNo">
+                    Corinthain Po No</th>
+                <th *ngIf="ShowDate">Date
+                </th>
+                <th *ngIf="ShowStatus">Status
+                </th>
+                <th *ngIf="ShowApproved">Approved
+                </th>
+                <th *ngIf="ShippingDocs">Shipping Docs</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let P of DataOfCurrentPage index as i">
+                <td *ngIf="ShowDealerName">
+                    {{P.dealerName}}
+                </td>
+                <td *ngIf="ShowCorinthainPoNo">
+                    {{P.corinthianPO}}
+                </td>
+                <td *ngIf="ShowDate">
+                    {{P.factoryEstimatedArrivalDate}}
+                </td>
+                <td *ngIf="ShowStatus">
+                    {{P.status}}
+                </td>
+                <td *ngIf="ShowApproved">
+                    {{P.approvalStatus}}
+                </td>
+                <td *ngIf="ShippingDocs" class="td-btn">
+                    <a type="button" (click)=DownloadShippingDocs(P)> Shipping Docs</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <nav class="pagination" aria-label="Page navigation example">
+        <ul >
+            <li>
+                <button (click)=PreviousPage()>Previous</button>
+            </li>
+            <li *ngFor="let PC of PageCountArray index as i">
+                <button (click)=SliceDataForPaginantion(i)>{{i}}</button>
+            </li>
+            <li>
+                <button (click)=NextPage()>Next</button>
+            </li>
+        </ul>
+    </nav>
+</div>

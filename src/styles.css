@@ -1,0 +1,524 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins';
+}
+
+.top {
+  display: flex;
+  justify-content: space-around;
+  color: #6f5948;
+  font-size: 16px;
+  font-family: 'Poppins';
+  padding: 1% 8%;
+}
+
+.top img {
+  width: 5%;
+  height: 100%;
+  padding: 0% 1%;
+}
+
+.top .left {
+  text-align: left;
+  display: flex;
+  justify-content: start;
+  align-content: center;
+}
+
+.top .right {
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+}
+
+.middle {
+  font-family: 'Poppins';
+  height: 100px;
+  display: flex;
+  border-bottom: 0.2px solid #e3dad3;
+  align-items: center;
+  background-color: #f5f5f5;
+  justify-content: space-around;
+}
+
+.middle button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #6f5948;
+  border-radius: 0 30px 30px 0;
+  border: none;
+  display: inline;
+  width: 53px;
+  height: 45px;
+}
+
+.middle button:focus {
+  outline: none;
+}
+
+.middle .element {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.middle #Searchinput {
+  font-size: 18px;
+  padding-inline-start: 10px;
+  width: 350px;
+  height: 45px;
+  border: 1px solid #e4e4e4;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-right: none;
+}
+
+.middle #Searchinput:focus {
+  outline: none;
+}
+
+.middle .search {
+  width: 50%;
+  height: 50%;
+}
+
+.middle .icon {
+  width: 40%;
+}
+
+.middle .right {
+  text-align: right;
+  cursor: pointer;
+  transition: size 1s ease-in;
+}
+
+.middle .right:hover {
+  transform: scale(0.95);
+}
+
+.middle a {
+  color: #6f5948;
+  text-decoration: none;
+  font-size: 22px;
+}
+
+.middle a:hover {
+  color: #6f5948;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-around;
+}
+
+.bottom ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+}
+
+.bottom ul li {
+  padding: 5% 7%;
+  color: #6f5948;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.bottom ul li:hover {
+  cursor: pointer;
+  color: #bba695;
+}
+
+.Slide {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+}
+
+.Slide img {
+  width: 86%;
+  height: 550px;
+  position: relative;
+}
+
+.Slide .overslide {
+  position: absolute;
+  margin: 10%;
+  padding-top: 12%;
+}
+
+.Slide .overslide button {
+  width: 30%;
+  border: 1px solid white;
+  color: white;
+  background: transparent;
+  padding: 3%;
+  margin-top: 5%;
+  transition: 0.4s ease-in;
+  font-size: 19px;
+}
+
+.Slide .overslide button:hover {
+  cursor: pointer;
+  font-size: 19px;
+  background-color: white;
+  color: #3c2e25;
+}
+
+.Slide .overslide p {
+  font-weight: 300;
+  font-size: 30px;
+  color: white;
+}
+
+.ProductSamples {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 5%;
+}
+
+.ProductSamples img {
+  width: 80%;
+  opacity: 1;
+}
+
+.ProductSamples button {
+  position: absolute;
+  height: 100%;
+  font-size: 20px;
+  width: 80%;
+  background-color: #3c2e25;
+  opacity: 0;
+  transition: opacity .3s ease-in;
+}
+
+.ProductSamples button:hover {
+  color: white;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.ProductSamples .card {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+}
+
+.footer {
+  background-color: #3c2e25;
+  padding: 7%;
+  margin: 3% 0%;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.footer .element {
+  text-align: center;
+  width: 30%;
+}
+
+.footer .element .Ptitle {
+  padding-bottom: 20px;
+  font-size: 22px;
+}
+
+.footer .element a {
+  color: white;
+  text-decoration: none;
+  cursor: none;
+  margin-bottom: 20px;
+}
+
+.footer li {
+  color: white;
+  list-style-type: none;
+  padding-bottom: 2%;
+}
+
+.CreatePo {
+  color: #3c2e25;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 2% 30%;
+  border-radius: 30px;
+}
+
+.CreatePo .element {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 2%;
+}
+
+.CreatePo .element label {
+  font-size: 18px;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.CreatePo select {
+  font-size: 18px;
+  padding-inline-start: 10px;
+  width: 350px;
+  height: 45px;
+  border: 1px solid #e4e4e4;
+  transition: border 0.4s ease-in;
+}
+
+.CreatePo select:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.CreatePo input {
+  font-size: 18px;
+  padding-inline-start: 10px;
+  width: 350px;
+  height: 45px;
+  border: 1px solid #e4e4e4;
+  transition: border 0.4s ease-in;
+}
+
+.CreatePo input:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.CreatePo textarea {
+  font-size: 18px;
+  padding-inline-start: 10px;
+  width: 350px;
+  height: 45px;
+  border: 1px solid #e4e4e4;
+  transition: border 0.4s ease-in;
+}
+
+.CreatePo textarea:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.CreatePo .file {
+  border: none;
+}
+
+.CreatePo .title {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 3%;
+}
+
+.CreatePo button {
+  width: 350px;
+  height: 50px;
+  border: 1px solid #3c2e25;
+  color: #3c2e25;
+  background: transparent;
+  transition: 0.2s ease-in;
+  font-size: 25px;
+}
+
+.CreatePo button:hover {
+  cursor: pointer;
+  background-color: #b99b85;
+  border-color: #b99b85;
+  color: white;
+}
+
+.Grid {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  position: relative;
+  padding: 3%;
+}
+
+.Grid .ControlTool {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Grid .table {
+  border-collapse: collapse;
+  margin: 25px 0px;
+  font-size: 18px;
+  min-width: 500px;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.Grid .table thead tr {
+  background-color: #c2c2c2;
+  color: #3c2e25;
+  text-align: center;
+  font-weight: bold;
+}
+
+.Grid .table td {
+  padding: 12px 15px;
+}
+
+.Grid .table th {
+  padding: 12px 15px;
+}
+
+.Grid .table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.Grid .table tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.Grid .table tbody td {
+  text-align: center;
+  color: #3c2e25;
+}
+
+.Grid .table tbody tr:last-of-type {
+  border-bottom: 2px solid #3c2e25;
+}
+
+.Grid .table tbody tr:hover {
+  font-weight: bold;
+}
+
+.Grid .table tbody a {
+  border: 1px solid #3c2e25;
+  padding: 5px;
+  transition: background-color 0.3s ease-in;
+}
+
+.Grid .table tbody a:hover {
+  background-color: #b99b85;
+  color: #f5f5f5;
+  border-color: #b99b85;
+  cursor: pointer;
+}
+
+.Grid .Options {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 5px;
+}
+
+.Grid .Options a {
+  width: 40%;
+  border: 1px solid #3c2e25;
+  text-align: center;
+  padding: 5px;
+  margin: 5px;
+  transition: background-color 0.4s ease-in;
+}
+
+.Grid .Options a:hover {
+  background-color: #b99b85;
+  border-color: #b99b85;
+  color: #f5f5f5;
+  cursor: pointer;
+}
+
+.Grid .Close {
+  position: absolute;
+  width: 3%;
+  background-color: transparent;
+  border: 1px solid #b11818;
+  color: #b11818;
+  text-align: center;
+  font-size: 18px;
+  top: 0;
+  right: 0;
+}
+
+.Grid .Close:hover {
+  background-color: #b11818;
+  color: white;
+  cursor: pointer;
+}
+
+.Grid .UploadFile {
+  color: #3c2e25;
+  font-size: 15px;
+}
+
+.Grid .UploadFile label {
+  margin: 10px;
+}
+
+.Grid .pagination ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+}
+
+.Grid .pagination ul button {
+  background-color: transparent;
+  border: 1px solid #3c2e25;
+  border-radius: 5px;
+  color: #3c2e25;
+  font-size: 19px;
+  padding: 2px 4px;
+  margin: 1px;
+}
+
+.Grid .pagination ul button:hover {
+  cursor: pointer;
+  background-color: #b99b85;
+  color: white;
+}
+
+.AddressHeader {
+  padding: 20px;
+  height: 150px;
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: #f4f4f4;
+  color: #6f5948;
+}
+
+.AddressHeader h1 {
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 22px;
+  margin: 8px;
+}
+
+.AddressHeader h2 {
+  word-spacing: 10px;
+}
+
+#AlfemoUpdate {
+  margin: 10%;
+}
+
+@media only screen and (max-width: 980px) {
+  .fadeshow1 {
+    display: none;
+  }
+  .fadeshow2 {
+    display: none;
+  }
+  .CreatePo {
+    margin: 2% 20%;
+  }
+}
+/*# sourceMappingURL=styles.css.map */

@@ -1,0 +1,19 @@
+<div class="AddressHeader">
+    <h1>Log In</h1>
+    <h2>Home  /  Log In</h2>
+</div>
+
+<div class="CreatePo" [formGroup]="LogIn">
+  
+    <div class="element">
+        <input name="EnterEmail" type="email" formControlName="UserName" aria-label="Email" placeholder="Email" >
+    </div>
+    <div class="element">
+        <input name="EnterPassword" type="password" formControlName="Password" aria-label="Password" placeholder="Password">
+    </div>
+    <div class="element">
+        <button class="btn btn-success" (click)=Submit()>LogIn</button>
+    </div>
+</div>
+
+<simple-notifications></simple-notifications>

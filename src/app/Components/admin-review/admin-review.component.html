@@ -1,0 +1,53 @@
+<div class="Grid">
+    <a class="Close" (click)=Close()>X</a>
+
+    <h1 style="font-size: xx-large; color: rgb(3, 1, 88); font-weight: 400; margin-bottom: 50px; margin-left: 37%;"
+        class="align-self-center">Review Po</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th *ngIf="ShowDealerName">Dealer
+                    Name</th>
+                <th *ngIf="ShowCorinthainPoNo">
+                    Corinthain Po No</th>
+                <th *ngIf="ShowDate">Date</th>
+                <th *ngIf="ShowStatus">Status
+                </th>
+                <th *ngIf="ShowApproved">Approved
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let P of mydata index as i">
+                <td *ngIf="ShowDealerName">
+                    {{P.dealerName}}
+                </td>
+                <td *ngIf="ShowCorinthainPoNo">
+                    {{P.corinthianPO}}
+                </td>
+                <td *ngIf="ShowDate">
+                    {{P.factoryEstimatedArrivalDate}}
+                </td>
+                <td *ngIf="ShowStatus">
+                    {{P.status}}
+                </td>
+                <td *ngIf="ShowApproved">
+                    {{P.approvalStatus}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="UploadFile">
+        <label for="file">Upload Po</label>
+        <input type="file" id="file" (change)=UploadPo($event)>
+    </div>
+    <div class="Options">
+        <a (click)="DownLoadPo('Mack')">DownLoad Mack Po</a>
+        <a (click)="DownLoadPo('Corinthain')">DownLoad Corinthain Po</a>
+        <a (click)="DownLoadPo('ShippingDocs')">DownLoad Shipping Docs</a>
+        <a (click)=Approve()>Approve</a>
+        <a (click)=Cancel()>Cancel</a>
+        <a (click)=UpdatePo()>ApplyChanges</a>
+    </div>
+</div>
+<simple-notifications></simple-notifications>
