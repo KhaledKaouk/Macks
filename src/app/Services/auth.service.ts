@@ -18,13 +18,13 @@ export class AuthService {
     let password: string = Password;
     
     let body = `grant_type=${grant_type}&username=${username}&password=${password}`;
-    sessionStorage.setItem("username",UserName)
+    localStorage.setItem("username",UserName)
     
     return this.http.post<Token>("https://macksdistribution.com/token",body,{headers: headers});
   }
 
   GetToken(){
-    return sessionStorage.getItem('token');
+    return localStorage.getItem('token');
   }
 
 

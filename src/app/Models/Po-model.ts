@@ -9,8 +9,9 @@ export class POs {
     userID: string;
     mackPOAttach: string;
     corinthianPOAttach: string;
-    ShippingDocs: string;
+    shippingDocs: string;
     comments: string;
+    alfemoComments:string;
     status: string;
     productionRequestDate: string;
     factoryEstimatedShipDate: string;
@@ -33,8 +34,9 @@ export class POs {
             this.userID = "";
             this.mackPOAttach = "";
             this.corinthianPOAttach = "";
-            this.ShippingDocs = "";
+            this.shippingDocs = "";
             this.comments = "";
+            this.alfemoComments="";
             this.status = "";
             this.productionRequestDate = "";
             this.factoryEstimatedShipDate = "";

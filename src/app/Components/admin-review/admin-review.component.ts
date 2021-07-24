@@ -4,13 +4,17 @@ import { Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { POs } from 'src/app/Models/Po-model';
 import { POsService } from 'src/app/Services/pos.service';
-import { NotificationserService } from 'src/app/Services/Notificationser.service';
+import { NotificationserService } from 'src/app/Services/notificationser.service';
 @Component({
   selector: 'app-admin-review',
   templateUrl: './admin-review.component.html',
   styleUrls: ['./admin-review.component.css']
 })
 export class AdminReviewComponent implements OnInit {
+
+  MackFile: boolean = true;
+  ShipFile: boolean = true;
+  CorintatinFile: boolean = true;
 
   ShowRowNumber: boolean = true;
   ShowDealerName: Boolean = true;
@@ -32,8 +36,9 @@ export class AdminReviewComponent implements OnInit {
     userID: "",
     mackPOAttach: "",
     corinthianPOAttach: "",
-    ShippingDocs: "",
+    shippingDocs: "",
     comments: "",
+    alfemoComments:"",
     status: "",
     productionRequestDate: "",
     factoryEstimatedShipDate: "",
@@ -57,10 +62,26 @@ export class AdminReviewComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: POs) { }
 
   ngOnInit(): void {
-    if (!sessionStorage.getItem('token')) {
+    if (!localStorage.getItem('token')) {
       this.router.navigateByUrl('/LogIn')
     } else {
       this.mydata[0] = this.data;
+      if(this.mydata[0].mackPOAttach == ""){
+        this.MackFile = false;
+      }else{
+        this.MackFile = true
+      }
+      if(this.mydata[0].shippingDocs == ""){
+        this.ShipFile = false 
+      }else{
+        this.ShipFile = true
+      }
+      if(this.mydata[0].corinthianPOAttach == ""){
+        this.CorintatinFile = false
+      }else{
+        this.CorintatinFile = true
+      }
+
     }
   }
   
@@ -88,22 +109,35 @@ export class AdminReviewComponent implements OnInit {
   
       this.PoService.Uploadfile(fd,this.mydata[0].mackPOAttach).subscribe((res) => {
         if(res  == true){
-          this.Notification.OnSuccess("You Uploaded Your File successfully")
+          this.PoService.UpdatePo(this.mydata[0]).toPromise().then( (res : any) => {
+            if(res  == true){
+              this.Notification.OnSuccess("You Updated the Po successfully")
+              this.Close()
+            }else{
+              this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
+            }
+          },(err:any) => {
+            if (err.error.message == "Authorization has been denied for this request."){
+              localStorage.clear();
+              this.router.navigateByUrl('/LogIn')
+            }else{
+              this.Notification.OnError('try again later or login again')
+            }
+          })
         }else{
           this.Notification.OnError("The File Was Not Uploaded Please Try Again Later")
+        }
+      },(err:any) => {
+        if (err.error.message == "Authorization has been denied for this request."){
+          localStorage.clear();
+          this.router.navigateByUrl('/LogIn')
+        }else{
+          this.Notification.OnError('try again later or login again')
         }
       })
     }
 
-    this.PoService.UpdatePo(this.mydata[0]).toPromise().then( (res : any) => {
-      if(res  == true){
-        this.Notification.OnSuccess("You Updated the Po successfully")
-        this.Close()
-      }else{
-        this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
-      }
 
-    })
   }
 
   UploadPo(event: any) {
@@ -118,8 +152,8 @@ export class AdminReviewComponent implements OnInit {
        FileName = this.mydata[0].mackPOAttach;
     }else{
       if(PoType == "ShippingDocs"){
-        console.log(this.mydata[0].ShippingDocs)
-        href = "SD/" + this.mydata[0].ShippingDocs;
+        console.log(this.mydata[0].shippingDocs)
+        href = "SD/" + this.mydata[0].shippingDocs;
         FileName = this.mydata[0].corinthianPOAttach;
       }else{
         href = "NP/" + this.mydata[0].corinthianPOAttach;

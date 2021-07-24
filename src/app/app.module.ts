@@ -23,7 +23,8 @@ import { TokeninterceptorService } from './Services/tokeninterceptor.service';
 
 import {BrowserAnimationsModule} from  '@angular/platform-browser/animations';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
-import { NotificationserService } from './Services/Notificationser.service';
+import { NotificationserService } from './Services/notificationser.service';
+import { ProductdetailsComponent } from './Components/productdetails/productdetails.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { NotificationserService } from './Services/Notificationser.service';
     AlfemoComponent,
     AdminReviewComponent,
     AlfemoUpdateComponent,
-    LogInComponent
+    LogInComponent,
+    ProductdetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ import { NotificationserService } from './Services/Notificationser.service';
       provide: HTTP_INTERCEPTORS,
       useClass:TokeninterceptorService,
       multi: true
-    }
+    },
+    HeaderComponent,
   ],
   bootstrap: [AppComponent]
 })

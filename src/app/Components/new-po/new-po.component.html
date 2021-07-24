@@ -31,7 +31,7 @@
     </div>
 
     <div class="element">
-        <button (click)=Submit() [disabled]="!CreatePo.valid">Submit</button>
+        <button (click)=Submit() [disabled]="!CreatePo.valid || Loading">Submit</button>
     </div>
 </div>
 

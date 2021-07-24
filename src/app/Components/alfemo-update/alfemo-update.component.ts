@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { POs } from 'src/app/Models/Po-model';
-import { NotificationserService } from 'src/app/Services/Notificationser.service';
+import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 
 @Component({
@@ -19,6 +19,7 @@ export class AlfemoUpdateComponent implements OnInit {
     FinalDestination: new FormControl(''),
     FactoryEstimatedArrivalDate: new FormControl(''),
     FactoryEstimatedShipDate: new FormControl(''),
+    AlfemoComents: new FormControl('')
   })
 
   PoToUpdate: POs = {
@@ -32,8 +33,9 @@ export class AlfemoUpdateComponent implements OnInit {
     userID: "",
     mackPOAttach: "",
     corinthianPOAttach: "",
-    ShippingDocs: "",
+    shippingDocs: "",
     comments: "",
+    alfemoComments:"",
     status: "",
     productionRequestDate: "",
     factoryEstimatedShipDate: "",
@@ -56,7 +58,7 @@ export class AlfemoUpdateComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: POs ) { }
 
   ngOnInit(): void {
-    if(!sessionStorage.getItem('token')){
+    if(!localStorage.getItem('token')){
       this.router.navigateByUrl('/LogIn')
     }else{
       this.PoToUpdate = this.data;
@@ -65,47 +67,53 @@ export class AlfemoUpdateComponent implements OnInit {
       this.UpdatedPo.get('FinalDestination')?.setValue(this.data.finalDestLocation);
       this.UpdatedPo.get('FactoryEstimatedArrivalDate')?.setValue(this.data.factoryEstimatedArrivalDate);
       this.UpdatedPo.get('FactoryEstimatedShipDate')?.setValue(this.data.factoryEstimatedShipDate);
-  
+      this.UpdatedPo.get('AlfemoComents')?.setValue(this.data.alfemoComments)
+
       this.UpdatedPo.setValue({
         Status: this.data.status,
         ContainerNumber: this.data.containerNumber,
         FinalDestination: this.data.finalDestLocation,
         FactoryEstimatedArrivalDate: this.data.factoryEstimatedArrivalDate,
-        FactoryEstimatedShipDate: this.data.factoryEstimatedShipDate
+        FactoryEstimatedShipDate: this.data.factoryEstimatedShipDate,
+        AlfemoComents: this.data.alfemoComments
       })
     }
   }
 
   Update(){
+    console.log('qweq')
     this.PoToUpdate.status = this.UpdatedPo.get('Status')?.value;
     this.PoToUpdate.containerNumber = this.UpdatedPo.get('ContainerNumber')?.value;
     this.PoToUpdate.finalDestLocation = this.UpdatedPo.get('FinalDestination')?.value;
     this.PoToUpdate.factoryEstimatedArrivalDate = this.UpdatedPo.get('FactoryEstimatedArrivalDate')?.value;
     this.PoToUpdate.factoryEstimatedShipDate = this.UpdatedPo.get('FactoryEstimatedShipDate')?.value;
-    
+    this.PoToUpdate.alfemoComments = this.UpdatedPo.get('AlfemoComents')?.value;
     let fd = new FormData();
     if(this.SeletedFile){
 
       let extenstion: string = this.SeletedFile.name;
       extenstion = extenstion.substring(extenstion.lastIndexOf('.'));
 
-      this.PoToUpdate.ShippingDocs = "SD_" + this.PoToUpdate.dealerPONumber + "_" + this.PoToUpdate.corinthianPO + extenstion;
+      this.PoToUpdate.shippingDocs = "SD_" + this.PoToUpdate.dealerPONumber + "_" + this.PoToUpdate.corinthianPO + extenstion;      
 
-      //let FileToUpload : File = new File(this.SeletedFile,this.PoToUpdate.ShippingDocs)
+      fd.append('PO',this.SeletedFile,this.PoToUpdate.shippingDocs);
       
-
-      fd.append('PO',this.SeletedFile,this.PoToUpdate.ShippingDocs);
-
-      
-      this.PoService.Uploadfile(fd,this.PoToUpdate.ShippingDocs).toPromise().then((res: any) => {
+      this.PoService.Uploadfile(fd,this.PoToUpdate.shippingDocs).toPromise().then((res: any) => {
         if(res  == true){
-          this.Notification.OnSuccess("You Uploaded Your File successfully")
+          this.Notification.OnSuccess("You Uploaded your file successfuly")
         }else{
           this.Notification.OnError("The File Was Not Uploaded Please Try Again Later")
         }
+      },(err:any) => {
+        if (err.error.message == "Authorization has been denied for this request."){
+          localStorage.clear();
+          this.router.navigateByUrl('/LogIn')
+        }else{
+          this.Notification.OnError('try again later or login again')
+        }
       })
+      
     }
-
     this.PoService.UpdatePo(this.PoToUpdate).toPromise().then((res: any) =>{
       if(res  == true){
         this.Notification.OnSuccess("You Updated the Po successfully")
@@ -113,8 +121,14 @@ export class AlfemoUpdateComponent implements OnInit {
       }else{
         this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
       }
+    },(err:any) => {
+      if (err.error.message == "Authorization has been denied for this request."){
+        localStorage.clear();
+        this.router.navigateByUrl('/LogIn')
+      }else{
+        this.Notification.OnError('try again later or login again')
+      }
     })
-    
   }
   
   UploadPo(event: any) {

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { element } from 'protractor';
 import { POs } from 'src/app/Models/Po-model';
+import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component';
 
@@ -14,6 +15,8 @@ import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component'
 export class AlfemoComponent implements OnInit {
 
 
+  MackFile: boolean[] = [];
+  
   ShowRowNumber: boolean = true;
   ShowDealerName: Boolean = true;
   ShowDealerPhone: boolean = true;
@@ -39,10 +42,11 @@ export class AlfemoComponent implements OnInit {
      itemID: 0,
      supplierName: "test",
      userID: "test",
-     mackPOAttach: "test",
+     mackPOAttach: "",
      corinthianPOAttach: "test",
-     ShippingDocs: "stst",
+     shippingDocs: "stst",
      comments: "setse",
+     alfemoComments:"test",
      status: "tseetssetest",
      productionRequestDate: "tsets",
      factoryEstimatedShipDate: "setsetse",
@@ -65,8 +69,9 @@ export class AlfemoComponent implements OnInit {
      userID: "test",
      mackPOAttach: "test",
      corinthianPOAttach: "1",
-     ShippingDocs: "stst",
+     shippingDocs: "stst",
      comments: "setse",
+     alfemoComments:"test",
      status: "tseetssetest",
      productionRequestDate: "tsets",
      factoryEstimatedShipDate: "setsetse",
@@ -88,11 +93,12 @@ export class AlfemoComponent implements OnInit {
   
   constructor(private dialog: MatDialog,
     private poservice: POsService,
+    private notification: NotificationserService,
     private router: Router) { }
 
   ngOnInit(): void {
 
-    if (!sessionStorage.getItem('token')) {
+    if (!localStorage.getItem('token')) {
       this.router.navigateByUrl('/LogIn')
     } else {
       this.poservice.GetPos().then((res: any) => {
@@ -102,6 +108,13 @@ export class AlfemoComponent implements OnInit {
         this.PagesCount = Math.ceil (this.mydata.length / this.DataRowsInPage );
         this.PageCountArray = Array(this.PagesCount).fill(0).map((x,i)=>i)
         this.SliceDataForPaginantion(0);
+      },(err:any) => {
+        if (err.error.message == "Authorization has been denied for this request."){
+          localStorage.clear();
+          this.router.navigateByUrl('/LogIn')
+        }else{
+          this.notification.OnError('try again later or login again')
+        }
       })
     }
     this.mydata.reverse();
@@ -145,8 +158,19 @@ export class AlfemoComponent implements OnInit {
 
   SliceDataForPaginantion(PageNumber: number){
     let SliceBegining = PageNumber * this.DataRowsInPage;
+    if(this.mydata.slice(SliceBegining,SliceBegining + this.DataRowsInPage).length >1){
     this.DataOfCurrentPage = this.mydata.slice(SliceBegining,SliceBegining + this.DataRowsInPage)
+    this.MackFile = [];
+    this.DataOfCurrentPage.forEach(elemenet =>{
+      if(elemenet.mackPOAttach != ""){
+
+        this.MackFile.push(true)
+      }else{
+        this.MackFile.push(false)
+      }
+    })
     this.CurrentPage = PageNumber;
+    }
   }
   NextPage(){
     this.SliceDataForPaginantion(this.CurrentPage + 1)

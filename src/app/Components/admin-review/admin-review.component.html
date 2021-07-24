@@ -42,11 +42,11 @@
         <input type="file" id="file" (change)=UploadPo($event)>
     </div>
     <div class="Options">
-        <a (click)="DownLoadPo('Mack')">DownLoad Mack Po</a>
-        <a (click)="DownLoadPo('Corinthain')">DownLoad Corinthain Po</a>
-        <a (click)="DownLoadPo('ShippingDocs')">DownLoad Shipping Docs</a>
+        <a (click)="DownLoadPo('Mack')" *ngIf="MackFile">DownLoad Mack Po</a>
+        <a (click)="DownLoadPo('Corinthain')" *ngIf="CorintatinFile">DownLoad Corinthain Po</a>
+        <a (click)="DownLoadPo('ShippingDocs')" *ngIf="ShipFile">DownLoad Shipping Docs</a>
         <a (click)=Approve()>Approve</a>
-        <a (click)=Cancel()>Cancel</a>
+        <a (click)=Cancel()>Reject</a>
         <a (click)=UpdatePo()>ApplyChanges</a>
     </div>
 </div>

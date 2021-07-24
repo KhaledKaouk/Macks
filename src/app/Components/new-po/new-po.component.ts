@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { loadavg } from 'os';
 import { POs } from 'src/app/Models/Po-model';
-import { NotificationserService } from 'src/app/Services/Notificationser.service';
+import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { POsService } from 'src/app/Services/pos.service';
 export class NewPoComponent implements OnInit {
 
 
+  Loading: boolean = false;
 
   NewPo: POs = {
     id: 0,
@@ -25,8 +27,9 @@ export class NewPoComponent implements OnInit {
     userID: "",
     mackPOAttach: "",
     corinthianPOAttach: "",
-    ShippingDocs: "",
+    shippingDocs: "",
     comments: "",
+    alfemoComments:"",
     status: "",
     productionRequestDate: "",
     factoryEstimatedShipDate: "",
@@ -54,7 +57,7 @@ export class NewPoComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    if (!sessionStorage.getItem('token')) {
+    if (!localStorage.getItem('token')) {
       this.router.navigateByUrl('/LogIn')
     }
   }
@@ -66,6 +69,8 @@ export class NewPoComponent implements OnInit {
   }
 
   Submit() {
+    this.Loading = true;
+
     this.NewPo.dealerName = this.CreatePo.get("DealerName")?.value;
     this.NewPo.dealerPONumber = this.CreatePo.get("DealerPo")?.value;
     this.NewPo.corinthianPO = this.CreatePo.get("CorinthainPo")?.value;
@@ -80,8 +85,6 @@ export class NewPoComponent implements OnInit {
 
       this.NewPo.corinthianPOAttach = "NP_" + this.NewPo.dealerPONumber + "_" + this.NewPo.corinthianPO + extenstion;
       
-      //let FileToUpload : File = new File(this.SeletedFile,this.NewPo.corinthianPOAttach)
-
       fd.append('PO', this.SeletedFile, this.NewPo.corinthianPOAttach);
 
       let ReDirecting: boolean[] = [false, false]
@@ -93,12 +96,30 @@ export class NewPoComponent implements OnInit {
             if (res == true) {
               ReDirecting[1] = true;
               this.Notification.OnSuccess("You Updated the Po successfully")
+              this.router.navigateByUrl('/MyPos')
+              console.log('success')
             } else {
               this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
+              this.Loading = false;
+            }
+          },(err:any) => {
+            if (err.error.message == "Authorization has been denied for this request."){
+              localStorage.clear();
+              this.router.navigateByUrl('/LogIn')
+            }else{
+              this.Notification.OnError('try again later or login again')
             }
           })
         } else {
           this.Notification.OnError("The File Was Not Uploaded Please Try Again Later")
+          this.Loading = false;
+        }
+      },(err:any) => {
+        if (err.error.message == "Authorization has been denied for this request."){
+          localStorage.clear();
+          this.router.navigateByUrl('/LogIn')
+        }else{
+          this.Notification.OnError('try again later or login again')
         }
       });
       if (ReDirecting[0] == true && ReDirecting[1] == true) {

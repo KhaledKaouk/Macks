@@ -3,8 +3,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { AuthService } from 'src/app/Services/auth.service';
-import { NotificationserService } from 'src/app/Services/Notificationser.service';
+import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { EventEmitter } from 'stream';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-log-in',
@@ -23,24 +24,34 @@ export class LogInComponent implements OnInit {
   constructor(private auth:AuthService,
     private Notificationser: NotificationserService,
     private router: Router,
-    private appcom: AppComponent) { }
+    private header: HeaderComponent) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('token')){
+      this.router.navigateByUrl('')
+    }
   }
 
   Submit(){
+    try{
     this.auth.LogIn(this.LogIn.get('UserName')?.value, this.LogIn.get('Password')?.value).toPromise().then(res => {
-      try{
-        sessionStorage.setItem("token",res.access_token)
-        this.appcom.UserName = this.LogIn.get('UserName')?.value;
-        this.appcom.LogStatus = false;
+        localStorage.setItem("token",res.access_token)
+        this.header.UserName = this.LogIn.get('username')?.value;
+        this.header.LogStatus = false;
         this.router.navigateByUrl('')
+        location.reload();
         this.Notificationser.OnSuccess("Welcome To Mack Distribution")
-      }
-      catch{
-        this.Notificationser.OnError("wrong username or password")
-      }
-    });
+      },(err:any) => {
+        if (err.error == "invalid_grant"){
+          this.router.navigateByUrl('/LogIn')
+        }else{
+          this.Notificationser.OnError('wrong username or password')
+        }
+      });
+    }
+    catch{
+      this.Notificationser.OnError("wrong username or password")
+    }
   }
 
 }

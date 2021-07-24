@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationserService {
+
 
   constructor(private notification: NotificationsService) { }
 
@@ -25,5 +25,4 @@ export class NotificationserService {
       animate: 'fade',
       showProgressBar: true,
     });
-  }
-}
+  }}

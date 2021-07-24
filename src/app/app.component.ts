@@ -8,15 +8,15 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'Mackdistribution';
-  UserName: string = sessionStorage.getItem('username')?"":"";
-  LogStatus: boolean = (sessionStorage.getItem('token'))? false:true;
+  UserName: string = localStorage.getItem('username')?"":"";
+  LogStatus: boolean = (localStorage.getItem('token'))? false:true;
   constructor(private router: Router){}
 
   GoToLogIn(){
     this.router.navigateByUrl('/LogIn')
   }
   LogOut(){
-    sessionStorage.clear();
+    localStorage.clear();
     this.LogStatus = true;
     this.router.navigateByUrl('/LogIn')
   }

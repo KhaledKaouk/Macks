@@ -134,6 +134,14 @@
   color: #bba695;
 }
 
+.bottom ul li label {
+  cursor: pointer;
+}
+
+.bottom #menu {
+  display: none;
+}
+
 .Slide {
   width: 100%;
   display: flex;
@@ -339,6 +347,18 @@
   color: white;
 }
 
+.CreatePo button:disabled {
+  background-color: gray;
+  color: white;
+  border: gray;
+}
+
+.CreatePo button:disabled:hover {
+  background-color: gray;
+  color: white;
+  border: gray;
+}
+
 .Grid {
   display: flex;
   justify-content: space-around;
@@ -399,6 +419,7 @@
 }
 
 .Grid .table tbody a {
+  width: 100%;
   border: 1px solid #3c2e25;
   padding: 5px;
   transition: background-color 0.3s ease-in;
@@ -510,6 +531,80 @@
   margin: 10%;
 }
 
+.Product {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.Product img {
+  width: 100%;
+}
+
+.Product .details {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.Product .details ul {
+  list-style-type: none;
+  margin: 10px;
+}
+
+.Product .details .Head {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e4e4e4;
+  color: #89684f;
+  font-size: 28px;
+}
+
+.Product .details .Head label {
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
+
+.Product .details .description {
+  margin-left: 10px;
+  color: #89684f;
+  font-size: 19px;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.Product .details .description p {
+  margin-left: 15px;
+  margin-bottom: 15px;
+}
+
+.Product .details .BuyingOptions {
+  margin-left: 10px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.Product .details .BuyingOptions label {
+  margin-left: 15px;
+  color: #89684f;
+}
+
+.Product .details .BuyingOptions select {
+  margin-left: 15px;
+  width: 175px;
+  height: 30px;
+  border: none;
+  border-bottom: 1px solid #b99b85;
+}
+
+.Product .details .BuyingOptions select:hover {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 980px) {
   .fadeshow1 {
     display: none;
@@ -519,6 +614,48 @@
   }
   .CreatePo {
     margin: 2% 20%;
+  }
+  .Hide {
+    display: none;
+  }
+  #Hide {
+    display: none;
+  }
+  .ProductSamples {
+    flex-direction: column;
+  }
+  .ProductSamples .card {
+    margin-top: 10px;
+  }
+  .bottom {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+  .bottom #menu {
+    display: block;
+  }
+  .bottom #menu #menuimg {
+    width: 32px;
+    display: block;
+    margin-left: 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .bottom #menu #menuimg:hover {
+    cursor: pointer;
+  }
+  .bottom ul {
+    width: 100%;
+    display: none;
+  }
+  #check:checked + #test {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 100;
+    left: 0;
   }
 }
 /*# sourceMappingURL=styles.css.map */
