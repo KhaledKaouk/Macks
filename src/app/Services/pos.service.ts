@@ -26,5 +26,8 @@ export class POsService {
   UpdatePo(UpdatedPo: POs){
     return this.http.post("https://macksdistribution.com/api/account/updatepo",UpdatedPo);
   }
+  GetProducts(){
+    return this.http.get("https://macksdistribution.com/api/account/GetCatalog");
+  }
 
 }

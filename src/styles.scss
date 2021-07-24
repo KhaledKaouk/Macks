@@ -122,9 +122,9 @@ $TextColor: #6f5948;
         align-items: center;
         list-style-type: none;
         li{
-            padding: 5% 7%;
+            padding: 0.83em 1.04em;
             color: $Secondary-Color;
-            font-size: 22px;
+            font-size: 1.75em;
             font-weight: 400;
             &:hover{
                 cursor: pointer;

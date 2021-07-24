@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { POs } from 'src/app/Models/Po-model';
 import { POsService } from 'src/app/Services/pos.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
+import { NgProgress } from 'ngx-progressbar';
 @Component({
   selector: 'app-admin-review',
   templateUrl: './admin-review.component.html',
@@ -52,11 +53,13 @@ export class AdminReviewComponent implements OnInit {
   }
 
   mydata: POs[] = [];
-  
+  MiddlePo: POs = new POs();
   SeletedFile: any;
+  progressRef: any;
 
   constructor(private PoService: POsService,
     private Notification: NotificationserService,
+    private progress:NgProgress,
     private dialogref: MatDialogRef<AdminReviewComponent>,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: POs) { }
@@ -83,27 +86,28 @@ export class AdminReviewComponent implements OnInit {
       }
 
     }
+    this.progressRef = this.progress.ref('myProgress');
+
   }
   
   Approve() {
-    this.mydata[0].approvalStatus = true;
+    this.MiddlePo.approvalStatus = true;
   }
 
   Cancel() {
-    this.mydata[0].approvalStatus = false;
+    this.MiddlePo.approvalStatus = false;
 
   }
 
   UpdatePo() {
-
+    this.progressRef.start();
     let fd = new FormData();
+    this.mydata[0].approvalStatus = this.MiddlePo.approvalStatus;
     if(this.SeletedFile){
       let extenstion: string = this.SeletedFile.name;
       extenstion = extenstion.substring(extenstion.lastIndexOf('.'));
 
       this.mydata[0].mackPOAttach = "MP_" + this.mydata[0].dealerPONumber + "_" + this.mydata[0].corinthianPO + extenstion;
-
-      //let FileToUpload : File = new File(this.SeletedFile,this.mydata[0].mackPOAttach)
 
       fd.append('PO',this.SeletedFile,this.mydata[0].mackPOAttach);
   
@@ -111,27 +115,34 @@ export class AdminReviewComponent implements OnInit {
         if(res  == true){
           this.PoService.UpdatePo(this.mydata[0]).toPromise().then( (res : any) => {
             if(res  == true){
+              this.progressRef.complete();
               this.Notification.OnSuccess("You Updated the Po successfully")
               this.Close()
             }else{
+              this.progressRef.complete();
               this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
             }
           },(err:any) => {
             if (err.error.message == "Authorization has been denied for this request."){
+              this.progressRef.complete();
               localStorage.clear();
               this.router.navigateByUrl('/LogIn')
             }else{
+              this.progressRef.complete();
               this.Notification.OnError('try again later or login again')
             }
           })
         }else{
+          this.progressRef.complete();
           this.Notification.OnError("The File Was Not Uploaded Please Try Again Later")
         }
       },(err:any) => {
         if (err.error.message == "Authorization has been denied for this request."){
+          this.progressRef.complete();
           localStorage.clear();
           this.router.navigateByUrl('/LogIn')
         }else{
+          this.progressRef.complete();
           this.Notification.OnError('try again later or login again')
         }
       })

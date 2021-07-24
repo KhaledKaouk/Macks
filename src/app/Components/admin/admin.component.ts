@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { NgProgress } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
@@ -85,10 +86,13 @@ export class AdminComponent implements OnInit {
   DataOfCurrentPage: POs[] = [];
   CurrentPage: number = 0;
   
+  progressRef: any;
+
   constructor(
     private poservice: POsService,
     private dialog: MatDialog,
     private router: Router,
+    private progress:NgProgress,
     private notification: NotificationserService
     ) {
   }
@@ -98,22 +102,31 @@ export class AdminComponent implements OnInit {
       this.router.navigateByUrl('/LogIn')
     }else
     {
-      this.poservice.GetPos().then((res: any) =>{
+      this.progressRef = this.progress.ref('myProgress');
 
+      this.progressRef.start();
+      this.poservice.GetPos().then((res: any) =>{
         this.mydata = res;
 
         this.mydata.reverse();
         this.PagesCount = Math.ceil (this.mydata.length / this.DataRowsInPage );
         this.PageCountArray = Array(this.PagesCount).fill(0).map((x,i)=>i)
         this.SliceDataForPaginantion(0);
+        this.progressRef.complete();
       },(err:any) => {
         if (err.error.message == "Authorization has been denied for this request."){
+          this.progressRef.complete();
           localStorage.clear();
           this.router.navigateByUrl('/LogIn')
         }else{
+          this.progressRef.complete();
           this.notification.OnError('try again later or login again')
         }
       })
+      this.mydata.reverse();
+        this.PagesCount = Math.ceil (this.mydata.length / this.DataRowsInPage );
+        this.PageCountArray = Array(this.PagesCount).fill(0).map((x,i)=>i)
+        this.SliceDataForPaginantion(0);
     }
   }
   Review(P: POs){

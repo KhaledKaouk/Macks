@@ -1,14 +1,14 @@
 <div class="Product">
     <div class="image">
-        <img src="../assets/sample1.jpg" alt="">
+        <img src={{ProdcutToShow.itempic}} alt="">
     </div>
     <div class="details">
         <div class="Head">
-            <label for=""> Product Name</label>
+            <label for=""> {{ProdcutToShow.itemname}}</label>
             <label for="">Price</label>
         </div>
         <div class="description">
-            <p>here goes the product description like lather, material and some other features</p>
+            <p>{{ProdcutToShow.itemdesc}}</p>
         </div>
         <div class="BuyingOptions">
             <div class="Colors">
@@ -27,6 +27,16 @@
                     <option value="Medium">Medium</option>
                     <option value="Large">Large</option>
                 </select>
+            </div>
+        </div>
+        <div class="BuyingOptions">
+            <div class="Colors">
+                <label>Dimensions: {{ProdcutToShow.dimensions}}</label>
+                <label>Line: {{ProdcutToShow.linename}}</label>
+            </div>
+            
+            <div class="Size">
+                <label>Type: {{ProdcutToShow.itemtype}}</label>
             </div>
         </div>
     </div>

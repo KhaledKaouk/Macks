@@ -26,6 +26,8 @@ import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/di
 import { NotificationserService } from './Services/notificationser.service';
 import { ProductdetailsComponent } from './Components/productdetails/productdetails.component';
 
+import { NgProgressModule } from 'ngx-progressbar';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { ProductdetailsComponent } from './Components/productdetails/productdeta
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    NgProgressModule
     
   ],
   providers: [

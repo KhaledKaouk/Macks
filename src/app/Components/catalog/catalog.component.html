@@ -3,16 +3,10 @@
     <h2>Home  /  Catalog</h2>
 </div>
 <div class="ProductSamples">
-    <div class="card">
-        <img src="../assets/sample1.jpg" alt="">
-        <button class="Image-overlay" (click) = ShowDetails()>Add To Card</button>
+    <div *ngFor="let Product of ProductsList index as i" class="card">
+        <img src= {{Product.itempic}} alt="">
+        <button class="Image-overlay" (click) = ShowDetails(Product)>Add To Card</button>
     </div>
-<div class="card">
-    <img src="../assets/sample2.jpg" alt="">
-    <button class="Image-overlay" (click) = ShowDetails()>Add To Card</button>
 </div>
-<div class="card">
-    <img src="../assets/sample3.jpg" alt="">
-    <button class="Image-overlay" (click) = ShowDetails()>Add To Card</button>
-</div>
-</div>
+
+<ng-progress id="myProgress"></ng-progress>

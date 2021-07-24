@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { loadavg } from 'os';
+import { NgProgress, NgProgressRef } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
@@ -16,32 +16,8 @@ export class NewPoComponent implements OnInit {
 
   Loading: boolean = false;
 
-  NewPo: POs = {
-    id: 0,
-    dealerName: "",
-    dealerPONumber: "",
-    mackPONumber: "",
-    corinthianPO: "",
-    itemID: 0,
-    supplierName: "",
-    userID: "",
-    mackPOAttach: "",
-    corinthianPOAttach: "",
-    shippingDocs: "",
-    comments: "",
-    alfemoComments:"",
-    status: "",
-    productionRequestDate: "",
-    factoryEstimatedShipDate: "",
-    dateReceived: "",
-    factoryEstimatedArrivalDate: "",
-    booked: false,
-    finalDestLocation: "",
-    containerNumber: "",
-    productionRequestTime: "",
-    approvalStatus: false
+  NewPo: POs = new POs();
 
-  }
   CreatePo = new FormGroup({
     DealerName: new FormControl('', Validators.required),
     DealerPo: new FormControl('', Validators.required),
@@ -51,15 +27,18 @@ export class NewPoComponent implements OnInit {
   })
 
   SeletedFile: any;
+  progressRef: any;
 
   constructor(private Pos: POsService,
     private Notification: NotificationserService,
+    private progress:NgProgress,
     private router: Router) { }
 
   ngOnInit(): void {
     if (!localStorage.getItem('token')) {
       this.router.navigateByUrl('/LogIn')
     }
+    this.progressRef = this.progress.ref('myProgress');
   }
 
 
@@ -70,7 +49,7 @@ export class NewPoComponent implements OnInit {
 
   Submit() {
     this.Loading = true;
-
+    this.progressRef.start();
     this.NewPo.dealerName = this.CreatePo.get("DealerName")?.value;
     this.NewPo.dealerPONumber = this.CreatePo.get("DealerPo")?.value;
     this.NewPo.corinthianPO = this.CreatePo.get("CorinthainPo")?.value;
@@ -96,29 +75,37 @@ export class NewPoComponent implements OnInit {
             if (res == true) {
               ReDirecting[1] = true;
               this.Notification.OnSuccess("You Updated the Po successfully")
+              this.progressRef.complete()
               this.router.navigateByUrl('/MyPos')
-              console.log('success')
             } else {
+              this.progressRef.complete()
               this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
               this.Loading = false;
             }
           },(err:any) => {
             if (err.error.message == "Authorization has been denied for this request."){
+              this.progressRef.complete()
               localStorage.clear();
               this.router.navigateByUrl('/LogIn')
             }else{
+              this.progressRef.complete()
+              this.Loading = false;
               this.Notification.OnError('try again later or login again')
             }
           })
         } else {
+          this.progressRef.complete()
           this.Notification.OnError("The File Was Not Uploaded Please Try Again Later")
           this.Loading = false;
         }
       },(err:any) => {
         if (err.error.message == "Authorization has been denied for this request."){
+          this.progressRef.complete()
           localStorage.clear();
           this.router.navigateByUrl('/LogIn')
         }else{
+          this.progressRef.complete()
+          this.Loading = false;
           this.Notification.OnError('try again later or login again')
         }
       });
@@ -127,6 +114,8 @@ export class NewPoComponent implements OnInit {
       }
     }
      else {
+       this.progressRef.complete();
+      this.Loading = false;
       this.Notification.OnError('Please Select A Po To Upload')
     }
   }
