@@ -47,7 +47,7 @@ export class NewPoComponent implements OnInit {
   }
 
   Submit() {
-    this.Loading = true;
+    this.DisableSubmitButton();
     this.progressRef.start();
     this.NewPo.dealerName = this.CreatePo.get("DealerName")?.value;
     this.NewPo.dealerPONumber = this.CreatePo.get("DealerPo")?.value;
@@ -79,20 +79,20 @@ export class NewPoComponent implements OnInit {
             } else {
               this.progressRef.complete()
               this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
-              this.Loading = false;
+              this.EnableSubmitButton();
             }
           },(err:any) => {
             Auth_error_handling(err,this.progressRef,this.Notification,this.router)
-            this.Loading = false;
+            this.EnableSubmitButton();
           })
         } else {
           this.progressRef.complete()
           this.Notification.OnError("The File Was Not Uploaded Please Try Again Later")
-          this.Loading = false;
+          this.EnableSubmitButton();
         }
       },(err:any) => {
         Auth_error_handling(err,this.progressRef,this.Notification,this.router)
-            this.Loading = false;
+        this.EnableSubmitButton();
       });
       if (ReDirecting[0] == true && ReDirecting[1] == true) {
         this.router.navigateByUrl('/MyPos')
@@ -100,10 +100,10 @@ export class NewPoComponent implements OnInit {
     }
      else {
        this.progressRef.complete();
-      this.Loading = false;
-      this.Notification.OnError('Please Select A Po To Upload')
+       this.EnableSubmitButton();
+       this.Notification.OnError('Please Select A Po To Upload')
     }
   }
-
-
+DisableSubmitButton(){this.Loading = true}
+EnableSubmitButton(){this.Loading = false}
 }
