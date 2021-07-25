@@ -6,6 +6,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { POsService } from 'src/app/Services/pos.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { NgProgress } from 'ngx-progressbar';
+import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 @Component({
   selector: 'app-admin-review',
   templateUrl: './admin-review.component.html',
@@ -123,28 +124,27 @@ export class AdminReviewComponent implements OnInit {
               this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
             }
           },(err:any) => {
-            if (err.error.message == "Authorization has been denied for this request."){
-              this.progressRef.complete();
-              localStorage.clear();
-              this.router.navigateByUrl('/LogIn')
-            }else{
-              this.progressRef.complete();
-              this.Notification.OnError('try again later or login again')
-            }
+            Auth_error_handling(err,this.progressRef,this.Notification,this.router)
           })
         }else{
           this.progressRef.complete();
           this.Notification.OnError("The File Was Not Uploaded Please Try Again Later")
         }
       },(err:any) => {
-        if (err.error.message == "Authorization has been denied for this request."){
+        Auth_error_handling(err,this.progressRef,this.Notification,this.router)
+      })
+    }else{
+      this.PoService.UpdatePo(this.mydata[0]).toPromise().then( (res : any) => {
+        if(res  == true){
           this.progressRef.complete();
-          localStorage.clear();
-          this.router.navigateByUrl('/LogIn')
+          this.Notification.OnSuccess("You Updated the Po successfully")
+          this.Close()
         }else{
           this.progressRef.complete();
-          this.Notification.OnError('try again later or login again')
+          this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
         }
+      },(err:any) => {
+        Auth_error_handling(err,this.progressRef,this.Notification,this.router)
       })
     }
 

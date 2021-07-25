@@ -5,7 +5,7 @@ import { NgProgress, NgProgressRef } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
-
+import {Auth_error_handling} from 'src/app/Utilities/Errorhadling'
 @Component({
   selector: 'app-new-po',
   templateUrl: './new-po.component.html',
@@ -83,15 +83,8 @@ export class NewPoComponent implements OnInit {
               this.Loading = false;
             }
           },(err:any) => {
-            if (err.error.message == "Authorization has been denied for this request."){
-              this.progressRef.complete()
-              localStorage.clear();
-              this.router.navigateByUrl('/LogIn')
-            }else{
-              this.progressRef.complete()
-              this.Loading = false;
-              this.Notification.OnError('try again later or login again')
-            }
+            Auth_error_handling(err,this.progressRef,this.Notification,this.router)
+            this.Loading = false;
           })
         } else {
           this.progressRef.complete()
@@ -99,15 +92,8 @@ export class NewPoComponent implements OnInit {
           this.Loading = false;
         }
       },(err:any) => {
-        if (err.error.message == "Authorization has been denied for this request."){
-          this.progressRef.complete()
-          localStorage.clear();
-          this.router.navigateByUrl('/LogIn')
-        }else{
-          this.progressRef.complete()
-          this.Loading = false;
-          this.Notification.OnError('try again later or login again')
-        }
+        Auth_error_handling(err,this.progressRef,this.Notification,this.router)
+            this.Loading = false;
       });
       if (ReDirecting[0] == true && ReDirecting[1] == true) {
         this.router.navigateByUrl('/MyPos')
@@ -119,4 +105,6 @@ export class NewPoComponent implements OnInit {
       this.Notification.OnError('Please Select A Po To Upload')
     }
   }
+
+
 }

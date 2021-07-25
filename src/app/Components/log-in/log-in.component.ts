@@ -34,6 +34,7 @@ export class LogInComponent implements OnInit {
       this.router.navigateByUrl('')
     }else{
       if(this.header.UserName !=""){
+        localStorage.clear()
         this.header.UserName = "";
         this.header.LogStatus = false;
         location.reload()

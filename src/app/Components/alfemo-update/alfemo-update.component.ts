@@ -6,6 +6,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
+import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 
 @Component({
   selector: 'app-alfemo-update',
@@ -114,28 +115,14 @@ export class AlfemoUpdateComponent implements OnInit {
               this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
             }
           },(err:any) => {
-            if (err.error.message == "Authorization has been denied for this request."){
-              this.progressRef.complete();
-              localStorage.clear();
-              this.router.navigateByUrl('/LogIn')
-            }else{
-              this.progressRef.complete();
-              this.Notification.OnError('try again later or login again')
-            }
+            Auth_error_handling(err,this.progressRef,this.Notification,this.router)
           })
         }else{
           this.progressRef.complete();
           this.Notification.OnError("The File Was Not Uploaded Please Try Again Later")
         }
       },(err:any) => {
-        if (err.error.message == "Authorization has been denied for this request."){
-          this.progressRef.complete();
-          localStorage.clear();
-          this.router.navigateByUrl('/LogIn')
-        }else{
-          this.progressRef.complete();
-          this.Notification.OnError('try again later or login again')
-        }
+        Auth_error_handling(err,this.progressRef,this.Notification,this.router)
       })
       
     }else{
@@ -149,14 +136,7 @@ export class AlfemoUpdateComponent implements OnInit {
           this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
         }
       },(err:any) => {
-        if (err.error.message == "Authorization has been denied for this request."){
-          this.progressRef.complete();
-          localStorage.clear();
-          this.router.navigateByUrl('/LogIn')
-        }else{
-          this.progressRef.complete();
-          this.Notification.OnError('try again later or login again')
-        }
+        Auth_error_handling(err,this.progressRef,this.Notification,this.router)
       })
     }
   }

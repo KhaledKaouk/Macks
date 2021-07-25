@@ -6,6 +6,7 @@ import { Product } from 'src/app/Models/Product';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { NgProgress } from 'ngx-progressbar';
 import { Router } from '@angular/router';
+import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 
 @Component({
   selector: 'app-catalog',
@@ -66,14 +67,7 @@ export class CatalogComponent implements OnInit {
       this.progressRef.complete();
 
     },(err:any) => {
-      if (err.error.message == "Authorization has been denied for this request."){
-        this.progressRef.complete();
-        localStorage.clear();
-        this.router.navigateByUrl('/LogIn')
-      }else{
-        this.progressRef.complete();
-        this.Notification.OnError('try again later or login again')
-      }
+      Auth_error_handling(err,this.progressRef,this.Notification,this.router)
     } )
   }
 

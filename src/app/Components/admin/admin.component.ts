@@ -5,6 +5,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
+import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AdminReviewComponent } from '../admin-review/admin-review.component';
 
 @Component({
@@ -114,14 +115,8 @@ export class AdminComponent implements OnInit {
         this.SliceDataForPaginantion(0);
         this.progressRef.complete();
       },(err:any) => {
-        if (err.error.message == "Authorization has been denied for this request."){
-          this.progressRef.complete();
-          localStorage.clear();
-          this.router.navigateByUrl('/LogIn')
-        }else{
-          this.progressRef.complete();
-          this.notification.OnError('try again later or login again')
-        }
+        Auth_error_handling(err,this.progressRef,this.notification,this.router)
+
       })
       this.mydata.reverse();
         this.PagesCount = Math.ceil (this.mydata.length / this.DataRowsInPage );
