@@ -49,13 +49,8 @@ export class NewPoComponent implements OnInit {
   Submit() {
     this.DisableSubmitButton();
     this.progressRef.start();
-    this.NewPo.dealerName = this.CreatePo.get("DealerName")?.value;
-    this.NewPo.dealerPONumber = this.CreatePo.get("DealerPo")?.value;
-    this.NewPo.corinthianPO = this.CreatePo.get("CorinthainPo")?.value;
-    this.NewPo.productionRequestDate = this.CreatePo.get("ProductionRequestDate")?.value;
-    this.NewPo.comments = this.CreatePo.get("Comments")?.value;
-    this.NewPo.corinthianPOAttach = this.NewPo.dealerName + this.NewPo.corinthianPO;
-
+    this.AssignFormValuesToObject();
+    
     let fd = new FormData();
     if (this.SeletedFile) {
       let extenstion: string = this.SeletedFile.name;
@@ -106,4 +101,13 @@ export class NewPoComponent implements OnInit {
   }
 DisableSubmitButton(){this.Loading = true}
 EnableSubmitButton(){this.Loading = false}
+AssignFormValuesToObject(){
+  this.NewPo.dealerName = this.CreatePo.get("DealerName")?.value;
+  this.NewPo.dealerPONumber = this.CreatePo.get("DealerPo")?.value;
+  this.NewPo.corinthianPO = this.CreatePo.get("CorinthainPo")?.value;
+  this.NewPo.productionRequestDate = this.CreatePo.get("ProductionRequestDate")?.value;
+  this.NewPo.comments = this.CreatePo.get("Comments")?.value;
+  this.NewPo.corinthianPOAttach = this.NewPo.dealerName + this.NewPo.corinthianPO;
+
+}
 }
