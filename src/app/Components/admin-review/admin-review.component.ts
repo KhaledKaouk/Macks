@@ -8,6 +8,7 @@ import { NotificationserService } from 'src/app/Services/notificationser.service
 import { NgProgress } from 'ngx-progressbar';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
+import { AddPreffixAndExtention } from 'src/app/Utilities/Common';
 @Component({
   selector: 'app-admin-review',
   templateUrl: './admin-review.component.html',
@@ -100,15 +101,17 @@ export class AdminReviewComponent implements OnInit {
 
   UpdatePo() {
     this.progressRef.start();
+
     let fd = new FormData();
     this.mydata[0].approvalStatus = this.MiddlePo.approvalStatus;
+
     if(this.SeletedFile){
-      let extenstion: string = this.SeletedFile.name;
-      extenstion = extenstion.substring(extenstion.lastIndexOf('.'));
+      let FileName = this.mydata[0].dealerPONumber + "_" + this.mydata[0].corinthianPO;
+      FileName = AddPreffixAndExtention("MP_",FileName,this.SeletedFile.name)
 
-      this.mydata[0].mackPOAttach = "MP_" + this.mydata[0].dealerPONumber + "_" + this.mydata[0].corinthianPO + extenstion;
+      this.mydata[0].mackPOAttach = FileName
 
-      fd.append('PO',this.SeletedFile,this.mydata[0].mackPOAttach);
+      fd.append('PO',this.SeletedFile,FileName);
   
       this.PoService.Uploadfile(fd,this.mydata[0].mackPOAttach).subscribe((res) => {
         if(res  == true){

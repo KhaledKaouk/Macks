@@ -7,6 +7,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
+import { AddPreffixAndExtention } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 
 @Component({
@@ -94,12 +95,12 @@ export class AlfemoUpdateComponent implements OnInit {
 
     let fd = new FormData();
     if(this.SeletedFile){
-      let extenstion: string = this.SeletedFile.name;
-      extenstion = extenstion.substring(extenstion.lastIndexOf('.'));
+      let FileName = this.PoToUpdate.dealerPONumber + "_" + this.PoToUpdate.corinthianPO;
+      FileName =  AddPreffixAndExtention("SD_",FileName,this.SeletedFile.name)
 
-      this.PoToUpdate.shippingDocs = "SD_" + this.PoToUpdate.dealerPONumber + "_" + this.PoToUpdate.corinthianPO + extenstion;      
+      this.PoToUpdate.shippingDocs = FileName;
 
-      fd.append('PO',this.SeletedFile,this.PoToUpdate.shippingDocs);
+      fd.append('PO',this.SeletedFile,FileName);
       
       this.PoService.Uploadfile(fd,this.PoToUpdate.shippingDocs).toPromise().then((res: any) => {
         if(res  == true){

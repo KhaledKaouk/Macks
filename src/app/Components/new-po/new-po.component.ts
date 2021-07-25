@@ -6,6 +6,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
+import { AddPreffixAndExtention } from 'src/app/Utilities/Common';
 import {Auth_error_handling} from 'src/app/Utilities/Errorhadling'
 @Component({
   selector: 'app-new-po',
@@ -43,22 +44,21 @@ export class NewPoComponent implements OnInit {
 
   UploadPo(event: any) {
     this.SeletedFile = event.target.files[0];
-
   }
 
   Submit() {
     this.DisableSubmitButton();
     this.progressRef.start();
     this.AssignFormValuesToObject();
-    
+
     let fd = new FormData();
     if (this.SeletedFile) {
-      let extenstion: string = this.SeletedFile.name;
-      extenstion = extenstion.substring(extenstion.lastIndexOf('.'));
+      let FileName = this.NewPo.dealerPONumber + "_" + this.NewPo.corinthianPO;
+      FileName = AddPreffixAndExtention("NP_",FileName,this.SeletedFile.name)
 
-      this.NewPo.corinthianPOAttach = "NP_" + this.NewPo.dealerPONumber + "_" + this.NewPo.corinthianPO + extenstion;
+      this.NewPo.corinthianPOAttach = FileName;
       
-      fd.append('PO', this.SeletedFile, this.NewPo.corinthianPOAttach);
+      fd.append('PO', this.SeletedFile, FileName);
 
       let ReDirecting: boolean[] = [false, false]
 
