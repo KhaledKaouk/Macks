@@ -6,6 +6,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
+import { CheckToken } from 'src/app/Utilities/CheckAuth';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 
 @Component({
@@ -61,9 +62,7 @@ export class AlfemoUpdateComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: POs ) { }
 
   ngOnInit(): void {
-    if(!localStorage.getItem('token')){
-      this.router.navigateByUrl('/LogIn')
-    }else{
+    CheckToken(this.router);
       this.progressRef = this.progress.ref('myProgress');
 
       this.PoToUpdate = this.data;
@@ -82,7 +81,6 @@ export class AlfemoUpdateComponent implements OnInit {
         FactoryEstimatedShipDate: this.data.factoryEstimatedShipDate,
         AlfemoComents: this.data.alfemoComments
       })
-    }
   }
 
   Update(){

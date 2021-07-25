@@ -6,6 +6,7 @@ import { element } from 'protractor';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
+import { CheckToken } from 'src/app/Utilities/CheckAuth';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component';
 
@@ -102,10 +103,7 @@ export class AlfemoComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-
-    if (!localStorage.getItem('token')) {
-      this.router.navigateByUrl('/LogIn')
-    } else {
+    CheckToken(this.router);
       this.progressRef = this.progress.ref('myProgress');
       this.progressRef.start();
       this.poservice.GetPos().then((res: any) => {
@@ -119,7 +117,6 @@ export class AlfemoComponent implements OnInit {
       },(err:any) => {
         Auth_error_handling(err,this.progressRef,this.notification,this.router)
       })
-    }
     this.mydata.reverse();
         this.mydata = this.mydata.filter(E => E.approvalStatus == true)
         this.PagesCount = Math.ceil (this.mydata.length / this.DataRowsInPage );

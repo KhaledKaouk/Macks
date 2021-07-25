@@ -7,6 +7,7 @@ import { POsService } from 'src/app/Services/pos.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { NgProgress } from 'ngx-progressbar';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
+import { CheckToken } from 'src/app/Utilities/CheckAuth';
 @Component({
   selector: 'app-admin-review',
   templateUrl: './admin-review.component.html',
@@ -66,9 +67,7 @@ export class AdminReviewComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: POs) { }
 
   ngOnInit(): void {
-    if (!localStorage.getItem('token')) {
-      this.router.navigateByUrl('/LogIn')
-    } else {
+    CheckToken(this.router);
       this.mydata[0] = this.data;
       if(this.mydata[0].mackPOAttach == ""){
         this.MackFile = false;
@@ -86,7 +85,6 @@ export class AdminReviewComponent implements OnInit {
         this.CorintatinFile = true
       }
 
-    }
     this.progressRef = this.progress.ref('myProgress');
 
   }

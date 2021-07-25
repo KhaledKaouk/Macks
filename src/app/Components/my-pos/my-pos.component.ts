@@ -4,6 +4,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
+import { CheckToken } from 'src/app/Utilities/CheckAuth';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 
 @Component({
@@ -97,9 +98,7 @@ export class MyPosComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    if (!localStorage.getItem('token')) {
-      this.router.navigateByUrl('/LogIn')
-    } else {
+    CheckToken(this.router);
       this.progressRef = this.progress.ref('myProgress');
       this.progressRef.start();
       this.poservice.GetPos().then((res: any) => {
@@ -116,7 +115,6 @@ export class MyPosComponent implements OnInit {
       this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
       this.SliceDataForPaginantion(0);
-    }
   }
 
   SliceDataForPaginantion(PageNumber: number){

@@ -5,6 +5,7 @@ import { NgProgress, NgProgressRef } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
+import { CheckToken } from 'src/app/Utilities/CheckAuth';
 import {Auth_error_handling} from 'src/app/Utilities/Errorhadling'
 @Component({
   selector: 'app-new-po',
@@ -35,9 +36,7 @@ export class NewPoComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    if (!localStorage.getItem('token')) {
-      this.router.navigateByUrl('/LogIn')
-    }
+    CheckToken(this.router);
     this.progressRef = this.progress.ref('myProgress');
   }
 
