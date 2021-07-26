@@ -65,7 +65,7 @@ export class AlfemoUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     CheckToken(this.router);
-    this.progressRef = this.progress.ref('myProgress');
+    this.progressRef = this.progress.ref('PopUProgress');
 
     this.PoToUpdate = this.data;
     this.UpdatedPo.get('Status')?.setValue(this.data.status);

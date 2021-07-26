@@ -86,7 +86,7 @@ export class AdminReviewComponent implements OnInit {
         this.CorintatinFile = true
       }
 
-    this.progressRef = this.progress.ref('myProgress');
+    this.progressRef = this.progress.ref('PopUProgress');
 
   }
   
@@ -162,6 +162,7 @@ export class AdminReviewComponent implements OnInit {
   UpdatePo(){
     this.PoService.UpdatePo(this.mydata[0]).toPromise().then( (res : any) => {
       if(res  == true){
+        this.progressRef.complete();
         this.progressRef.complete();
         this.Notification.OnSuccess("You Updated the Po successfully")
         this.Close()
