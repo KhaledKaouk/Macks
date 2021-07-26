@@ -19,10 +19,10 @@
         </button>
     </div>
     <div class="right">
-        <img class="icon " routerLink="/LogIn" src="../assets/LoginIcon.png" alt="" *ngIf="LogStatus">
+        <img class="icon " routerLink="/LogIn" src="../assets/LoginIcon.png" alt="" *ngIf="!Logged()">
         <a class="" (click)=LogOut() style="margin: 0.5%;"
-        *ngIf="!LogStatus">LogOut:</a>
-        <a class="" style="margin-left: 2px ;">{{UserName}}</a>
+        *ngIf="Logged()">LogOut:</a>
+        <a class="" *ngIf="Logged()" style="margin-left: 2px ;">{{UserName}}</a>
     </div>
 </div>
 <div   class="bottom">

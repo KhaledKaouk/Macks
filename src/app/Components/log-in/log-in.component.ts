@@ -31,28 +31,19 @@ export class LogInComponent implements OnInit {
     private header: HeaderComponent) { }
 
   ngOnInit(): void {
-    CheckToken(this.router);
-      if(this.header.UserName !=""){
-        localStorage.clear()
-        this.header.UserName = "";
-        this.header.LogStatus = false;
-        location.reload()
-      }
+      this.Logout();
     
     this.progressRef = this.progress.ref('myProgress');
   }
 
   Submit(){
     this.progressRef.start();
-    try{
     this.auth.LogIn(this.LogIn.get('UserName')?.value, this.LogIn.get('Password')?.value).toPromise().then(res => {
-        localStorage.setItem("token",res.access_token)
-        this.header.UserName = this.LogIn.get('username')?.value;
-        this.header.LogStatus = false;
-        this.router.navigateByUrl('')
+        this.SaveUserNameAndTokenToLocalStorage(this.LogIn.get('UserName')?.value,res.access_token)
+        this.SetUserNameAndLogStatusToHeader();
         this.progressRef.complete();
-        location.reload();
-        this.Notificationser.OnSuccess("Welcome To Mack Distribution")
+        this.Notificationser.OnSuccess("Hello "+ this.header.UserName+" Welcome To Mack Distribution")
+        this.router.navigateByUrl('')
       },(err:any) => {
         if (err.error == "invalid_grant"){
           this.router.navigateByUrl('/LogIn')
@@ -62,11 +53,17 @@ export class LogInComponent implements OnInit {
           this.Notificationser.OnError('wrong username or password')
         }
       });
-    }
-    catch{
-      this.progressRef.complete();
-      this.Notificationser.OnError("wrong username or password")
-    }
   }
-
+  SaveUserNameAndTokenToLocalStorage(username:string,token:any){
+    localStorage.setItem("token",token);
+    localStorage.setItem("username",username)
+  }
+  SetUserNameAndLogStatusToHeader(){
+    this.header.UserName = this.LogIn.get('UserName')?.value;
+    this.header.Logged();
+  }
+  Logout(){
+    localStorage.clear();
+    this.header.Logged();
+  }
 }
