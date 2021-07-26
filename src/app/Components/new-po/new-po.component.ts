@@ -89,15 +89,10 @@ export class NewPoComponent implements OnInit {
 }
   CreatePO(){
   this.Pos.CreatePo(this.NewPo).toPromise().then((res: any) => {
-    if (res == true) {
-      this.Notification.OnSuccess("You Updated the Po successfully")
+      this.Notification.OnSuccess(res)
       this.progressRef.complete()
       this.router.navigateByUrl('/MyPos')
-    } else {
-      this.progressRef.complete()
-      this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
-      this.EnableSubmitButton();
-    }
+
   },(err:any) => {
     Auth_error_handling(err,this.progressRef,this.Notification,this.router)
     this.EnableSubmitButton();
