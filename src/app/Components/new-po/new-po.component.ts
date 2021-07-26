@@ -67,6 +67,7 @@ export class NewPoComponent implements OnInit {
         if (UploadProcess == true) {
           this.CreatePO();
         }
+        this.EnableSubmitButton();
       })();
     }
      else {
@@ -75,9 +76,9 @@ export class NewPoComponent implements OnInit {
        this.Notification.OnError('Please Select A Po To Upload')
     }
   }
-DisableSubmitButton(){this.Loading = true}
-EnableSubmitButton(){this.Loading = false}
-AssignFormValuesToObject(){
+  DisableSubmitButton(){this.Loading = true}
+  EnableSubmitButton(){this.Loading = false}
+  AssignFormValuesToObject(){
   this.NewPo.dealerName = this.CreatePo.get("DealerName")?.value;
   this.NewPo.dealerPONumber = this.CreatePo.get("DealerPo")?.value;
   this.NewPo.corinthianPO = this.CreatePo.get("CorinthainPo")?.value;
@@ -86,7 +87,7 @@ AssignFormValuesToObject(){
   this.NewPo.corinthianPOAttach = this.NewPo.dealerName + this.NewPo.corinthianPO;
 
 }
-CreatePO(){
+  CreatePO(){
   this.Pos.CreatePo(this.NewPo).toPromise().then((res: any) => {
     if (res == true) {
       this.Notification.OnSuccess("You Updated the Po successfully")

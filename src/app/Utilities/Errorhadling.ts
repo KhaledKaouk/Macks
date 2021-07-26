@@ -11,6 +11,6 @@ export function Auth_error_handling(err:any,progressRef: NgProgressRef,Notificat
         router.navigateByUrl('/LogIn')
       }else{
         progressRef.complete()
-        Notification.OnError('try again later or login again')
+        Notification.OnError('try again later' + err.error.message)
       }
 }

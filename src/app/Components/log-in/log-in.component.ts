@@ -5,6 +5,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { AppComponent } from 'src/app/app.component';
 import { AuthService } from 'src/app/Services/auth.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
+import { CheckToken } from 'src/app/Utilities/CheckAuth';
 import { EventEmitter } from 'stream';
 import { HeaderComponent } from '../header/header.component';
 
@@ -30,16 +31,14 @@ export class LogInComponent implements OnInit {
     private header: HeaderComponent) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('token')){
-      this.router.navigateByUrl('')
-    }else{
+    CheckToken(this.router);
       if(this.header.UserName !=""){
         localStorage.clear()
         this.header.UserName = "";
         this.header.LogStatus = false;
         location.reload()
       }
-    }
+    
     this.progressRef = this.progress.ref('myProgress');
   }
 
