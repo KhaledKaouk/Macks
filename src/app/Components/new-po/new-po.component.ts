@@ -6,7 +6,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AddPreffixAndExtention } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, UploadFile } from 'src/app/Utilities/Common';
 import {Auth_error_handling} from 'src/app/Utilities/Errorhadling'
 @Component({
   selector: 'app-new-po',
@@ -60,38 +60,14 @@ export class NewPoComponent implements OnInit {
       
       fd.append('PO', this.SeletedFile, FileName);
 
-      let ReDirecting: boolean[] = [false, false]
 
-      this.Pos.Uploadfile(fd, this.NewPo.corinthianPOAttach).toPromise().then((res: any) => {
-        if (res == true) {
-          ReDirecting[0] = true;
-          this.Pos.CreatePo(this.NewPo).toPromise().then((res: any) => {
-            if (res == true) {
-              ReDirecting[1] = true;
-              this.Notification.OnSuccess("You Updated the Po successfully")
-              this.progressRef.complete()
-              this.router.navigateByUrl('/MyPos')
-            } else {
-              this.progressRef.complete()
-              this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
-              this.EnableSubmitButton();
-            }
-          },(err:any) => {
-            Auth_error_handling(err,this.progressRef,this.Notification,this.router)
-            this.EnableSubmitButton();
-          })
-        } else {
-          this.progressRef.complete()
-          this.Notification.OnError("The File Was Not Uploaded Please Try Again Later")
-          this.EnableSubmitButton();
+      let UploadProcess: any;
+      (async () => {
+        UploadProcess = await UploadFile(this.Pos, fd, FileName, this.Notification, this.progressRef, this.router)
+        if (UploadProcess == true) {
+          this.CreatePO();
         }
-      },(err:any) => {
-        Auth_error_handling(err,this.progressRef,this.Notification,this.router)
-        this.EnableSubmitButton();
-      });
-      if (ReDirecting[0] == true && ReDirecting[1] == true) {
-        this.router.navigateByUrl('/MyPos')
-      }
+      })();
     }
      else {
        this.progressRef.complete();
@@ -109,5 +85,21 @@ AssignFormValuesToObject(){
   this.NewPo.comments = this.CreatePo.get("Comments")?.value;
   this.NewPo.corinthianPOAttach = this.NewPo.dealerName + this.NewPo.corinthianPO;
 
+}
+CreatePO(){
+  this.Pos.CreatePo(this.NewPo).toPromise().then((res: any) => {
+    if (res == true) {
+      this.Notification.OnSuccess("You Updated the Po successfully")
+      this.progressRef.complete()
+      this.router.navigateByUrl('/MyPos')
+    } else {
+      this.progressRef.complete()
+      this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
+      this.EnableSubmitButton();
+    }
+  },(err:any) => {
+    Auth_error_handling(err,this.progressRef,this.Notification,this.router)
+    this.EnableSubmitButton();
+  })
 }
 }

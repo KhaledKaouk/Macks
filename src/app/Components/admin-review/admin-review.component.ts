@@ -8,7 +8,7 @@ import { NotificationserService } from 'src/app/Services/notificationser.service
 import { NgProgress } from 'ngx-progressbar';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AddPreffixAndExtention } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, UploadFile } from 'src/app/Utilities/Common';
 @Component({
   selector: 'app-admin-review',
   templateUrl: './admin-review.component.html',
@@ -99,7 +99,7 @@ export class AdminReviewComponent implements OnInit {
 
   }
 
-  UpdatePo() {
+  Submit() {
     this.progressRef.start();
 
     let fd = new FormData();
@@ -113,40 +113,15 @@ export class AdminReviewComponent implements OnInit {
 
       fd.append('PO',this.SeletedFile,FileName);
   
-      this.PoService.Uploadfile(fd,this.mydata[0].mackPOAttach).subscribe((res) => {
-        if(res  == true){
-          this.PoService.UpdatePo(this.mydata[0]).toPromise().then( (res : any) => {
-            if(res  == true){
-              this.progressRef.complete();
-              this.Notification.OnSuccess("You Updated the Po successfully")
-              this.Close()
-            }else{
-              this.progressRef.complete();
-              this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
-            }
-          },(err:any) => {
-            Auth_error_handling(err,this.progressRef,this.Notification,this.router)
-          })
-        }else{
-          this.progressRef.complete();
-          this.Notification.OnError("The File Was Not Uploaded Please Try Again Later")
+      let UploadProcess: any;
+      (async () => {
+        UploadProcess = await UploadFile(this.PoService, fd, FileName, this.Notification, this.progressRef, this.router)
+        if (UploadProcess == true) {
+          this.UpdatePo();
         }
-      },(err:any) => {
-        Auth_error_handling(err,this.progressRef,this.Notification,this.router)
-      })
+      })();
     }else{
-      this.PoService.UpdatePo(this.mydata[0]).toPromise().then( (res : any) => {
-        if(res  == true){
-          this.progressRef.complete();
-          this.Notification.OnSuccess("You Updated the Po successfully")
-          this.Close()
-        }else{
-          this.progressRef.complete();
-          this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
-        }
-      },(err:any) => {
-        Auth_error_handling(err,this.progressRef,this.Notification,this.router)
-      })
+      this.UpdatePo();
     }
 
 
@@ -183,5 +158,19 @@ export class AdminReviewComponent implements OnInit {
 
   Close() {
     this.dialogref.close();
+  }
+  UpdatePo(){
+    this.PoService.UpdatePo(this.mydata[0]).toPromise().then( (res : any) => {
+      if(res  == true){
+        this.progressRef.complete();
+        this.Notification.OnSuccess("You Updated the Po successfully")
+        this.Close()
+      }else{
+        this.progressRef.complete();
+        this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
+      }
+    },(err:any) => {
+      Auth_error_handling(err,this.progressRef,this.Notification,this.router)
+    })
   }
 }
