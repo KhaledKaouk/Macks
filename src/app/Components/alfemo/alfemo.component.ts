@@ -7,6 +7,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
+import { StaticData } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component';
 
@@ -35,59 +36,7 @@ export class AlfemoComponent implements OnInit {
 
   SearchValue: String = "";
 
-  mydata: POs[] = [
-    {
-     id: 1,
-     dealerName: "test",
-     dealerPONumber: "test",
-     mackPONumber: "tse",
-     corinthianPO: "test",
-     itemID: 0,
-     supplierName: "test",
-     userID: "test",
-     mackPOAttach: "",
-     corinthianPOAttach: "test",
-     shippingDocs: "stst",
-     comments: "setse",
-     alfemoComments:"test",
-     status: "tseetssetest",
-     productionRequestDate: "tsets",
-     factoryEstimatedShipDate: "setsetse",
-     dateReceived: "tsetsetste",
-     factoryEstimatedArrivalDate: "11111111",
-     booked: false,
-     finalDestLocation: "22222222",
-     containerNumber: "333",
-     productionRequestTime: "123123",
-     approvalStatus: true  
-   },
-   {
-     id: 1,
-     dealerName: "test",
-     dealerPONumber: "test",
-     mackPONumber: "tse",
-     corinthianPO: "test",
-     itemID: 0,
-     supplierName: "test",
-     userID: "test",
-     mackPOAttach: "test",
-     corinthianPOAttach: "1",
-     shippingDocs: "stst",
-     comments: "setse",
-     alfemoComments:"test",
-     status: "tseetssetest",
-     productionRequestDate: "tsets",
-     factoryEstimatedShipDate: "setsetse",
-     dateReceived: "tsetsetste",
-     factoryEstimatedArrivalDate: "1",
-     booked: false,
-     finalDestLocation: "22222222",
-     containerNumber: "333",
-     productionRequestTime: "123123",
-     approvalStatus: true  
-   }
- ];
-
+  mydata: POs[] = []
   DataRowsInPage: number = 15;
   PagesCount: number = 1;
   PageCountArray: number[] = [0];
@@ -117,11 +66,13 @@ export class AlfemoComponent implements OnInit {
       },(err:any) => {
         Auth_error_handling(err,this.progressRef,this.notification,this.router)
       })
-    this.mydata.reverse();
-        this.mydata = this.mydata.filter(E => E.approvalStatus == true)
-        this.PagesCount = Math.ceil (this.mydata.length / this.DataRowsInPage );
-        this.PageCountArray = Array(this.PagesCount).fill(0).map((x,i)=>i)
-        this.SliceDataForPaginantion(0);
+
+      /*this.mydata = StaticData
+      this.mydata.reverse();
+      this.mydata = this.mydata.filter(E => E.approvalStatus == true)
+      this.PagesCount = Math.ceil (this.mydata.length / this.DataRowsInPage );
+      this.PageCountArray = Array(this.PagesCount).fill(0).map((x,i)=>i)
+      this.SliceDataForPaginantion(0);*/
   }
 
   DownloadMackPo(Index: number) {
