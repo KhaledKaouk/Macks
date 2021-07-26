@@ -37,8 +37,7 @@ export async function UploadFile(
         }
     }
 
-
-  export let StaticData: POs[] = [
+export let StaticData: POs[] = [
         {
           id: 1,
           dealerName: "test1",
@@ -90,3 +89,18 @@ export async function UploadFile(
           approvalStatus: true
         }
       ];
+
+export function DownLoadFile(Directory:string,FileName:string){
+    const link = document.createElement('a');
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', 'https://macksdistribution.com/Attatchments/' + Directory + FileName);
+    link.setAttribute('download', FileName);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+}
+export let Directories:{[key:string]: string} = {
+    MackPo: "MP/",
+    ShippingDocument: "SD/",
+    CorinthainPo: "NP/"
+}

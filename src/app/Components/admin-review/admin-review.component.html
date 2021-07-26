@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let P of mydata index as i">
+            <tr *ngFor="let P of CurrentPo index as i">
                 <td *ngIf="ShowDealerName">
                     {{P.dealerName}}
                 </td>
@@ -42,9 +42,9 @@
         <input type="file" id="file" (change)=UploadPo($event)>
     </div>
     <div class="Options">
-        <a (click)="DownLoadPo('Mack')" *ngIf="MackFile">DownLoad Mack Po</a>
-        <a (click)="DownLoadPo('Corinthain')" *ngIf="CorintatinFile">DownLoad Corinthain Po</a>
-        <a (click)="DownLoadPo('ShippingDocs')" *ngIf="ShipFile">DownLoad Shipping Docs</a>
+        <a (click)="DownloadMackPo()" *ngIf="MackFile">DownLoad Mack Po</a>
+        <a (click)="DownLoadCorinthainPo()" *ngIf="CorintatinFile">DownLoad Corinthain Po</a>
+        <a (click)="DownloadShippingDocs()" *ngIf="ShipFile">DownLoad Shipping Docs</a>
         <a (click)=Approve()>Approve</a>
         <a (click)=Cancel()>Reject</a>
         <a (click)=Submit()>ApplyChanges</a>

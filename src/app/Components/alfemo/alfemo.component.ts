@@ -7,7 +7,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { StaticData } from 'src/app/Utilities/Common';
+import { Directories, DownLoadFile, StaticData } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component';
 
@@ -34,7 +34,6 @@ export class AlfemoComponent implements OnInit {
   ShowBooked: Boolean = true;
   ShowApproved: boolean = true;
 
-  SearchValue: String = "";
 
   mydata: POs[] = []
   DataRowsInPage: number = 15;
@@ -76,18 +75,8 @@ export class AlfemoComponent implements OnInit {
   }
 
   DownloadMackPo(Index: number) {
-
-      let href: string = "";
-      let FileName: string ="";
-      href  = "MP/" + this.DataOfCurrentPage[Index].mackPOAttach;
-      FileName = this.DataOfCurrentPage[Index].mackPOAttach;
-      const link = document.createElement('a');
-      link.setAttribute('target', '_blank');
-      link.setAttribute('href', 'https://macksdistribution.com/Attatchments/' + href);
-      link.setAttribute('download', FileName);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
+     let FileName = this.DataOfCurrentPage[Index].mackPOAttach;
+      DownLoadFile(Directories.MackPo,FileName)
   }
 
   Update(P: POs) {
@@ -96,15 +85,6 @@ export class AlfemoComponent implements OnInit {
       width: '600px',
       data: P
     });
-  }
-
-
-  Search(event: any) {
-    this.SearchValue = (String)(event.target.value);
-
-    this.mydata = this.mydata.filter(function (MyPos) {
-      return MyPos.dealerName == event.target.value;
-    })
   }
 
   SliceDataForPaginantion(PageNumber: number){

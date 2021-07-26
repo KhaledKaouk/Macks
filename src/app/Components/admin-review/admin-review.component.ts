@@ -8,7 +8,7 @@ import { NotificationserService } from 'src/app/Services/notificationser.service
 import { NgProgress } from 'ngx-progressbar';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AddPreffixAndExtention, UploadFile } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, Directories, DownLoadFile, UploadFile } from 'src/app/Utilities/Common';
 @Component({
   selector: 'app-admin-review',
   templateUrl: './admin-review.component.html',
@@ -55,7 +55,7 @@ export class AdminReviewComponent implements OnInit {
     approvalStatus: false
   }
 
-  mydata: POs[] = [];
+  CurrentPo: POs = new POs();
   MiddlePo: POs = new POs();
   SeletedFile: any;
   progressRef: any;
@@ -69,18 +69,18 @@ export class AdminReviewComponent implements OnInit {
 
   ngOnInit(): void {
     CheckToken(this.router);
-      this.mydata[0] = this.data;
-      if(this.mydata[0].mackPOAttach == ""){
+      this.CurrentPo = this.data;
+      if(this.CurrentPo.mackPOAttach == ""){
         this.MackFile = false;
       }else{
         this.MackFile = true
       }
-      if(this.mydata[0].shippingDocs == ""){
+      if(this.CurrentPo.shippingDocs == ""){
         this.ShipFile = false 
       }else{
         this.ShipFile = true
       }
-      if(this.mydata[0].corinthianPOAttach == ""){
+      if(this.CurrentPo.corinthianPOAttach == ""){
         this.CorintatinFile = false
       }else{
         this.CorintatinFile = true
@@ -103,13 +103,13 @@ export class AdminReviewComponent implements OnInit {
     this.progressRef.start();
 
     let fd = new FormData();
-    this.mydata[0].approvalStatus = this.MiddlePo.approvalStatus;
+    this.CurrentPo.approvalStatus = this.MiddlePo.approvalStatus;
 
     if(this.SeletedFile){
-      let FileName = this.mydata[0].dealerPONumber + "_" + this.mydata[0].corinthianPO;
+      let FileName = this.CurrentPo.dealerPONumber + "_" + this.CurrentPo.corinthianPO;
       FileName = AddPreffixAndExtention("MP_",FileName,this.SeletedFile.name)
 
-      this.mydata[0].mackPOAttach = FileName
+      this.CurrentPo.mackPOAttach = FileName
 
       fd.append('PO',this.SeletedFile,FileName);
   
@@ -131,36 +131,25 @@ export class AdminReviewComponent implements OnInit {
     this.SeletedFile = event.target.files[0];
   }
 
-  DownLoadPo(PoType: string){
-    let href: string = "";
-    let FileName: string = "";
-    if(PoType == "Mack"){
-       href  =  "MP/" + this.mydata[0].mackPOAttach ;
-       FileName = this.mydata[0].mackPOAttach;
-    }else{
-      if(PoType == "ShippingDocs"){
-        console.log(this.mydata[0].shippingDocs)
-        href = "SD/" + this.mydata[0].shippingDocs;
-        FileName = this.mydata[0].corinthianPOAttach;
-      }else{
-        href = "NP/" + this.mydata[0].corinthianPOAttach;
-        FileName = this.mydata[0].corinthianPOAttach;
-      }
-    }
-    const link = document.createElement('a');
-    link.setAttribute('target', '_blank');
-    link.setAttribute('href', 'https://macksdistribution.com/Attatchments/' + href);
-    link.setAttribute('download', FileName);
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+  DownloadShippingDocs() {
+    let FileName = this.CurrentPo.shippingDocs;
+    DownLoadFile(Directories.ShippingDocument,FileName);
+  }
+  
+  DownloadMackPo(){
+    let FileName = this.CurrentPo.mackPOAttach;
+    DownLoadFile(Directories.MackPo, FileName);
+  }
+  DownLoadCorinthainPo(){
+    let FileName = this.CurrentPo.corinthianPOAttach
+    DownLoadFile(Directories.CorinthainPo,FileName);
   }
 
   Close() {
     this.dialogref.close();
   }
   UpdatePo(){
-    this.PoService.UpdatePo(this.mydata[0]).toPromise().then( (res : any) => {
+    this.PoService.UpdatePo(this.CurrentPo).toPromise().then( (res : any) => {
       if(res  == true){
         this.progressRef.complete();
         this.progressRef.complete();

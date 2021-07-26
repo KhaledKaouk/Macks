@@ -5,7 +5,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { StaticData } from 'src/app/Utilities/Common';
+import { Directories, DownLoadFile, StaticData } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 
 @Component({
@@ -99,34 +99,16 @@ export class MyPosComponent implements OnInit {
     this.SliceDataForPaginantion(this.CurrentPage - 1)
   }
   DownloadShippingDocs(Po: POs) {
-    let href: string = "";
-    let FileName: string = "";
-
-    href = "SD/" + Po.shippingDocs;
-    FileName = Po.shippingDocs;
-
-    const link = document.createElement('a');
-    link.setAttribute('target', '_blank');
-    link.setAttribute('href', 'https://macksdistribution.com/Attatchments/' + href);
-    link.setAttribute('download', FileName);
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+    let FileName = Po.shippingDocs;
+    DownLoadFile(Directories.ShippingDocument,FileName);
   }
   
   DownloadMackPo(Po:POs){
-    let href: string = "";
-    let FileName: string = "";
-
-    href = "MP/" + Po.mackPOAttach;
-    FileName = Po.mackPOAttach;
-
-    const link = document.createElement('a');
-    link.setAttribute('target', '_blank');
-    link.setAttribute('href', 'https://macksdistribution.com/Attatchments/' + href);
-    link.setAttribute('download', FileName);
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+    let FileName = Po.mackPOAttach;
+    DownLoadFile(Directories.MackPo, FileName);
+  }
+  DownLoadCorinthainPo(Po:POs){
+    let FileName = Po.corinthianPOAttach
+    DownLoadFile(Directories.CorinthainPo,FileName);
   }
 }
