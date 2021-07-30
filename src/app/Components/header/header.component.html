@@ -22,7 +22,7 @@
         <img class="icon " routerLink="/LogIn" src="../assets/LoginIcon.png" alt="" *ngIf="!Logged()">
         <a class="" (click)=LogOut() style="margin: 0.5%;"
         *ngIf="Logged()">LogOut:</a>
-        <a class="" *ngIf="Logged()" style="margin-left: 2px ;">{{UserName}}</a>
+        <a class="" *ngIf="Logged()" style="margin-left: 2px ;">{{SetUserName()}}</a>
     </div>
 </div>
 <div   class="bottom">
@@ -32,10 +32,10 @@
     <input type="checkbox" hidden id="check">
     <ul id="test">
         <li routerLink=""><label for="check">Home</label></li>
-        <li routerLink="CreatePO"><label for="check">CreatePO</label></li>
+        <li routerLink="CreatePO"><label for="check">Holley</label></li>
         <li routerLink="Catalog"><label for="check">Catalog</label></li>
         <li routerLink="MyPos"><label for="check">MyPos</label></li>
-        <li routerLink="Admin"><label for="check">Admin</label></li>
+        <li routerLink="Admin"><label for="check">Mack</label></li>
         <li routerLink="Alfemo"><label for="check">Alfemo</label></li>
     </ul>
 </div>

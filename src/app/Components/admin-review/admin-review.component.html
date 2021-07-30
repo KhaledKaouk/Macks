@@ -18,21 +18,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let P of CurrentPo index as i">
+            <tr>
                 <td *ngIf="ShowDealerName">
-                    {{P.dealerName}}
+                    {{CurrentPo.dealerName}}
                 </td>
                 <td *ngIf="ShowCorinthainPoNo">
-                    {{P.corinthianPO}}
+                    {{CurrentPo.corinthianPO}}
                 </td>
                 <td *ngIf="ShowDate">
-                    {{P.factoryEstimatedArrivalDate}}
+                    {{CurrentPo.factoryEstimatedArrivalDate}}
                 </td>
                 <td *ngIf="ShowStatus">
-                    {{P.status}}
+                    {{CurrentPo.status}}
                 </td>
                 <td *ngIf="ShowApproved">
-                    {{P.approvalStatus}}
+                    {{AdjustingDataForDisplay(CurrentPo.approvalStatus)}}
                 </td>
             </tr>
         </tbody>

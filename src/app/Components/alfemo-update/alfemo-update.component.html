@@ -8,10 +8,11 @@
 
   <div class="element">
     <label for="Status">Status</label>
-    <select name="Status" aria-label="Default select example" formControlName="Status">
-      <option value="confirm Po Receipt">confirm Po Receipt</option>
+    <select name="Status" aria-label="Default select example" formControlName="Status" (change) = "AssignValidators($event)">
+      <option value="confirm Po Receipt">Confirm Po Receipt</option>
       <option value="Waiting For Production">Waiting For Production</option>
       <option value="Production">In Production</option>
+      <option value="ContainerBooked">Container Booked</option>
       <option value="Loading">Loading</option>
       <option value="Shipped">Shipped</option>
     </select>
@@ -24,7 +25,6 @@
     <input name="FinalDestination" type="text" formControlName="FinalDestination" placeholder="Final Destination">
   </div>
   <div class="element">
-
     <label for="CorinthainPo">Factory Estimated arrival Date</label>
     <input name="CorinthainPo" type="date" formControlName="FactoryEstimatedArrivalDate" aria-label="CorinthainPo">
   </div>
@@ -45,7 +45,7 @@
 
 
   <div class="Options">
-    <button (click)=Update() style="margin-bottom: 10px;">Update</button>
+    <button (click)=Update() style="margin-bottom: 10px;" [disabled]="!UpdatedPo.valid" >Update</button>
   </div>
 </div>
 <ng-progress id="PopUProgress"></ng-progress>

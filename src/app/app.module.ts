@@ -27,6 +27,7 @@ import { NotificationserService } from './Services/notificationser.service';
 import { ProductdetailsComponent } from './Components/productdetails/productdetails.component';
 
 import { NgProgressModule } from 'ngx-progressbar';
+import { PoDetailsComponent } from './Components/po-details/po-details.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { NgProgressModule } from 'ngx-progressbar';
     AdminReviewComponent,
     AlfemoUpdateComponent,
     LogInComponent,
-    ProductdetailsComponent
+    ProductdetailsComponent,
+    PoDetailsComponent
   ],
   imports: [
     BrowserModule,

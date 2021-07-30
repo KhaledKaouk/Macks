@@ -28,4 +28,9 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  SetUserName(){
+     this.UserName =  localStorage.getItem('username');
+     return this.UserName;
+  }
+
 }

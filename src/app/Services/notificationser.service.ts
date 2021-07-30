@@ -10,8 +10,8 @@ export class NotificationserService {
   constructor(private notification: NotificationsService) { }
 
   OnSuccess(massage: string){
-    this.notification.success("success",massage, {
-      position: ["Top", "right"],
+    this.notification.success("Success",massage, {
+      position: ["top", "right"],
       timeOut: 3000,
       animate: 'fade',
       showProgressBar: true,
@@ -20,7 +20,7 @@ export class NotificationserService {
 
   OnError(massage: string){
     this.notification.error("Error",massage, {
-      position: ["top", "right"],
+      position: ["top","right"],
       timeOut: 3000,
       animate: 'fade',
       showProgressBar: true,

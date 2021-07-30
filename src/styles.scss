@@ -1,5 +1,4 @@
-@import 'utilities';
-
+@import "utilities";
 
 //<div>Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 $Primary-color: #f5f5f5;
@@ -8,208 +7,203 @@ $footer-color: #3c2e25;
 $buttonhover: #b99b85;
 $AddressHeader: #f4f4f4;
 $TextColor: #6f5948;
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Poppins';
+    font-family: "Poppins";
 }
 
-.top{
+.top {
     display: flex;
-    justify-content:space-around;
+    justify-content: space-around;
     color: $Secondary-Color;
     font-size: 16px;
-    font-family: 'Poppins';
+    font-family: "Poppins";
     padding: 1% 8%;
-    img{
+    img {
         width: 5%;
         height: 100%;
         padding: 0% 1%;
     }
-    .left{
+    .left {
         text-align: left;
         display: flex;
         justify-content: start;
         align-content: center;
-
     }
-    .right{
+    .right {
         text-align: right;
         display: flex;
-        justify-content: flex-end;        
+        justify-content: flex-end;
         align-content: center;
     }
-    
 }
 
-.middle{
-    font-family: 'Poppins';
+.middle {
+    font-family: "Poppins";
 
-    height: 100px;
+    height: 6rem;
     display: flex;
     border-bottom: 0.2px solid lighten($Secondary-Color, 50);
     align-items: center;
     background-color: $Primary-color;
-    justify-content:space-around;
-    button{
+    justify-content: space-around;
+    button {
         display: flex;
         justify-content: center;
         align-items: center;
         background-color: #6f5948;
-        border-radius:  0 30px 30px 0;
+        border-radius: 0 30px 30px 0;
         border: none;
         display: inline;
         width: 53px;
         height: 45px;
-        &:focus{
+        &:focus {
             outline: none;
         }
     }
-    .element{
+    .element {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    #Searchinput{
+    #Searchinput {
         font-size: 18px;
         padding-inline-start: 10px;
         width: 350px;
         height: 45px;
-        border:1px solid #e4e4e4 ;
+        border: 1px solid #e4e4e4;
         border-top-left-radius: 30px;
         border-bottom-left-radius: 30px;
         border-right: none;
 
-        &:focus{
+        &:focus {
             outline: none;
         }
     }
-    .search{
+    .search {
         width: 50%;
         height: 50%;
     }
-    .icon{
+    .icon {
         width: 40%;
     }
-    .right{
+    .right {
         text-align: right;
         cursor: pointer;
         transition: size 1s ease-in;
 
-        &:hover{
+        &:hover {
             transform: scale(0.95);
         }
     }
-    
-    a{
+
+    a {
         color: $Secondary-Color;
         text-decoration: none;
         font-size: 22px;
-        &:hover{
+        &:hover {
             color: $Secondary-Color;
         }
     }
 }
 
-.bottom{
+.bottom {
     display: flex;
     justify-content: space-around;
 
-    ul{
+    ul {
         display: flex;
         justify-content: center;
         align-items: center;
         list-style-type: none;
-        li{
+        li {
             padding: 0.83em 1.04em;
             color: $Secondary-Color;
             font-size: 1.75em;
             font-weight: 400;
-            &:hover{
+            &:hover {
                 cursor: pointer;
-                color: lighten($Secondary-Color,30%);
+                color: lighten($Secondary-Color, 30%);
             }
-            label{
+            label {
                 cursor: pointer;
             }
         }
     }
-    #menu{
+    #menu {
         display: none;
     }
 }
 
-.Slide{
+.Slide {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-around;
     position: relative;
-    img{
+    img {
         width: 86%;
         height: 38rem;
         position: relative;
     }
 
-    .overslide{
+    .overslide {
         position: absolute;
         margin: 10%;
         padding-top: 12%;
-        
-        
-        button{
+
+        button {
             width: 30%;
             border: 1px solid white;
             color: white;
             background: transparent;
             padding: 3%;
-            margin-top: 5% ;
+            margin-top: 5%;
             transition: 0.4s ease-in;
             font-size: 19px;
         }
-        button:hover{
+        button:hover {
             cursor: pointer;
             font-size: 19px;
             background-color: white;
             color: $footer-color;
         }
-        p{
+        p {
             font-weight: 300;
             font-size: 30px;
             color: white;
         }
     }
 }
-.ProductSamples{
+.ProductSamples {
     display: flex;
     align-items: center;
-    justify-content:space-evenly;
-    
-    
+    justify-content: space-evenly;
+
     padding: 5rem;
-    img{
+    img {
         width: 100%;
         height: 18rem;
         opacity: 1;
     }
-    
-    button{
-        position:absolute;
+
+    button {
+        position: absolute;
         height: 100%;
         font-size: 20px;
         width: 100%;
-        background-color:$footer-color;
+        background-color: $footer-color;
         opacity: 0;
-        transition: opacity .3s ease-in;
-        
+        transition: opacity 0.3s ease-in;
     }
-    button:hover{
+    button:hover {
         color: white;
         opacity: 0.6;
         cursor: pointer;
     }
-    .card{
+    .card {
         position: relative;
         display: flex;
         justify-content: space-around;
@@ -218,37 +212,35 @@ $TextColor: #6f5948;
     }
 }
 
-.footer{    
+.footer {
     background-color: #3c2e25;
     padding: 7%;
     margin: 3% 0%;
     color: white;
     display: flex;
     justify-content: space-evenly;
-     .element{
-         text-align: center;
+    .element {
+        text-align: center;
         width: 30%;
-        .Ptitle{
+        .Ptitle {
             padding-bottom: 20px;
             font-size: 22px;
         }
-        a{
+        a {
             color: white;
             text-decoration: none;
             cursor: none;
             margin-bottom: 20px;
         }
     }
-    
-    li{
+
+    li {
         color: white;
         list-style-type: none;
-        padding-bottom: 2% ;
-
+        padding-bottom: 2%;
     }
-
 }
-.CreatePo{
+.CreatePo {
     color: $footer-color;
     display: flex;
     justify-content: center;
@@ -256,71 +248,68 @@ $TextColor: #6f5948;
     flex-direction: column;
     margin: 2% 30%;
     border-radius: 30px;
-    .element{
-        label{
+    .element {
+        label {
             font-size: 18px;
             margin-top: 2%;
-            margin-bottom: 2%;  
+            margin-bottom: 2%;
         }
         display: flex;
         justify-content: center;
         flex-direction: column;
-        margin: 2%
-        
-    }   
-    select{
-        font-size: 18px;
-        padding-inline-start: 10px;
-        width: 350px;
-        height: 45px;
-        border:1px solid #e4e4e4 ;
-        transition: border 0.4s ease-in;
-        
-        &:focus{
-            outline: none;
-            width: 360px;
-            border: 1px solid $footer-color;
-        }   
+        margin: 2%;
     }
-    input{
+    select {
         font-size: 18px;
         padding-inline-start: 10px;
         width: 350px;
         height: 45px;
-        border:1px solid #e4e4e4 ;
-        transition: border 0.4s ease-in;
-        
-        &:focus{
-            outline: none;
-            width: 360px;
-            border: 1px solid $footer-color;
-        }
-    }
-    textarea{
-        font-size: 18px;
-        padding-inline-start: 10px;
-        width: 350px;
-        height: 45px;
-        border:1px solid #e4e4e4 ;
+        border: 1px solid #e4e4e4;
         transition: border 0.4s ease-in;
 
-        
-        &:focus{
+        &:focus {
             outline: none;
             width: 360px;
             border: 1px solid $footer-color;
         }
     }
-    .file{
+    input {
+        font-size: 18px;
+        padding-inline-start: 10px;
+        width: 350px;
+        height: 45px;
+        border: 1px solid #e4e4e4;
+        transition: border 0.4s ease-in;
+
+        &:focus {
+            outline: none;
+            width: 360px;
+            border: 1px solid $footer-color;
+        }
+    }
+    textarea {
+        font-size: 18px;
+        padding-inline-start: 10px;
+        width: 350px;
+        height: 45px;
+        border: 1px solid #e4e4e4;
+        transition: border 0.4s ease-in;
+
+        &:focus {
+            outline: none;
+            width: 360px;
+            border: 1px solid $footer-color;
+        }
+    }
+    .file {
         border: none;
-
     }
-    .title{
+    .title {
         font-size: 25px;
         font-weight: bold;
         margin: 3%;
     }
-    button{
+    button {
         width: 350px;
         height: 50px;
         border: 1px solid $footer-color;
@@ -329,96 +318,96 @@ $TextColor: #6f5948;
         transition: 0.2s ease-in;
         font-size: 25px;
     }
-    button:hover{
+    button:hover {
         cursor: pointer;
         background-color: $buttonhover;
         border-color: $buttonhover;
         color: white;
     }
-    button:disabled{
+    button:disabled {
         background-color: gray;
         color: white;
         border: gray;
 
-        &:hover{
+        &:hover {
             background-color: gray;
             color: white;
             border: gray;
-            
         }
     }
-    
 }
-.Grid{
+.Grid {
     display: flex;
     justify-content: space-around;
-    flex-direction: column;
+    flex-direction: row;
     position: relative;
-    padding: 3%;
-    .ControlTool{
+    .ControlTool {
         display: flex;
         justify-content: space-around;
+        flex-direction: column;
+        padding: 1rem; 
+        .Check{
+            padding: 0.3rem;
+        }
     }
-    .table{
+    .table {
         border-collapse: collapse;
-        margin: 25px 0px;
-        font-size: 18px;
-        min-width: 500px;
-        border-radius: 10px 10px 0 0 ;
+        margin: 1.5rem 0px;
+        font-size: 1.1rem;
+        min-width: 15rem;
+        border-radius: 10px 10px 0 0;
         overflow: hidden;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0 1.1rem rgba(0, 0, 0, 0.15);
         thead tr {
             background-color: darken($Primary-color, 20);
             color: $footer-color;
             text-align: center;
             font-weight: bold;
         }
-        td{
-            padding: 12px 15px;
+        td {
+            padding: 0.8rem 0.9rem;
         }
-        th{
-            padding: 12px 15px;
+        th {
+            padding: 0.8rem 0.9rem;
         }
         tbody tr {
             border-bottom: 1px solid #dddddd;
         }
-        tr:nth-of-type(even){
+        tr:nth-of-type(even) {
             background-color: #f3f3f3;
         }
-        tbody{
-            td{
+        tbody {
+            td {
                 text-align: center;
                 color: $footer-color;
             }
-            tr:last-of-type{
+            tr:last-of-type {
                 border-bottom: 2px solid $footer-color;
             }
-            tr:hover{
+            tr:hover {
                 font-weight: bold;
             }
-            a{
+            a {
                 width: 100%;
                 border: 1px solid $footer-color;
-                padding: 5px;
+                padding: 0.2rem;
                 transition: background-color 0.3s ease-in;
             }
-            a:hover{
+            a:hover {
                 background-color: $buttonhover;
                 color: $Primary-color;
                 border-color: $buttonhover;
                 cursor: pointer;
-                    
             }
         }
-        
     }
-    .Options{
+    .Options {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
         flex-wrap: wrap;
         margin: 5px;
-        a{
+        a {
             width: 40%;
             border: 1px solid $footer-color;
             text-align: center;
@@ -426,15 +415,14 @@ $TextColor: #6f5948;
             margin: 5px;
             transition: background-color 0.4s ease-in;
         }
-        a:hover{
+        a:hover {
             background-color: $buttonhover;
             border-color: $buttonhover;
             color: $Primary-color;
             cursor: pointer;
-                
         }
     }
-    .Close{
+    .Close {
         position: absolute;
         width: 3%;
         background-color: transparent;
@@ -444,27 +432,26 @@ $TextColor: #6f5948;
         font-size: 18px;
         top: 0;
         right: 0;
-        &:hover{
+        &:hover {
             background-color: rgb(177, 24, 24);
             color: white;
             cursor: pointer;
         }
-        
     }
-    .UploadFile{
+    .UploadFile {
         color: $footer-color;
         font-size: 15px;
-        label{
+        label {
             margin: 10px;
         }
     }
-    .pagination{
-        ul{
+    .pagination {
+        ul {
             display: flex;
             justify-content: center;
             align-items: center;
             list-style-type: none;
-            button{
+            button {
                 background-color: transparent;
                 border: 1px solid $footer-color;
                 border-radius: 5px;
@@ -472,7 +459,7 @@ $TextColor: #6f5948;
                 font-size: 19px;
                 padding: 2px 4px;
                 margin: 1px;
-                &:hover{
+                &:hover {
                     cursor: pointer;
                     background-color: #b99b85;
                     color: white;
@@ -481,7 +468,7 @@ $TextColor: #6f5948;
         }
     }
 }
-.AddressHeader{
+.AddressHeader {
     padding: 20px;
     height: 150px;
     width: 100%;
@@ -489,77 +476,77 @@ $TextColor: #6f5948;
     text-align: center;
     background-color: $AddressHeader;
     color: $TextColor;
-    h1{
+    h1 {
         font-weight: bold;
         letter-spacing: 2px;
         font-size: 22px;
         margin: 8px;
     }
-    h2{
+    h2 {
         word-spacing: 10px;
     }
 }
-#AlfemoUpdate{
+#AlfemoUpdate {
     margin: 10%;
 }
-.Product{
+.Product {
     display: flex;
     justify-content: space-evenly;
-    img{
+    img {
         width: 100%;
     }
-    .details{
+    .details {
         display: flex;
         justify-content: start;
         align-items: flex-start;
         flex-direction: column;
 
-        ul{
+        ul {
             list-style-type: none;
-            margin: 10px
+            margin: 10px;
         }
-        .Head{
+        .Head {
             display: flex;
             justify-content: center;
             align-items: flex-start;
             flex-direction: column;
-            
-            margin-left: 10px ;
+
+            margin-left: 10px;
             margin-bottom: 20px;
 
             border-bottom: 1px solid #e4e4e4;
 
-            color: darken($buttonhover,20);
+            color: darken($buttonhover, 20);
             font-size: 28px;
 
-            label{
+            label {
                 margin-bottom: 15px;
                 margin-left: 15px;
             }
         }
-        .description{
+        .description {
             margin-left: 10px;
 
-            color: darken($buttonhover,20);
+            color: darken($buttonhover, 20);
             font-size: 19px;
 
             border-bottom: 1px solid #e4e4e4;
-            p{
+            p {
                 margin-left: 15px;
                 margin-bottom: 15px;
             }
         }
-        .BuyingOptions{
-            margin-left: 10px ;
+        .BuyingOptions {
+            margin-left: 10px;
             margin-top: 15px;
             display: flex;
             justify-content: space-evenly;
-            label{
+            label {
                 margin-left: 15px;
-                color: darken($buttonhover,20);
+                color: darken($buttonhover, 20);
             }
 
-            select{
+            select {
                 margin-left: 15px;
                 width: 175px;
                 height: 30px;
@@ -567,66 +554,172 @@ $TextColor: #6f5948;
                 border: none;
                 border-bottom: 1px solid $buttonhover;
 
-                &:hover{
+                &:hover {
                     cursor: pointer;
                 }
             }
         }
     }
-    
 }
+
+.container {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    .data {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        border: 0.01rem solid #e4e4e4;
+        background-color: #f3f3f3;
+
+        .Side {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: flex-start;
+            ul {
+                list-style-type: none;
+                display: flex;
+                justify-content: space-evenly;
+                align-items: flex-start;
+                flex-direction: column;
+                margin-left: 0.3rem;
+            }
+            li {
+                display: flex;
+                justify-content: space-evenly;
+                align-items: flex-start;
+                padding-bottom: 0.2rem;
+                label {
+                    padding: 0rem 0.5rem;
+                    margin: 0.5rem 0rem;
+                    opacity: 80%;
+                    color: $footer-color;
+                    font-size: 1.1rem;
+                    font-weight: bold;
+                }
+                a {
+                    padding: 0rem 0.5rem;
+                    margin: 0.5rem 0rem;
+                    color: $footer-color;
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+    .buttons {
+        padding: 0.5rem;
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 1rem;
+        a {
+            width: 12rem;
+            border: 0.1rem solid $footer-color;
+            padding: 0.3rem;
+            text-align: center;
+            transition: background-color 0.4s ease-in;
+        }
+        a:hover {
+            background-color: $buttonhover;
+            color: $Primary-color;
+            border-color: $buttonhover;
+            cursor: pointer;
+        }
+    }
+    .element {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+        label {
+            font-size: 1rem;
+        }
+        input {
+            font-size: 1rem;
+            width: 18rem;
+            padding-inline-start: 1rem;
+            border: 0.1rem solid #e4e4e4;
+            transition: border 0.4s ease-in;
+
+            &:focus {
+                outline: none;
+                border: 1px solid $footer-color;
+            }
+        }
+    }
+}
+
 @media only screen and (max-width: 980px) {
     .fadeshow1 {
         display: none;
     }
-    .fadeshow2{
+    .fadeshow2 {
         display: none;
     }
-    .CreatePo{
+    .CreatePo {
         margin: 2% 20%;
     }
-    .Hide{
+    .Hide {
         display: none;
     }
-    #Hide{
+    #Hide {
         display: none;
     }
-    .ProductSamples{
+    .ProductSamples {
         flex-direction: column;
-        .card{
+        .card {
             margin-top: 0.5rem;
         }
     }
-    .bottom{
+    .bottom {
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
-        #menu{
+        #menu {
             display: block;
-            #menuimg{
+            #menuimg {
                 width: 32px;
                 display: block;
                 margin-left: 15px;
                 display: flex;
-                justify-content:flex-start;
+                justify-content: flex-start;
                 align-items: flex-start;
-                &:hover{
+                &:hover {
                     cursor: pointer;
-            }
+                }
             }
         }
-        ul{
+        ul {
             width: 100%;
             display: none;
         }
     }
 
-    #check:checked + #test{
+    #check:checked + #test {
         display: flex;
         justify-content: center;
         flex-direction: column;
 
-            z-index: 100;
-            left: 0;
+        z-index: 100;
+        left: 0;
     }
+}
+
+@media screen and (max-width: 800px) {
+    .container {
+        .data {
+            justify-content: flex-start;
+        }
+    }
+}
+@media screen and (max-width: 650px){
+    .LargeScreenOnly{
+        display: none;
+    }
+    
 }

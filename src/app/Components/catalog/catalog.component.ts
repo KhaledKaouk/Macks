@@ -62,6 +62,7 @@ export class CatalogComponent implements OnInit {
     this.progressRef = this.progress.ref('myProgress');
     this.progressRef.start();
     this.ProductsList = this.testProduct;
+    
     this.Poservice.GetProducts().toPromise().then((res: any) =>{
       this.ProductsList = res;
       this.progressRef.complete();

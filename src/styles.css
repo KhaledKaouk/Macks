@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .top {
@@ -10,7 +10,7 @@
   justify-content: space-around;
   color: #6f5948;
   font-size: 16px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   padding: 1% 8%;
 }
 
@@ -35,8 +35,8 @@
 }
 
 .middle {
-  font-family: 'Poppins';
-  height: 100px;
+  font-family: "Poppins";
+  height: 6rem;
   display: flex;
   border-bottom: 0.2px solid #e3dad3;
   align-items: center;
@@ -206,7 +206,7 @@
   width: 100%;
   background-color: #3c2e25;
   opacity: 0;
-  transition: opacity .3s ease-in;
+  transition: opacity 0.3s ease-in;
 }
 
 .ProductSamples button:hover {
@@ -365,24 +365,29 @@
 .Grid {
   display: flex;
   justify-content: space-around;
-  flex-direction: column;
+  flex-direction: row;
   position: relative;
-  padding: 3%;
 }
 
 .Grid .ControlTool {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.Grid .ControlTool .Check {
+  padding: 0.3rem;
 }
 
 .Grid .table {
   border-collapse: collapse;
-  margin: 25px 0px;
-  font-size: 18px;
-  min-width: 500px;
+  margin: 1.5rem 0px;
+  font-size: 1.1rem;
+  min-width: 15rem;
   border-radius: 10px 10px 0 0;
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 1.1rem rgba(0, 0, 0, 0.15);
 }
 
 .Grid .table thead tr {
@@ -393,11 +398,11 @@
 }
 
 .Grid .table td {
-  padding: 12px 15px;
+  padding: 0.8rem 0.9rem;
 }
 
 .Grid .table th {
-  padding: 12px 15px;
+  padding: 0.8rem 0.9rem;
 }
 
 .Grid .table tbody tr {
@@ -424,7 +429,7 @@
 .Grid .table tbody a {
   width: 100%;
   border: 1px solid #3c2e25;
-  padding: 5px;
+  padding: 0.2rem;
   transition: background-color 0.3s ease-in;
 }
 
@@ -608,6 +613,109 @@
   cursor: pointer;
 }
 
+.container {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.container .data {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border: 0.01rem solid #e4e4e4;
+  background-color: #f3f3f3;
+}
+
+.container .data .Side {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.container .data .Side ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: 0.3rem;
+}
+
+.container .data .Side li {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  padding-bottom: 0.2rem;
+}
+
+.container .data .Side li label {
+  padding: 0rem 0.5rem;
+  margin: 0.5rem 0rem;
+  opacity: 80%;
+  color: #3c2e25;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.container .data .Side li a {
+  padding: 0rem 0.5rem;
+  margin: 0.5rem 0rem;
+  color: #3c2e25;
+  font-size: 1.1rem;
+}
+
+.container .buttons {
+  padding: 0.5rem;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.container .buttons a {
+  width: 12rem;
+  border: 0.1rem solid #3c2e25;
+  padding: 0.3rem;
+  text-align: center;
+  transition: background-color 0.4s ease-in;
+}
+
+.container .buttons a:hover {
+  background-color: #b99b85;
+  color: #f5f5f5;
+  border-color: #b99b85;
+  cursor: pointer;
+}
+
+.container .element {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.container .element label {
+  font-size: 1rem;
+}
+
+.container .element input {
+  font-size: 1rem;
+  width: 18rem;
+  padding-inline-start: 1rem;
+  border: 0.1rem solid #e4e4e4;
+  transition: border 0.4s ease-in;
+}
+
+.container .element input:focus {
+  outline: none;
+  border: 1px solid #3c2e25;
+}
+
 @media only screen and (max-width: 980px) {
   .fadeshow1 {
     display: none;
@@ -659,6 +767,18 @@
     flex-direction: column;
     z-index: 100;
     left: 0;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .container .data {
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .LargeScreenOnly {
+    display: none;
   }
 }
 /*# sourceMappingURL=styles.css.map */

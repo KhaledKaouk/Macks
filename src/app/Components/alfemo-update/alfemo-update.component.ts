@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, RequiredValidator, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
@@ -27,31 +27,7 @@ export class AlfemoUpdateComponent implements OnInit {
     AlfemoComents: new FormControl('')
   })
 
-  PoToUpdate: POs = {
-    id: 1,
-    dealerName: "",
-    dealerPONumber: "",
-    mackPONumber: "",
-    corinthianPO: "",
-    itemID: 0,
-    supplierName: "",
-    userID: "",
-    mackPOAttach: "",
-    corinthianPOAttach: "",
-    shippingDocs: "",
-    comments: "",
-    alfemoComments: "",
-    status: "",
-    productionRequestDate: "",
-    factoryEstimatedShipDate: "",
-    dateReceived: "",
-    factoryEstimatedArrivalDate: "",
-    booked: false,
-    finalDestLocation: "",
-    containerNumber: "",
-    productionRequestTime: "",
-    approvalStatus: false
-  }
+  PoToUpdate: POs = new POs();
 
   SeletedFile: any;
   progressRef: any;
@@ -68,13 +44,16 @@ export class AlfemoUpdateComponent implements OnInit {
     this.progressRef = this.progress.ref('PopUProgress');
 
     this.PoToUpdate = this.data;
-    this.UpdatedPo.get('Status')?.setValue(this.data.status);
+    if(this.PoToUpdate.shippingDocs != ""){
+      alert("You Already Updated A Shipping Document for this Po")
+    }
+/*     this.UpdatedPo.get('Status')?.setValue(this.data.status);
     this.UpdatedPo.get('ContainerNumber')?.setValue(this.data.containerNumber);
     this.UpdatedPo.get('FinalDestination')?.setValue(this.data.finalDestLocation);
     this.UpdatedPo.get('FactoryEstimatedArrivalDate')?.setValue(this.data.factoryEstimatedArrivalDate);
     this.UpdatedPo.get('FactoryEstimatedShipDate')?.setValue(this.data.factoryEstimatedShipDate);
     this.UpdatedPo.get('AlfemoComents')?.setValue(this.data.alfemoComments)
-
+ */
     this.UpdatedPo.setValue({
       Status: this.data.status,
       ContainerNumber: this.data.containerNumber,
@@ -87,6 +66,7 @@ export class AlfemoUpdateComponent implements OnInit {
 
   Update() {
     this.progressRef.start();
+    
     this.AssignformValuesToObject();
 
     let fd = new FormData();
@@ -118,18 +98,25 @@ export class AlfemoUpdateComponent implements OnInit {
     this.dialogref.close();
   }
   UpdatePo(){
-    this.PoService.UpdatePo(this.PoToUpdate).toPromise().then((res: any) => {
-      if (res == true) {
+    if(this.UpdatedPo.get('Status')?.value == "Shipped"){
+      if(this.SeletedFile){
+        this.PoService.UpdatePo(this.PoToUpdate).toPromise().then((res: any) => {
+          if (res == true) {
+            this.progressRef.complete();
+            this.Notification.OnSuccess("You Updated the Po successfully")
+            this.Close()
+          } else {
+            this.progressRef.complete();
+            this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
+          }
+        }, (err: any) => {
+          Auth_error_handling(err, this.progressRef, this.Notification, this.router)
+        })
+      }else{
         this.progressRef.complete();
-        this.Notification.OnSuccess("You Updated the Po successfully")
-        this.Close()
-      } else {
-        this.progressRef.complete();
-        this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
+        this.Notification.OnError("You have to Upload a shipping Document when the status is: Shipped")
       }
-    }, (err: any) => {
-      Auth_error_handling(err, this.progressRef, this.Notification, this.router)
-    })
+    }
   }
 
   AssignformValuesToObject(){
@@ -139,5 +126,24 @@ export class AlfemoUpdateComponent implements OnInit {
     this.PoToUpdate.factoryEstimatedArrivalDate = this.UpdatedPo.get('FactoryEstimatedArrivalDate')?.value;
     this.PoToUpdate.factoryEstimatedShipDate = this.UpdatedPo.get('FactoryEstimatedShipDate')?.value;
     this.PoToUpdate.alfemoComments = this.UpdatedPo.get('AlfemoComents')?.value;
+  }
+  AssignValidators(event:any){
+    if(event.target.value == "Shipped"){
+      alert("you have to fill the following fields to update this Po:\n 1 - EstimatedArrivalDate\n 2 - EstimatedShipDate\n 3 - container no\n 4 - Shipping Document")
+      this.UpdatedPo.get('FactoryEstimatedArrivalDate')?.setValidators(Validators.required);
+      this.UpdatedPo.get('FactoryEstimatedArrivalDate')?.updateValueAndValidity();
+      this.UpdatedPo.get('FactoryEstimatedShipDate')?.setValidators(Validators.required);
+      this.UpdatedPo.get('FactoryEstimatedShipDate')?.updateValueAndValidity();
+      this.UpdatedPo.get('ContainerNumber')?.setValidators(Validators.required);
+      this.UpdatedPo.get('ContainerNumber')?.updateValueAndValidity();
+    }else{
+      this.UpdatedPo.get('FactoryEstimatedArrivalDate')?.clearValidators()
+      this.UpdatedPo.get('FactoryEstimatedArrivalDate')?.updateValueAndValidity();
+      this.UpdatedPo.get('FactoryEstimatedShipDate')?.clearValidators()
+      this.UpdatedPo.get('FactoryEstimatedShipDate')?.updateValueAndValidity();
+      this.UpdatedPo.get('ContainerNumber')?.clearValidators()
+      this.UpdatedPo.get('ContainerNumber')?.updateValueAndValidity();
+      
+    }
   }
 }

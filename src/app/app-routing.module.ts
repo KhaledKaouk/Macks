@@ -10,7 +10,7 @@ import { NewPoComponent } from './Components/new-po/new-po.component';
 
 const routes: Routes = [
   {path:'LogIn',component:LogInComponent},
-  {path:'', component:HomeComponent},
+  {path:'', component:CatalogComponent},
   {path:'CreatePO', component:NewPoComponent},
   {path:'MyPos', component:MyPosComponent},
   {path:'Admin', component:AdminComponent},

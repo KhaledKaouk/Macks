@@ -1,153 +1,53 @@
 <div class="AddressHeader">
     <h1>Alfemo</h1>
-    <h2>Home  /  Alfemo</h2>
+    <h2>Home / Alfemo</h2>
 </div>
 <div class="Grid">
-    <div class="ControlTool">
-        <div>
-            <input class="form-check-input" type="checkbox" value=""  [checked]="ShowDealerName"
-                (change)="ShowDealerName = !ShowDealerName">
-            <label class="form-check-label" for="flexCheckDefault">
-                Dealer Name
-            </label>
-        </div>
-        <div>
-            <input class="form-check-input" type="checkbox" value=""  [checked]="ShowDealerPhone"
-                (change)="ShowDealerPhone = !ShowDealerPhone">
-            <label class="form-check-label" for="flexCheckDefault">
-                Dealer Po No
-            </label>
-        </div>
-
-        <div>
-            <input class="form-check-input" type="checkbox" value="" 
-                [checked]="ShowCorinthainPoNo" (change)="ShowCorinthainPoNo = !ShowCorinthainPoNo">
-            <label class="form-check-label" for="flexCheckDefault">
-                Corinthain Po No
-            </label>
-        </div>
-
-        <div>
-            <input class="form-check-input" type="checkbox" value=""  [checked]="ShowUser"
-                (change)="ShowUser = !ShowUser">
-            <label class="form-check-label" for="flexCheckDefault">
-                Created By
-            </label>
-        </div>
-
-        <div>
-            <input class="form-check-input" type="checkbox" value="" 
-                [checked]="ShowContainerNumber" (change)="ShowContainerNumber = !ShowContainerNumber">
-            <label class="form-check-label" for="flexCheckDefault">
-                Container No
-            </label>
-        </div>
-
-    </div>
-    <div class="ControlTool">
-        <div>
-            <input class="form-check-input" type="checkbox" value=""  [checked]="ShowFactoryETA"
-                (change)="ShowFactoryETA = !ShowFactoryETA">
-            <label class="form-check-label" for="flexCheckDefault">
-                Factory ETA
-            </label>
-        </div>
-        <div>
-            <input class="form-check-input" type="checkbox" value=""  [checked]="ShowFactoryESA"
-                (change)="ShowFactoryESA = !ShowFactoryESA">
-            <label class="form-check-label" for="flexCheckDefault">
-                Factory ESA
-            </label>
-        </div>
-        <div>
-            <input class="form-check-input" type="checkbox" value=""  [checked]="ShowStatus"
-                (change)="ShowStatus = !ShowStatus">
-            <label class="form-check-label" for="flexCheckDefault">
-                status
-            </label>
-        </div>
-        <div>
-            <input class="form-check-input" type="checkbox" value=""  [checked]="ShowBooked"
-                (change)="ShowBooked = !ShowBooked">
-            <label class="form-check-label" for="flexCheckDefault">
-                Booked
-            </label>
-        </div>
-        <div>
-            <input class="form-check-input" type="checkbox" value=""  [checked]="ShowApproved"
-                (change)="ShowApproved = !ShowApproved">
-            <label class="form-check-label" for="flexCheckDefault">
-                Approved
-            </label>
-        </div>
-    </div>
-    <table class="table">
-        <thead>
-            <tr class="tableheader">
-                <th *ngIf="ShowDealerName">Dealer Name</th>
-                <th *ngIf="ShowDealerPhone">Dealer Po no</th>
-                <th *ngIf="ShowCorinthainPoNo">Corinthain Po No</th>
-                <th *ngIf="ShowUser">Created By</th>
-                <th *ngIf="ShowContainerNumber">Container No</th>
-                <th *ngIf="ShowFactoryETA">Factory ETA</th>
-                <th *ngIf="ShowFactoryESA">Factory ESA</th>
-                <th *ngIf="ShowStatus">Status</th>
-                <th *ngIf="ShowBooked">Booked</th>
-                <th *ngIf="ShowApproved">Approved</th>
-                <th>Update</th>
-                <th>DownLoad Mack Po</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let P of DataOfCurrentPage index as i">
-                <td *ngIf="ShowDealerName">
-                    {{P.dealerName}}
-                </td>
-                <td *ngIf="ShowDealerPhone">
-                    {{P.dealerPONumber}}
-                </td>
-                <td *ngIf="ShowCorinthainPoNo">
-                    {{P.corinthianPO}}
-                </td>
-                <td *ngIf="ShowUser">
-                    {{P.userID}}
-                </td>
-                <td *ngIf="ShowContainerNumber">
-                    {{P.containerNumber}}
-                </td>
-                <td *ngIf="ShowFactoryETA">
-                    {{P.factoryEstimatedArrivalDate}}
-                </td>
-                <td *ngIf="ShowFactoryESA">
-                    {{P.factoryEstimatedShipDate}}
-                </td>
-                <td *ngIf="ShowStatus">
+    <div>
+        <table class="table">
+            <thead>
+                <tr class="tableheader">
+                    <th class="LargeScreenOnly">Dealer Name</th>
+                    <th >Dealer Po no</th>
+                    <th >Corinthain Po No</th>
+                    <th class="LargeScreenOnly">Status</th>
+                    <th class="LargeScreenOnly">Approved</th>
+                    <th >Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let P of DataOfCurrentPage index as i">
+                    <td class="LargeScreenOnly">
+                        {{P.dealerName}}
+                    </td>
+                    <td >
+                        {{P.dealerPONumber}}
+                    </td>
+                    <td >
+                        {{P.corinthianPO}}
+                    </td>
+                    <td class="LargeScreenOnly">
                         {{P.status}}
-                </td>
-                <td *ngIf="ShowBooked">
-                    {{P.booked}}
-                </td>
-                <td *ngIf="ShowApproved">
-                    {{P.approvalStatus}}
-                </td>
-                <td class="td-btn">
-                    <a type="button" (click)=Update(P)>Update</a>
-                </td>
-                <td class="td-btn">
-                    <a type="button" (click)=DownloadMackPo(i) *ngIf="MackFile[i]">DownloadMackPo</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <nav class="pagination" aria-label="Page navigation example">
-        <ul>
-            <li><button (click)=PreviousPage()>Previous</button></li>
-            <li *ngFor="let PC of PageCountArray index as i">
-                <button (click)=SliceDataForPaginantion(i)>{{i}}</button>
-            </li>
-            <li><button (click)=NextPage()>Next</button></li>
-        </ul>
-    </nav>
+                    </td>
+                    <td class="LargeScreenOnly">
+                        {{AdjustingDataForDisplay(P.approvalStatus)}}
+                    </td>
+                    <td class="td-btn">
+                        <a (click)=VeiwDetails(P)>Details</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class="pagination" aria-label="Page navigation example">
+            <ul>
+                <li><button (click)=PreviousPage()>Previous</button></li>
+                <li *ngFor="let PC of PageCountArray index as i">
+                    <button (click)=SliceDataForPaginantion(i)>{{i}}</button>
+                </li>
+                <li><button (click)=NextPage()>Next</button></li>
+            </ul>
+        </nav>
+    </div>
 </div>
 <ng-progress id="myProgress"></ng-progress>
 <simple-notifications></simple-notifications>

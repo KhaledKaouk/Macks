@@ -8,7 +8,7 @@ import { NotificationserService } from 'src/app/Services/notificationser.service
 import { NgProgress } from 'ngx-progressbar';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AddPreffixAndExtention, Directories, DownLoadFile, UploadFile } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, AdjustingDataForDisplay, Directories, DownLoadFile, UploadFile } from 'src/app/Utilities/Common';
 @Component({
   selector: 'app-admin-review',
   templateUrl: './admin-review.component.html',
@@ -28,74 +28,48 @@ export class AdminReviewComponent implements OnInit {
   ShowApproved: boolean = true;
 
 
-
-  testingthemodel: POs = {
-    id: 1,
-    dealerName: "",
-    dealerPONumber: "",
-    mackPONumber: "",
-    corinthianPO: "",
-    itemID: 0,
-    supplierName: "null",
-    userID: "",
-    mackPOAttach: "",
-    corinthianPOAttach: "",
-    shippingDocs: "",
-    comments: "",
-    alfemoComments:"",
-    status: "",
-    productionRequestDate: "",
-    factoryEstimatedShipDate: "",
-    dateReceived: "",
-    factoryEstimatedArrivalDate: "",
-    booked: false,
-    finalDestLocation: "",
-    containerNumber: "",
-    productionRequestTime: "",
-    approvalStatus: false
-  }
-
   CurrentPo: POs = new POs();
-  MiddlePo: POs = new POs();
   SeletedFile: any;
   progressRef: any;
 
   constructor(private PoService: POsService,
     private Notification: NotificationserService,
-    private progress:NgProgress,
+    private progress: NgProgress,
     private dialogref: MatDialogRef<AdminReviewComponent>,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: POs) { }
 
   ngOnInit(): void {
     CheckToken(this.router);
-      this.CurrentPo = this.data;
-      if(this.CurrentPo.mackPOAttach == ""){
-        this.MackFile = false;
-      }else{
-        this.MackFile = true
-      }
-      if(this.CurrentPo.shippingDocs == ""){
-        this.ShipFile = false 
-      }else{
-        this.ShipFile = true
-      }
-      if(this.CurrentPo.corinthianPOAttach == ""){
-        this.CorintatinFile = false
-      }else{
-        this.CorintatinFile = true
-      }
+    this.CurrentPo = this.data;
+    if (this.CurrentPo.mackPOAttach == "") {
+      this.MackFile = false;
+    } else {
+      this.MackFile = true
+    }
+    if (this.CurrentPo.shippingDocs == "") {
+      this.ShipFile = false
+    } else {
+      this.ShipFile = true
+    }
+    if (this.CurrentPo.corinthianPOAttach == "") {
+      this.CorintatinFile = false
+    } else {
+      this.CorintatinFile = true
+    }
 
     this.progressRef = this.progress.ref('PopUProgress');
 
   }
-  
+
   Approve() {
-    this.MiddlePo.approvalStatus = true;
+    this.CurrentPo.approvalStatus = true;
+    window.alert("you need to hit Apply changes to Complete the process");
   }
 
   Cancel() {
-    this.MiddlePo.approvalStatus = false;
+    this.CurrentPo.approvalStatus = false;
+    window.alert("you need to hit Apply changes to Complete the process");
 
   }
 
@@ -103,16 +77,15 @@ export class AdminReviewComponent implements OnInit {
     this.progressRef.start();
 
     let fd = new FormData();
-    this.CurrentPo.approvalStatus = this.MiddlePo.approvalStatus;
 
-    if(this.SeletedFile){
+    if (this.SeletedFile) {
       let FileName = this.CurrentPo.dealerPONumber + "_" + this.CurrentPo.corinthianPO;
-      FileName = AddPreffixAndExtention("MP_",FileName,this.SeletedFile.name)
+      FileName = AddPreffixAndExtention("MP_", FileName, this.SeletedFile.name)
 
       this.CurrentPo.mackPOAttach = FileName
 
-      fd.append('PO',this.SeletedFile,FileName);
-  
+      fd.append('PO', this.SeletedFile, FileName);
+
       let UploadProcess: any;
       (async () => {
         UploadProcess = await UploadFile(this.PoService, fd, FileName, this.Notification, this.progressRef, this.router)
@@ -120,11 +93,9 @@ export class AdminReviewComponent implements OnInit {
           this.UpdatePo();
         }
       })();
-    }else{
+    } else {
       this.UpdatePo();
     }
-
-
   }
 
   UploadPo(event: any) {
@@ -133,34 +104,36 @@ export class AdminReviewComponent implements OnInit {
 
   DownloadShippingDocs() {
     let FileName = this.CurrentPo.shippingDocs;
-    DownLoadFile(Directories.ShippingDocument,FileName);
+    DownLoadFile(Directories.ShippingDocument, FileName);
   }
-  
-  DownloadMackPo(){
+
+  DownloadMackPo() {
     let FileName = this.CurrentPo.mackPOAttach;
     DownLoadFile(Directories.MackPo, FileName);
   }
-  DownLoadCorinthainPo(){
+  DownLoadCorinthainPo() {
     let FileName = this.CurrentPo.corinthianPOAttach
-    DownLoadFile(Directories.CorinthainPo,FileName);
+    DownLoadFile(Directories.CorinthainPo, FileName);
   }
 
   Close() {
     this.dialogref.close();
   }
-  UpdatePo(){
-    this.PoService.UpdatePo(this.CurrentPo).toPromise().then( (res : any) => {
-      if(res  == true){
-        this.progressRef.complete();
+  UpdatePo() {
+    this.PoService.UpdatePo(this.CurrentPo).toPromise().then((res: any) => {
+      if (res == true) {
         this.progressRef.complete();
         this.Notification.OnSuccess("You Updated the Po successfully")
         this.Close()
-      }else{
+      } else {
         this.progressRef.complete();
         this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
       }
-    },(err:any) => {
-      Auth_error_handling(err,this.progressRef,this.Notification,this.router)
+    }, (err: any) => {
+      Auth_error_handling(err, this.progressRef, this.Notification, this.router)
     })
+  }
+  AdjustingDataForDisplay(approvalStatus: boolean) {
+    return AdjustingDataForDisplay(approvalStatus);
   }
 }

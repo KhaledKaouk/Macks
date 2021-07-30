@@ -6,9 +6,10 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { StaticData } from 'src/app/Utilities/Common';
+import { AdjustingDataForDisplay, Functionalities, StaticData } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AdminReviewComponent } from '../admin-review/admin-review.component';
+import { PoDetailsComponent } from '../po-details/po-details.component';
 
 @Component({
   selector: 'app-admin',
@@ -16,19 +17,6 @@ import { AdminReviewComponent } from '../admin-review/admin-review.component';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-
-  ShowRowNumber: boolean = true;
-  ShowDealerName: Boolean = true;
-  ShowDealerPhone: boolean = true;
-  ShowCorinthainPoNo: boolean = true;
-  ShowUser: boolean = true;
-  ShowContainerNumber: boolean = true;
-  ShowFactoryETA: boolean = true;
-  ShowFactoryESA: boolean = true;
-  ShowDate: boolean = true;
-  ShowStatus: boolean = true;
-  ShowBooked: Boolean = true;
-  ShowApproved: boolean = true;
 
 
   mydata: POs[] = []
@@ -68,24 +56,24 @@ export class AdminComponent implements OnInit {
       Auth_error_handling(err, this.progressRef, this.notification, this.router)
 
     })
-    /*this.mydata = StaticData;
+     this.mydata = StaticData;
     this.mydata.reverse();
     this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);
     this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
-    this.SliceDataForPaginantion(0);*/
+    this.SliceDataForPaginantion(0); 
 
   }
-  Review(P: POs) {
-    let dialogRef = this.dialog.open(AdminReviewComponent, {
-      height: '500px',
-      width: '800px',
-      data: P
+  VeiwDetails(P: POs) {
+    let dialogRef = this.dialog.open(PoDetailsComponent, {
+      height: '30rem',
+      width: '45rem',
+      data: [P,Functionalities.Admin],
     });
   }
 
   SliceDataForPaginantion(PageNumber: number) {
     let SliceBegining = PageNumber * this.DataRowsInPage;
-    if (this.mydata.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length > 1) {
+    if (this.mydata.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length >= 1) {
       this.DataOfCurrentPage = this.mydata.slice(SliceBegining, SliceBegining + this.DataRowsInPage)
       this.CurrentPage = PageNumber;
     }
@@ -96,5 +84,8 @@ export class AdminComponent implements OnInit {
 
   PreviousPage() {
     this.SliceDataForPaginantion(this.CurrentPage - 1)
+  }
+  AdjustingDataForDisplay(approvalStatus: boolean){
+    return AdjustingDataForDisplay(approvalStatus);
   }
 }
