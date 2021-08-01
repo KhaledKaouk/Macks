@@ -1,0 +1,28 @@
+<div class="AddressHeader">
+    <h1>FrightPrices</h1>
+    <h2>Home / FrightPrices</h2>
+</div>
+<div class="Grid">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Location</th>
+                <th>Current Price</th>
+                <th>Old Price</th>
+                <th>Changed On</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let FrightPrice of FrightPricesList index as i">
+                <td>{{FrightPrice.locations}}</td>
+                <td>{{FrightPrice.currentprice}}</td>
+                <td>{{FrightPrice.oldprice}}</td>
+                <td>{{FrightPrice.changedon}}</td>
+                <td><a (click) =  UpdateSinglePrice(FrightPrice)>Edit</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ng-progress id="myProgress"></ng-progress>
+<simple-notifications></simple-notifications>

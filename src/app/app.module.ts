@@ -28,6 +28,8 @@ import { ProductdetailsComponent } from './Components/productdetails/productdeta
 
 import { NgProgressModule } from 'ngx-progressbar';
 import { PoDetailsComponent } from './Components/po-details/po-details.component';
+import { FrightPricesComponent } from './Components/fright-prices/fright-prices.component';
+import { FrightPriceUpdateComponent } from './Components/fright-price-update/fright-price-update.component';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { PoDetailsComponent } from './Components/po-details/po-details.component
     AlfemoUpdateComponent,
     LogInComponent,
     ProductdetailsComponent,
-    PoDetailsComponent
+    PoDetailsComponent,
+    FrightPricesComponent,
+    FrightPriceUpdateComponent
   ],
   imports: [
     BrowserModule,

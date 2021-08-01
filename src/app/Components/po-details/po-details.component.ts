@@ -46,25 +46,35 @@ export class PoDetailsComponent implements OnInit {
   CheckFunctionalities() {
     (Array.from(document.getElementsByClassName('buttons')[0].children)).forEach(element => {
       let ElementName = element.getAttribute('name');
-      if (!this.Functionalities.includes(ElementName ? ElementName : "")) {
-        document.getElementsByName(ElementName ? ElementName : "")[0].remove();
+      if (!this.Functionalities.includes(ElementName ??
+         "")) {
+        document.getElementsByName(ElementName ?? "")[0].remove();
       }
     });
     (Array.from(document.getElementsByClassName('buttons')[1].children)).forEach(element => {
       let ElementName = element.getAttribute('name');
-      if (!this.Functionalities.includes(ElementName ? ElementName : "")) {
-        document.getElementsByName(ElementName ? ElementName : "")[0].remove();
+      if (!this.Functionalities.includes(ElementName ?? "")) {
+        document.getElementsByName(ElementName ?? "")[0].remove();
       }
     })
     if (this.ViewedPO.mackPOAttach == "" && document.getElementsByName('MackPo').length >= 1){
       document.getElementsByName('MackPo')[0].remove();
+      let Disclaimer: Node = document.createElement('a');
+      Disclaimer.appendChild(document.createTextNode("MackPo: Unavailble"))
+      document.getElementById('buttons-2')?.appendChild(Disclaimer)
     }
     console.log(this.ViewedPO.shippingDocs && document.getElementsByName('ShippingDocs').length >= 1)
     if(this.ViewedPO.shippingDocs == ""){
       document.getElementsByName('ShippingDocs')[0].remove();
+      let Disclaimer: Node = document.createElement('a');
+      Disclaimer.appendChild(document.createTextNode("ShippingDocs: Unavailble"))
+      document.getElementById('buttons-2')?.appendChild(Disclaimer)
     }
     if(this.ViewedPO.corinthianPOAttach =="" && document.getElementsByName('CorinthainPo').length >= 1){
       document.getElementsByName('CorinthainPo')[0].remove();
+      let Disclaimer: Node = document.createElement('a');
+      Disclaimer.appendChild(document.createTextNode("CorinthainPo: Unavailble"))
+      document.getElementById('buttons-2')?.appendChild(Disclaimer)
     }
 
   }
@@ -124,7 +134,7 @@ export class PoDetailsComponent implements OnInit {
       Auth_error_handling(err, this.progressRef, this.Notification, this.router)
     })
   }
-  CorinthainUpdate() {
+    CorinthainUpdate() {
     this.progressRef.start();
     this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
       if (res == true) {

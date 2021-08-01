@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { NgProgressRef } from "ngx-progressbar";
 import { type } from "os";
 import { getMaxListeners } from "process";
+import { frightPrices } from "../Models/frightPrices";
 import { POs } from "../Models/Po-model";
 import { NotificationserService } from "../Services/notificationser.service";
 import { POsService } from "../Services/pos.service";
@@ -51,7 +52,7 @@ export let StaticData: POs[] = [
         itemID: 0,
         supplierName: "test1",
         userID: "test",
-        mackPOAttach: "",
+        mackPOAttach: "111",
         corinthianPOAttach: "",
         shippingDocs: "",
         comments: "setse",
@@ -94,6 +95,15 @@ export let StaticData: POs[] = [
         approvalStatus: true
     }
 ];
+
+export let FrightPricesStaticData: frightPrices[] = [{
+    Id: 1, 
+    locations: "NY",
+    currentprice: 125,
+    oldprice: 100,
+    changedon: "1998-2-12"
+
+}] 
 
 export function DownLoadFile(Directory: string, FileName: string) {
     const link = document.createElement('a');

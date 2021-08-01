@@ -98,8 +98,10 @@ export class AlfemoUpdateComponent implements OnInit {
     this.dialogref.close();
   }
   UpdatePo(){
-    if(this.UpdatedPo.get('Status')?.value == "Shipped"){
-      if(this.SeletedFile){
+    if(this.UpdatedPo.get('Status')?.value == "Shipped" && !this.SeletedFile){
+      this.progressRef.complete();
+      this.Notification.OnError("You have to Upload a shipping Document when the status is: Shipped")
+    }else{
         this.PoService.UpdatePo(this.PoToUpdate).toPromise().then((res: any) => {
           if (res == true) {
             this.progressRef.complete();
@@ -112,12 +114,8 @@ export class AlfemoUpdateComponent implements OnInit {
         }, (err: any) => {
           Auth_error_handling(err, this.progressRef, this.Notification, this.router)
         })
-      }else{
-        this.progressRef.complete();
-        this.Notification.OnError("You have to Upload a shipping Document when the status is: Shipped")
       }
     }
-  }
 
   AssignformValuesToObject(){
     this.PoToUpdate.status = this.UpdatedPo.get('Status')?.value;
@@ -136,6 +134,9 @@ export class AlfemoUpdateComponent implements OnInit {
       this.UpdatedPo.get('FactoryEstimatedShipDate')?.updateValueAndValidity();
       this.UpdatedPo.get('ContainerNumber')?.setValidators(Validators.required);
       this.UpdatedPo.get('ContainerNumber')?.updateValueAndValidity();
+      this.UpdatedPo.get('FinalDestination')?.setValidators(Validators.required);
+      this.UpdatedPo.get('FinalDestination')?.updateValueAndValidity();
+      
     }else{
       this.UpdatedPo.get('FactoryEstimatedArrivalDate')?.clearValidators()
       this.UpdatedPo.get('FactoryEstimatedArrivalDate')?.updateValueAndValidity();
@@ -143,6 +144,8 @@ export class AlfemoUpdateComponent implements OnInit {
       this.UpdatedPo.get('FactoryEstimatedShipDate')?.updateValueAndValidity();
       this.UpdatedPo.get('ContainerNumber')?.clearValidators()
       this.UpdatedPo.get('ContainerNumber')?.updateValueAndValidity();
+      this.UpdatedPo.get('FinalDestination')?.clearValidators();
+      this.UpdatedPo.get('FinalDestination')?.updateValueAndValidity();
       
     }
   }
