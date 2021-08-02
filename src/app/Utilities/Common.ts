@@ -1,6 +1,7 @@
 import { Type } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
-import { NgProgressRef } from "ngx-progressbar";
+import { NgProgress, NgProgressRef } from "ngx-progressbar";
 import { type } from "os";
 import { getMaxListeners } from "process";
 import { frightPrices } from "../Models/frightPrices";
@@ -140,4 +141,12 @@ export let Functionalities: { [key: string]: string[] } = {
 
 export function OrderPosByDate(Pos: POs[]){
    return Pos.reverse();
+}
+
+export type Tools = {
+    notifications : NotificationserService,
+    progress: NgProgress,
+    router: Router,
+    dialog: MatDialog
+
 }
