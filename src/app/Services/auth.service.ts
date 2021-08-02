@@ -1,13 +1,15 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Token } from '../Models/token';
+import { NotificationserService } from './notificationser.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private notification: NotificationserService) { }
 
   LogIn(UserName: string, Password: string){
     
@@ -26,5 +28,10 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-
+  GetRole(){
+    return this.http.get('https://macksdistribution.com/api/account/GetUserRole').toPromise().then((res: any) => {
+      localStorage.setItem('Role',res ?? "")
+    },(err:any) =>{
+    })
+  }
 }

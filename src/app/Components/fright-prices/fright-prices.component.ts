@@ -3,10 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import { frightPrices } from 'src/app/Models/frightPrices';
+import { AuthService } from 'src/app/Services/auth.service';
 import { FrightpricesService } from 'src/app/Services/frightprices.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
-import { FrightPricesStaticData, ProgrssBar } from 'src/app/Utilities/Common';
+import { FrightPricesStaticData, ProgrssBar, Tools } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
+import { threadId } from 'worker_threads';
 import { FrightPriceUpdateComponent } from '../fright-price-update/fright-price-update.component';
 
 @Component({
@@ -24,12 +26,15 @@ export class FrightPricesComponent implements OnInit {
    private notification: NotificationserService,
    private router: Router,
    private dialog: MatDialog,
+   private AuthSer: AuthService,
    ) { }
 
   ngOnInit(): void {
     this.progressRef = this.Progress.ref('myProgress');
     this.GetFrightPrices();
     this.FrightPricesList = FrightPricesStaticData;
+     this.AuthSer.GetRole();
+
   }
   UpdateSinglePrice(FrightPriceToUpdate: frightPrices){
     this.dialog.open(FrightPriceUpdateComponent,{
@@ -45,5 +50,9 @@ export class FrightPricesComponent implements OnInit {
     },(err:any) =>{
       Auth_error_handling(err, this.progressRef, this.notification, this.router)
     }),this.progressRef)
+  }
+
+   CheckRole(){
+    return (localStorage.getItem('Role') == ("Admin" ||"Alfemo")) ? true: false;
   }
 }

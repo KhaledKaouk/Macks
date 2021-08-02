@@ -19,7 +19,7 @@
                 <td>{{FrightPrice.currentprice}}</td>
                 <td>{{FrightPrice.oldprice}}</td>
                 <td>{{FrightPrice.changedon}}</td>
-                <td><a (click) =  UpdateSinglePrice(FrightPrice)>Edit</a></td>
+                <td><a (click) =  UpdateSinglePrice(FrightPrice) *ngIf = CheckRole()>Edit</a></td>
             </tr>
         </tbody>
     </table>

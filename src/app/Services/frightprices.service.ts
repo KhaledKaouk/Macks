@@ -22,7 +22,7 @@ export class FrightpricesService {
   }
 
   UpdateSinglefrightPrice(UpdatedFrithPrice: frightPrices){
-    return this.http.post('',UpdatedFrithPrice).toPromise();
+    return this.http.post('https://macksdistribution.com/api/account/Updatefrightprices',UpdatedFrithPrice).toPromise();
   }
   DeleteFrightPrice(FrightPriceId: number){
     return this.http.post('',FrightPriceId).toPromise();
