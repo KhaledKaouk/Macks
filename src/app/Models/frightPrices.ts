@@ -1,12 +1,12 @@
 export class frightPrices{
-    Id: number;
+    id: number;
     locations: string;
     currentprice: number;
     oldprice: number;
     changedon: string
 
     constructor(){
-        this.Id = 0;
+        this.id = 0;
         this.locations = "";
         this.currentprice = 0;
         this.oldprice = 0;

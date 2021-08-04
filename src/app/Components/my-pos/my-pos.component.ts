@@ -40,11 +40,11 @@ export class MyPosComponent implements OnInit {
       this.progressRef = this.progress.ref('myProgress');
       this.progressRef.start();
       this.GetPos();
-      this.mydata = StaticData
+      /* this.mydata = StaticData
       this.mydata.reverse();
       this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
-      this.SliceDataForPaginantion(0);
+      this.SliceDataForPaginantion(0); */
   }
 
   SliceDataForPaginantion(PageNumber: number){

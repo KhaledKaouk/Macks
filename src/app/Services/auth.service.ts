@@ -28,8 +28,8 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  GetRole(){
-    return this.http.get('https://macksdistribution.com/api/account/GetUserRole').toPromise().then((res: any) => {
+  async GetRole(){
+    return await this.http.get('https://macksdistribution.com/api/account/GetUserRole').toPromise().then((res: any) => {
       localStorage.setItem('Role',res ?? "")
     },(err:any) =>{
     })

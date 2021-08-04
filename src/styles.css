@@ -262,7 +262,6 @@
   align-items: center;
   flex-direction: column;
   margin: 2% 30%;
-  border-radius: 30px;
 }
 
 .CreatePo .element {
@@ -624,7 +623,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.2rem;
   border: 0.01rem solid #e4e4e4;
   background-color: #f3f3f3;
 }
@@ -655,6 +654,7 @@
   padding: 0rem 0.5rem;
   margin: 0.5rem 0rem;
   opacity: 80%;
+  max-width: 10rem;
   color: #3c2e25;
   font-size: 1.1rem;
   font-weight: bold;
@@ -714,6 +714,31 @@
 .container .element input:focus {
   outline: none;
   border: 1px solid #3c2e25;
+}
+
+.PoDetails {
+  max-height: 40rem;
+  margin: 2rem 2rem;
+}
+
+.PoDetails ul {
+  list-style-type: none;
+  column-count: 2;
+}
+
+.PoDetails ul li {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.PoDetails ul li a {
+  display: block;
+}
+
+.PoDetails ul li label {
+  display: block;
 }
 
 @media only screen and (max-width: 980px) {

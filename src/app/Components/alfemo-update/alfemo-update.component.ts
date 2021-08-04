@@ -45,7 +45,7 @@ export class AlfemoUpdateComponent implements OnInit {
 
     this.PoToUpdate = this.data;
     if(this.PoToUpdate.shippingDocs != ""){
-      alert("You Already Updated A Shipping Document for this Po")
+      this.Notification.DisplayInfo("You Already Uploaded A ShippingDocs ")
     }
 /*     this.UpdatedPo.get('Status')?.setValue(this.data.status);
     this.UpdatedPo.get('ContainerNumber')?.setValue(this.data.containerNumber);

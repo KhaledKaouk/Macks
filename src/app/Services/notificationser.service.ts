@@ -25,4 +25,14 @@ export class NotificationserService {
       animate: 'fade',
       showProgressBar: true,
     });
-  }}
+  }
+
+  DisplayInfo(massage:string){
+    this.notification.info("Info",massage, {
+      position: ["top","right"],
+      timeOut: 6000,
+      animate: 'fade',
+      showProgressBar: true,
+    });
+  }
+}

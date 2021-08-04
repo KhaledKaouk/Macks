@@ -155,8 +155,8 @@ export class PoDetailsComponent implements OnInit {
   Update() {
     if (this.data[1] == Functionalities.Alfemo) {
       this.dialog.open(AlfemoUpdateComponent, {
-        height: '530px',
-        width: '600px',
+        height: '60rem',
+        width: '45rem',
         data: this.ViewedPO,
       });
     } else {
@@ -194,7 +194,7 @@ export class PoDetailsComponent implements OnInit {
   AlertMackOnUploadedPO(){
     if(this.data[1] == Functionalities.Admin){
       if(this.ViewedPO.mackPOAttach !=""){
-        alert("You have already uploaded a Po file")
+        this.Notification.DisplayInfo("You Already Uploaded A File")
       }
     }
   }

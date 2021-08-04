@@ -6,9 +6,8 @@ import { frightPrices } from 'src/app/Models/frightPrices';
 import { AuthService } from 'src/app/Services/auth.service';
 import { FrightpricesService } from 'src/app/Services/frightprices.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
-import { FrightPricesStaticData, ProgrssBar, Tools } from 'src/app/Utilities/Common';
+import { CapitlizeFirstLater, FrightPricesStaticData, ProgrssBar, Tools } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
-import { threadId } from 'worker_threads';
 import { FrightPriceUpdateComponent } from '../fright-price-update/fright-price-update.component';
 
 @Component({
@@ -32,8 +31,9 @@ export class FrightPricesComponent implements OnInit {
   ngOnInit(): void {
     this.progressRef = this.Progress.ref('myProgress');
     this.GetFrightPrices();
-    this.FrightPricesList = FrightPricesStaticData;
-     this.AuthSer.GetRole();
+    /* this.FrightPricesList = FrightPricesStaticData;
+    this.FrightPricesList.forEach(FrightPrice =>{ FrightPrice.locations = CapitlizeFirstLater(FrightPrice.locations) }) */
+    this.AuthSer.GetRole();
 
   }
   UpdateSinglePrice(FrightPriceToUpdate: frightPrices){
@@ -47,12 +47,13 @@ export class FrightPricesComponent implements OnInit {
   GetFrightPrices(){
     ProgrssBar( this.FirghtpricesSer.GetAllFrightPrices().then((res: any) => {
       this.FrightPricesList = res ?? [];
+      this.FrightPricesList.forEach(FrightPrice =>{ FrightPrice.locations = CapitlizeFirstLater(FrightPrice.locations) })
     },(err:any) =>{
       Auth_error_handling(err, this.progressRef, this.notification, this.router)
     }),this.progressRef)
   }
 
    CheckRole(){
-    return (localStorage.getItem('Role') == ("Admin" ||"Alfemo")) ? true: false;
+    return (localStorage.getItem('Role') == "admin" || localStorage.getItem('Role') == "alfemo") ? true: false;
   }
 }

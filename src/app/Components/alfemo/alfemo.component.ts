@@ -46,13 +46,13 @@ export class AlfemoComponent implements OnInit {
       this.GetPos();
       
       
-     this.mydata = StaticData
+    /*   this.mydata = StaticData
       this.mydata.reverse();
       this.mydata = this.mydata.filter(E => E.approvalStatus == true)
       console.log(this.mydata)
       this.PagesCount = Math.ceil (this.mydata.length / this.DataRowsInPage );
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x,i)=>i)
-      this.SliceDataForPaginantion(0); 
+      this.SliceDataForPaginantion(0);  */
   }
 
   DownloadMackPo(Index: number) {

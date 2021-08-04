@@ -47,17 +47,16 @@ export class FrightPriceUpdateComponent implements OnInit {
   
   UpdateFrightPrice(FrightPriceToUpdate: frightPrices){
     ProgrssBar (this.FrightPriceSer.UpdateSinglefrightPrice(FrightPriceToUpdate).then((res: any) =>{
-      if(res == true){
-        this.notification.OnSuccess("You Have Updated the Fright Price Successfuly")
+        this.notification.OnSuccess(res)
         this.Close();
-      }
+      
     },(err: any) =>{
       Auth_error_handling(err,this.progressRef,this.notification,this.router);
     }),this.progressRef)
   }
   
   AssignFormValuesToObject(){
-    this.ToUpdateFrightPrice.Id = this.data.Id;
+    this.ToUpdateFrightPrice.id = this.data.id;
     this.ToUpdateFrightPrice.locations =  this.UpdateFrightPriceForm.get('Location')?.value;
     this.ToUpdateFrightPrice.currentprice = this.UpdateFrightPriceForm.get('Price')?.value;
     this.ToUpdateFrightPrice.oldprice = this.data.currentprice;

@@ -46,10 +46,10 @@ export let StaticData: POs[] = [
     {
         id: 1,
         dealerName: "test1",
-        dealerEmail: "Example@gmail.com",
-        dealerPONumber: "test1",
+        dealerEmail: "kaoukyaseenkhaled@gmail.com",
+        dealerPONumber: "00 222 2229191",
         mackPONumber: "tse1",
-        corinthianPO: "test1",
+        corinthianPO: "abcd-1234567890",
         itemID: 0,
         supplierName: "test1",
         userID: "test",
@@ -59,9 +59,9 @@ export let StaticData: POs[] = [
         comments: "setse",
         alfemoComments: "test",
         status: "tseetssetest",
-        productionRequestDate: "tsets",
-        factoryEstimatedShipDate: "setsetse",
-        dateReceived: "tsetsetste",
+        productionRequestDate: "08/09/2022",
+        factoryEstimatedShipDate: "08/09/2022",
+        dateReceived: "08/09/2022",
         factoryEstimatedArrivalDate: "11111111",
         booked: false,
         finalDestLocation: "22222222",
@@ -71,7 +71,7 @@ export let StaticData: POs[] = [
     },
     {
         id: 1,
-        dealerName: "t222222222222222222222222222222222222222est",
+        dealerName: "abcd-1234567890",
         dealerPONumber: "test",
         dealerEmail: "Example@gmail.com",
         mackPONumber: "tse",
@@ -79,7 +79,7 @@ export let StaticData: POs[] = [
         itemID: 0,
         supplierName: "test",
         userID: "test",
-        mackPOAttach: "test",
+        mackPOAttach: "123",
         corinthianPOAttach: "1",
         shippingDocs: "stst",
         comments: "setse",
@@ -98,8 +98,8 @@ export let StaticData: POs[] = [
 ];
 
 export let FrightPricesStaticData: frightPrices[] = [{
-    Id: 1, 
-    locations: "NY",
+    id: 1, 
+    locations: "nY",
     currentprice: 125,
     oldprice: 100,
     changedon: "1998-2-12"
@@ -149,4 +149,8 @@ export type Tools = {
     router: Router,
     dialog: MatDialog
 
+}
+
+export function CapitlizeFirstLater(anyString: string){
+    return anyString.replace(anyString[0],anyString[0].toUpperCase())
 }
