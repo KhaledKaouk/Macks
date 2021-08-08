@@ -48,6 +48,7 @@ export class FrightPriceUpdateComponent implements OnInit {
   UpdateFrightPrice(FrightPriceToUpdate: frightPrices){
     ProgrssBar (this.FrightPriceSer.UpdateSinglefrightPrice(FrightPriceToUpdate).then((res: any) =>{
         this.notification.OnSuccess(res)
+        location.reload();
         this.Close();
       
     },(err: any) =>{

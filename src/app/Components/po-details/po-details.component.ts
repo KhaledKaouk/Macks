@@ -5,7 +5,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
-import { AddPreffixAndExtention, AdjustingDataForDisplay, Directories, DownLoadFile, Functionalities, UploadFile } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, AdjustingDataForDisplay, Directories, DownLoadFile, Functionalities, ProgrssBar, UploadFile } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component';
 
@@ -43,8 +43,28 @@ export class PoDetailsComponent implements OnInit {
   AdjustingDataForDisplay(approvalStatus: boolean) {
     return AdjustingDataForDisplay(approvalStatus);
   }
+  RemoveDownloadButtonsForNullFilesAndCreateDisclaimers(HtmlElementName: string) {
+    document.getElementsByName(HtmlElementName)[0].remove();
+    let Disclaimer: Node = document.createElement('a');
+    Disclaimer.appendChild(document.createTextNode(HtmlElementName + ": Unavailble"))
+    document.getElementById('buttons-2')?.appendChild(Disclaimer)
+  }
   CheckFunctionalities() {
-    (Array.from(document.getElementsByClassName('buttons')[0].children)).forEach(element => {
+    
+    (Array.from(document.getElementsByClassName('buttons'))).forEach(ParentOfDownloadFileButtons => {
+      Array.from(ParentOfDownloadFileButtons.children).forEach(DownloadButton => {
+        let ButtonName = DownloadButton.getAttribute('name');
+        if (!this.Functionalities.includes(ButtonName ?? "")) document.getElementsByName(ButtonName ?? "")[0].remove();
+      })
+    });
+
+    if (this.ViewedPO.mackPOAttach == "" && document.getElementsByName('MackPo').length >= 1)
+      this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('MackPo')
+    if (this.ViewedPO.shippingDocs == "" && document.getElementsByName('ShippingDocs').length >= 1)
+      this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('ShippingDocs')
+    if (this.ViewedPO.corinthianPOAttach == "" && document.getElementsByName('CorinthainPo').length >= 1)
+      this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('CorinthainPo')
+    /* (Array.from(document.getElementsByClassName('buttons')[0].children)).forEach(element => {
       let ElementName = element.getAttribute('name');
       if (!this.Functionalities.includes(ElementName ??
          "")) {
@@ -56,26 +76,27 @@ export class PoDetailsComponent implements OnInit {
       if (!this.Functionalities.includes(ElementName ?? "")) {
         document.getElementsByName(ElementName ?? "")[0].remove();
       }
-    })
-    if (this.ViewedPO.mackPOAttach == "" && document.getElementsByName('MackPo').length >= 1){
+    }) */
+    
+
+    /* if (this.ViewedPO.mackPOAttach == "" && document.getElementsByName('MackPo').length >= 1) {
       document.getElementsByName('MackPo')[0].remove();
       let Disclaimer: Node = document.createElement('a');
       Disclaimer.appendChild(document.createTextNode("MackPo: Unavailble"))
       document.getElementById('buttons-2')?.appendChild(Disclaimer)
     }
-    console.log(this.ViewedPO.shippingDocs && document.getElementsByName('ShippingDocs').length >= 1)
-    if(this.ViewedPO.shippingDocs == ""){
+    if (this.ViewedPO.shippingDocs == "") {
       document.getElementsByName('ShippingDocs')[0].remove();
       let Disclaimer: Node = document.createElement('a');
       Disclaimer.appendChild(document.createTextNode("ShippingDocs: Unavailble"))
       document.getElementById('buttons-2')?.appendChild(Disclaimer)
     }
-    if(this.ViewedPO.corinthianPOAttach =="" && document.getElementsByName('CorinthainPo').length >= 1){
+    if (this.ViewedPO.corinthianPOAttach == "" && document.getElementsByName('CorinthainPo').length >= 1) {
       document.getElementsByName('CorinthainPo')[0].remove();
       let Disclaimer: Node = document.createElement('a');
       Disclaimer.appendChild(document.createTextNode("CorinthainPo: Unavailble"))
       document.getElementById('buttons-2')?.appendChild(Disclaimer)
-    }
+    } */
 
   }
 
@@ -123,31 +144,26 @@ export class PoDetailsComponent implements OnInit {
   MackUpdate() {
     this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
       if (res == true) {
-        this.progressRef.complete();
         this.Notification.OnSuccess("You Updated the Po successfully")
         this.Close()
       } else {
-        this.progressRef.complete();
         this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
       }
     }, (err: any) => {
       Auth_error_handling(err, this.progressRef, this.Notification, this.router)
-    })
+    }).finally(() => { this.progressRef.complete(); })
   }
-    CorinthainUpdate() {
-    this.progressRef.start();
-    this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
+  CorinthainUpdate() {
+    ProgrssBar(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
       if (res == true) {
-        this.progressRef.complete();
         this.Notification.OnSuccess("You Updated the Po successfully")
         this.Close()
       } else {
-        this.progressRef.complete();
         this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
       }
     }, (err: any) => {
       Auth_error_handling(err, this.progressRef, this.Notification, this.router)
-    })
+    }), this.progressRef)
   }
   Close() {
     this.dialogref.close();
@@ -188,12 +204,11 @@ export class PoDetailsComponent implements OnInit {
       return false
     } else {
       return true
-
     }
   }
-  AlertMackOnUploadedPO(){
-    if(this.data[1] == Functionalities.Admin){
-      if(this.ViewedPO.mackPOAttach !=""){
+  AlertMackOnUploadedPO() {
+    if (this.data[1] == Functionalities.Admin) {
+      if (this.ViewedPO.mackPOAttach != "") {
         this.Notification.DisplayInfo("You Already Uploaded A File")
       }
     }

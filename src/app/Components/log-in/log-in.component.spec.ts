@@ -17,9 +17,14 @@ describe('LogInComponent', () => {
     fixture = TestBed.createComponent(LogInComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should Set User Name and Status to Header', () =>{
+    component.SetUserNameAndLogStatusToHeader()
+    expect()
+  })
 });
