@@ -5,46 +5,47 @@
   font-family: "Poppins";
 }
 
-.top {
+ul {
+  list-style-type: none;
+}
+
+.topOfHeader {
   display: flex;
   justify-content: space-around;
-  color: #6f5948;
   font-size: 16px;
-  font-family: "Poppins";
   padding: 1% 8%;
 }
 
-.top img {
+.topOfHeader img {
   width: 5%;
   height: 100%;
   padding: 0% 1%;
 }
 
-.top .left {
+.topOfHeader .left {
   text-align: left;
   display: flex;
-  justify-content: start;
   align-content: center;
+  justify-content: start;
 }
 
-.top .right {
+.topOfHeader .right {
   text-align: right;
   display: flex;
-  justify-content: flex-end;
   align-content: center;
+  justify-content: flex-end;
 }
 
-.middle {
-  font-family: "Poppins";
-  height: 6rem;
+.middleOfHeader {
   display: flex;
+  justify-content: space-around;
+  height: 6rem;
   border-bottom: 0.2px solid #e3dad3;
   align-items: center;
   background-color: #f5f5f5;
-  justify-content: space-around;
 }
 
-.middle button {
+.middleOfHeader button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,97 +57,96 @@
   height: 45px;
 }
 
-.middle button:focus {
+.middleOfHeader button:focus {
   outline: none;
 }
 
-.middle .element {
+.middleOfHeader .InputField {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.middle #Searchinput {
+.middleOfHeader #Searchinput {
   font-size: 18px;
   padding-inline-start: 10px;
   width: 350px;
   height: 45px;
-  border: 1px solid #e4e4e4;
+  border: 1px solid #afa4a4;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
   border-right: none;
 }
 
-.middle #Searchinput:focus {
+.middleOfHeader #Searchinput:focus {
   outline: none;
 }
 
-.middle .search {
+.middleOfHeader .searchIcon {
   width: 50%;
   height: 50%;
 }
 
-.middle .icon {
+.middleOfHeader .LogInIcon {
   width: 40%;
 }
 
-.middle .right {
+.middleOfHeader .right {
   text-align: right;
   cursor: pointer;
   transition: size 1s ease-in;
 }
 
-.middle .right:hover {
+.middleOfHeader .right:hover {
   transform: scale(0.95);
 }
 
-.middle a {
+.middleOfHeader a {
   color: #6f5948;
   text-decoration: none;
   font-size: 22px;
 }
 
-.middle a:hover {
+.middleOfHeader a:hover {
   color: #6f5948;
 }
 
-.bottom {
+.bottomOfHeader {
   display: flex;
   justify-content: space-around;
 }
 
-.bottom ul {
+.bottomOfHeader ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  list-style-type: none;
 }
 
-.bottom ul li {
+.bottomOfHeader ul li {
   padding: 0.83em 1.04em;
   color: #6f5948;
   font-size: 1.75em;
   font-weight: 400;
 }
 
-.bottom ul li:hover {
+.bottomOfHeader ul li:hover {
   cursor: pointer;
   color: #bba695;
 }
 
-.bottom ul li label {
+.bottomOfHeader ul li label {
   cursor: pointer;
 }
 
-.bottom #menu {
+.bottomOfHeader #menuCheckBox {
   display: none;
 }
 
 .Slide {
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: space-around;
+  align-items: center;
   position: relative;
 }
 
@@ -188,8 +188,8 @@
 
 .ProductSamples {
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
+  align-items: center;
   padding: 5rem;
 }
 
@@ -202,8 +202,8 @@
 .ProductSamples button {
   position: absolute;
   height: 100%;
-  font-size: 20px;
   width: 100%;
+  font-size: 20px;
   background-color: #3c2e25;
   opacity: 0;
   transition: opacity 0.3s ease-in;
@@ -232,17 +232,17 @@
   justify-content: space-evenly;
 }
 
-.footer .element {
+.footer .InfoCard {
   text-align: center;
   width: 30%;
 }
 
-.footer .element .Ptitle {
+.footer .InfoCard .Ptitle {
   padding-bottom: 20px;
   font-size: 22px;
 }
 
-.footer .element a {
+.footer .InfoCard a {
   color: white;
   text-decoration: none;
   cursor: none;
@@ -251,7 +251,6 @@
 
 .footer li {
   color: white;
-  list-style-type: none;
   padding-bottom: 2%;
 }
 
@@ -264,14 +263,14 @@
   margin: 2% 30%;
 }
 
-.CreatePo .element {
+.CreatePo .InputWraper {
   display: flex;
   justify-content: center;
   flex-direction: column;
   margin: 2%;
 }
 
-.CreatePo .element label {
+.CreatePo .InputWraper label {
   font-size: 18px;
   margin-top: 2%;
   margin-bottom: 2%;
@@ -334,7 +333,7 @@
 
 .CreatePo button {
   width: 350px;
-  height: 50px;
+  height: 45px;
   border: 1px solid #3c2e25;
   color: #3c2e25;
   background: transparent;
@@ -361,25 +360,14 @@
   border: gray;
 }
 
-.Grid {
+.DataTableWraper {
   display: flex;
   justify-content: space-around;
   flex-direction: row;
   position: relative;
 }
 
-.Grid .ControlTool {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  padding: 1rem;
-}
-
-.Grid .ControlTool .Check {
-  padding: 0.3rem;
-}
-
-.Grid .table {
+.DataTableWraper .table {
   border-collapse: collapse;
   margin: 1.5rem 0px;
   font-size: 1.1rem;
@@ -389,81 +377,86 @@
   box-shadow: 0 0 1.1rem rgba(0, 0, 0, 0.15);
 }
 
-.Grid .table thead tr {
+.DataTableWraper .table thead tr {
   background-color: #c2c2c2;
   color: #3c2e25;
   text-align: center;
   font-weight: bold;
 }
 
-.Grid .table td {
+.DataTableWraper .table td {
   padding: 0.8rem 0.9rem;
 }
 
-.Grid .table th {
+.DataTableWraper .table th {
   padding: 0.8rem 0.9rem;
 }
 
-.Grid .table tbody tr {
+.DataTableWraper .table tbody tr {
   border-bottom: 1px solid #dddddd;
 }
 
-.Grid .table tr:nth-of-type(even) {
+.DataTableWraper .table tr:nth-of-type(even) {
   background-color: #f3f3f3;
 }
 
-.Grid .table tbody td {
+.DataTableWraper .table tbody td {
   text-align: center;
   color: #3c2e25;
 }
 
-.Grid .table tbody tr:last-of-type {
+.DataTableWraper .table tbody tr:last-of-type {
   border-bottom: 2px solid #3c2e25;
 }
 
-.Grid .table tbody tr:hover {
+.DataTableWraper .table tbody tr:hover {
   font-weight: bold;
 }
 
-.Grid .table tbody a {
+.DataTableWraper .table tbody a {
   width: 100%;
   border: 1px solid #3c2e25;
   padding: 0.2rem;
   transition: background-color 0.3s ease-in;
 }
 
-.Grid .table tbody a:hover {
+.DataTableWraper .table tbody a:hover {
   background-color: #b99b85;
   color: #f5f5f5;
   border-color: #b99b85;
   cursor: pointer;
 }
 
-.Grid .Options {
+.DataTableWraper .pagination ul {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  margin: 5px;
 }
 
-.Grid .Options a {
-  width: 40%;
+.DataTableWraper .pagination ul button {
+  background-color: transparent;
   border: 1px solid #3c2e25;
-  text-align: center;
-  padding: 5px;
-  margin: 5px;
-  transition: background-color 0.4s ease-in;
+  border-radius: 5px;
+  color: #3c2e25;
+  font-size: 19px;
+  padding: 2px 4px;
+  margin: 1px;
 }
 
-.Grid .Options a:hover {
-  background-color: #b99b85;
-  border-color: #b99b85;
-  color: #f5f5f5;
+.DataTableWraper .pagination ul button:hover {
   cursor: pointer;
+  background-color: #b99b85;
+  color: white;
 }
 
-.Grid .Close {
+.AlfemoUpdateWraper {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  position: relative;
+}
+
+.AlfemoUpdateWraper .Close {
   position: absolute;
   width: 3%;
   background-color: transparent;
@@ -475,42 +468,10 @@
   right: 0;
 }
 
-.Grid .Close:hover {
+.AlfemoUpdateWraper .Close:hover {
   background-color: #b11818;
   color: white;
   cursor: pointer;
-}
-
-.Grid .UploadFile {
-  color: #3c2e25;
-  font-size: 15px;
-}
-
-.Grid .UploadFile label {
-  margin: 10px;
-}
-
-.Grid .pagination ul {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  list-style-type: none;
-}
-
-.Grid .pagination ul button {
-  background-color: transparent;
-  border: 1px solid #3c2e25;
-  border-radius: 5px;
-  color: #3c2e25;
-  font-size: 19px;
-  padding: 2px 4px;
-  margin: 1px;
-}
-
-.Grid .pagination ul button:hover {
-  cursor: pointer;
-  background-color: #b99b85;
-  color: white;
 }
 
 .AddressHeader {
@@ -555,7 +516,6 @@
 }
 
 .Product .details ul {
-  list-style-type: none;
   margin: 10px;
 }
 
@@ -612,14 +572,14 @@
   cursor: pointer;
 }
 
-.container {
+.PoDetails {
   margin-top: 1rem;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
 }
 
-.container .data {
+.PoDetails .data {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -628,14 +588,13 @@
   background-color: #f3f3f3;
 }
 
-.container .data .Side {
+.PoDetails .data .Side {
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
 }
 
-.container .data .Side ul {
-  list-style-type: none;
+.PoDetails .data .Side ul {
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
@@ -643,14 +602,14 @@
   margin-left: 0.3rem;
 }
 
-.container .data .Side li {
+.PoDetails .data .Side li {
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
   padding-bottom: 0.2rem;
 }
 
-.container .data .Side li label {
+.PoDetails .data .Side li label {
   padding: 0rem 0.5rem;
   margin: 0.5rem 0rem;
   opacity: 80%;
@@ -660,14 +619,14 @@
   font-weight: bold;
 }
 
-.container .data .Side li a {
+.PoDetails .data .Side li a {
   padding: 0rem 0.5rem;
   margin: 0.5rem 0rem;
   color: #3c2e25;
   font-size: 1.1rem;
 }
 
-.container .buttons {
+.PoDetails .buttons {
   padding: 0.5rem;
   margin-top: 1rem;
   display: flex;
@@ -677,7 +636,7 @@
   gap: 1rem;
 }
 
-.container .buttons a {
+.PoDetails .buttons a {
   width: 12rem;
   border: 0.1rem solid #3c2e25;
   padding: 0.3rem;
@@ -685,25 +644,25 @@
   transition: background-color 0.4s ease-in;
 }
 
-.container .buttons a:hover {
+.PoDetails .buttons a:hover {
   background-color: #b99b85;
   color: #f5f5f5;
   border-color: #b99b85;
   cursor: pointer;
 }
 
-.container .element {
+.PoDetails .element {
   display: flex;
   justify-content: center;
   flex-direction: column;
   gap: 1rem;
 }
 
-.container .element label {
+.PoDetails .element label {
   font-size: 1rem;
 }
 
-.container .element input {
+.PoDetails .element input {
   font-size: 1rem;
   width: 18rem;
   padding-inline-start: 1rem;
@@ -711,33 +670,32 @@
   transition: border 0.4s ease-in;
 }
 
-.container .element input:focus {
+.PoDetails .element input:focus {
   outline: none;
   border: 1px solid #3c2e25;
 }
 
-.PoDetails {
+.PoDetails2 {
   max-height: 40rem;
   margin: 2rem 2rem;
 }
 
-.PoDetails ul {
-  list-style-type: none;
+.PoDetails2 ul {
   column-count: 2;
 }
 
-.PoDetails ul li {
+.PoDetails2 ul li {
   margin-bottom: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.PoDetails ul li a {
+.PoDetails2 ul li a {
   display: block;
 }
 
-.PoDetails ul li label {
+.PoDetails2 ul li label {
   display: block;
 }
 
@@ -768,10 +726,10 @@
     justify-content: flex-start;
     flex-direction: column;
   }
-  .bottom #menu {
+  .bottom #menuCheckBox {
     display: block;
   }
-  .bottom #menu #menuimg {
+  .bottom #menuCheckBox #menuimg {
     width: 32px;
     display: block;
     margin-left: 15px;
@@ -779,7 +737,7 @@
     justify-content: flex-start;
     align-items: flex-start;
   }
-  .bottom #menu #menuimg:hover {
+  .bottom #menuCheckBox #menuimg:hover {
     cursor: pointer;
   }
   .bottom ul {
@@ -796,7 +754,7 @@
 }
 
 @media screen and (max-width: 800px) {
-  .container .data {
+  .PoDetails .data {
     justify-content: flex-start;
   }
 }

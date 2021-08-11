@@ -1,4 +1,4 @@
-<div class="top fadeshow1">
+<div class="topOfHeader fadeshow1">
     <div class="left">
         <img src="../assets/PhoneIcon.png" alt="">
         <a>252-258-3595</a>
@@ -8,25 +8,25 @@
         <a>macksdistribution@gmail.com</a>
     </div>
 </div>
-<div class="middle">
+<div class="middleOfHeader">
     <div>
         <a href="">Mack Distribution</a>
     </div>
-    <div id="Hide" class="element">
+    <div id="Hide" class="InputField">
         <input class="Hide" id="Searchinput" type="text" placeholder="Search">
         <button class="">
-            <img class="search" src="../assets/searchicon.jpg" alt="">
+            <img class="searchIcon" src="../assets/searchicon.jpg" alt="">
         </button>
     </div>
     <div class="right">
-        <img class="icon " routerLink="/LogIn" src="../assets/LoginIcon.png" alt="" *ngIf="!Logged()">
+        <img class="LogInIcon " routerLink="/LogIn" src="../assets/LoginIcon.png" alt="" *ngIf="!Logged()">
         <a class="" (click)=LogOut() style="margin: 0.5%;"
         *ngIf="Logged()">LogOut:</a>
         <a class="" *ngIf="Logged()" style="margin-left: 2px ;">{{SetUserName()}}</a>
     </div>
 </div>
-<div   class="bottom">
-    <label id="menu" for="check">
+<div   class="bottomOfHeader">
+    <label id="menuCheckBox" for="check">
         <img id="menuimg" src="../assets/menu.png" alt="">
     </label>
     <input type="checkbox" hidden id="check">
@@ -37,6 +37,6 @@
         <li routerLink="MyPos"><label for="check">MyPos</label></li>
         <li routerLink="Admin"><label for="check">Mack</label></li>
         <li routerLink="Alfemo"><label for="check">Alfemo</label></li>
-        <li routerLink="FrightPrices"><label for="check">FrightPrices</label></li>
+        <li routerLink="FrightPrices"><label for="check">FreightPrices</label></li>
     </ul>
 </div>

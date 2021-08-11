@@ -4,33 +4,33 @@
 </div>
 <div class="CreatePo" [formGroup]="CreatePo">
 
-    <div class="element">
+    <div class="InputWraper">
         <input name="DealerName" type="text" formControlName="DealerName" aria-label="Dealer Name" placeholder="Dealer Name">
     </div>
 
-    <div class="element">
+    <div class="InputWraper">
         <input name="DealerPo" type="text" formControlName="DealerPo" aria-label="DealerPo" placeholder="Dealer Po">
     </div>
 
-    <div class="element">
+    <div class="InputWraper">
         <input name="CorinthainPo" type="text" formControlName="CorinthainPo" aria-label="CorinthainPo" placeholder="CorinthainPo">
     </div>
 
-    <div class="element">
+    <div class="InputWraper">
         <label for="CorinthainPo">Production Request Date</label>
         <input name="CorinthainPo" type="date" formControlName="ProductionRequestDate" aria-label="CorinthainPo" placeholder="Production Request Date">
     </div>
 
-    <div class="element">
+    <div class="InputWraper">
         <textarea name="Comments" type="text" formControlName="Comments" aria-label="Comments" placeholder="Comments"> </textarea>
     </div>
 
-    <div class="element">
+    <div class="InputWraper">
         <label for="file">Upload Po</label>
         <input class="file" type="file" id="file" (change)=UploadPo($event)>
     </div>
 
-    <div class="element">
+    <div class="InputWraper">
         <button (click)=Submit() [disabled]="!CreatePo.valid || Loading">Submit</button>
     </div>
 </div>

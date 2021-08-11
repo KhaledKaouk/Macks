@@ -5,13 +5,13 @@
 
 <div class="CreatePo" [formGroup]="LogIn">
   
-    <div class="element">
+    <div class="InputWraper">
         <input name="EnterEmail" type="email" formControlName="UserName" aria-label="Email" placeholder="Email" >
     </div>
-    <div class="element">
+    <div class="InputWraper">
         <input name="EnterPassword" type="password" formControlName="Password" aria-label="Password" placeholder="Password">
     </div>
-    <div class="element">
+    <div class="InputWraper">
         <button class="btn btn-success" (click)=Submit()>LogIn</button>
     </div>
 </div>

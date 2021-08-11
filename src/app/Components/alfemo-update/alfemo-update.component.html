@@ -1,4 +1,4 @@
-<div class="Grid">
+<div class="AlfemoUpdateWraper">
   <a class="Close" (click)=Close()>X</a>
 
   <h1 style="font-size: xx-large; color: rgb(3, 1, 88); font-weight: 400; margin-left: 37%;" class="align-self-center">
@@ -6,7 +6,7 @@
 </div>
 <div class="CreatePo" id="AlfemoUpdate" [formGroup]="UpdatedPo">
 
-  <div class="element">
+  <div class="InputWraper">
     <label for="Status">Status</label>
     <select name="Status" aria-label="Default select example" formControlName="Status" (change) = "AssignValidators($event)">
       <option value="confirm Po Receipt">Confirm Po Receipt</option>
@@ -18,33 +18,33 @@
     </select>
   </div>
 
-  <div class="element">
+  <div class="InputWraper">
     <input name="ContainerNumber" type="text" formControlName="ContainerNumber" placeholder="Container Number">
   </div>
-  <div class="element">
+  <div class="InputWraper">
     <input name="FinalDestination" type="text" formControlName="FinalDestination" placeholder="Final Destination">
   </div>
-  <div class="element">
+  <div class="InputWraper">
     <label for="CorinthainPo">Factory Estimated Ship Date</label>
     <input name="CorinthainPo" type="date" formControlName="FactoryEstimatedShipDate" aria-label="CorinthainPo">
   </div>
-  <div class="element">
+  <div class="InputWraper">
     <label for="CorinthainPo">Factory Estimated arrival Date</label>
     <input name="CorinthainPo" type="date" formControlName="FactoryEstimatedArrivalDate" aria-label="CorinthainPo">
   </div>
 
-  <div class="element">
+  <div class="InputWraper">
     <label for="CorinthainPo">Comments</label>
     <textarea name="CorinthainPo" type="text" formControlName="AlfemoComents" aria-label="CorinthainPo"></textarea>
   </div>
 
-  <div class="element">
+  <div class="InputWraper">
     <label for="file">Upload Shipment Document</label>
     <input type="file" id="file" (change)=UploadPo($event) style="border: none;">
   </div>
 
 
-  <div class="Options">
+  <div>
     <button (click)=Update() style="margin-bottom: 10px;" [disabled]="!UpdatedPo.valid" >Update</button>
   </div>
 </div>

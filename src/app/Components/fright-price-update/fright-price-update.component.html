@@ -1,11 +1,11 @@
 <div class="AddressHeader" style="height: 5rem;">
-    <h1>Update Fright Price</h1>
+    <h1>Update Freight Price</h1>
 </div>
 <div class="CreatePo" [formGroup] = "UpdateFrightPriceForm">
-    <div class="element"><input type="text" placeholder="Location" formControlName = "Location"></div>
-    <div class="element"><input type="text" placeholder="Price" formControlName = "Price"></div>
-    <div class="element"><button (click) = Submit() [disabled]  = "!UpdateFrightPriceForm.valid">Submit</button></div>
-    <div class="element"><button (click) = Close()>Cancel</button></div>
+    <div class="InputWraper"><input type="text" placeholder="Location" formControlName = "Location"></div>
+    <div class="InputWraper"><input type="text" placeholder="Price" formControlName = "Price"></div>
+    <div class="InputWraper"><button (click) = Submit() [disabled]  = "!UpdateFrightPriceForm.valid">Submit</button></div>
+    <div class="InputWraper"><button (click) = Close()>Cancel</button></div>
 </div>
 <ng-progress id="myProgress"></ng-progress>
 <simple-notifications></simple-notifications>

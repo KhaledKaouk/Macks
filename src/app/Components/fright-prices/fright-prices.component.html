@@ -1,8 +1,8 @@
 <div class="AddressHeader">
-    <h1>FrightPrices</h1>
-    <h2>Home / FrightPrices</h2>
+    <h1>FreightPrices</h1>
+    <h2>Home / FreightPrices</h2>
 </div>
-<div class="Grid">
+<div class="DataTableWraper">
     <table class="table">
         <thead>
             <tr>
@@ -16,8 +16,8 @@
         <tbody>
             <tr *ngFor = "let FrightPrice of FrightPricesList index as i">
                 <td>{{FrightPrice.locations}}</td>
-                <td>{{FrightPrice.currentprice}} $</td>
-                <td>{{FrightPrice.oldprice}} $</td>
+                <td>$ {{FrightPrice.currentprice}}</td>
+                <td>$ {{FrightPrice.oldprice}}</td>
                 <td>{{FrightPrice.changedon | date:"MM/dd/yyyy"}}</td>
                 <td><a (click) =  UpdateSinglePrice(FrightPrice) *ngIf = CheckRole()>Edit</a></td>
             </tr>
