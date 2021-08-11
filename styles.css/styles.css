@@ -6,53 +6,66 @@
   font-family: "Poppins";
 }
 
-ul {
-  list-style-type: none;
-}
-
-.topOfHeader {
+.top {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  color: #6f5948;
   font-size: 16px;
+  font-family: "Poppins";
   padding: 1% 8%;
 }
 
-.topOfHeader img {
+.top img {
   width: 5%;
   height: 100%;
   padding: 0% 1%;
 }
 
-.topOfHeader .left {
+.top .left {
   text-align: left;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  align-content: center;
-  justify-content: start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -ms-flex-line-pack: center;
+      align-content: center;
 }
 
-.topOfHeader .right {
+.top .right {
   text-align: right;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  align-content: center;
-  justify-content: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -ms-flex-line-pack: center;
+      align-content: center;
 }
 
-.middleOfHeader {
-  display: flex;
-  justify-content: space-around;
+.middle {
+  font-family: "Poppins";
   height: 6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   border-bottom: 0.2px solid #e3dad3;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   background-color: #f5f5f5;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
-.middleOfHeader button {
+.middle button {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -68,11 +81,13 @@ ul {
   height: 45px;
 }
 
-.middleOfHeader button:focus {
+.middle button:focus {
   outline: none;
 }
 
-.middleOfHeader .InputField {
+.middle .element {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -82,81 +97,91 @@ ul {
           align-items: center;
 }
 
-.middleOfHeader #Searchinput {
+.middle #Searchinput {
   font-size: 18px;
   -webkit-padding-start: 10px;
           padding-inline-start: 10px;
   width: 350px;
   height: 45px;
-  border: 1px solid #afa4a4;
+  border: 1px solid #e4e4e4;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
   border-right: none;
 }
 
-.middleOfHeader #Searchinput:focus {
+.middle #Searchinput:focus {
   outline: none;
 }
 
-.middleOfHeader .searchIcon {
+.middle .search {
   width: 50%;
   height: 50%;
 }
 
-.middleOfHeader .LogInIcon {
+.middle .icon {
   width: 40%;
 }
 
-.middleOfHeader .right {
+.middle .right {
   text-align: right;
   cursor: pointer;
   -webkit-transition: size 1s ease-in;
   transition: size 1s ease-in;
 }
 
-.middleOfHeader .right:hover {
-  transform: scale(0.95);
+.middle .right:hover {
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
 }
 
-.middleOfHeader a {
+.middle a {
   color: #6f5948;
   text-decoration: none;
   font-size: 22px;
 }
 
-.middleOfHeader a:hover {
+.middle a:hover {
   color: #6f5948;
 }
 
-.bottomOfHeader {
+.bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
 }
 
-.bottomOfHeader ul {
+.bottom ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  list-style-type: none;
 }
 
-.bottomOfHeader ul li {
+.bottom ul li {
   padding: 0.83em 1.04em;
   color: #6f5948;
   font-size: 1.75em;
   font-weight: 400;
 }
 
-.bottomOfHeader ul li:hover {
+.bottom ul li:hover {
   cursor: pointer;
   color: #bba695;
 }
 
-.bottomOfHeader ul li label {
+.bottom ul li label {
   cursor: pointer;
 }
 
-.bottomOfHeader #menuCheckBox {
+.bottom #menu {
   display: none;
 }
 
@@ -165,8 +190,11 @@ ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   position: relative;
 }
 
@@ -211,8 +239,12 @@ ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   padding: 5rem;
 }
 
@@ -225,8 +257,8 @@ ul {
 .ProductSamples button {
   position: absolute;
   height: 100%;
-  width: 100%;
   font-size: 20px;
+  width: 100%;
   background-color: #3c2e25;
   opacity: 0;
   -webkit-transition: opacity 0.3s ease-in;
@@ -263,17 +295,17 @@ ul {
           justify-content: space-evenly;
 }
 
-.footer .InfoCard {
+.footer .element {
   text-align: center;
   width: 30%;
 }
 
-.footer .InfoCard .Ptitle {
+.footer .element .Ptitle {
   padding-bottom: 20px;
   font-size: 22px;
 }
 
-.footer .InfoCard a {
+.footer .element a {
   color: white;
   text-decoration: none;
   cursor: none;
@@ -282,6 +314,7 @@ ul {
 
 .footer li {
   color: white;
+  list-style-type: none;
   padding-bottom: 2%;
 }
 
@@ -303,7 +336,9 @@ ul {
   margin: 2% 30%;
 }
 
-.CreatePo .InputWraper {
+.CreatePo .element {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -315,7 +350,7 @@ ul {
   margin: 2%;
 }
 
-.CreatePo .InputWraper label {
+.CreatePo .element label {
   font-size: 18px;
   margin-top: 2%;
   margin-bottom: 2%;
@@ -384,7 +419,7 @@ ul {
 
 .CreatePo button {
   width: 350px;
-  height: 45px;
+  height: 50px;
   border: 1px solid #3c2e25;
   color: #3c2e25;
   background: transparent;
@@ -412,7 +447,9 @@ ul {
   border: gray;
 }
 
-.DataTableWraper {
+.Grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
@@ -423,7 +460,24 @@ ul {
   position: relative;
 }
 
-.DataTableWraper .table {
+.Grid .ControlTool {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 1rem;
+}
+
+.Grid .ControlTool .Check {
+  padding: 0.3rem;
+}
+
+.Grid .table {
   border-collapse: collapse;
   margin: 1.5rem 0px;
   font-size: 1.1rem;
@@ -434,43 +488,43 @@ ul {
           box-shadow: 0 0 1.1rem rgba(0, 0, 0, 0.15);
 }
 
-.DataTableWraper .table thead tr {
+.Grid .table thead tr {
   background-color: #c2c2c2;
   color: #3c2e25;
   text-align: center;
   font-weight: bold;
 }
 
-.DataTableWraper .table td {
+.Grid .table td {
   padding: 0.8rem 0.9rem;
 }
 
-.DataTableWraper .table th {
+.Grid .table th {
   padding: 0.8rem 0.9rem;
 }
 
-.DataTableWraper .table tbody tr {
+.Grid .table tbody tr {
   border-bottom: 1px solid #dddddd;
 }
 
-.DataTableWraper .table tr:nth-of-type(even) {
+.Grid .table tr:nth-of-type(even) {
   background-color: #f3f3f3;
 }
 
-.DataTableWraper .table tbody td {
+.Grid .table tbody td {
   text-align: center;
   color: #3c2e25;
 }
 
-.DataTableWraper .table tbody tr:last-of-type {
+.Grid .table tbody tr:last-of-type {
   border-bottom: 2px solid #3c2e25;
 }
 
-.DataTableWraper .table tbody tr:hover {
+.Grid .table tbody tr:hover {
   font-weight: bold;
 }
 
-.DataTableWraper .table tbody a {
+.Grid .table tbody a {
   width: 100%;
   border: 1px solid #3c2e25;
   padding: 0.2rem;
@@ -478,43 +532,46 @@ ul {
   transition: background-color 0.3s ease-in;
 }
 
-.DataTableWraper .table tbody a:hover {
+.Grid .table tbody a:hover {
   background-color: #b99b85;
   color: #f5f5f5;
   border-color: #b99b85;
   cursor: pointer;
 }
 
-.DataTableWraper .pagination ul {
+.Grid .Options {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin: 5px;
 }
 
-.DataTableWraper .pagination ul button {
-  background-color: transparent;
+.Grid .Options a {
+  width: 40%;
   border: 1px solid #3c2e25;
-  border-radius: 5px;
-  color: #3c2e25;
-  font-size: 19px;
-  padding: 2px 4px;
-  margin: 1px;
+  text-align: center;
+  padding: 5px;
+  margin: 5px;
+  -webkit-transition: background-color 0.4s ease-in;
+  transition: background-color 0.4s ease-in;
 }
 
-.DataTableWraper .pagination ul button:hover {
-  cursor: pointer;
+.Grid .Options a:hover {
   background-color: #b99b85;
-  color: white;
+  border-color: #b99b85;
+  color: #f5f5f5;
+  cursor: pointer;
 }
 
-.AlfemoUpdateWraper {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  position: relative;
-}
-
-.AlfemoUpdateWraper .Close {
+.Grid .Close {
   position: absolute;
   width: 3%;
   background-color: transparent;
@@ -526,10 +583,48 @@ ul {
   right: 0;
 }
 
-.AlfemoUpdateWraper .Close:hover {
+.Grid .Close:hover {
   background-color: #b11818;
   color: white;
   cursor: pointer;
+}
+
+.Grid .UploadFile {
+  color: #3c2e25;
+  font-size: 15px;
+}
+
+.Grid .UploadFile label {
+  margin: 10px;
+}
+
+.Grid .pagination ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  list-style-type: none;
+}
+
+.Grid .pagination ul button {
+  background-color: transparent;
+  border: 1px solid #3c2e25;
+  border-radius: 5px;
+  color: #3c2e25;
+  font-size: 19px;
+  padding: 2px 4px;
+  margin: 1px;
+}
+
+.Grid .pagination ul button:hover {
+  cursor: pointer;
+  background-color: #b99b85;
+  color: white;
 }
 
 .AddressHeader {
@@ -587,6 +682,7 @@ ul {
 }
 
 .Product .details ul {
+  list-style-type: none;
   margin: 10px;
 }
 
@@ -656,7 +752,7 @@ ul {
   cursor: pointer;
 }
 
-.PoDetails {
+.container {
   margin-top: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -670,7 +766,9 @@ ul {
           flex-direction: column;
 }
 
-.PoDetails .data {
+.container .data {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
@@ -682,7 +780,9 @@ ul {
   background-color: #f3f3f3;
 }
 
-.PoDetails .data .Side {
+.container .data .Side {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
@@ -692,7 +792,10 @@ ul {
           align-items: flex-start;
 }
 
-.PoDetails .data .Side ul {
+.container .data .Side ul {
+  list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
@@ -707,7 +810,9 @@ ul {
   margin-left: 0.3rem;
 }
 
-.PoDetails .data .Side li {
+.container .data .Side li {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
@@ -718,7 +823,7 @@ ul {
   padding-bottom: 0.2rem;
 }
 
-.PoDetails .data .Side li label {
+.container .data .Side li label {
   padding: 0rem 0.5rem;
   margin: 0.5rem 0rem;
   opacity: 80%;
@@ -728,14 +833,14 @@ ul {
   font-weight: bold;
 }
 
-.PoDetails .data .Side li a {
+.container .data .Side li a {
   padding: 0rem 0.5rem;
   margin: 0.5rem 0rem;
   color: #3c2e25;
   font-size: 1.1rem;
 }
 
-.PoDetails .buttons {
+.container .buttons {
   padding: 0.5rem;
   margin-top: 1rem;
   display: -webkit-box;
@@ -752,7 +857,7 @@ ul {
   gap: 1rem;
 }
 
-.PoDetails .buttons a {
+.container .buttons a {
   width: 12rem;
   border: 0.1rem solid #3c2e25;
   padding: 0.3rem;
@@ -761,14 +866,16 @@ ul {
   transition: background-color 0.4s ease-in;
 }
 
-.PoDetails .buttons a:hover {
+.container .buttons a:hover {
   background-color: #b99b85;
   color: #f5f5f5;
   border-color: #b99b85;
   cursor: pointer;
 }
 
-.PoDetails .element {
+.container .element {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -780,11 +887,11 @@ ul {
   gap: 1rem;
 }
 
-.PoDetails .element label {
+.container .element label {
   font-size: 1rem;
 }
 
-.PoDetails .element input {
+.container .element input {
   font-size: 1rem;
   width: 18rem;
   -webkit-padding-start: 1rem;
@@ -794,21 +901,23 @@ ul {
   transition: border 0.4s ease-in;
 }
 
-.PoDetails .element input:focus {
+.container .element input:focus {
   outline: none;
   border: 1px solid #3c2e25;
 }
 
-.PoDetails2 {
+.PoDetails {
   max-height: 40rem;
   margin: 2rem 2rem;
 }
 
-.PoDetails2 ul {
-  column-count: 2;
+.PoDetails ul {
+  list-style-type: none;
+  -webkit-column-count: 2;
+          column-count: 2;
 }
 
-.PoDetails2 ul li {
+.PoDetails ul li {
   margin-bottom: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -821,38 +930,20 @@ ul {
           align-items: flex-start;
 }
 
-.PoDetails2 ul li a {
+.PoDetails ul li a {
   display: block;
 }
 
-.PoDetails2 ul li label {
+.PoDetails ul li label {
   display: block;
 }
 
 .spinner-1 {
-  content: "";
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 60px;
-  width: 60px;
-  margin: -30px;
   border-radius: 50%;
   border: 3px solid lightgray;
   border-top-color: coral;
-  -webkit-animation: spinner 0.7s linear infinite;
-          animation: spinner 0.7s linear infinite;
-}
-
-.SpinnerContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100vh;
-  opacity: 0.6;
+  -webkit-animation: spinner 0.7s  linear infinite;
+          animation: spinner 0.7s  linear infinite;
 }
 
 @-webkit-keyframes spinner {
@@ -906,10 +997,10 @@ ul {
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  .bottom #menuCheckBox {
+  .bottom #menu {
     display: block;
   }
-  .bottom #menuCheckBox #menuimg {
+  .bottom #menu #menuimg {
     width: 32px;
     display: block;
     margin-left: 15px;
@@ -923,7 +1014,7 @@ ul {
         -ms-flex-align: start;
             align-items: flex-start;
   }
-  .bottom #menuCheckBox #menuimg:hover {
+  .bottom #menu #menuimg:hover {
     cursor: pointer;
   }
   .bottom ul {
@@ -947,8 +1038,10 @@ ul {
 }
 
 @media screen and (max-width: 800px) {
-  .PoDetails .data {
-    justify-content: flex-start;
+  .container .data {
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
   }
 }
 

@@ -8,7 +8,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AddPreffixAndExtention, UploadFile } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, Spinner, UploadFile } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 
 @Component({
@@ -30,18 +30,17 @@ export class AlfemoUpdateComponent implements OnInit {
   PoToUpdate: POs = new POs();
 
   SeletedFile: any;
-  progressRef: any;
 
   constructor(private PoService: POsService,
     private Notification: NotificationserService,
-    private progress: NgProgress,
     private dialogref: MatDialogRef<AlfemoUpdateComponent>,
     private router: Router,
+    private spinner: Spinner, 
     @Inject(MAT_DIALOG_DATA) public data: POs) { }
 
   ngOnInit(): void {
     CheckToken(this.router);
-    this.progressRef = this.progress.ref('PopUProgress');
+    // this.progressRef = this.progress.ref('PopUProgress');
 
     this.PoToUpdate = this.data;
     if(this.PoToUpdate.shippingDocs != ""){
@@ -64,9 +63,7 @@ export class AlfemoUpdateComponent implements OnInit {
     })
   }
 
-  Update() {
-    this.progressRef.start();
-    
+  Update() {    
     this.AssignformValuesToObject();
 
     let fd = new FormData();
@@ -81,7 +78,7 @@ export class AlfemoUpdateComponent implements OnInit {
 
       let UploadProcess: any;
       (async () => {
-        UploadProcess = await UploadFile(this.PoService, fd, FileName, this.Notification, this.progressRef, this.router)
+        UploadProcess = await UploadFile(this.PoService, fd, FileName, this.Notification, this.spinner, this.router)
         if (UploadProcess == true) {
           this.UpdatePo();
         }
@@ -99,21 +96,18 @@ export class AlfemoUpdateComponent implements OnInit {
   }
   UpdatePo(){
     if(this.UpdatedPo.get('Status')?.value == "Shipped" && !this.SeletedFile){
-      this.progressRef.complete();
       this.Notification.OnError("You have to Upload a shipping Document when the status is: Shipped")
     }else{
-        this.PoService.UpdatePo(this.PoToUpdate).toPromise().then((res: any) => {
+        this.spinner.WrapWithSpinner( this.PoService.UpdatePo(this.PoToUpdate).toPromise().then((res: any) => {
           if (res == true) {
-            this.progressRef.complete();
             this.Notification.OnSuccess("You Updated the Po successfully")
             this.Close()
           } else {
-            this.progressRef.complete();
             this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
           }
         }, (err: any) => {
-          Auth_error_handling(err, this.progressRef, this.Notification, this.router)
-        })
+          Auth_error_handling(err, this.Notification, this.router)
+        }))
       }
     }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,12 +6,16 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Mackdistribution';
   UserName: string = localStorage.getItem('username')?"":"";
   LogStatus: boolean = (localStorage.getItem('token'))? false:true;
+  spinner: any;
   constructor(private router: Router){}
-
+  
+  ngOnInit(): void {
+   this.HideSpinner();
+  }
   GoToLogIn(){
     this.router.navigateByUrl('/LogIn')
   }
@@ -19,5 +23,13 @@ export class AppComponent {
     localStorage.clear();
     this.LogStatus = true;
     this.router.navigateByUrl('/LogIn')
+  }
+  ShowSpinner(){
+    this.spinner = document.getElementById('SpinnerContainer');
+    if(this.spinner) this.spinner.style.display = "block";  
+  }
+  HideSpinner(){
+    this.spinner = document.getElementById('SpinnerContainer');
+    if(this.spinner) this.spinner.style.display = "none";
   }
 }

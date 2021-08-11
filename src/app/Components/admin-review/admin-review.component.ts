@@ -130,7 +130,7 @@ export class AdminReviewComponent implements OnInit {
         this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
       }
     }, (err: any) => {
-      Auth_error_handling(err, this.progressRef, this.Notification, this.router)
+      Auth_error_handling(err, this.Notification, this.router)
     })
   }
   AdjustingDataForDisplay(approvalStatus: boolean) {

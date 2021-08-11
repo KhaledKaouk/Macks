@@ -6,9 +6,11 @@ import { frightPrices } from 'src/app/Models/frightPrices';
 import { AuthService } from 'src/app/Services/auth.service';
 import { FrightpricesService } from 'src/app/Services/frightprices.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
-import { CapitlizeFirstLater, FrightPricesStaticData, ProgrssBar, Tools } from 'src/app/Utilities/Common';
+import { CheckToken } from 'src/app/Utilities/CheckAuth';
+import { CapitlizeFirstLater, FrightPricesStaticData, ProgrssBar, Spinner, Tools } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { FrightPriceUpdateComponent } from '../fright-price-update/fright-price-update.component';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-fright-prices',
@@ -21,39 +23,39 @@ export class FrightPricesComponent implements OnInit {
 
   progressRef: any
   constructor(private FirghtpricesSer: FrightpricesService,
-   private Progress: NgProgress,
-   private notification: NotificationserService,
-   private router: Router,
-   private dialog: MatDialog,
-   private AuthSer: AuthService,
-   ) { }
+    private notification: NotificationserService,
+    private router: Router,
+    private dialog: MatDialog,
+    private AuthSer: AuthService,
+    private spinner: Spinner,
+  ) { }
 
   ngOnInit(): void {
-    this.progressRef = this.Progress.ref('myProgress');
+    CheckToken(this.router)
+    this.AuthSer.GetRole();
     this.GetFrightPrices();
     /* this.FrightPricesList = FrightPricesStaticData;
     this.FrightPricesList.forEach(FrightPrice =>{ FrightPrice.locations = CapitlizeFirstLater(FrightPrice.locations) }) */
-    this.AuthSer.GetRole();
 
   }
-  UpdateSinglePrice(FrightPriceToUpdate: frightPrices){
-    this.dialog.open(FrightPriceUpdateComponent,{
+  UpdateSinglePrice(FrightPriceToUpdate: frightPrices) {
+    this.dialog.open(FrightPriceUpdateComponent, {
       height: '30rem',
       width: '40rem',
       data: FrightPriceToUpdate
     })
   }
 
-  GetFrightPrices(){
-    ProgrssBar( this.FirghtpricesSer.GetAllFrightPrices().then((res: any) => {
+  GetFrightPrices() {
+    this.spinner.WrapWithSpinner(this.FirghtpricesSer.GetAllFrightPrices().then((res: any) => {
       this.FrightPricesList = res ?? [];
-      this.FrightPricesList.forEach(FrightPrice =>{ FrightPrice.locations = CapitlizeFirstLater(FrightPrice.locations) })
-    },(err:any) =>{
-      Auth_error_handling(err, this.progressRef, this.notification, this.router)
-    }),this.progressRef)
+      this.FrightPricesList.forEach(FrightPrice => { FrightPrice.locations = CapitlizeFirstLater(FrightPrice.locations) })
+    }, (err: any) => {
+      Auth_error_handling(err, this.notification, this.router)
+    }))
   }
 
-   CheckRole(){
-    return (localStorage.getItem('Role') == "admin" || localStorage.getItem('Role') == "alfemo") ? true: false;
+  CheckRole() {
+    return (localStorage.getItem('Role') == "admin" || localStorage.getItem('Role') == "alfemo") ? true : false;
   }
 }

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/app/Components/catalog/catalog.component.sass"
+    ],
+    "names": [],
+    "file": "catalog.component.css"
+}

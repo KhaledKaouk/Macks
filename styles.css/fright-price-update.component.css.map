@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/app/Components/fright-price-update/fright-price-update.component.sass"
+    ],
+    "names": [],
+    "file": "fright-price-update.component.css"
+}

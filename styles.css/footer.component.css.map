@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/app/Components/footer/footer.component.sass"
+    ],
+    "names": [],
+    "file": "footer.component.css"
+}

@@ -30,6 +30,7 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { PoDetailsComponent } from './Components/po-details/po-details.component';
 import { FrightPricesComponent } from './Components/fright-prices/fright-prices.component';
 import { FrightPriceUpdateComponent } from './Components/fright-price-update/fright-price-update.component';
+import { Spinner } from './Utilities/Common';
 
 
 @NgModule({
@@ -59,8 +60,7 @@ import { FrightPriceUpdateComponent } from './Components/fright-price-update/fri
     AppRoutingModule,
     ReactiveFormsModule,
     MatDialogModule,
-    NgProgressModule
-    
+    NgProgressModule,    
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
@@ -71,6 +71,8 @@ import { FrightPriceUpdateComponent } from './Components/fright-price-update/fri
       multi: true
     },
     HeaderComponent,
+    Spinner,
+    AppComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -6,7 +6,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AdjustingDataForDisplay, Directories, DownLoadFile, Functionalities, OrderPosByDate, StaticData } from 'src/app/Utilities/Common';
+import { AdjustingDataForDisplay, Directories, DownLoadFile, Functionalities, OrderPosByDate, Spinner, StaticData } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { PoDetailsComponent } from '../po-details/po-details.component';
 
@@ -27,18 +27,15 @@ export class MyPosComponent implements OnInit {
   DataOfCurrentPage: POs[] = [];
   CurrentPage: number = 0;
 
-  progressRef: any;
 
   constructor(private poservice: POsService,
-    private progress:NgProgress,
     private notification: NotificationserService,
     private router: Router,
-    private dialog: MatDialog,) { }
+    private dialog: MatDialog,
+    private spinner: Spinner) { }
 
   ngOnInit(): void {
     CheckToken(this.router);
-      this.progressRef = this.progress.ref('myProgress');
-      this.progressRef.start();
       this.GetPos();
       /* this.mydata = StaticData
       this.mydata.reverse();
@@ -81,15 +78,14 @@ export class MyPosComponent implements OnInit {
     return AdjustingDataForDisplay(approvalStatus);
   }
   GetPos(){
-    this.poservice.GetPos().then((res: any) => {
+    this.spinner.WrapWithSpinner( this.poservice.GetPos().then((res: any) => {
       this.mydata = res;
       this.mydata = OrderPosByDate(this.mydata);
       this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
       this.SliceDataForPaginantion(0);
-      this.progressRef.complete()
     },(err:any) => {
-      Auth_error_handling(err,this.progressRef,this.notification,this.router)
-    })
+      Auth_error_handling(err,this.notification,this.router)
+    }))
   }
 }

@@ -7,6 +7,7 @@ import { NotificationserService } from 'src/app/Services/notificationser.service
 import { NgProgress } from 'ngx-progressbar';
 import { Router } from '@angular/router';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
+import { Spinner } from 'src/app/Utilities/Common';
 
 @Component({
   selector: 'app-catalog',
@@ -15,65 +16,61 @@ import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 })
 export class CatalogComponent implements OnInit {
 
-  ProductsList: Product[] =  [];
-  testProduct: Product[]  =[{
-        id:"",
-        itemid : "",
-        itemname : "Sofa",
-        itemdesc : "this is the finet Sofa in Turkey, nade from oak",
-        itempic : "../assets/sample2.jpg",
-        itemdescfile : "",
-        dimensions : "50  x  75",
-        linename : "Alfemo",
-        itemtype : "Sofa",
+  ProductsList: Product[] = [];
+  testProduct: Product[] = [{
+    id: "",
+    itemid: "",
+    itemname: "Sofa",
+    itemdesc: "this is the finet Sofa in Turkey, nade from oak",
+    itempic: "../assets/sample2.jpg",
+    itemdescfile: "",
+    dimensions: "50  x  75",
+    linename: "Alfemo",
+    itemtype: "Sofa",
   },
   {
-    id:"",
-    itemid : "",
-    itemname : "Chair",
-    itemdesc : "this is the finet Chair in Turkey, nade from oak",
-    itempic : "../assets/sample1.jpg",
-    itemdescfile : "",
-    dimensions : "50  x  75",
-    linename : "Alfemo",
-    itemtype : "Chair",
-},
-{
-  id:"",
-  itemid : "",
-  itemname : "Table",
-  itemdesc : "this is the finet Table in Turkey, nade from oak",
-  itempic : "../assets/sample3.jpg",
-  itemdescfile : "",
-  dimensions : "50  x  75",
-  linename : "Alfemo",
-  itemtype : "Table",
-}]
+    id: "",
+    itemid: "",
+    itemname: "Chair",
+    itemdesc: "this is the finet Chair in Turkey, nade from oak",
+    itempic: "../assets/sample1.jpg",
+    itemdescfile: "",
+    dimensions: "50  x  75",
+    linename: "Alfemo",
+    itemtype: "Chair",
+  },
+  {
+    id: "",
+    itemid: "",
+    itemname: "Table",
+    itemdesc: "this is the finet Table in Turkey, nade from oak",
+    itempic: "../assets/sample3.jpg",
+    itemdescfile: "",
+    dimensions: "50  x  75",
+    linename: "Alfemo",
+    itemtype: "Table",
+  }]
 
-  progressRef: any;
 
   constructor(private dialog: MatDialog,
-    private Notification:NotificationserService,
-    private progress:NgProgress,
+    private Notification: NotificationserService,
     private router: Router,
+    private spinner: Spinner,
     private Poservice: POsService) { }
 
   ngOnInit(): void {
-    this.progressRef = this.progress.ref('myProgress');
-    this.progressRef.start();
     this.ProductsList = this.testProduct;
-    
-    this.Poservice.GetProducts().toPromise().then((res: any) =>{
-      this.ProductsList = res;
-      this.progressRef.complete();
 
-    },(err:any) => {
-      Auth_error_handling(err,this.progressRef,this.Notification,this.router)
-    } )
+    this.spinner.WrapWithSpinner( this.Poservice.GetProducts().toPromise().then((res: any) => {
+      this.ProductsList = res;
+
+    }, (err: any) => {
+      Auth_error_handling(err, this.Notification, this.router)
+    }))
   }
 
-  ShowDetails(ProductToShow: Product){
-    this.dialog.open(ProductdetailsComponent,{
+  ShowDetails(ProductToShow: Product) {
+    this.dialog.open(ProductdetailsComponent, {
       width: '800px',
       height: '400px',
       data: ProductToShow
