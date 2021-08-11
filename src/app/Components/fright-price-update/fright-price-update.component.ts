@@ -6,7 +6,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { frightPrices } from 'src/app/Models/frightPrices';
 import { FrightpricesService } from 'src/app/Services/frightprices.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
-import { ProgrssBar } from 'src/app/Utilities/Common';
+import { ProgrssBar, Spinner } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 
 @Component({
@@ -16,7 +16,6 @@ import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 })
 export class FrightPriceUpdateComponent implements OnInit {
 
-  progressRef: any
   ToUpdateFrightPrice: frightPrices = new frightPrices();
 
   UpdateFrightPriceForm = new FormGroup(
@@ -30,10 +29,9 @@ export class FrightPriceUpdateComponent implements OnInit {
   private FrightPriceSer: FrightpricesService,
   private notification : NotificationserService,
   private router: Router,
-  private Progress: NgProgress) { }
+  private spinner: Spinner) { }
 
   ngOnInit(): void {
-    this.progressRef = this.Progress.ref('PopUpProgressBar')
     this.UpdateFrightPriceForm.setValue({
       Location: this.data.locations,
       Price:  this.data.currentprice
@@ -46,14 +44,14 @@ export class FrightPriceUpdateComponent implements OnInit {
   }
   
   UpdateFrightPrice(FrightPriceToUpdate: frightPrices){
-    ProgrssBar (this.FrightPriceSer.UpdateSinglefrightPrice(FrightPriceToUpdate).then((res: any) =>{
+    this.spinner.WrapWithSpinner (this.FrightPriceSer.UpdateSinglefrightPrice(FrightPriceToUpdate).then((res: any) =>{
         this.notification.OnSuccess(res)
         location.reload();
         this.Close();
       
     },(err: any) =>{
-      Auth_error_handling(err,this.progressRef,this.notification,this.router);
-    }),this.progressRef)
+      Auth_error_handling(err,this.notification,this.router);
+    }))
   }
   
   AssignFormValuesToObject(){

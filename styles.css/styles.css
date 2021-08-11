@@ -939,29 +939,11 @@
 }
 
 .spinner-1 {
-  content: "";
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 60px;
-  width: 60px;
-  margin: -30px;
   border-radius: 50%;
   border: 3px solid lightgray;
   border-top-color: coral;
-  -webkit-animation: spinner 0.7s linear infinite;
-          animation: spinner 0.7s linear infinite;
-}
-
-.SpinnerContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100vh;
-  opacity: 0.6;
+  -webkit-animation: spinner 0.7s  linear infinite;
+          animation: spinner 0.7s  linear infinite;
 }
 
 @-webkit-keyframes spinner {

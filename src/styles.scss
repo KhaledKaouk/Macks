@@ -344,8 +344,8 @@ $TextColor: #6f5948;
         display: flex;
         justify-content: space-around;
         flex-direction: column;
-        padding: 1rem; 
-        .Check{
+        padding: 1rem;
+        .Check {
             padding: 0.3rem;
         }
     }
@@ -654,26 +654,52 @@ $TextColor: #6f5948;
     }
 }
 
-.PoDetails{
+.PoDetails {
     max-height: 40rem;
     margin: 2rem 2rem;
-    ul{
+    ul {
         list-style-type: none;
         column-count: 2;
-        li{
+        li {
             margin-bottom: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             a {
                 display: block;
-                
             }
-            label{
-                display: block;                
-            }   
+            label {
+                display: block;
+            }
         }
+    }
+}
 
+.spinner-1 {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 60px;
+    width: 60px;
+    margin: -30px;
+    border-radius: 50%;
+    border: 3px solid lightgray;
+    border-top-color: coral;
+    animation: spinner 0.7s linear infinite;
+}
+.SpinnerContainer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    opacity: 0.6;
+}
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
     }
 }
 
@@ -740,9 +766,8 @@ $TextColor: #6f5948;
         }
     }
 }
-@media screen and (max-width: 650px){
-    .LargeScreenOnly{
+@media screen and (max-width: 650px) {
+    .LargeScreenOnly {
         display: none;
     }
-    
 }

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgProgress, NgProgressRef } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AddPreffixAndExtention, UploadFile } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, Spinner, UploadFile } from 'src/app/Utilities/Common';
 import {Auth_error_handling} from 'src/app/Utilities/Errorhadling'
 @Component({
   selector: 'app-new-po',
@@ -29,16 +28,14 @@ export class NewPoComponent implements OnInit {
   })
 
   SeletedFile: any;
-  progressRef: any;
 
   constructor(private Pos: POsService,
     private Notification: NotificationserService,
-    private progress:NgProgress,
-    private router: Router) { }
+    private router: Router,
+    private spinner: Spinner) { }
 
   ngOnInit(): void {
     CheckToken(this.router);
-    this.progressRef = this.progress.ref('myProgress');
   }
 
 
@@ -48,7 +45,6 @@ export class NewPoComponent implements OnInit {
 
   Submit() {
     this.DisableSubmitButton();
-    this.progressRef.start();
     this.AssignFormValuesToObject();
 
     let fd = new FormData();
@@ -63,7 +59,7 @@ export class NewPoComponent implements OnInit {
 
       let UploadProcess: any;
       (async () => {
-        UploadProcess = await UploadFile(this.Pos, fd, FileName, this.Notification, this.progressRef, this.router)
+        UploadProcess = await UploadFile(this.Pos, fd, FileName, this.Notification, this.spinner, this.router)
         if (UploadProcess == true) {
           this.CreatePO();
         }
@@ -71,7 +67,6 @@ export class NewPoComponent implements OnInit {
       })();
     }
      else {
-       this.progressRef.complete();
        this.EnableSubmitButton();
        this.Notification.OnError('Please Select A Po To Upload')
     }
@@ -88,14 +83,13 @@ export class NewPoComponent implements OnInit {
 
 }
   CreatePO(){
-  this.Pos.CreatePo(this.NewPo).toPromise().then((res: any) => {
+  this.spinner.WrapWithSpinner( this.Pos.CreatePo(this.NewPo).toPromise().then((res: any) => {
       this.Notification.OnSuccess(res)
-      this.progressRef.complete()
       this.router.navigateByUrl('/MyPos')
 
   },(err:any) => {
-    Auth_error_handling(err,this.progressRef,this.Notification,this.router)
+    Auth_error_handling(err,this.Notification,this.router)
     this.EnableSubmitButton();
-  })
+  }))
 }
 }

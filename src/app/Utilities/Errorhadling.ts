@@ -1,15 +1,14 @@
 import { Router } from "@angular/router";
 import { NgProgressRef } from "ngx-progressbar";
 import { NotificationserService } from "../Services/notificationser.service";
+import { Spinner } from "./Common";
 
 
 
-export function Auth_error_handling(err:any,progressRef: NgProgressRef,Notification: NotificationserService, router: Router):void{
+export function Auth_error_handling(err:any,Notification: NotificationserService, router: Router):void{
     if (err.error.message == "Authorization has been denied for this request."){
-        progressRef.complete()
         router.navigateByUrl('/LogIn')
       }else{
-        progressRef.complete()
         Notification.OnError('try again later ' + err.error.message)
       }
 }

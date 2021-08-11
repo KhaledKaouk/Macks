@@ -1,9 +1,8 @@
-import { Type } from "@angular/core";
+import { Injectable, Injector, Type } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { NgProgress, NgProgressRef } from "ngx-progressbar";
-import { type } from "os";
-import { getMaxListeners } from "process";
+import { AppComponent } from "../app.component";
 import { frightPrices } from "../Models/frightPrices";
 import { POs } from "../Models/Po-model";
 import { NotificationserService } from "../Services/notificationser.service";
@@ -24,22 +23,21 @@ export async function UploadFile(
     FormData: FormData,
     FileName: string,
     Notification: NotificationserService,
-    ProgressRef: NgProgressRef,
+    spinner: Spinner,
     router: Router) {
-
-    try {
-        const res = await PoService.Uploadfile(FormData, FileName).toPromise();
-        if (res == true) {
-            return true
-        } else {
-            ProgressRef.complete()
-            Notification.OnError("The File Was Not Uploaded Please Try Again Later")
-            return false
-        }
-    } catch (err) {
-        Auth_error_handling(err, ProgressRef, Notification, router)
-        return false;
-    }
+    
+        const res = await spinner.WrapWithSpinner( PoService.Uploadfile(FormData, FileName).toPromise().then((res :any) =>{
+            if (res == true) {
+                return true
+            } else {
+                Notification.OnError("The File Was Not Uploaded Please Try Again Later")
+                return false
+            }
+        },
+        (err) => {
+       Auth_error_handling(err, Notification, router)
+       return false;
+        }));
 }
 
 export let StaticData: POs[] = [
@@ -153,4 +151,16 @@ export type Tools = {
 
 export function CapitlizeFirstLater(anyString: string){
     return anyString.replace(anyString[0],anyString[0].toUpperCase())
+}
+@Injectable({
+    providedIn: 'root'
+  })
+export class Spinner{
+
+    constructor(private app: AppComponent){}
+
+    WrapWithSpinner(Promise: Promise<any>){
+        this.app.ShowSpinner();
+        Promise.finally(() =>{this.app.HideSpinner();})
+    }
 }

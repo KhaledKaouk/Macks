@@ -5,7 +5,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
-import { AddPreffixAndExtention, AdjustingDataForDisplay, Directories, DownLoadFile, Functionalities, ProgrssBar, UploadFile } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, AdjustingDataForDisplay, Directories, DownLoadFile, Functionalities, ProgrssBar, Spinner, UploadFile } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component';
 
@@ -17,7 +17,6 @@ import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component'
 export class PoDetailsComponent implements OnInit {
 
   ViewedPO: POs = new POs();
-  progressRef: any;
   SeletedFile: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: [POs, string[]],
@@ -25,8 +24,8 @@ export class PoDetailsComponent implements OnInit {
     private dialog: MatDialog,
     private PoService: POsService,
     private Notification: NotificationserService,
-    private progress: NgProgress,
     private router: Router,
+    private spinner: Spinner
   ) { }
 
   Functionalities: string[] = this.data[1];
@@ -36,7 +35,6 @@ export class PoDetailsComponent implements OnInit {
 
     this.AlertMackOnUploadedPO();
     this.CheckFunctionalities();
-    this.progressRef = this.progress.ref('PoPopUProgress');
 
   }
 
@@ -118,7 +116,6 @@ export class PoDetailsComponent implements OnInit {
     window.alert("you need to hit Apply changes to Complete the process");
   }
   Submit() {
-    this.progressRef.start();
 
     let fd = new FormData();
 
@@ -132,7 +129,7 @@ export class PoDetailsComponent implements OnInit {
 
       let UploadProcess: any;
       (async () => {
-        UploadProcess = await UploadFile(this.PoService, fd, FileName, this.Notification, this.progressRef, this.router)
+        UploadProcess = await UploadFile(this.PoService, fd, FileName, this.Notification,this.spinner, this.router)
         if (UploadProcess == true) {
           this.MackUpdate();
         }
@@ -142,7 +139,7 @@ export class PoDetailsComponent implements OnInit {
     }
   }
   MackUpdate() {
-    this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
+    this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
       if (res == true) {
         this.Notification.OnSuccess("You Updated the Po successfully")
         this.Close()
@@ -150,11 +147,11 @@ export class PoDetailsComponent implements OnInit {
         this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
       }
     }, (err: any) => {
-      Auth_error_handling(err, this.progressRef, this.Notification, this.router)
-    }).finally(() => { this.progressRef.complete(); })
+      Auth_error_handling(err, this.Notification, this.router)
+    }))
   }
   CorinthainUpdate() {
-    ProgrssBar(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
+    this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
       if (res == true) {
         this.Notification.OnSuccess("You Updated the Po successfully")
         this.Close()
@@ -162,8 +159,8 @@ export class PoDetailsComponent implements OnInit {
         this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
       }
     }, (err: any) => {
-      Auth_error_handling(err, this.progressRef, this.Notification, this.router)
-    }), this.progressRef)
+      Auth_error_handling(err, this.Notification, this.router)
+    }))
   }
   Close() {
     this.dialogref.close();

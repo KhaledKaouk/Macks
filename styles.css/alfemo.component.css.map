@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/app/Components/alfemo/alfemo.component.sass"
+    ],
+    "names": [],
+    "file": "alfemo.component.css"
+}
