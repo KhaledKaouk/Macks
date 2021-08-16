@@ -1,11 +1,16 @@
-@import "utilities";
-
-$Primary-color: #f5f5f5;
-$Secondary-Color: #6f5948;
-$footer-color: #3c2e25;
-$buttonhover: #b99b85;
-$AddressHeader: #f4f4f4;
-$TextColor: #6f5948;
+@import "./SassPages/variables";
+@import "./SassPages/utilities";
+@import "./SassPages/DataTableWraper";
+@import "./SassPages/Header";
+@import "./SassPages/Footer";
+@import "./SassPages/Cataloge";
+@import "./SassPages/AlfemoUpdate";
+@import "./SassPages/ProductDetails";
+@import "./SassPages/PoDetails";
+@import "./SassPages/HomeSlide";
+@import "./SassPages/AddressHeader";
+@import "./SassPages/InputForm";
+@import "./SassPages/Spinner";   
 * {
     box-sizing: border-box;
     margin: 0;
@@ -14,629 +19,6 @@ $TextColor: #6f5948;
 }
 ul{
    list-style-type: none; 
-}
-
-.topOfHeader {
-    @include FlexSpaceAround;
-
-    font-size: 16px;
-    padding: 1% 8%;
-    img {
-        width: 5%;
-        height: 100%;
-        padding: 0% 1%;
-    }
-    .left {
-        text-align: left;
-        display: flex;
-        align-content: center;
-        justify-content: start;
-    }
-    .right {
-        text-align: right;
-        display: flex;
-        align-content: center;
-        justify-content: flex-end;
-    }
-}
-
-.middleOfHeader {
-    @include FlexSpaceAround;
-    height: 6rem;
-    border-bottom: 0.2px solid lighten($Secondary-Color, 50);
-    align-items: center;
-    background-color: $Primary-color;
-    button {
-        @include FlexAllCenter;
-        background-color: $Secondary-Color;
-        border-radius: 0 30px 30px 0;
-        border: none;
-        display: inline;
-        width: 53px;
-        height: 45px;
-        &:focus {
-            outline: none;
-        }
-    }
-    .InputField {
-        @include FlexAllCenter;
-    }
-    #Searchinput {
-        font-size: 18px;
-        padding-inline-start: 10px;
-        @include InputFormElementsSize;
-        border: 1px solid #afa4a4;
-        border-top-left-radius: 30px;
-        border-bottom-left-radius: 30px;
-        border-right: none;
-
-        &:focus {
-            outline: none;
-        }
-    }
-    .searchIcon {
-        width: 50%;
-        height: 50%;
-    }
-    .LogInIcon {
-        width: 40%;
-    }
-    .right {
-        text-align: right;
-        cursor: pointer;
-        transition: size 1s ease-in;
-        &:hover {
-            transform: scale(0.95);
-        }
-    }
-
-    a {
-        color: $Secondary-Color;
-        text-decoration: none;
-        font-size: 22px;
-        &:hover {
-            color: $Secondary-Color;
-        }
-    }
-}
-
-.bottomOfHeader {
-    @include FlexSpaceAround;
-    ul {
-        @include FlexAllCenter;
-        li {
-            padding: 0.83em 1.04em;
-            color: $Secondary-Color;
-            font-size: 1.75em;
-            font-weight: 400;
-            &:hover {
-                cursor: pointer;
-                color: lighten($Secondary-Color, 30%);
-            }
-            label {
-                cursor: pointer;
-            }
-        }
-    }
-    #menuCheckBox {
-        display: none;
-    }
-}
-
-.Slide {
-    width: 100%;
-    @include FlexSpaceAround;
-    align-items: center;
-    position: relative;
-    img {
-        width: 86%;
-        height: 38rem;
-        position: relative;
-    }
-
-    .overslide {
-        position: absolute;
-        margin: 10%;
-        padding-top: 12%;
-
-        button {
-            width: 30%;
-            border: 1px solid white;
-            color: white;
-            background: transparent;
-            padding: 3%;
-            margin-top: 5%;
-            transition: 0.4s ease-in;
-            font-size: 19px;
-        }
-        button:hover {
-            cursor: pointer;
-            font-size: 19px;
-            background-color: white;
-            color: $footer-color;
-        }
-        p {
-            font-weight: 300;
-            font-size: 30px;
-            color: white;
-        }
-    }
-}
-.ProductSamples {
-    @include FlexSpaceEvenly;
-    align-items: center;
-
-    padding: 5rem;
-    img {
-        width: 100%;
-        height: 18rem;
-        opacity: 1;
-    }
-
-    button {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        font-size: 20px;
-        background-color: $footer-color;
-        opacity: 0;
-        transition: opacity 0.3s ease-in;
-    }
-    button:hover {
-        color: white;
-        opacity: 0.6;
-        cursor: pointer;
-    }
-    .card {
-        position: relative;
-        display: flex;
-        justify-content: space-around;
-        margin-left: 0.5rem;
-        margin-right: 0.5rem;
-    }
-}
-
-.footer {
-    background-color: #3c2e25;
-    padding: 7%;
-    margin: 3% 0%;
-    color: white;
-    @include FlexSpaceEvenly;
-    .InfoCard {
-        text-align: center;
-        width: 30%;
-        .Ptitle {
-            padding-bottom: 20px;
-            font-size: 22px;
-        }
-        a {
-            color: white;
-            text-decoration: none;
-            cursor: none;
-            margin-bottom: 20px;
-        }
-    }
-
-    li {
-        color: white;
-        padding-bottom: 2%;
-    }
-}
-.CreatePo {
-    color: $footer-color;
-    @include FlexAllCenter;
-    flex-direction: column;
-    margin: 2% 30%;
-    .InputWraper {
-        label {
-            font-size: 18px;
-            margin-top: 2%;
-            margin-bottom: 2%;
-        }
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        margin: 2%;
-    }
-    select {
-        font-size: 18px;
-        padding-inline-start: 10px;
-        @include InputFormElementsSize;
-        border: 1px solid #e4e4e4;
-        transition: border 0.4s ease-in;
-
-        &:focus {
-            outline: none;
-            width: 360px;
-            border: 1px solid $footer-color;
-        }
-    }
-    input {
-        font-size: 18px;
-        padding-inline-start: 10px;
-        @include InputFormElementsSize;
-        border: 1px solid #e4e4e4;
-        transition: border 0.4s ease-in;
-
-        &:focus {
-            outline: none;
-            width: 360px;
-            border: 1px solid $footer-color;
-        }
-    }
-    textarea {
-        font-size: 18px;
-        padding-inline-start: 10px;
-        @include InputFormElementsSize;
-        border: 1px solid #e4e4e4;
-        transition: border 0.4s ease-in;
-
-        &:focus {
-            outline: none;
-            width: 360px;
-            border: 1px solid $footer-color;
-        }
-    }
-    .file {
-        border: none;
-    }
-    .title {
-        font-size: 25px;
-        font-weight: bold;
-        margin: 3%;
-    }
-    button {
-        @include InputFormElementsSize;
-        border: 1px solid $footer-color;
-        color: $footer-color;
-        background: transparent;
-        transition: 0.2s ease-in;
-        font-size: 25px;
-    }
-    button:hover {
-        cursor: pointer;
-        background-color: $buttonhover;
-        border-color: $buttonhover;
-        color: white;
-    }
-    button:disabled {
-        background-color: gray;
-        color: white;
-        border: gray;
-
-        &:hover {
-            background-color: gray;
-            color: white;
-            border: gray;
-        }
-    }
-}
-.DataTableWraper {
-    @include FlexSpaceAround;
-    flex-direction: row;
-    position: relative;
-    .table {
-        border-collapse: collapse;
-        margin: 1.5rem 0px;
-        font-size: 1.1rem;
-        min-width: 15rem;
-        border-radius: 10px 10px 0 0;
-        overflow: hidden;
-        box-shadow: 0 0 1.1rem rgba(0, 0, 0, 0.15);
-        thead tr {
-            background-color: darken($Primary-color, 20);
-            color: $footer-color;
-            text-align: center;
-            font-weight: bold;
-        }
-        td {
-            padding: 0.8rem 0.9rem;
-        }
-        th {
-            padding: 0.8rem 0.9rem;
-        }
-        tbody tr {
-            border-bottom: 1px solid #dddddd;
-        }
-        tr:nth-of-type(even) {
-            background-color: #f3f3f3;
-        }
-        tbody {
-            td {
-                text-align: center;
-                color: $footer-color;
-            }
-            tr:last-of-type {
-                border-bottom: 2px solid $footer-color;
-            }
-            tr:hover {
-                font-weight: bold;
-            }
-            a {
-                width: 100%;
-                border: 1px solid $footer-color;
-                padding: 0.2rem;
-                transition: background-color 0.3s ease-in;
-            }
-            a:hover {
-                background-color: $buttonhover;
-                color: $Primary-color;
-                border-color: $buttonhover;
-                cursor: pointer;
-            }
-        }
-    } 
-    .pagination {
-        ul {
-            @include FlexAllCenter;
-            
-            button {
-                background-color: transparent;
-                border: 1px solid $footer-color;
-                border-radius: 5px;
-                color: $footer-color;
-                font-size: 19px;
-                padding: 2px 4px;
-                margin: 1px;
-                &:hover {
-                    cursor: pointer;
-                    background-color: #b99b85;
-                    color: white;
-                }
-            }
-        }
-    }
-}
-
-.AlfemoUpdateWraper{
-    @include FlexSpaceAround;
-    flex-direction: row;
-    position: relative;
-    .Close {
-        position: absolute;
-        width: 3%;
-        background-color: transparent;
-        border: 1px solid rgb(177, 24, 24);
-        color: rgb(177, 24, 24);
-        text-align: center;
-        font-size: 18px;
-        top: 0;
-        right: 0;
-        &:hover {
-            background-color: rgb(177, 24, 24);
-            color: white;
-            cursor: pointer;
-        }
-    }
-}
-.AddressHeader {
-    padding: 20px;
-    height: 150px;
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: center;
-    background-color: $AddressHeader;
-    color: $TextColor;
-    h1 {
-        font-weight: bold;
-        letter-spacing: 2px;
-        font-size: 22px;
-        margin: 8px;
-    }
-    h2 {
-        word-spacing: 10px;
-    }
-}
-#AlfemoUpdate {
-    margin: 10%;
-}
-.Product {
-    @include FlexSpaceEvenly;
-    img {
-        width: 100%;
-    }
-    .details {
-        display: flex;
-        justify-content: start;
-        align-items: flex-start;
-        flex-direction: column;
-
-        ul {
-            
-            margin: 10px;
-        }
-        .Head {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            flex-direction: column;
-
-            margin-left: 10px;
-            margin-bottom: 20px;
-
-            border-bottom: 1px solid #e4e4e4;
-
-            color: darken($buttonhover, 20);
-            font-size: 28px;
-
-            label {
-                margin-bottom: 15px;
-                margin-left: 15px;
-            }
-        }
-        .description {
-            margin-left: 10px;
-
-            color: darken($buttonhover, 20);
-            font-size: 19px;
-
-            border-bottom: 1px solid #e4e4e4;
-            p {
-                margin-left: 15px;
-                margin-bottom: 15px;
-            }
-        }
-        .BuyingOptions {
-            margin-left: 10px;
-            margin-top: 15px;
-            @include FlexSpaceEvenly;
-            label {
-                margin-left: 15px;
-                color: darken($buttonhover, 20);
-            }
-
-            select {
-                margin-left: 15px;
-                width: 175px;
-                height: 30px;
-
-                border: none;
-                border-bottom: 1px solid $buttonhover;
-
-                &:hover {
-                    cursor: pointer;
-                }
-            }
-        }
-    }
-}
-
-.PoDetails {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-    .data {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 0.2rem;
-        border: 0.01rem solid #e4e4e4;
-        background-color: #f3f3f3;
-
-        .Side {
-            @include FlexSpaceEvenly;
-            align-items: flex-start;
-            ul {
-                
-                @include FlexSpaceEvenly;
-                align-items: flex-start;
-                flex-direction: column;
-                margin-left: 0.3rem;
-            }
-            li {
-                @include FlexSpaceEvenly;
-                align-items: flex-start;
-                padding-bottom: 0.2rem;
-                label {
-                    padding: 0rem 0.5rem;
-                    margin: 0.5rem 0rem;
-                    opacity: 80%;
-                    max-width: 10rem;
-                    color: $footer-color;
-                    font-size: 1.1rem;
-                    font-weight: bold;
-                }
-                a {
-                    padding: 0rem 0.5rem;
-                    margin: 0.5rem 0rem;
-                    color: $footer-color;
-                    font-size: 1.1rem;
-                }
-            }
-        }
-    }
-    .buttons {
-        padding: 0.5rem;
-        margin-top: 1rem;
-        @include FlexSpaceEvenly;
-        align-items: flex-start;
-        flex-wrap: wrap;
-        gap: 1rem;
-        a {
-            width: 12rem;
-            border: 0.1rem solid $footer-color;
-            padding: 0.3rem;
-            text-align: center;
-            transition: background-color 0.4s ease-in;
-        }
-        a:hover {
-            background-color: $buttonhover;
-            color: $Primary-color;
-            border-color: $buttonhover;
-            cursor: pointer;
-        }
-    }
-    .element {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        gap: 1rem;
-        label {
-            font-size: 1rem;
-        }
-        input {
-            font-size: 1rem;
-            width: 18rem;
-            padding-inline-start: 1rem;
-            border: 0.1rem solid #e4e4e4;
-            transition: border 0.4s ease-in;
-
-            &:focus {
-                outline: none;
-                border: 1px solid $footer-color;
-            }
-        }
-    }
-}
-
-.PoDetails2{
-    max-height: 40rem;
-    margin: 2rem 2rem;
-    ul{
-        
-        column-count: 2;
-        li {
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            a {
-                display: block;
-            }
-            label {
-                display: block;
-            }
-        }
-    }
-}
-
-.spinner-1 {
-    content: "";
-    box-sizing: border-box;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 60px;
-    width: 60px;
-    margin: -30px;
-    border-radius: 50%;
-    border: 3px solid lightgray;
-    border-top-color: coral;
-    animation: spinner 0.7s linear infinite;
-}
-.SpinnerContainer{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100vh;
-    opacity: 0.6;
-}
-@keyframes spinner {
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 @media only screen and (max-width: 980px) {
@@ -661,7 +43,7 @@ ul{
             margin-top: 0.5rem;
         }
     }
-    .bottom {
+    .bottomOfHeader {
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
@@ -701,9 +83,53 @@ ul{
             justify-content: flex-start;
         }
     }
+    .PoDetailsWraper{
+        align-items: flex-start;
+        justify-content: flex-start;
+        label{
+            text-align: left;
+        }
+        a{
+            text-align: right;
+        }
+    }    
 }
 @media screen and (max-width: 650px) {
     .LargeScreenOnly {
         display: none;
     }
+    .CreatePo{
+        margin: 1%;
+        input,button,select,textarea {
+            width: 15rem;
+            &:focus{
+                width: 15.5rem;
+            }
+        }
+    }
+    .AddressHeader{
+        h1,h2{
+            font-size: 1rem;
+        }
+    }
+    .PoDetailsWraper{
+        label{
+            text-align: left;
+            font-size: 0.7rem;
+        }
+        a{
+            text-align: right;
+            font-size: 0.7rem;
+        }
+        p{
+            font-size: 0.7rem;
+        }
+    }
+    .Close{
+        display: block;
+        text-align: center;
+        min-width: 1rem;
+    }
+    
 }
+

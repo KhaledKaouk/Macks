@@ -1,0 +1,38 @@
+.Slide {
+    width: 100%;
+    @include FlexSpaceAround;
+    align-items: center;
+    position: relative;
+    img {
+        width: 86%;
+        height: 38rem;
+        position: relative;
+    }
+
+    .overslide {
+        position: absolute;
+        margin: 10%;
+        padding-top: 12%;
+
+        button {
+            width: 30%;
+            border: 1px solid white;
+            color: white;
+            background: transparent;
+            padding: 3%;
+            margin-top: 5%;
+            transition: 0.4s ease-in;
+            font-size: 1.1rem;
+        }
+        button:hover {
+            cursor: pointer;
+            background-color: white;
+            color: $footer-color;
+        }
+        p {
+            font-weight: 300;
+            font-size: 2rem;
+            color: white;
+        }
+    }
+}

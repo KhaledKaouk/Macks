@@ -1,0 +1,94 @@
+.DataTableWraper {
+    @include FlexSpaceAround;
+    flex-direction: row;
+    position: relative;
+    .table {
+        border-collapse: collapse;
+        margin: 1.5rem 0px;
+        font-size: 1.1rem;
+        min-width: 15rem;
+        border-radius: 10px 10px 0 0;
+        overflow: hidden;
+        box-shadow: 0 0 1.1rem rgba(0, 0, 0, 0.15);
+        thead tr {
+            background-color: darken($Primary-color, 20);
+            color: $footer-color;
+            text-align: center;
+            font-weight: bold;
+        }
+        td {
+            padding: 0.8rem 0.9rem;
+        }
+        th {
+            padding: 0.8rem 0.9rem;
+        }
+        tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+        tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+        tbody {
+            td {
+                text-align: center;
+                color: $footer-color;
+            }
+            tr:last-of-type {
+                border-bottom: 2px solid $footer-color;
+            }
+            tr:hover {
+                font-weight: bold;
+            }
+            a {
+                width: 100%;
+                border: 1px solid $footer-color;
+                padding: 0.2rem;
+                transition: background-color 0.3s ease-in;
+            }
+            a:hover {
+                background-color: $buttonhover;
+                color: $Primary-color;
+                border-color: $buttonhover;
+                cursor: pointer;
+            }
+        }
+    } 
+    .pagination {
+        ul {
+            @include FlexAllCenter;
+            
+            button {
+                background-color: transparent;
+                border: 1px solid $footer-color;
+                border-radius: 5px;
+                color: $footer-color;
+                font-size: 1.1rem;
+                padding: 2px 4px;
+                margin: 1px;
+                &:hover {
+                    cursor: pointer;
+                    background-color: #b99b85;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+.SearchInput{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    input{
+        font-size: 1.1rem;
+        padding-inline-start: 10px;
+        @include InputFormElementsSize;
+        border: 1px solid #e4e4e4;
+        transition: border 0.4s ease-in;
+
+        &:focus {
+            outline: none;
+            width: 360px;
+            border: 1px solid $footer-color;
+        }
+    }
+}

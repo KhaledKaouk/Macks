@@ -1,11 +1,7 @@
 <div class="AlfemoUpdateWraper">
   <a class="Close" (click)=Close()>X</a>
-
-  <h1 style="font-size: xx-large; color: rgb(3, 1, 88); font-weight: 400; margin-left: 37%;" class="align-self-center">
-    Update Po</h1>
 </div>
 <div class="CreatePo" id="AlfemoUpdate" [formGroup]="UpdatedPo">
-
   <div class="InputWraper">
     <label for="Status">Status</label>
     <select name="Status" aria-label="Default select example" formControlName="Status" (change) = "AssignValidators($event)">

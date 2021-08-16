@@ -1,5 +1,6 @@
-import { Injectable, Injector, Type } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
+import { compileFactoryFunction } from "@angular/compiler";
+import { Injectable, Injector, Pipe, PipeTransform, Type } from "@angular/core";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { NgProgress, NgProgressRef } from "ngx-progressbar";
 import { AppComponent } from "../app.component";
@@ -18,44 +19,50 @@ export function AddPreffixAndExtention(Preffix: string, FileNameBody: string, Ge
     return AdjustedFileName;
 }
 
-export async function UploadFile(
+export  async function UploadFile(
     PoService: POsService,
     FormData: FormData,
     FileName: string,
     Notification: NotificationserService,
     spinner: Spinner,
     router: Router) {
-    
-        const res = await spinner.WrapWithSpinner( PoService.Uploadfile(FormData, FileName).toPromise().then((res :any) =>{
-            if (res == true) {
-                return true
-            } else {
-                Notification.OnError("The File Was Not Uploaded Please Try Again Later")
-                return false
-            }
-        },
+
+        let result: boolean = true;
+        spinner.ShowSpinner();
+        await PoService.Uploadfile(FormData, FileName).toPromise().then((res: any) => {
+        if (res == true) {
+            result = res;
+            return true;
+        } else {
+            Notification.OnError("The File Was Not Uploaded Please Try Again Later");
+            result = false;
+            return false;
+        }
+    },
         (err) => {
-       Auth_error_handling(err, Notification, router)
-       return false;
-        }));
+            Auth_error_handling(err, Notification, router);
+            result = false;
+            return false;
+        }).finally(() =>{spinner.HideSppiner()});
+        return result
 }
 
 export let StaticData: POs[] = [
     {
         id: 1,
-        dealerName: "test1",
+        dealerName: "",
         dealerEmail: "kaoukyaseenkhaled@gmail.com",
         dealerPONumber: "00 222 2229191",
         mackPONumber: "tse1",
         corinthianPO: "abcd-1234567890",
         itemID: 0,
         supplierName: "test1",
-        userID: "test",
+        userID: "",
         mackPOAttach: "111",
         corinthianPOAttach: "",
         shippingDocs: "",
-        comments: "setse",
-        alfemoComments: "test",
+        comments: "tnaklsjfh;a iosjc;klasjd;k lasmdklaslknmdalsjdfasklnmc as;klndalksdnas;kldnas;kl  na;lksdaklsdm  aklsd klasdn;lqwknmd lksand;lkas mdlasknd klsmd klasnmd klasd lkmaskl mdla's mest",
+        alfemoComments: "tnaklsjfh;aios jc;klasjd;kla mdklaslknmdalsjdfask nmcas;klndalk sdnas;kldnas;kl na;lksdaklsdm  aklsd klasdn;lqwknmd lksand;lkas mdlasknd klsmd klasnmd klasd lkmaskl mdla's mest",
         status: "tseetssetest",
         productionRequestDate: "08/09/2022",
         factoryEstimatedShipDate: "08/09/2022",
@@ -96,13 +103,13 @@ export let StaticData: POs[] = [
 ];
 
 export let FrightPricesStaticData: frightPrices[] = [{
-    id: 1, 
+    id: 1,
     locations: "nY",
     currentprice: 125,
     oldprice: 100,
     changedon: "1998-2-12"
 
-}] 
+}]
 
 export function DownLoadFile(Directory: string, FileName: string) {
     const link = document.createElement('a');
@@ -132,35 +139,83 @@ export function AdjustingDataForDisplay(ApprovedStatus: boolean) {
     }
 }
 export let Functionalities: { [key: string]: string[] } = {
-    Admin: ["Approve","MackPo","ShippingDocs","Reject","CorinthainPo","ApplyChanges","MackUpload"],
-    Corinthain: ["ShippingDocs","CorinthainPo","Update","ProductionRequestDate"],
-    Alfemo: ["MackPo","Update"]
+    Admin: ["Approve", "MackPo", "ShippingDocs", "Reject", "CorinthainPo", "ApplyChanges", "MackUpload"],
+    Corinthain: ["ShippingDocs", "CorinthainPo", "Update", "ProductionRequestDate"],
+    Alfemo: ["MackPo", "Update"]
 }
 
-export function OrderPosByDate(Pos: POs[]){
-   return Pos.reverse();
+export function OrderPosByDate(Pos: POs[]) {
+    return Pos.reverse();
 }
 
 export type Tools = {
-    notifications : NotificationserService,
+    notifications: NotificationserService,
     progress: NgProgress,
     router: Router,
     dialog: MatDialog
 
 }
 
-export function CapitlizeFirstLater(anyString: string){
-    return anyString.replace(anyString[0],anyString[0].toUpperCase())
+export function CapitlizeFirstLater(anyString: string) {
+    return anyString.replace(anyString[0], anyString[0].toUpperCase())
 }
 @Injectable({
     providedIn: 'root'
-  })
-export class Spinner{
+})
+export class Spinner {
 
-    constructor(private app: AppComponent){}
+    constructor(private app: AppComponent) { }
 
-    WrapWithSpinner(Promise: Promise<any>){
+    WrapWithSpinner<T>(Promise: Promise<any>,dialogref?: MatDialogRef<T>) {
         this.app.ShowSpinner();
-        Promise.finally(() =>{this.app.HideSpinner();})
+        if(dialogref) HideDialog(dialogref)
+        Promise.finally(() => { 
+            this.app.HideSpinner();
+            if(dialogref) ShowDialog(dialogref);
+         })
+    }
+    HideSppiner(){
+        this.app.HideSpinner();
+    }
+    ShowSpinner(){
+        this.app.ShowSpinner();
     }
 }
+export function FilterPosBy(ListOfPos: POs[], CorinthianPo?: string,
+    DealerName?: string,
+    MackPo?: string,
+    Status?: string,
+    productionRequestDate?: string,
+    factoryEstimatedShipDate?: string,
+    factoryEstimatedArrivalDate?: string,
+    containerNumber?: string,
+    ApprovalStatus?: boolean) {
+        console.log("comon " + ListOfPos)
+    if (CorinthianPo) return ListOfPos.filter(Po => Po.corinthianPO.includes(CorinthianPo))
+    if (DealerName) return ListOfPos.filter(Po => Po.corinthianPO == CorinthianPo)
+    if (MackPo) return ListOfPos.filter(Po => Po.mackPONumber == MackPo)
+    if (Status) return ListOfPos.filter(Po => Po.status == Status)
+    if (productionRequestDate) return ListOfPos.filter(Po => Po.productionRequestDate == productionRequestDate)
+    if (factoryEstimatedShipDate) return ListOfPos.filter(Po => Po.factoryEstimatedShipDate == factoryEstimatedShipDate)
+    if (factoryEstimatedArrivalDate) return ListOfPos.filter(Po => Po.factoryEstimatedArrivalDate == factoryEstimatedArrivalDate)
+    if (containerNumber) return ListOfPos.filter(Po => Po.containerNumber == containerNumber)
+    if (ApprovalStatus) return ListOfPos.filter(Po => Po.approvalStatus == ApprovalStatus)
+
+    return ListOfPos;
+}
+@Pipe({name: 'EmptyField'})
+export class EmptyField implements PipeTransform{
+    transform(PoProperty:string){
+        if(PoProperty == "") {return "Unavailable"} else {return PoProperty}
+    }
+}
+export function ShowDialog<T>(dialogref: MatDialogRef<T>){
+    dialogref.updatePosition({top:'4.5rem'})
+    dialogref.updateSize('55rem','30rem')
+    dialogref.disableClose = false;
+  }
+  export function HideDialog<T>(dialogref: MatDialogRef<T>){
+    dialogref.disableClose = true;
+    dialogref.updateSize('0px','0px')
+    dialogref.updatePosition({top:'-200px'})
+  }

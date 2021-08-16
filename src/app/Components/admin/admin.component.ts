@@ -6,7 +6,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AdjustingDataForDisplay, Functionalities, Spinner, StaticData } from 'src/app/Utilities/Common';
+import { AdjustingDataForDisplay, FilterPosBy, Functionalities, Spinner, StaticData } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AdminReviewComponent } from '../admin-review/admin-review.component';
 import { PoDetailsComponent } from '../po-details/po-details.component';
@@ -51,25 +51,29 @@ export class AdminComponent implements OnInit {
       Auth_error_handling(err, this.notification, this.router)
 
     }))
-     /* this.mydata = StaticData;
-    this.mydata.reverse();
-    this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);
-    this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
-    this.SliceDataForPaginantion(0);  */
+      //    this.mydata = StaticData;
+      //  console.log(this.mydata)
+      //  this.mydata.reverse();
+      //  this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);
+      //  this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
+      //  this.SliceDataForPaginantion(0);  
+      //  console.log(this.mydata)  
 
   }
   VeiwDetails(P: POs) {
     let dialogRef = this.dialog.open(PoDetailsComponent, {
       height: '30rem',
-      width: '45rem',
+      width: '55rem',
       data: [P,Functionalities.Admin],
     });
   }
 
-  SliceDataForPaginantion(PageNumber: number) {
+  SliceDataForPaginantion(PageNumber: number,Pos?:POs[]) {
+    let PosForSlicing: POs[] = this.mydata;
+    if(Pos) PosForSlicing = Pos;
     let SliceBegining = PageNumber * this.DataRowsInPage;
-    if (this.mydata.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length >= 1) {
-      this.DataOfCurrentPage = this.mydata.slice(SliceBegining, SliceBegining + this.DataRowsInPage)
+    if (PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length >= 1) {
+      this.DataOfCurrentPage = PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage)
       this.CurrentPage = PageNumber;
     }
   }
@@ -82,5 +86,8 @@ export class AdminComponent implements OnInit {
   }
   AdjustingDataForDisplay(approvalStatus: boolean){
     return AdjustingDataForDisplay(approvalStatus);
+  }
+  FilterPosByCorinthainPo(event: any){
+    this.SliceDataForPaginantion(0,FilterPosBy(this.mydata,event.target.value))
   }
 }

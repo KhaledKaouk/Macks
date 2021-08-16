@@ -34,8 +34,8 @@ export class FrightPricesComponent implements OnInit {
     CheckToken(this.router)
     this.AuthSer.GetRole();
     this.GetFrightPrices();
-    /* this.FrightPricesList = FrightPricesStaticData;
-    this.FrightPricesList.forEach(FrightPrice =>{ FrightPrice.locations = CapitlizeFirstLater(FrightPrice.locations) }) */
+    // this.FrightPricesList = FrightPricesStaticData;
+    // this.FrightPricesList.forEach(FrightPrice => { FrightPrice.locations = CapitlizeFirstLater(FrightPrice.locations) })
 
   }
   UpdateSinglePrice(FrightPriceToUpdate: frightPrices) {

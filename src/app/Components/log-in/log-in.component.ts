@@ -24,7 +24,8 @@ export class LogInComponent implements OnInit {
     private Notificationser: NotificationserService,
     private router: Router,
     private spinner: Spinner,
-    private header: HeaderComponent) { }
+    private header: HeaderComponent,
+    private AuthSer: AuthService) { }
 
   ngOnInit(): void {
       this.Logout();
@@ -57,6 +58,7 @@ export class LogInComponent implements OnInit {
   SetUserNameAndLogStatusToHeader(){
     this.header.SetUserName()
     this.header.Logged();
+    this.header.CheckRole();
   }
   Logout(){
     localStorage.clear();

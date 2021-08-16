@@ -40,7 +40,6 @@ export class AlfemoUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     CheckToken(this.router);
-    // this.progressRef = this.progress.ref('PopUProgress');
 
     this.PoToUpdate = this.data;
     if(this.PoToUpdate.shippingDocs != ""){
@@ -107,7 +106,7 @@ export class AlfemoUpdateComponent implements OnInit {
           }
         }, (err: any) => {
           Auth_error_handling(err, this.Notification, this.router)
-        }))
+        }),this.dialogref)
       }
     }
 

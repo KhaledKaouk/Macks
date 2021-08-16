@@ -1,0 +1,77 @@
+.CreatePo {
+    color: $footer-color;
+    @include FlexAllCenter;
+    flex-direction: column;
+    margin: 1% 30%;
+    .InputWraper {
+        label {
+            font-size: 1.1rem;
+            margin-bottom: 2%;
+        }
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin: 1%;
+    }
+    select {
+        font-size: 1.1rem;
+        padding-inline-start: 10px;
+        @include InputFormElementsSize;
+        border: 1px solid #e4e4e4;
+        transition: border 0.4s ease-in;
+
+        &:focus {
+            outline: none;
+            width: 360px;
+            border: 1px solid $footer-color;
+        }
+    }
+    input {
+        font-size: 1.1rem;
+        padding-inline-start: 10px;
+        @include InputFormElementsSize;
+        border: 1px solid #e4e4e4;
+        transition: border 0.4s ease-in;
+
+        &:focus {
+            outline: none;
+            width: 360px;
+            border: 1px solid $footer-color;
+        }
+    }
+    textarea {
+        font-size: 1.1rem;
+        padding-inline-start: 10px;
+        @include InputFormElementsSize;
+        border: 1px solid #e4e4e4;
+        transition: border 0.4s ease-in;
+
+        &:focus {
+            outline: none;
+            width: 360px;
+            border: 1px solid $footer-color;
+        }
+    }
+    .file {
+        border: none;
+    }
+    button {
+        @include InputFormElementsSize;
+        border: 1px solid $footer-color;
+        color: $footer-color;
+        background: transparent;
+        transition: 0.2s ease-in;
+        font-size: 1.5rem;
+    }
+    button:hover {
+        cursor: pointer;
+        background-color: $buttonhover;
+        border-color: $buttonhover;
+        color: white;
+    }
+    button:disabled {
+        background-color: gray;
+        color: white;
+        border: gray;
+    }
+}

@@ -1,0 +1,95 @@
+.PoDetails {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    .buttons {
+        padding: 0.5rem;
+        margin-top: 1rem;
+        @include FlexSpaceEvenly;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 1rem;
+        a {
+            width: 12rem;
+            border: 0.1rem solid $footer-color;
+            padding: 0.3rem;
+            text-align: center;
+            transition: background-color 0.4s ease-in;
+        }
+        a:hover {
+            background-color: $buttonhover;
+            color: $Primary-color;
+            border-color: $buttonhover;
+            cursor: pointer;
+        }
+    }
+    .element {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+        label {
+            font-size: 1rem;
+        }
+        input {
+            font-size: 1rem;
+            width: 15rem;
+            padding-inline-start: 1rem;
+            border: 0.1rem solid #e4e4e4;
+            transition: border 0.4s ease-in;
+
+            &:focus {
+                outline: none;
+                border: 1px solid $footer-color;
+            }
+        }
+    }
+}
+
+.Potest {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    label {
+        text-align: right;
+        margin: 0.5rem;
+        color: $footer-color;
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+    a {
+        text-align: left;
+        margin: 0.5rem;
+        color: $footer-color;
+        font-size: 1.1rem;
+    }
+    .labels {
+        display: flex;
+        flex-direction: column;
+    }
+    p {
+        display: block;
+        padding: 1rem;
+        text-align: center;
+        margin: 0.5rem;
+    }
+}
+.PoDetailsWraper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border: 0.01rem solid #e4e4e4;
+    background-color: #f3f3f3;
+}
+#SubmitButton {
+    border: 0.2rem solid $footer-color;
+    &:hover{
+        border-color: $buttonhover;
+    }
+   
+}

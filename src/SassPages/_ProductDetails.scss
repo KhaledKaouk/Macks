@@ -1,0 +1,68 @@
+.Product {
+    @include FlexSpaceEvenly;
+    img {
+        width: 100%;
+    }
+    .details {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        ul {
+            margin: 10px;
+        }
+        .Head {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+
+            margin-left: 10px;
+            margin-bottom: 20px;
+
+            border-bottom: 1px solid #e4e4e4;
+
+            color: darken($buttonhover, 20);
+            font-size: 1.5rem;
+
+            label {
+                margin-bottom: 15px;
+                margin-left: 15px;
+            }
+        }
+        .description {
+            margin-left: 10px;
+
+            color: darken($buttonhover, 20);
+            font-size: 1.1rem;
+
+            border-bottom: 1px solid #e4e4e4;
+            p {
+                margin-left: 15px;
+                margin-bottom: 15px;
+            }
+        }
+        .BuyingOptions {
+            margin-left: 10px;
+            margin-top: 15px;
+            @include FlexSpaceEvenly;
+            label {
+                margin-left: 15px;
+                color: darken($buttonhover, 20);
+            }
+
+            select {
+                margin-left: 15px;
+                width: 175px;
+                height: 30px;
+
+                border: none;
+                border-bottom: 1px solid $buttonhover;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

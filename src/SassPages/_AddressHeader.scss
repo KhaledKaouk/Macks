@@ -1,0 +1,20 @@
+.AddressHeader {
+    padding: 0.2rem;
+    height: 5.5rem;
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+    background-color: $AddressHeader;
+    color: $TextColor;
+    h1 {
+        font-weight: bold;
+        letter-spacing: 2px;
+        font-size: 1.2rem;
+        margin: 8px;
+    }
+    h2 {
+        font-size: 1.1rem;
+        word-spacing: 10px;
+    }
+}
+

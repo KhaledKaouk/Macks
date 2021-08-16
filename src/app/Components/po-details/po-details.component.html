@@ -1,111 +1,72 @@
 <div class="PoDetails">
-    <div class="data">
-        <div class="Side">
-            <ul>
-                <li>
-                    <label>Dealer Name</label>
-                </li>
-                <li>
-                    <label>Dealer Email</label>
-                </li>
-                <li>
-                    <label>Dealer Po no</label>
-                </li>
-                <li>
-                    <label>Corinthain Po No</label>
-                </li>
-                <li>
-                    <label>Created By</label>
-                </li>
-                <li>
-                    <label>Container No</label>
-                </li>
-                
-            </ul>
-            <ul>
-                <li><a>{{ViewedPO.dealerName }}</a></li>
-                <li><a>{{ViewedPO.dealerEmail}}</a></li>
-                <li><a>{{ViewedPO.dealerPONumber }}</a></li>
-                <li><a>{{ViewedPO.corinthianPO}} </a></li>
-                <li><a>{{ViewedPO.userID }}</a></li>
-                <li><a>{{ViewedPO.containerNumber}} </a></li>
-            </ul>
+    <mat-dialog-content>
+    <div class="PoDetailsWraper">
+        <div class="Potest">
+            <div class="labels">
+                <label>Dealer Name</label>
+                <label>Delaer Email </label>
+                <label>Dealer Po</label>
+                <label>Corinthain Po</label>
+                <label>Created By</label>
+                <label>Container No</label>       
+            </div>
+            <div class="labels">
+                <a>{{ViewedPO.dealerName | EmptyField}}</a>
+                <a>{{ViewedPO.dealerEmail | EmptyField}}</a>
+                <a>{{ViewedPO.dealerPONumber | EmptyField}}</a>
+                <a>{{ViewedPO.corinthianPO | EmptyField}}</a>
+                <a>{{ViewedPO.userID | EmptyField}}</a>
+                <a>{{ViewedPO.containerNumber | EmptyField}}</a> 
+            </div>
         </div>
-        <div class="Side">
-            <ul>
-                <li>
-                    <label>Factory ETA</label>
-
-                </li>
-                <li>
-                    <label>Factory ESA</label>
-
-                </li>
-                <li>
-                    <label>Production Request Date</label>
-                </li>
-                <li>
-                    <label>Status</label>
-
-                </li>
-                <li>
-                    <label>Approval Status</label>
-
-                </li>
-                <li> 
-                    <label>Corinthain Comments</label>
-                </li>
-                <li>
-                    <label>Alfemo Comments</label>
-                </li>
-            </ul>
-            <ul>
-                <li><a>{{ViewedPO.factoryEstimatedArrivalDate | date:"MM/dd/yyyy"}} </a></li>
-                <li><a>{{ViewedPO.factoryEstimatedShipDate | date:"MM/dd/yyyy"}} </a></li>
-                <li><a>{{ViewedPO.productionRequestDate | date:"MM/dd/yyyy"}}</a></li>
-                <li><a>{{ViewedPO.status}} </a></li>
-                <li><a>{{AdjustingDataForDisplay(ViewedPO.approvalStatus)}} </a></li>
-                <li><a>{{ViewedPO.comments}}</a></li>
-                <li><a>{{ViewedPO.alfemoComments}}</a></li>
-            </ul>
+        <div class="Potest">
+            <div class="labels">
+                <label>Factory ETA</label>
+                <label>Factory ESA</label>
+                <label>Production Request Date</label>
+                <label>Status</label>
+                <label>Approval Status</label>
+            </div>
+            <div class="labels">
+                <a>{{ViewedPO.factoryEstimatedArrivalDate | date:"MM/dd/yyyy"}}</a>
+                <a>{{ViewedPO.factoryEstimatedShipDate | date:"MM/dd/yyyy"}}</a>
+                <a>{{ViewedPO.productionRequestDate | date:"MM/dd/yyyy"}}</a>
+                <a>{{ViewedPO.status | EmptyField}}</a>
+                <a>{{AdjustingDataForDisplay(ViewedPO.approvalStatus) | EmptyField}}</a>
+            </div>
         </div>
     </div>
-    <div id="buttons-1" class="buttons">
-        <div name = "MackUpload" class="element">
-            <label for="file">Upload Po</label>
-            <input type="file" id="file" (change)=UploadPo($event)>
+    <div class="PoDetailsWraper">
+        <div class="Potest">
+            <label>Alfemo Comments</label>
+            <p>{{ViewedPO.alfemoComments | EmptyField}}</p>
+        </div>
+        <div class="Potest">
+            <label>Corinthain Comments</label>
+            <p>{{ViewedPO.comments | EmptyField}}</p>
+        </div>
+    </div>
+    <div  id="buttons-1" class="buttons">
+        <div name="MackUpload" class="element">
+            <label tabindex="-1" for="file">Upload Po</label>
+            <input tabindex="-1" type="file" id="file" (change)=UploadPo($event)>
         </div>
         <div name="ProductionRequestDate" class="element">
-            <label for="ProductionRequestDate">Production Request Date</label>
-            <input name="ProductionRequestDate" type="date" (change)="SetNewDate($event)" aria-label="CorinthainPo">
+            <label tabindex="-1" for="ProductionRequestDate">Production Request Date</label>
+            <input tabindex="-1" name="ProductionRequestDate" type="date" (change)="SetNewDate($event)" aria-label="CorinthainPo">
         </div>
     </div>
     <div id="buttons-2" class="buttons">
-        <a name="MackPo"  (click)=DownloadMackPo()>DownloadMackPo </a>
-        <a name="ShippingDocs"  (click)=DownloadShippingDocument()>DownloadShippingDocs </a>
-        <a name="CorinthainPo"  (click)=DownloadcorithainPo()>DownloadCorinthainPo </a>
+        <a name="MackPo" (click)=DownloadMackPo()>DownloadMackPo </a>
+        <a name="ShippingDocs" (click)=DownloadShippingDocument()>DownloadShippingDocs </a>
+        <a name="CorinthainPo" (click)=DownloadcorithainPo()>DownloadCorinthainPo </a>
         <a name="Reject" (click)=RejectPo()>RejectPo </a>
         <a name="Approve" (click)=ApprovePo()>ApprovePo </a>
-        <a name="Update" (click) = "Update()">UpdatePo</a>
-        <a name="ApplyChanges" (click)=Submit()>ApplyChanges</a>
+        <a name="Update" (click)="Update()">UpdatePo</a>
+        <a name="ApplyChanges" id="SubmitButton" (click)=Submit()>ApplyChanges</a>
     </div>
+    </mat-dialog-content>
 </div>
 <ng-progress id="PoPopUProgress"></ng-progress>
 <simple-notifications></simple-notifications>
 
-<!-- <div class="PoDetails">
-    <ul>
-        <li><label>Dealer Name</label><a>{{ViewedPO.dealerName}}</a></li>
-        <li><label>Delaer Email</label><a>{{ViewedPO.dealerEmail}}</a></li>
-        <li><label>Dealer Po No</label><a>{{ViewedPO.dealerPONumber}}</a></li>
-        <li><label>Corinthain Po No</label><a>{{ViewedPO.corinthianPO}}</a></li>
-        <li><label>Created By</label><a>{{ViewedPO.userID }}</a></li>
-        <li><label>Container No</label><a>{{ViewedPO.containerNumber}}</a></li>
-        <li><label>Factory ETA</label><a>{{ViewedPO.factoryEstimatedArrivalDate | date:"MM/dd/yyyy"}}</a></li>
-        <li><label>Factory ESA</label><a>{{ViewedPO.factoryEstimatedShipDate | date:"MM/dd/yyyy"}}</a></li>
-        <li><label>Production Request Date</label><a>{{ViewedPO.productionRequestDate | date:"MM/dd/yyyy"}}</a></li>
-        <li><label>Status</label><a>{{ViewedPO.status}}</a></li>
-        <li><label>Approval Status</label><a>{{AdjustingDataForDisplay(ViewedPO.approvalStatus)}}</a></li>
-
-    </ul>
-</div> -->

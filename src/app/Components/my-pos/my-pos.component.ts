@@ -6,7 +6,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AdjustingDataForDisplay, Directories, DownLoadFile, Functionalities, OrderPosByDate, Spinner, StaticData } from 'src/app/Utilities/Common';
+import { AdjustingDataForDisplay, Directories, DownLoadFile, FilterPosBy, Functionalities, OrderPosByDate, Spinner, StaticData } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { PoDetailsComponent } from '../po-details/po-details.component';
 
@@ -37,17 +37,19 @@ export class MyPosComponent implements OnInit {
   ngOnInit(): void {
     CheckToken(this.router);
       this.GetPos();
-      /* this.mydata = StaticData
-      this.mydata.reverse();
-      this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);
-      this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
-      this.SliceDataForPaginantion(0); */
+      //    this.mydata = StaticData
+      // this.mydata.reverse();
+      // this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);
+      // this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
+      // this.SliceDataForPaginantion(0);  
   }
 
-  SliceDataForPaginantion(PageNumber: number){
+  SliceDataForPaginantion(PageNumber: number,Pos?:POs[]) {
+    let PosForSlicing: POs[] = this.mydata;
+    if(Pos) PosForSlicing = Pos;
     let SliceBegining = PageNumber * this.DataRowsInPage;
-    if(this.mydata.slice(SliceBegining,SliceBegining + this.DataRowsInPage).length >=1){
-      this.DataOfCurrentPage = this.mydata.slice(SliceBegining,SliceBegining + this.DataRowsInPage)
+    if (PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length >= 1) {
+      this.DataOfCurrentPage = PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage)
       this.CurrentPage = PageNumber;
     }
   }
@@ -87,5 +89,8 @@ export class MyPosComponent implements OnInit {
     },(err:any) => {
       Auth_error_handling(err,this.notification,this.router)
     }))
+  }
+  FilterPosByCorinthainPo(event: any){
+    this.SliceDataForPaginantion(0,FilterPosBy(this.mydata,event.target.value))
   }
 }

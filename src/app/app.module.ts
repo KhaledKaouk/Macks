@@ -30,7 +30,7 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { PoDetailsComponent } from './Components/po-details/po-details.component';
 import { FrightPricesComponent } from './Components/fright-prices/fright-prices.component';
 import { FrightPriceUpdateComponent } from './Components/fright-price-update/fright-price-update.component';
-import { Spinner } from './Utilities/Common';
+import { EmptyField, Spinner } from './Utilities/Common';
 
 
 @NgModule({
@@ -50,7 +50,8 @@ import { Spinner } from './Utilities/Common';
     ProductdetailsComponent,
     PoDetailsComponent,
     FrightPricesComponent,
-    FrightPriceUpdateComponent
+    FrightPriceUpdateComponent,
+    EmptyField
   ],
   imports: [
     BrowserModule,
@@ -72,7 +73,10 @@ import { Spinner } from './Utilities/Common';
     },
     HeaderComponent,
     Spinner,
-    AppComponent
+    AppComponent,
+    AdminComponent,
+    MyPosComponent,
+    AlfemoComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -8,6 +8,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { Router } from '@angular/router';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { Spinner } from 'src/app/Utilities/Common';
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-catalog',
@@ -56,11 +57,11 @@ export class CatalogComponent implements OnInit {
     private Notification: NotificationserService,
     private router: Router,
     private spinner: Spinner,
-    private Poservice: POsService) { }
+    private Poservice: POsService,
+    private authser: AuthService) { }
 
   ngOnInit(): void {
-    this.ProductsList = this.testProduct;
-
+    this.authser.GetRole();
     this.spinner.WrapWithSpinner( this.Poservice.GetProducts().toPromise().then((res: any) => {
       this.ProductsList = res;
 

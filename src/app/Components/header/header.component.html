@@ -13,7 +13,7 @@
         <a href="">Mack Distribution</a>
     </div>
     <div id="Hide" class="InputField">
-        <input class="Hide" id="Searchinput" type="text" placeholder="Search">
+        <input class="Hide" id="Searchinput" (input) = FilterPosByCorinthainPo($event) type="text" placeholder="Search">
         <button class="">
             <img class="searchIcon" src="../assets/searchicon.jpg" alt="">
         </button>
@@ -32,11 +32,11 @@
     <input type="checkbox" hidden id="check">
     <ul id="test">
         <li routerLink=""><label for="check">Home</label></li>
-        <li routerLink="CreatePO"><label for="check">Holley</label></li>
+        <li routerLink="CreatePO" *ngIf = "CheckRole() === 'Corinthian'"><label for="check">Holley</label></li>
         <li routerLink="Catalog"><label for="check">Catalog</label></li>
-        <li routerLink="MyPos"><label for="check">MyPos</label></li>
-        <li routerLink="Admin"><label for="check">Mack</label></li>
-        <li routerLink="Alfemo"><label for="check">Alfemo</label></li>
-        <li routerLink="FrightPrices"><label for="check">FreightPrices</label></li>
+        <li routerLink="MyPos" *ngIf = "CheckRole() === 'Corinthian'"><label for="check">MyPos</label></li>
+        <li routerLink="Admin" *ngIf = "CheckRole() === 'admin'"><label for="check">Mack</label></li>
+        <li routerLink="Alfemo" *ngIf = "CheckRole() === 'alfemo'"><label for="check">Alfemo</label></li>
+        <li routerLink="FrightPrices" *ngIf = "CheckRole() !== '' && CheckRole() !== null "><label for="check">FreightPrices</label></li>
     </ul>
 </div>

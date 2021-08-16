@@ -1,418 +1,6 @@
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Poppins";
-}
-
-ul {
-  list-style-type: none;
-}
-
-.topOfHeader {
-  display: flex;
-  justify-content: space-around;
-  font-size: 16px;
-  padding: 1% 8%;
-}
-
-.topOfHeader img {
-  width: 5%;
-  height: 100%;
-  padding: 0% 1%;
-}
-
-.topOfHeader .left {
-  text-align: left;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  align-content: center;
-  justify-content: start;
-}
-
-.topOfHeader .right {
-  text-align: right;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  align-content: center;
-  justify-content: flex-end;
-}
-
-.middleOfHeader {
-  display: flex;
-  justify-content: space-around;
-  height: 6rem;
-  border-bottom: 0.2px solid #e3dad3;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: #f5f5f5;
-}
-
-.middleOfHeader button {
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: #6f5948;
-  border-radius: 0 30px 30px 0;
-  border: none;
-  display: inline;
-  width: 53px;
-  height: 45px;
-}
-
-.middleOfHeader button:focus {
-  outline: none;
-}
-
-.middleOfHeader .InputField {
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.middleOfHeader #Searchinput {
-  font-size: 18px;
-  -webkit-padding-start: 10px;
-          padding-inline-start: 10px;
-  width: 350px;
-  height: 45px;
-  border: 1px solid #afa4a4;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-  border-right: none;
-}
-
-.middleOfHeader #Searchinput:focus {
-  outline: none;
-}
-
-.middleOfHeader .searchIcon {
-  width: 50%;
-  height: 50%;
-}
-
-.middleOfHeader .LogInIcon {
-  width: 40%;
-}
-
-.middleOfHeader .right {
-  text-align: right;
-  cursor: pointer;
-  -webkit-transition: size 1s ease-in;
-  transition: size 1s ease-in;
-}
-
-.middleOfHeader .right:hover {
-  transform: scale(0.95);
-}
-
-.middleOfHeader a {
-  color: #6f5948;
-  text-decoration: none;
-  font-size: 22px;
-}
-
-.middleOfHeader a:hover {
-  color: #6f5948;
-}
-
-.bottomOfHeader {
-  display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-}
-
-.bottomOfHeader ul {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.bottomOfHeader ul li {
-  padding: 0.83em 1.04em;
-  color: #6f5948;
-  font-size: 1.75em;
-  font-weight: 400;
-}
-
-.bottomOfHeader ul li:hover {
-  cursor: pointer;
-  color: #bba695;
-}
-
-.bottomOfHeader ul li label {
-  cursor: pointer;
-}
-
-.bottomOfHeader #menuCheckBox {
-  display: none;
-}
-
-.Slide {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  position: relative;
-}
-
-.Slide img {
-  width: 86%;
-  height: 38rem;
-  position: relative;
-}
-
-.Slide .overslide {
-  position: absolute;
-  margin: 10%;
-  padding-top: 12%;
-}
-
-.Slide .overslide button {
-  width: 30%;
-  border: 1px solid white;
-  color: white;
-  background: transparent;
-  padding: 3%;
-  margin-top: 5%;
-  -webkit-transition: 0.4s ease-in;
-  transition: 0.4s ease-in;
-  font-size: 19px;
-}
-
-.Slide .overslide button:hover {
-  cursor: pointer;
-  font-size: 19px;
-  background-color: white;
-  color: #3c2e25;
-}
-
-.Slide .overslide p {
-  font-weight: 300;
-  font-size: 30px;
-  color: white;
-}
-
-.ProductSamples {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 5rem;
-}
-
-.ProductSamples img {
-  width: 100%;
-  height: 18rem;
-  opacity: 1;
-}
-
-.ProductSamples button {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  font-size: 20px;
-  background-color: #3c2e25;
-  opacity: 0;
-  -webkit-transition: opacity 0.3s ease-in;
-  transition: opacity 0.3s ease-in;
-}
-
-.ProductSamples button:hover {
-  color: white;
-  opacity: 0.6;
-  cursor: pointer;
-}
-
-.ProductSamples .card {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-
-.footer {
-  background-color: #3c2e25;
-  padding: 7%;
-  margin: 3% 0%;
-  color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-}
-
-.footer .InfoCard {
-  text-align: center;
-  width: 30%;
-}
-
-.footer .InfoCard .Ptitle {
-  padding-bottom: 20px;
-  font-size: 22px;
-}
-
-.footer .InfoCard a {
-  color: white;
-  text-decoration: none;
-  cursor: none;
-  margin-bottom: 20px;
-}
-
-.footer li {
-  color: white;
-  padding-bottom: 2%;
-}
-
-.CreatePo {
-  color: #3c2e25;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  margin: 2% 30%;
-}
-
-.CreatePo .InputWraper {
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  margin: 2%;
-}
-
-.CreatePo .InputWraper label {
-  font-size: 18px;
-  margin-top: 2%;
-  margin-bottom: 2%;
-}
-
-.CreatePo select {
-  font-size: 18px;
-  -webkit-padding-start: 10px;
-          padding-inline-start: 10px;
-  width: 350px;
-  height: 45px;
-  border: 1px solid #e4e4e4;
-  -webkit-transition: border 0.4s ease-in;
-  transition: border 0.4s ease-in;
-}
-
-.CreatePo select:focus {
-  outline: none;
-  width: 360px;
-  border: 1px solid #3c2e25;
-}
-
-.CreatePo input {
-  font-size: 18px;
-  -webkit-padding-start: 10px;
-          padding-inline-start: 10px;
-  width: 350px;
-  height: 45px;
-  border: 1px solid #e4e4e4;
-  -webkit-transition: border 0.4s ease-in;
-  transition: border 0.4s ease-in;
-}
-
-.CreatePo input:focus {
-  outline: none;
-  width: 360px;
-  border: 1px solid #3c2e25;
-}
-
-.CreatePo textarea {
-  font-size: 18px;
-  -webkit-padding-start: 10px;
-          padding-inline-start: 10px;
-  width: 350px;
-  height: 45px;
-  border: 1px solid #e4e4e4;
-  -webkit-transition: border 0.4s ease-in;
-  transition: border 0.4s ease-in;
-}
-
-.CreatePo textarea:focus {
-  outline: none;
-  width: 360px;
-  border: 1px solid #3c2e25;
-}
-
-.CreatePo .file {
-  border: none;
-}
-
-.CreatePo .title {
-  font-size: 25px;
-  font-weight: bold;
-  margin: 3%;
-}
-
-.CreatePo button {
-  width: 350px;
-  height: 45px;
-  border: 1px solid #3c2e25;
-  color: #3c2e25;
-  background: transparent;
-  -webkit-transition: 0.2s ease-in;
-  transition: 0.2s ease-in;
-  font-size: 25px;
-}
-
-.CreatePo button:hover {
-  cursor: pointer;
-  background-color: #b99b85;
-  border-color: #b99b85;
-  color: white;
-}
-
-.CreatePo button:disabled {
-  background-color: gray;
-  color: white;
-  border: gray;
-}
-
-.CreatePo button:disabled:hover {
-  background-color: gray;
-  color: white;
-  border: gray;
-}
-
 .DataTableWraper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
@@ -486,9 +74,15 @@ ul {
 }
 
 .DataTableWraper .pagination ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .DataTableWraper .pagination ul button {
@@ -496,7 +90,7 @@ ul {
   border: 1px solid #3c2e25;
   border-radius: 5px;
   color: #3c2e25;
-  font-size: 19px;
+  font-size: 1.1rem;
   padding: 2px 4px;
   margin: 1px;
 }
@@ -507,10 +101,302 @@ ul {
   color: white;
 }
 
-.AlfemoUpdateWraper {
+.SearchInput {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
-  flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.SearchInput input {
+  font-size: 1.1rem;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #e4e4e4;
+  -webkit-transition: border 0.4s ease-in;
+  transition: border 0.4s ease-in;
+}
+
+.SearchInput input:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.topOfHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  font-size: 1rem;
+  padding: 1% 8%;
+}
+
+.topOfHeader img {
+  width: 5%;
+  height: 100%;
+  padding: 0% 1%;
+}
+
+.topOfHeader .left {
+  text-align: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.topOfHeader .right {
+  text-align: right;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.middleOfHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: 6rem;
+  border-bottom: 0.2px solid #e3dad3;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #f5f5f5;
+}
+
+.middleOfHeader button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #6f5948;
+  border-radius: 0 30px 30px 0;
+  border: none;
+  display: inline;
+  width: 53px;
+  height: 45px;
+}
+
+.middleOfHeader button:focus {
+  outline: none;
+}
+
+.middleOfHeader .InputField {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.middleOfHeader #Searchinput {
+  font-size: 1.1rem;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #afa4a4;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-right: none;
+}
+
+.middleOfHeader #Searchinput:focus {
+  outline: none;
+}
+
+.middleOfHeader .searchIcon {
+  width: 50%;
+  height: 50%;
+}
+
+.middleOfHeader .LogInIcon {
+  width: 40%;
+}
+
+.middleOfHeader .right {
+  text-align: right;
+  cursor: pointer;
+  -webkit-transition: size 1s ease-in;
+  transition: size 1s ease-in;
+}
+
+.middleOfHeader .right:hover {
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
+}
+
+.middleOfHeader a {
+  color: #6f5948;
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+
+.middleOfHeader a:hover {
+  color: #6f5948;
+}
+
+.bottomOfHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.bottomOfHeader ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.bottomOfHeader ul li {
+  padding: 0.83em 1.04em;
+  color: #6f5948;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.bottomOfHeader ul li:hover {
+  cursor: pointer;
+  color: #bba695;
+}
+
+.bottomOfHeader ul li label {
+  cursor: pointer;
+}
+
+.bottomOfHeader #menuCheckBox {
+  display: none;
+}
+
+.footer {
+  background-color: #3c2e25;
+  padding: 7%;
+  margin: 3% 0%;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.footer .InfoCard {
+  text-align: center;
+  width: 30%;
+}
+
+.footer .InfoCard .Ptitle {
+  padding-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.footer .InfoCard a {
+  color: white;
+  text-decoration: none;
+  cursor: none;
+  margin-bottom: 20px;
+}
+
+.footer li {
+  color: white;
+  padding-bottom: 2%;
+}
+
+.ProductSamples {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5rem;
+}
+
+.ProductSamples img {
+  width: 100%;
+  height: 18rem;
+  opacity: 1;
+}
+
+.ProductSamples button {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  font-size: 1.5rem;
+  background-color: #3c2e25;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-in;
+  transition: opacity 0.3s ease-in;
+}
+
+.ProductSamples button:hover {
+  color: white;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.ProductSamples .card {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.AlfemoUpdateWraper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   position: relative;
 }
 
@@ -521,7 +407,7 @@ ul {
   border: 1px solid #b11818;
   color: #b11818;
   text-align: center;
-  font-size: 18px;
+  font-size: 1.1rem;
   top: 0;
   right: 0;
 }
@@ -532,29 +418,8 @@ ul {
   cursor: pointer;
 }
 
-.AddressHeader {
-  padding: 20px;
-  height: 150px;
-  width: 100%;
-  margin-bottom: 10px;
-  text-align: center;
-  background-color: #f4f4f4;
-  color: #6f5948;
-}
-
-.AddressHeader h1 {
-  font-weight: bold;
-  letter-spacing: 2px;
-  font-size: 22px;
-  margin: 8px;
-}
-
-.AddressHeader h2 {
-  word-spacing: 10px;
-}
-
 #AlfemoUpdate {
-  margin: 10%;
+  margin: 0%;
 }
 
 .Product {
@@ -576,7 +441,7 @@ ul {
   display: flex;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
-          justify-content: start;
+          justify-content: flex-start;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
@@ -608,7 +473,7 @@ ul {
   margin-bottom: 20px;
   border-bottom: 1px solid #e4e4e4;
   color: #89684f;
-  font-size: 28px;
+  font-size: 1.5rem;
 }
 
 .Product .details .Head label {
@@ -619,7 +484,7 @@ ul {
 .Product .details .description {
   margin-left: 10px;
   color: #89684f;
-  font-size: 19px;
+  font-size: 1.1rem;
   border-bottom: 1px solid #e4e4e4;
 }
 
@@ -670,71 +535,6 @@ ul {
           flex-direction: column;
 }
 
-.PoDetails .data {
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  gap: 0.2rem;
-  border: 0.01rem solid #e4e4e4;
-  background-color: #f3f3f3;
-}
-
-.PoDetails .data .Side {
-  display: flex;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-}
-
-.PoDetails .data .Side ul {
-  display: flex;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  margin-left: 0.3rem;
-}
-
-.PoDetails .data .Side li {
-  display: flex;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  padding-bottom: 0.2rem;
-}
-
-.PoDetails .data .Side li label {
-  padding: 0rem 0.5rem;
-  margin: 0.5rem 0rem;
-  opacity: 80%;
-  max-width: 10rem;
-  color: #3c2e25;
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-
-.PoDetails .data .Side li a {
-  padding: 0rem 0.5rem;
-  margin: 0.5rem 0rem;
-  color: #3c2e25;
-  font-size: 1.1rem;
-}
-
 .PoDetails .buttons {
   padding: 0.5rem;
   margin-top: 1rem;
@@ -769,6 +569,8 @@ ul {
 }
 
 .PoDetails .element {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -786,7 +588,7 @@ ul {
 
 .PoDetails .element input {
   font-size: 1rem;
-  width: 18rem;
+  width: 15rem;
   -webkit-padding-start: 1rem;
           padding-inline-start: 1rem;
   border: 0.1rem solid #e4e4e4;
@@ -799,34 +601,262 @@ ul {
   border: 1px solid #3c2e25;
 }
 
-.PoDetails2 {
-  max-height: 40rem;
-  margin: 2rem 2rem;
-}
-
-.PoDetails2 ul {
-  column-count: 2;
-}
-
-.PoDetails2 ul li {
-  margin-bottom: 1rem;
+.Potest {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.Potest label {
+  text-align: right;
+  margin: 0.5rem;
+  color: #3c2e25;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.Potest a {
+  text-align: left;
+  margin: 0.5rem;
+  color: #3c2e25;
+  font-size: 1.1rem;
+}
+
+.Potest .labels {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Potest p {
+  display: block;
+  padding: 1rem;
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.PoDetailsWraper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 1rem;
+  border: 0.01rem solid #e4e4e4;
+  background-color: #f3f3f3;
 }
 
-.PoDetails2 ul li a {
-  display: block;
+#SubmitButton {
+  border: 0.2rem solid #3c2e25;
 }
 
-.PoDetails2 ul li label {
-  display: block;
+#SubmitButton:hover {
+  border-color: #b99b85;
+}
+
+.Slide {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.Slide img {
+  width: 86%;
+  height: 38rem;
+  position: relative;
+}
+
+.Slide .overslide {
+  position: absolute;
+  margin: 10%;
+  padding-top: 12%;
+}
+
+.Slide .overslide button {
+  width: 30%;
+  border: 1px solid white;
+  color: white;
+  background: transparent;
+  padding: 3%;
+  margin-top: 5%;
+  -webkit-transition: 0.4s ease-in;
+  transition: 0.4s ease-in;
+  font-size: 1.1rem;
+}
+
+.Slide .overslide button:hover {
+  cursor: pointer;
+  background-color: white;
+  color: #3c2e25;
+}
+
+.Slide .overslide p {
+  font-weight: 300;
+  font-size: 2rem;
+  color: white;
+}
+
+.AddressHeader {
+  padding: 0.2rem;
+  height: 5.5rem;
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: #f4f4f4;
+  color: #6f5948;
+}
+
+.AddressHeader h1 {
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+  margin: 8px;
+}
+
+.AddressHeader h2 {
+  font-size: 1.1rem;
+  word-spacing: 10px;
+}
+
+.CreatePo {
+  color: #3c2e25;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 1% 30%;
+}
+
+.CreatePo .InputWraper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 1%;
+}
+
+.CreatePo .InputWraper label {
+  font-size: 1.1rem;
+  margin-bottom: 2%;
+}
+
+.CreatePo select {
+  font-size: 1.1rem;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #e4e4e4;
+  -webkit-transition: border 0.4s ease-in;
+  transition: border 0.4s ease-in;
+}
+
+.CreatePo select:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.CreatePo input {
+  font-size: 1.1rem;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #e4e4e4;
+  -webkit-transition: border 0.4s ease-in;
+  transition: border 0.4s ease-in;
+}
+
+.CreatePo input:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.CreatePo textarea {
+  font-size: 1.1rem;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #e4e4e4;
+  -webkit-transition: border 0.4s ease-in;
+  transition: border 0.4s ease-in;
+}
+
+.CreatePo textarea:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.CreatePo .file {
+  border: none;
+}
+
+.CreatePo button {
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #3c2e25;
+  color: #3c2e25;
+  background: transparent;
+  -webkit-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+  font-size: 1.5rem;
+}
+
+.CreatePo button:hover {
+  cursor: pointer;
+  background-color: #b99b85;
+  border-color: #b99b85;
+  color: white;
+}
+
+.CreatePo button:disabled {
+  background-color: gray;
+  color: white;
+  border: gray;
 }
 
 .spinner-1 {
@@ -836,9 +866,9 @@ ul {
   position: absolute;
   top: 50%;
   left: 50%;
-  height: 60px;
-  width: 60px;
-  margin: -30px;
+  height: 4rem;
+  width: 4rem;
+  margin: -2rem;
   border-radius: 50%;
   border: 3px solid lightgray;
   border-top-color: coral;
@@ -869,6 +899,18 @@ ul {
   }
 }
 
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins";
+}
+
+ul {
+  list-style-type: none;
+}
+
 @media only screen and (max-width: 980px) {
   .fadeshow1 {
     display: none;
@@ -894,7 +936,7 @@ ul {
   .ProductSamples .card {
     margin-top: 0.5rem;
   }
-  .bottom {
+  .bottomOfHeader {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -906,10 +948,10 @@ ul {
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  .bottom #menuCheckBox {
+  .bottomOfHeader #menuCheckBox {
     display: block;
   }
-  .bottom #menuCheckBox #menuimg {
+  .bottomOfHeader #menuCheckBox #menuimg {
     width: 32px;
     display: block;
     margin-left: 15px;
@@ -923,10 +965,10 @@ ul {
         -ms-flex-align: start;
             align-items: flex-start;
   }
-  .bottom #menuCheckBox #menuimg:hover {
+  .bottomOfHeader #menuCheckBox #menuimg:hover {
     cursor: pointer;
   }
-  .bottom ul {
+  .bottomOfHeader ul {
     width: 100%;
     display: none;
   }
@@ -948,13 +990,57 @@ ul {
 
 @media screen and (max-width: 800px) {
   .PoDetails .data {
-    justify-content: flex-start;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+  .PoDetailsWraper {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+  .PoDetailsWraper label {
+    text-align: left;
+  }
+  .PoDetailsWraper a {
+    text-align: right;
   }
 }
 
 @media screen and (max-width: 650px) {
   .LargeScreenOnly {
     display: none;
+  }
+  .CreatePo {
+    margin: 1%;
+  }
+  .CreatePo input, .CreatePo button, .CreatePo select, .CreatePo textarea {
+    width: 15rem;
+  }
+  .CreatePo input:focus, .CreatePo button:focus, .CreatePo select:focus, .CreatePo textarea:focus {
+    width: 15.5rem;
+  }
+  .AddressHeader h1, .AddressHeader h2 {
+    font-size: 1rem;
+  }
+  .PoDetailsWraper label {
+    text-align: left;
+    font-size: 0.7rem;
+  }
+  .PoDetailsWraper a {
+    text-align: right;
+    font-size: 0.7rem;
+  }
+  .PoDetailsWraper p {
+    font-size: 0.7rem;
+  }
+  .Close {
+    display: block;
+    text-align: center;
+    min-width: 1rem;
   }
 }
 /*# sourceMappingURL=styles.css.map */

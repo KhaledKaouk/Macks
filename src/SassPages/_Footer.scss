@@ -1,0 +1,26 @@
+.footer {
+    background-color: #3c2e25;
+    padding: 7%;
+    margin: 3% 0%;
+    color: white;
+    @include FlexSpaceEvenly;
+    .InfoCard {
+        text-align: center;
+        width: 30%;
+        .Ptitle {
+            padding-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+            cursor: none;
+            margin-bottom: 20px;
+        }
+    }
+
+    li {
+        color: white;
+        padding-bottom: 2%;
+    }
+}

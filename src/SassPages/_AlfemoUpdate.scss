@@ -1,0 +1,25 @@
+.AlfemoUpdateWraper{
+    @include FlexSpaceAround;
+    flex-direction: row;
+    position: relative;
+    .Close {
+        position: absolute;
+        width: 3%;
+        background-color: transparent;
+        border: 1px solid rgb(177, 24, 24);
+        color: rgb(177, 24, 24);
+        text-align: center;
+        font-size: 1.1rem;
+        top: 0;
+        right: 0;
+        &:hover {
+            background-color: rgb(177, 24, 24);
+            color: white;
+            cursor: pointer;
+        }
+    }
+}
+
+#AlfemoUpdate {
+    margin: 0%;
+}

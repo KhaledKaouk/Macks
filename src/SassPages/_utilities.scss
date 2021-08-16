@@ -1,0 +1,20 @@
+@mixin FlexSpaceAround {
+    display: flex;
+    justify-content: space-around;
+}
+
+@mixin FlexAllCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin InputFormElementsSize {
+    width: 21rem;
+    height: 2.8rem;
+}
+
+@mixin FlexSpaceEvenly {
+    display: flex;
+    justify-content: space-evenly;
+}

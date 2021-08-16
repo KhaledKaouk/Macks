@@ -5,7 +5,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
-import { AddPreffixAndExtention, AdjustingDataForDisplay, Directories, DownLoadFile, Functionalities, ProgrssBar, Spinner, UploadFile } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, AdjustingDataForDisplay, Directories, DownLoadFile, Functionalities, HideDialog, ProgrssBar, ShowDialog, Spinner, UploadFile } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component';
 
@@ -32,7 +32,6 @@ export class PoDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.ViewedPO = this.data[0];
-
     this.AlertMackOnUploadedPO();
     this.CheckFunctionalities();
 
@@ -62,40 +61,6 @@ export class PoDetailsComponent implements OnInit {
       this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('ShippingDocs')
     if (this.ViewedPO.corinthianPOAttach == "" && document.getElementsByName('CorinthainPo').length >= 1)
       this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('CorinthainPo')
-    /* (Array.from(document.getElementsByClassName('buttons')[0].children)).forEach(element => {
-      let ElementName = element.getAttribute('name');
-      if (!this.Functionalities.includes(ElementName ??
-         "")) {
-        document.getElementsByName(ElementName ?? "")[0].remove();
-      }
-    });
-    (Array.from(document.getElementsByClassName('buttons')[1].children)).forEach(element => {
-      let ElementName = element.getAttribute('name');
-      if (!this.Functionalities.includes(ElementName ?? "")) {
-        document.getElementsByName(ElementName ?? "")[0].remove();
-      }
-    }) */
-    
-
-    /* if (this.ViewedPO.mackPOAttach == "" && document.getElementsByName('MackPo').length >= 1) {
-      document.getElementsByName('MackPo')[0].remove();
-      let Disclaimer: Node = document.createElement('a');
-      Disclaimer.appendChild(document.createTextNode("MackPo: Unavailble"))
-      document.getElementById('buttons-2')?.appendChild(Disclaimer)
-    }
-    if (this.ViewedPO.shippingDocs == "") {
-      document.getElementsByName('ShippingDocs')[0].remove();
-      let Disclaimer: Node = document.createElement('a');
-      Disclaimer.appendChild(document.createTextNode("ShippingDocs: Unavailble"))
-      document.getElementById('buttons-2')?.appendChild(Disclaimer)
-    }
-    if (this.ViewedPO.corinthianPOAttach == "" && document.getElementsByName('CorinthainPo').length >= 1) {
-      document.getElementsByName('CorinthainPo')[0].remove();
-      let Disclaimer: Node = document.createElement('a');
-      Disclaimer.appendChild(document.createTextNode("CorinthainPo: Unavailble"))
-      document.getElementById('buttons-2')?.appendChild(Disclaimer)
-    } */
-
   }
 
   DownloadMackPo() {
@@ -116,7 +81,6 @@ export class PoDetailsComponent implements OnInit {
     window.alert("you need to hit Apply changes to Complete the process");
   }
   Submit() {
-
     let fd = new FormData();
 
     if (this.SeletedFile) {
@@ -148,7 +112,7 @@ export class PoDetailsComponent implements OnInit {
       }
     }, (err: any) => {
       Auth_error_handling(err, this.Notification, this.router)
-    }))
+    }),this.dialogref)
   }
   CorinthainUpdate() {
     this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
@@ -159,19 +123,22 @@ export class PoDetailsComponent implements OnInit {
         this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
       }
     }, (err: any) => {
+
       Auth_error_handling(err, this.Notification, this.router)
-    }))
+    }),this.dialogref)
   }
   Close() {
     this.dialogref.close();
   }
   Update() {
+
     if (this.data[1] == Functionalities.Alfemo) {
       this.dialog.open(AlfemoUpdateComponent, {
         height: '60rem',
         width: '45rem',
         data: this.ViewedPO,
       });
+      this.Close();
     } else {
       this.CorinthainUpdate();
     }
@@ -210,5 +177,6 @@ export class PoDetailsComponent implements OnInit {
       }
     }
   }
+  
 }
 
