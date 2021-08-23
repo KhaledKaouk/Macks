@@ -6,7 +6,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AdjustingDataForDisplay, FilterPosBy, Functionalities, Spinner, StaticData } from 'src/app/Utilities/Common';
+import { AdjustingDataForDisplay, DeleteTestingPos, FilterPosBy, Functionalities, Spinner, StaticData } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AdminReviewComponent } from '../admin-review/admin-review.component';
 import { PoDetailsComponent } from '../po-details/po-details.component';
@@ -39,7 +39,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
 
     CheckToken(this.router);
-    
+    DeleteTestingPos(this.poservice)
 
     this.spinner.WrapWithSpinner( this.poservice.GetPos().then((res: any) => {
       this.mydata = res;
