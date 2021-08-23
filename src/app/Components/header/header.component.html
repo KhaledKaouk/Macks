@@ -32,9 +32,9 @@
     <input type="checkbox" hidden id="check">
     <ul id="test">
         <li routerLink=""><label for="check">Home</label></li>
-        <li routerLink="CreatePO" *ngIf = "CheckRole() === 'Corinthian'"><label for="check">Holley</label></li>
+        <li routerLink="CreatePO" *ngIf = "CheckRole() === 'corinthian'"><label for="check">Holley</label></li>
         <li routerLink="Catalog"><label for="check">Catalog</label></li>
-        <li routerLink="MyPos" *ngIf = "CheckRole() === 'Corinthian'"><label for="check">MyPos</label></li>
+        <li routerLink="MyPos" *ngIf = "CheckRole() === 'corinthian'"><label for="check">MyPos</label></li>
         <li routerLink="Admin" *ngIf = "CheckRole() === 'admin'"><label for="check">Mack</label></li>
         <li routerLink="Alfemo" *ngIf = "CheckRole() === 'alfemo'"><label for="check">Alfemo</label></li>
         <li routerLink="FrightPrices" *ngIf = "CheckRole() !== '' && CheckRole() !== null "><label for="check">FreightPrices</label></li>

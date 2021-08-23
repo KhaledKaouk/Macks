@@ -31,6 +31,7 @@ import { PoDetailsComponent } from './Components/po-details/po-details.component
 import { FrightPricesComponent } from './Components/fright-prices/fright-prices.component';
 import { FrightPriceUpdateComponent } from './Components/fright-price-update/fright-price-update.component';
 import { EmptyField, Spinner } from './Utilities/Common';
+import { NewDealerComponent } from './Components/new-dealer/new-dealer.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { EmptyField, Spinner } from './Utilities/Common';
     PoDetailsComponent,
     FrightPricesComponent,
     FrightPriceUpdateComponent,
-    EmptyField
+    EmptyField,
+    NewDealerComponent
   ],
   imports: [
     BrowserModule,

@@ -32,7 +32,6 @@ export class FrightPricesComponent implements OnInit {
 
   ngOnInit(): void {
     CheckToken(this.router)
-    this.AuthSer.GetRole();
     this.GetFrightPrices();
     // this.FrightPricesList = FrightPricesStaticData;
     // this.FrightPricesList.forEach(FrightPrice => { FrightPrice.locations = CapitlizeFirstLater(FrightPrice.locations) })

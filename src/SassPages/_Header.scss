@@ -65,9 +65,9 @@
     .right {
         text-align: right;
         cursor: pointer;
-        transition: size 1s ease-in;
+        transition: size 0.1s ease-in;
         &:hover {
-            transform: scale(0.95);
+            transform: scale(0.80);
         }
     }
 

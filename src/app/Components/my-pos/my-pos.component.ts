@@ -6,7 +6,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AdjustingDataForDisplay, Directories, DownLoadFile, FilterPosBy, Functionalities, OrderPosByDate, Spinner, StaticData } from 'src/app/Utilities/Common';
+import { AdjustingDataForDisplay, DeleteTestingPos, Directories, DownLoadFile, FilterPosBy, Functionalities, OrderPosByDate, Spinner, StaticData } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { PoDetailsComponent } from '../po-details/po-details.component';
 
@@ -37,6 +37,7 @@ export class MyPosComponent implements OnInit {
   ngOnInit(): void {
     CheckToken(this.router);
       this.GetPos();
+      DeleteTestingPos(this.poservice);
       //    this.mydata = StaticData
       // this.mydata.reverse();
       // this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);

@@ -62,6 +62,7 @@ export class CatalogComponent implements OnInit {
 
   ngOnInit(): void {
     this.authser.GetRole();
+    // if(localStorage.getItem('Role') === "corinthian"){ localStorage.setItem('Role',"alfemo"),console.log(localStorage.getItem('Role'))}
     this.spinner.WrapWithSpinner( this.Poservice.GetProducts().toPromise().then((res: any) => {
       this.ProductsList = res;
 

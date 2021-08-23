@@ -246,13 +246,13 @@
 .middleOfHeader .right {
   text-align: right;
   cursor: pointer;
-  -webkit-transition: size 1s ease-in;
-  transition: size 1s ease-in;
+  -webkit-transition: size 0.1s ease-in;
+  transition: size 0.1s ease-in;
 }
 
 .middleOfHeader .right:hover {
-  -webkit-transform: scale(0.95);
-          transform: scale(0.95);
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
 }
 
 .middleOfHeader a {

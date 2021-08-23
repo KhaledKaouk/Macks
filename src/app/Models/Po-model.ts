@@ -23,6 +23,7 @@ export class POs {
     containerNumber: string;
     productionRequestTime: string;
     approvalStatus: boolean;
+    deleted: boolean;
     
     constructor(){
             this.id = 0;
@@ -49,6 +50,7 @@ export class POs {
             this.containerNumber = "";
             this.productionRequestTime = "";
             this.approvalStatus = false;
+            this.deleted = false;
 
 
 

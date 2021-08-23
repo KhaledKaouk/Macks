@@ -28,6 +28,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.AuthSer.GetRole();
+    // if(localStorage.getItem('Role') === "corinthian"){ localStorage.setItem('Role',"alfemo"),console.log(localStorage.getItem('Role'))}
+
   }
   LogOut(){
     this.router.navigateByUrl('/LogIn')

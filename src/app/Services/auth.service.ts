@@ -29,8 +29,8 @@ export class AuthService {
   }
 
   async GetRole(){
-    return await this.http.get('https://macksdistribution.com/api/account/GetUserRole').toPromise().then((res: any) => {
-      localStorage.setItem('Role',res ?? "")
+    return await this.http.get<string>('https://macksdistribution.com/api/account/GetUserRole').toPromise().then((res: string) => {
+      localStorage.setItem('Role',res.toLowerCase() ?? "")
     },(err:any) =>{
     })
   }
