@@ -1,0 +1,16 @@
+<div class="AddressHeader">
+    <h1>Create New Dealer</h1>
+    <h2> New Dealer</h2>
+</div>
+<div class="CreatePo" [formGroup] = "NewDealerForm">
+    <div class="InputWraper">
+        <input type="text" placeholder="Dealer Name" formControlName = "DealerName">
+    </div>
+    <div class="InputWraper">
+        <input type="text" placeholder="Dealer Email" formControlName = "DealerEmail">
+    </div>
+    <div>
+        <button (click) = "CreateNewPo()" [disabled] = "(!NewDealerForm.valid || Loading)? true: false">Submit</button>
+    </div>
+</div>
+<simple-notifications></simple-notifications>

@@ -1,28 +1,36 @@
 <div class="AddressHeader">
     <h1>Create Purchase Order</h1>
-    <h2>Home  /  Create Purchase Order</h2>
+    <h2>Home / Create Purchase Order</h2>
 </div>
 <div class="CreatePo" [formGroup]="CreatePo">
-
-    <div class="InputWraper">
-        <input name="DealerName" type="text" formControlName="DealerName" aria-label="Dealer Name" placeholder="Dealer Name">
+    <div>
+        <button (click)=OperNewDealerForm()>NewDealer</button>
     </div>
-
+    <div class="InputWraper">
+        <label for="DealerName">Dealer Name</label>
+        <select name="DealerName" type="text" id="DealerName" formControlName="DealerId" aria-label="Dealer Name"
+            placeholder="Dealer Name" >
+            <option *ngFor= "let Dealers of Dealers index as i" value={{Dealers.Id}}>{{Dealers.DealerName}}</option>
+        </select>
+    </div>
     <div class="InputWraper">
         <input name="DealerPo" type="text" formControlName="DealerPo" aria-label="DealerPo" placeholder="Dealer Po">
     </div>
 
     <div class="InputWraper">
-        <input name="CorinthainPo" type="text" formControlName="CorinthainPo" aria-label="CorinthainPo" placeholder="CorinthainPo">
+        <input name="CorinthainPo" type="text" formControlName="CorinthainPo" aria-label="CorinthainPo"
+            placeholder="CorinthainPo">
     </div>
 
     <div class="InputWraper">
         <label for="CorinthainPo">Production Request Date</label>
-        <input name="CorinthainPo" type="date" formControlName="ProductionRequestDate" aria-label="CorinthainPo" placeholder="Production Request Date">
+        <input name="CorinthainPo" type="date" formControlName="ProductionRequestDate" aria-label="CorinthainPo"
+            placeholder="Production Request Date">
     </div>
 
     <div class="InputWraper">
-        <textarea name="Comments" type="text" formControlName="Comments" aria-label="Comments" placeholder="Comments"> </textarea>
+        <textarea name="Comments" type="text" formControlName="Comments" aria-label="Comments"
+            placeholder="Comments"> </textarea>
     </div>
 
     <div class="InputWraper">
