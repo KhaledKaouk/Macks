@@ -81,6 +81,7 @@ export class AlfemoComponent implements OnInit {
   GetPos(){
    this.spinner.WrapWithSpinner( this.poservice.GetPos().then((res: any) => {
       this.mydata = res;
+      this.mydata = this.mydata.filter(PO => PO.deleted != true)
       this.mydata.reverse();
       this.mydata = this.mydata.filter(E => E.approvalStatus == true)
       this.PagesCount = Math.ceil (this.mydata.length / this.DataRowsInPage );

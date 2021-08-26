@@ -8,6 +8,8 @@ import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
 import { AdjustingDataForDisplay, DeleteTestingPos, Directories, DownLoadFile, FilterPosBy, Functionalities, OrderPosByDate, Spinner, StaticData } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
+import { CorinthianUpdateComponent } from '../corinthian-update/corinthian-update.component';
+import { NewPoComponent } from '../new-po/new-po.component';
 import { PoDetailsComponent } from '../po-details/po-details.component';
 
 @Component({
@@ -36,13 +38,7 @@ export class MyPosComponent implements OnInit {
 
   ngOnInit(): void {
     CheckToken(this.router);
-      this.GetPos();
-      DeleteTestingPos(this.poservice);
-      //    this.mydata = StaticData
-      // this.mydata.reverse();
-      // this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);
-      // this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
-      // this.SliceDataForPaginantion(0);  
+      this.GetPos(); 
   }
 
   SliceDataForPaginantion(PageNumber: number,Pos?:POs[]) {
@@ -83,6 +79,7 @@ export class MyPosComponent implements OnInit {
   GetPos(){
     this.spinner.WrapWithSpinner( this.poservice.GetPos().then((res: any) => {
       this.mydata = res;
+      this.mydata = this.mydata.filter(PO => PO.deleted != true)
       this.mydata = OrderPosByDate(this.mydata);
       this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)

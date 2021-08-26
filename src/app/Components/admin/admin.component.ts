@@ -39,10 +39,10 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
 
     CheckToken(this.router);
-    DeleteTestingPos(this.poservice)
 
     this.spinner.WrapWithSpinner( this.poservice.GetPos().then((res: any) => {
       this.mydata = res;
+      this.mydata = this.mydata.filter(PO => PO.deleted != true)
       this.mydata.reverse();
       this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
@@ -51,13 +51,6 @@ export class AdminComponent implements OnInit {
       Auth_error_handling(err, this.notification, this.router)
 
     }))
-      //    this.mydata = StaticData;
-      //  console.log(this.mydata)
-      //  this.mydata.reverse();
-      //  this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);
-      //  this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
-      //  this.SliceDataForPaginantion(0);  
-      //  console.log(this.mydata)  
 
   }
   VeiwDetails(P: POs) {
