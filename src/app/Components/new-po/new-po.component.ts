@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { inject } from '@angular/core/testing';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { promise } from 'protractor';
 import { Dealers } from 'src/app/Models/Dealers';
@@ -8,7 +9,8 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AddPreffixAndExtention, CheckDealersToMatchoOfflineDB, CreateDatabase, PromiseAllDealers, Spinner, StaticData, UploadFile } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, CreateDatabase, Spinner, UploadFile } from 'src/app/Utilities/Common';
+import { CheckDealersToMatchOfflineDB, PromiseAllDealers } from 'src/app/Utilities/DealersCRUD';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling'
 import { NewDealerComponent } from '../new-dealer/new-dealer.component';
 @Component({
@@ -42,7 +44,7 @@ export class NewPoComponent implements OnInit {
    ngOnInit(): void {
     CheckToken(this.router);
     CreateDatabase();
-    CheckDealersToMatchoOfflineDB(this.Pos);
+    CheckDealersToMatchOfflineDB(this.Pos);
     PromiseAllDealers().then((res: any) => {
       this.Dealers = res;
     })
@@ -95,7 +97,6 @@ export class NewPoComponent implements OnInit {
     this.NewPo.comments = this.CreatePo.get("Comments")?.value;
     this.NewPo.corinthianPOAttach = this.NewPo.dealerName + this.NewPo.corinthianPO;
 
-    console.log(this.NewPo)
 
   }
   ExtractDealerName(Id:string){
@@ -120,5 +121,6 @@ export class NewPoComponent implements OnInit {
       width: '55rem',
     })
   }
+
 }
 

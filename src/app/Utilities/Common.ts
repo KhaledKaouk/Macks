@@ -232,41 +232,6 @@ export function CreateDatabase() {
         let db = DB.result;
         let Store = db.createObjectStore("DealersInfo", { keyPath: "Id" })
     }
-
-}
-export function AddNewDealer(NewDealer: Dealers) {
-    NewDealer.DealerName = NewDealer.DealerName.replace(/[^a-zA-Z ]/g, " ")
-    let Dealer = NewDealer;
-
-    let DB = window.indexedDB.open("Dealers");
-
-    DB.onsuccess = function (event) {
-        let db = DB.result;
-
-        let NewDealer = db.transaction("DealersInfo", "readwrite").objectStore("DealersInfo").add(Dealer)
-        NewDealer.onsuccess = function (event) { }
-    }
-}
-export function PromiseAllDealers() {
-    return new Promise((resolve) => {
-        let DB = window.indexedDB.open("Dealers");
-
-        let Result: any;
-        DB.onsuccess = function (event) {
-            let db = DB.result;
-            let AllStores = db.transaction("DealersInfo", "readwrite");
-            let DealerStore = AllStores.objectStore("DealersInfo");
-            let GetAllDealers = DealerStore.getAll();
-            GetAllDealers.onsuccess = function (event: any) {
-                console.log("GettigAll Dealers")
-                Result = GetAllDealers.result;
-            }
-            AllStores.oncomplete = function () {
-                console.log("Returning the Result")
-                resolve(Result)
-            }
-        }
-    })
 }
 export function DeleteTestingPos(PoService: POsService) {
     PoService.GetPos().then((res: any) => {
@@ -278,46 +243,6 @@ export function DeleteTestingPos(PoService: POsService) {
         })
     })
 }
-export function CreateDealerId() {
-    return Math.random().toFixed(6);
-}
-export async function CheckDealersToMatchoOfflineDB(PoService: POsService) {
-    let AllPos: POs[] = [];
-    let DBDealers: Dealers[] = [];
+export let InDevMode =  localStorage.getItem('DevMode')?.toLowerCase() === "true" ? true : false 
 
-    await PoService.GetPos().then((res: any) => {
-        AllPos = res;
-    })
-    await PromiseAllDealers().then((res: any) => {
-        DBDealers = res
-    });
-
-    if (DBDealers.filter((Dealer) => { Dealer.DealerName === "Farmers Furniture-Russellville AL" })) {
-        ClearDB();
-    }
-    for (let Po of AllPos) {
-        let NewDealer: Dealers = { Id: CreateDealerId(), DealerName: Po.dealerName, Email: Po.dealerEmail };
-        if (DBDealers.length == 0) {
-            AddNewDealer(NewDealer);
-            await PromiseAllDealers().then((res: any) => {
-                DBDealers = res;
-            })
-        } else {
-            if (DBDealers.filter(Dealer => Dealer.DealerName === Po.dealerName.replace(/[^a-zA-Z ]/g, " ")).length == 0) { AddNewDealer(NewDealer); console.log("NewDealerWithFilter") }
-            await PromiseAllDealers().then((res: any) => {
-                DBDealers = res;
-            })
-
-        }
-    }
-}
-export function ClearDB() {
-    let DB = window.indexedDB.open("Dealers");
-
-    DB.onsuccess = function (event) {
-        let db = DB.result;
-        let NewDealer = db.transaction("DealersInfo", "readwrite").objectStore("DealersInfo").clear();
-        NewDealer.onsuccess = function (event) { }
-    }
-}
 
