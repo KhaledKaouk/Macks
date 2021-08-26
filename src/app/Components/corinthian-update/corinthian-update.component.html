@@ -1,0 +1,40 @@
+<div class="AddressHeader">
+    <h1>Edit Purchase Order</h1>
+    <h2>Home / Edit Purchase Order</h2>
+</div>
+<div class="CreatePo" [formGroup]="CreatePo">
+    <div>
+        <button (click)=OperNewDealerForm()>NewDealer</button>
+    </div>
+    <div class="InputWraper">
+        <label for="DealerName">Dealer Name</label>
+        <select name="DealerName" type="text" id="DealerName" formControlName="DealerId" aria-label="Dealer Name"
+            placeholder="Dealer Name" >
+            <option *ngFor= "let Dealers of Dealers index as i" value={{Dealers.Id}}>{{Dealers.DealerName}}</option>
+        </select>
+    </div>
+    <div class="InputWraper">
+        <input name="DealerPo" type="text" formControlName="DealerPo" aria-label="DealerPo" placeholder="Dealer Po">
+    </div>
+
+    <div class="InputWraper">
+        <input name="CorinthainPo" type="text" formControlName="CorinthainPo" aria-label="CorinthainPo"
+            placeholder="CorinthainPo">
+    </div>
+
+    <div class="InputWraper">
+        <label for="CorinthainPo">Production Request Date</label>
+        <input name="CorinthainPo" type="date" formControlName="ProductionRequestDate" aria-label="CorinthainPo"
+            placeholder="Production Request Date">
+    </div>
+
+    <div class="InputWraper">
+        <textarea name="Comments" type="text" formControlName="Comments" aria-label="Comments"
+            placeholder="Comments"> </textarea>
+    </div>
+    <div class="InputWraper">
+        <button (click)=Submit() [disabled]="(!CreatePo.valid || Loading)? true: false">Update</button>
+    </div>
+</div>
+<ng-progress id="myProgress"></ng-progress>
+<simple-notifications></simple-notifications>

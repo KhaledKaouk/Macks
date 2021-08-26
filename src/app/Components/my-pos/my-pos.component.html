@@ -10,11 +10,12 @@
             <thead>
                 <tr>
                     <th class="LargeScreenOnly">Dealer Name</th>
-                    <th >Dealer Po no</th>
+                    <th class="LargeScreenOnly">Dealer Po no</th>
                     <th >Corinthain Po No</th>
                     <th class="LargeScreenOnly">Status</th>
                     <th class="LargeScreenOnly">Approved</th>
                     <th>Details</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,7 +23,7 @@
                     <td class="LargeScreenOnly">
                         {{P.dealerName}}
                     </td>
-                    <td >
+                    <td class="LargeScreenOnly">
                         {{P.dealerPONumber}}
                     </td>
                     <td >
@@ -37,6 +38,9 @@
                     </td>
                     <td>
                         <a (click) = "VeiwDetails(P)">Details</a>
+                    </td>
+                    <td>
+                        <a (click) = "EditPo(P)" *ngIf = !P.approvalStatus>Edit</a>
                     </td>
                 </tr>
             </tbody>

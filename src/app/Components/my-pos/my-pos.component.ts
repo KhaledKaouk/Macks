@@ -91,4 +91,11 @@ export class MyPosComponent implements OnInit {
   FilterPosByCorinthainPo(event: any){
     this.SliceDataForPaginantion(0,FilterPosBy(this.mydata,event.target.value))
   }
+  EditPo(P:POs){
+    this.dialog.open(CorinthianUpdateComponent,{
+      height: '60rem',
+      width: '55rem',
+      data: P
+    })
+  }
 }
