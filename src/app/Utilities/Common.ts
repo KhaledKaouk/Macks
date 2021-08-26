@@ -210,8 +210,8 @@ export function FilterPosBy(ListOfPos: POs[], CorinthianPo?: string,
 }
 @Pipe({ name: 'EmptyField' })
 export class EmptyField implements PipeTransform {
-    transform(PoProperty: string) {
-        if (PoProperty == "") { return "Unavailable" } else { return PoProperty }
+    transform(PoProperty: string | null) {
+        if (PoProperty == "" || PoProperty == null) { return "Unavailable" } else { return PoProperty }
     }
 }
 export function ShowDialog<T>(dialogref: MatDialogRef<T>) {

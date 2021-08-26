@@ -28,9 +28,9 @@
                 <label>Approval Status</label>
             </div>
             <div class="labels">
-                <a>{{ViewedPO.factoryEstimatedArrivalDate | date:"MM/dd/yyyy"}}</a>
-                <a>{{ViewedPO.factoryEstimatedShipDate | date:"MM/dd/yyyy"}}</a>
-                <a>{{ViewedPO.productionRequestDate | date:"MM/dd/yyyy"}}</a>
+                <a>{{ViewedPO.factoryEstimatedArrivalDate | date:"MM/dd/yyyy" | EmptyField }} </a>
+                <a>{{ViewedPO.factoryEstimatedShipDate | date:"MM/dd/yyyy" | EmptyField }}</a>
+                <a>{{ViewedPO.productionRequestDate | date:"MM/dd/yyyy" | EmptyField }}</a>
                 <a>{{ViewedPO.status | EmptyField}}</a>
                 <a>{{AdjustingDataForDisplay(ViewedPO.approvalStatus) | EmptyField}}</a>
             </div>
