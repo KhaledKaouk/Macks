@@ -90,12 +90,12 @@
             color: $Secondary-Color;
             font-size: 1.5rem;
             font-weight: 400;
-            &:hover {
-                cursor: pointer;
-                color: lighten($Secondary-Color, 30%);
-            }
             label {
                 cursor: pointer;
+                &:hover {
+                    cursor: pointer;
+                    color: lighten($Secondary-Color, 30%);
+                }
             }
         }
     }
