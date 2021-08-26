@@ -51,9 +51,5 @@ export class POs {
             this.productionRequestTime = "";
             this.approvalStatus = false;
             this.deleted = false;
-
-
-
     }
-
 }

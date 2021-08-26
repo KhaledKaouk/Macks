@@ -292,13 +292,13 @@
   font-weight: 400;
 }
 
-.bottomOfHeader ul li:hover {
-  cursor: pointer;
-  color: #bba695;
-}
-
 .bottomOfHeader ul li label {
   cursor: pointer;
+}
+
+.bottomOfHeader ul li label:hover {
+  cursor: pointer;
+  color: #bba695;
 }
 
 .bottomOfHeader #menuCheckBox {

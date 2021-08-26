@@ -32,6 +32,7 @@ import { FrightPricesComponent } from './Components/fright-prices/fright-prices.
 import { FrightPriceUpdateComponent } from './Components/fright-price-update/fright-price-update.component';
 import { EmptyField, Spinner } from './Utilities/Common';
 import { NewDealerComponent } from './Components/new-dealer/new-dealer.component';
+import { CorinthianUpdateComponent } from './Components/corinthian-update/corinthian-update.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { NewDealerComponent } from './Components/new-dealer/new-dealer.component
     FrightPricesComponent,
     FrightPriceUpdateComponent,
     EmptyField,
-    NewDealerComponent
+    NewDealerComponent,
+    CorinthianUpdateComponent
   ],
   imports: [
     BrowserModule,
