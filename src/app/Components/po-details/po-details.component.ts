@@ -177,6 +177,18 @@ export class PoDetailsComponent implements OnInit {
       }
     }
   }
-  
+  DeletePo(){
+    this.ViewedPO.deleted = true;
+    this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
+      if(res == true){
+        this.Notification.OnSuccess("You have Deleted the Po successfully")
+        this.Close();
+      }else{
+        this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
+      }
+    }, (err: any) => {
+      Auth_error_handling(err, this.Notification, this.router)
+    }),this.dialogref)
+  } 
 }
 
