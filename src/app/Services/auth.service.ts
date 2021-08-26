@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Token } from '../Models/token';
+import { InDevMode } from '../Utilities/Common';
 import { NotificationserService } from './notificationser.service';
 
 @Injectable({
@@ -8,8 +9,15 @@ import { NotificationserService } from './notificationser.service';
 })
 export class AuthService {
 
+  ApiURL: string = "https://macksdistribution.com";
+  GetRoleApi: string = "https://macksdistribution.com/api/account";
   constructor(private http: HttpClient,
-    private notification: NotificationserService) { }
+    private notification: NotificationserService) {
+      if (InDevMode) {
+        this.ApiURL = "http://localhost:5000"
+        this.GetRoleApi = "http://localhost:5000" 
+      }
+     }
 
   LogIn(UserName: string, Password: string){
     
@@ -21,7 +29,7 @@ export class AuthService {
     
     let body = `grant_type=${grant_type}&username=${username}&password=${password}`;
     
-    return this.http.post<Token>("https://macksdistribution.com/token",body,{headers: headers});
+    return this.http.post<Token>(this.ApiURL + "/token",body,{headers: headers});
   }
 
   GetToken(){
@@ -29,7 +37,7 @@ export class AuthService {
   }
 
   async GetRole(){
-    return await this.http.get<string>('https://macksdistribution.com/api/account/GetUserRole').toPromise().then((res: string) => {
+    return await this.http.get<string>(this.GetRoleApi + "/GetUserRole").toPromise().then((res: string) => {
       localStorage.setItem('Role',res.toLowerCase() ?? "")
     },(err:any) =>{
     })

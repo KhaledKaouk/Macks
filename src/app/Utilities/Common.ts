@@ -144,7 +144,7 @@ export function AdjustingDataForDisplay(ApprovedStatus: boolean) {
     }
 }
 export let Functionalities: { [key: string]: string[] } = {
-    Admin: ["Approve", "MackPo", "ShippingDocs", "Reject", "CorinthainPo", "ApplyChanges", "MackUpload"],
+    Admin: ["Approve", "MackPo", "ShippingDocs", "Reject", "CorinthainPo", "ApplyChanges", "MackUpload","Delete"],
     Corinthain: ["ShippingDocs", "CorinthainPo", "Update", "ProductionRequestDate"],
     Alfemo: ["MackPo", "Update"]
 }
@@ -195,7 +195,6 @@ export function FilterPosBy(ListOfPos: POs[], CorinthianPo?: string,
     factoryEstimatedArrivalDate?: string,
     containerNumber?: string,
     ApprovalStatus?: boolean) {
-    console.log("comon " + ListOfPos)
     if (CorinthianPo) return ListOfPos.filter(Po => Po.corinthianPO.includes(CorinthianPo))
     if (DealerName) return ListOfPos.filter(Po => Po.corinthianPO == CorinthianPo)
     if (MackPo) return ListOfPos.filter(Po => Po.mackPONumber == MackPo)
