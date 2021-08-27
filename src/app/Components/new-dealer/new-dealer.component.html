@@ -9,8 +9,14 @@
     <div class="InputWraper">
         <input type="text" placeholder="Dealer Email" formControlName = "DealerEmail">
     </div>
+    <div class="InputWraper">
+        <input type="text" placeholder="Dealer Mobile" formControlName = "DealerMobile">
+    </div>
+    <div class="InputWraper">
+        <input type="text" placeholder="Dealer Address" formControlName = "DealerAddress">
+    </div>
     <div>
-        <button (click) = "CreateNewPo()" [disabled] = "(!NewDealerForm.valid || Loading)? true: false">Submit</button>
+        <button (click) = "CreateNewDealer()" [disabled] = "(!NewDealerForm.valid || Loading)? true: false">Submit</button>
     </div>
 </div>
 <simple-notifications></simple-notifications>

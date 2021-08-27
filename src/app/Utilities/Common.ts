@@ -244,4 +244,8 @@ export function DeleteTestingPos(PoService: POsService) {
 }
 export let InDevMode =  localStorage.getItem('DevMode')?.toLowerCase() === "true" ? true : false 
 
+export function FilterDealersByName(ListOfDealers: Dealers[],DealerName: string){
+    return ListOfDealers.filter(Dealer => Dealer.name.toLowerCase().includes(DealerName.toLowerCase()))
+}
+
 
