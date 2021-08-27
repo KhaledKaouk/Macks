@@ -248,4 +248,13 @@ export function FilterDealersByName(ListOfDealers: Dealers[],DealerName: string)
     return ListOfDealers.filter(Dealer => Dealer.name.toLowerCase().includes(DealerName.toLowerCase()))
 }
 
+export function ColorTR() {
+    Array.from(document.getElementsByTagName('tr')).forEach((Tr, index) => {
+      if (index != 0) {
+        if(Tr.children[4].textContent?.toLowerCase().trim() == "pendding approval") Tr.style.borderLeft = '7px solid #800000'
+        if(Tr.children[4].textContent?.toLowerCase().trim() == "approved") Tr.style.borderLeft = '7px solid coral'
+        if(Tr.children[3].textContent?.toLowerCase().trim() == "shipped") Tr.style.borderLeft = '7px solid green'
+      }
+    })
+  }
 
