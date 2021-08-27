@@ -15,6 +15,8 @@ export class NewDealerComponent implements OnInit {
   NewDealerForm = new FormGroup({
     DealerName: new FormControl('', Validators.required),
     DealerEmail: new FormControl(''),
+    DealerMobile: new FormControl(''),
+    DealerAddress: new FormControl('')
   })
 
   Loading: boolean = false;
@@ -26,7 +28,7 @@ export class NewDealerComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async CreateNewPo() {
+  async CreateNewDealer() {
     this.AssignFormValuesToDealerObject();
     this.CreateDealerId();
     await AddNewDealer(this.NewDealer);
@@ -36,8 +38,10 @@ export class NewDealerComponent implements OnInit {
   }
 
   AssignFormValuesToDealerObject() {
-    this.NewDealer.DealerName = this.NewDealerForm.get('DealerName')?.value;
-    this.NewDealer.Email = this.NewDealerForm.get('DealerEmail')?.value;
+    this.NewDealer.name = this.NewDealerForm.get('DealerName')?.value;
+    this.NewDealer.email = this.NewDealerForm.get('DealerEmail')?.value;
+    this.NewDealer.mobile = this.NewDealerForm.get('DealerMobile')?.value;
+    this.NewDealer.address = this.NewDealerForm.get('DealerAddress')?.value
   }
 
   CreateDealerId() {

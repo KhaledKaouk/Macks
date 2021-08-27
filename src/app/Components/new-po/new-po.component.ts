@@ -47,6 +47,11 @@ export class NewPoComponent implements OnInit {
     CheckDealersToMatchOfflineDB(this.Pos);
     PromiseAllDealers().then((res: any) => {
       this.Dealers = res;
+      this.Dealers.sort((a, b) => {
+        if (a.name[0].toLowerCase() > b.name[0].toLowerCase()) return +1
+        if (a.name[0].toLowerCase() < b.name[0].toLowerCase()) return -1
+        return 0
+      });
     })
   }
 
@@ -100,10 +105,10 @@ export class NewPoComponent implements OnInit {
 
   }
   ExtractDealerName(Id:string){
-    return this.Dealers.find(Dealer => Dealer.Id == Id)?.DealerName || "Unavailable"
+    return this.Dealers.find(Dealer => Dealer.Id == Id)?.name || "Unavailable"
   }
   ExtractDealerEmail(Id: string){
-    return this.Dealers.find(Dealer => Dealer.Id == Id)?.Email || "Unavailable "
+    return this.Dealers.find(Dealer => Dealer.Id == Id)?.email || "Unavailable "
   }
   CreatePO() {
     this.spinner.WrapWithSpinner(this.Pos.CreatePo(this.NewPo).toPromise().then((res: any) => {

@@ -47,7 +47,7 @@ export class PoDetailsComponent implements OnInit {
     document.getElementById('buttons-2')?.appendChild(Disclaimer)
   }
   CheckFunctionalities() {
-    
+
     (Array.from(document.getElementsByClassName('buttons'))).forEach(ParentOfDownloadFileButtons => {
       Array.from(ParentOfDownloadFileButtons.children).forEach(DownloadButton => {
         let ButtonName = DownloadButton.getAttribute('name');
@@ -93,7 +93,7 @@ export class PoDetailsComponent implements OnInit {
 
       let UploadProcess: any;
       (async () => {
-        UploadProcess = await UploadFile(this.PoService, fd, FileName, this.Notification,this.spinner, this.router)
+        UploadProcess = await UploadFile(this.PoService, fd, FileName, this.Notification, this.spinner, this.router)
         if (UploadProcess == true) {
           this.MackUpdate();
         }
@@ -112,7 +112,7 @@ export class PoDetailsComponent implements OnInit {
       }
     }, (err: any) => {
       Auth_error_handling(err, this.Notification, this.router)
-    }),this.dialogref)
+    }), this.dialogref)
   }
   CorinthainUpdate() {
     this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
@@ -125,7 +125,7 @@ export class PoDetailsComponent implements OnInit {
     }, (err: any) => {
 
       Auth_error_handling(err, this.Notification, this.router)
-    }),this.dialogref)
+    }), this.dialogref)
   }
   Close() {
     this.dialogref.close();
@@ -177,18 +177,20 @@ export class PoDetailsComponent implements OnInit {
       }
     }
   }
-  DeletePo(){
-    this.ViewedPO.deleted = true;
-    this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
-      if(res == true){
-        this.Notification.OnSuccess("You have Deleted the Po successfully")
-        this.Close();
-      }else{
-        this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
-      }
-    }, (err: any) => {
-      Auth_error_handling(err, this.Notification, this.router)
-    }),this.dialogref)
-  } 
+  DeletePo() {
+    if (confirm("Are You Sure You Want To Delete This Po")) {
+      this.ViewedPO.deleted = true;
+      this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
+        if (res == true) {
+          this.Notification.OnSuccess("You have Deleted the Po successfully")
+          this.Close();
+        } else {
+          this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
+        }
+      }, (err: any) => {
+        Auth_error_handling(err, this.Notification, this.router)
+      }), this.dialogref)
+    }
+  }
 }
 

@@ -1,0 +1,53 @@
+<div class="AddressHeader">
+    <h1>Dealers</h1>
+    <h2>Home / Dealers</h2>
+</div>
+<div class="SearchInput"><input type="text" placeholder="Search Dealers" (input) = "FilterByDealerName($event)"></div>
+<div class="DataTableWraper">
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th >Name</th>
+                    <th >Email</th>
+                    <th class="LargeScreenOnly">Mobile</th>
+                    <th class="LargeScreenOnly">Address</th>
+                    <th>Edit</th>
+                    <th class="LargeScreenOnly">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let D of DataOfCurrentPage index as i">
+                    <td >
+                        {{D.name}}
+                    </td>
+                    <td >
+                        {{D.email}}
+                    </td>
+                    <td class="LargeScreenOnly">
+                        {{D.mobile}}
+                    </td>
+                    <td class="LargeScreenOnly">
+                        {{D.address}}
+                    </td>
+                    <td >
+                        <a type="button" (click)=Edit(D)>Edit</a>
+                    </td>
+                    <td class="LargeScreenOnly">
+                        <a type="button" (click)=Delete(D)>Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class="pagination">
+            <ul>
+                <li><button (click)=PreviousPage()>Previous</button></li>
+                <li *ngFor="let PC of PageCountArray index as i"><button (click)=SliceDataForPaginantion(i)>{{i}}</button>
+                </li>
+                <li><button (click)=NextPage()>Next</button></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<ng-progress id="myProgress"></ng-progress>
+<simple-notifications></simple-notifications>

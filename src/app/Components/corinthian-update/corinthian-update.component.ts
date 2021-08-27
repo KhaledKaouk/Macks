@@ -75,13 +75,13 @@ export class CorinthianUpdateComponent implements OnInit {
 
   }
   ExtractDealerName(Id:string){
-    return this.Dealers.find(Dealer => Dealer.Id == Id)?.DealerName || "Unavailable"
+    return this.Dealers.find(Dealer => Dealer.Id == Id)?.name || "Unavailable"
   }
   ExtractDealerEmail(Id: string){
-    return this.Dealers.find(Dealer => Dealer.Id == Id)?.Email || "Unavailable"
+    return this.Dealers.find(Dealer => Dealer.Id == Id)?.email || "Unavailable"
   }
   ExtractDealerId(DealerName: string){
-    return this.Dealers.find(Dealer => Dealer.DealerName === DealerName)?.Id
+    return this.Dealers.find(Dealer => Dealer.name === DealerName)?.Id
   }
   UpdatePO() {
     this.spinner.WrapWithSpinner(this.Pos.UpdatePo(this.PoToUpdate).toPromise().then((res: any) => {

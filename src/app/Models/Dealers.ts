@@ -1,11 +1,14 @@
 export class Dealers{
     Id: string
-    DealerName: string
-    Email: string
-    
+    name: string
+    email: string
+    mobile: string
+    address: string
     constructor(){
         this.Id = ""
-        this.DealerName = ""
-        this.Email = ""
+        this.name = ""
+        this.email = ""
+        this.mobile = ""
+        this.address = ""
     }
 }
