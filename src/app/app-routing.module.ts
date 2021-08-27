@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './Components/admin/admin.component';
 import { AlfemoComponent } from './Components/alfemo/alfemo.component';
 import { CatalogComponent } from './Components/catalog/catalog.component';
+import { DealersComponent } from './Components/dealers/dealers.component';
 import { FrightPricesComponent } from './Components/fright-prices/fright-prices.component';
 import { HomeComponent } from './Components/home/home.component';
 import { LogInComponent } from './Components/log-in/log-in.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path:'Admin', component:AdminComponent},
   {path:'Alfemo', component:AlfemoComponent},
   {path:'Catalog', component: CatalogComponent},
-  {path:'FrightPrices', component: FrightPricesComponent}
+  {path:'FrightPrices', component: FrightPricesComponent},
+  {path:'Dealers', component: DealersComponent}
 ];
 
 @NgModule({
