@@ -6,7 +6,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AdjustingDataForDisplay, DeleteTestingPos, Directories, DownLoadFile, FilterPosBy, Functionalities, OrderPosByDate, Spinner, StaticData } from 'src/app/Utilities/Common';
+import { AdjustingDataForDisplay, ColorTR, DeleteTestingPos, Directories, DownLoadFile, FilterPosBy, Functionalities, OrderPosByDate, Spinner, StaticData } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { CorinthianUpdateComponent } from '../corinthian-update/corinthian-update.component';
 import { NewPoComponent } from '../new-po/new-po.component';
@@ -20,9 +20,9 @@ import { PoDetailsComponent } from '../po-details/po-details.component';
 export class MyPosComponent implements OnInit {
 
 
- 
-  mydata: POs[] =[];
-  
+
+  mydata: POs[] = [];
+
   DataRowsInPage: number = 15;
   PagesCount: number = 1;
   PageCountArray: number[] = [0];
@@ -36,14 +36,17 @@ export class MyPosComponent implements OnInit {
     private dialog: MatDialog,
     private spinner: Spinner) { }
 
+  ngAfterViewChecked() {
+    ColorTR();
+  }
   ngOnInit(): void {
     CheckToken(this.router);
-      this.GetPos(); 
+    this.GetPos();
   }
 
-  SliceDataForPaginantion(PageNumber: number,Pos?:POs[]) {
+  SliceDataForPaginantion(PageNumber: number, Pos?: POs[]) {
     let PosForSlicing: POs[] = this.mydata;
-    if(Pos) PosForSlicing = Pos;
+    if (Pos) PosForSlicing = Pos;
     let SliceBegining = PageNumber * this.DataRowsInPage;
     if (PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length >= 1) {
       this.DataOfCurrentPage = PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage)
@@ -59,43 +62,44 @@ export class MyPosComponent implements OnInit {
   }
   DownloadShippingDocs(Po: POs) {
     let FileName = Po.shippingDocs;
-    DownLoadFile(Directories.ShippingDocument,FileName);
+    DownLoadFile(Directories.ShippingDocument, FileName);
   }
-  
-  DownLoadCorinthainPo(Po:POs){
+
+  DownLoadCorinthainPo(Po: POs) {
     let FileName = Po.corinthianPOAttach
-    DownLoadFile(Directories.CorinthainPo,FileName);
+    DownLoadFile(Directories.CorinthainPo, FileName);
   }
   VeiwDetails(P: POs) {
     this.dialog.open(PoDetailsComponent, {
       height: '30rem',
       width: '55rem',
-      data: [P,Functionalities.Corinthain],
+      data: [P, Functionalities.Corinthain],
     });
   }
-  AdjustingDataForDisplay(approvalStatus: boolean){
+  AdjustingDataForDisplay(approvalStatus: boolean) {
     return AdjustingDataForDisplay(approvalStatus);
   }
-  GetPos(){
-    this.spinner.WrapWithSpinner( this.poservice.GetPos().then((res: any) => {
+  GetPos() {
+    this.spinner.WrapWithSpinner(this.poservice.GetPos().then((res: any) => {
       this.mydata = res;
       this.mydata = this.mydata.filter(PO => PO.deleted != true)
       this.mydata = OrderPosByDate(this.mydata);
       this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
       this.SliceDataForPaginantion(0);
-    },(err:any) => {
-      Auth_error_handling(err,this.notification,this.router)
+    }, (err: any) => {
+      Auth_error_handling(err, this.notification, this.router)
     }))
   }
-  FilterPosByCorinthainPo(event: any){
-    this.SliceDataForPaginantion(0,FilterPosBy(this.mydata,event.target.value))
+  FilterPosByCorinthainPo(event: any) {
+    this.SliceDataForPaginantion(0, FilterPosBy(this.mydata, event.target.value))
   }
-  EditPo(P:POs){
-    this.dialog.open(CorinthianUpdateComponent,{
+  EditPo(P: POs) {
+    this.dialog.open(CorinthianUpdateComponent, {
       height: '60rem',
       width: '55rem',
       data: P
     })
   }
+  
 }

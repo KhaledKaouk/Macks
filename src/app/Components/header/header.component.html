@@ -23,7 +23,7 @@
         <img class="LogInIcon " routerLink="/LogIn" src="../assets/LoginIcon.png" alt="" *ngIf="!Logged()">
         <a class="" (click)=LogOut() style="margin: 0.5%;"
         *ngIf="Logged()">LogOut:</a>
-        <a class="" *ngIf="Logged()" style="margin-left: 2px ;">{{SetUserName()}}</a>
+        <a class="" (click)=LogOut() *ngIf="Logged()" style="margin-left: 2px ;">{{SetUserName()}}</a>
     </div>
 </div>
 <div   class="bottomOfHeader">
@@ -34,6 +34,7 @@
     <ul id="test">
         <li ><label routerLink="" for="check">Home</label></li>
         <li *ngIf = "CheckRole() === 'corinthian'"><label routerLink="CreatePO" for="check">Holley</label></li>
+        <li *ngIf = "CheckRole() === 'corinthian'"><label routerLink="Dealers" for="check">Dealers</label></li>
         <li ><label routerLink="Catalog" for="check">Catalog</label></li>
         <li  *ngIf = "CheckRole() === 'corinthian'"><label routerLink="MyPos" for="check">MyPos</label></li>
         <li  *ngIf = "CheckRole() === 'admin'"><label routerLink="Admin" for="check">Mack</label></li>

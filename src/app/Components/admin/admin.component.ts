@@ -6,7 +6,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AdjustingDataForDisplay, DeleteTestingPos, FilterPosBy, Functionalities, Spinner, StaticData } from 'src/app/Utilities/Common';
+import { AdjustingDataForDisplay, ColorTR, DeleteTestingPos, FilterPosBy, Functionalities, Spinner, StaticData } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AdminReviewComponent } from '../admin-review/admin-review.component';
 import { PoDetailsComponent } from '../po-details/po-details.component';
@@ -20,9 +20,9 @@ export class AdminComponent implements OnInit {
 
 
   mydata: POs[] = []
-  DataRowsInPage: number = 15;
-  PagesCount: number = 1;
   PageCountArray: number[] = [0];
+  PagesCount: number = 1;
+  DataRowsInPage: number = 15;
   DataOfCurrentPage: POs[] = [];
   CurrentPage: number = 0;
 
@@ -35,7 +35,10 @@ export class AdminComponent implements OnInit {
     private spinner: Spinner
   ) {
   }
-
+  
+  ngAfterViewChecked() {
+    ColorTR();
+  }
   ngOnInit(): void {
 
     CheckToken(this.router);
@@ -49,9 +52,8 @@ export class AdminComponent implements OnInit {
       this.SliceDataForPaginantion(0);
     }, (err: any) => {
       Auth_error_handling(err, this.notification, this.router)
-
+      
     }))
-
   }
   VeiwDetails(P: POs) {
     let dialogRef = this.dialog.open(PoDetailsComponent, {
@@ -83,4 +85,5 @@ export class AdminComponent implements OnInit {
   FilterPosByCorinthainPo(event: any){
     this.SliceDataForPaginantion(0,FilterPosBy(this.mydata,event.target.value))
   }
+
 }
