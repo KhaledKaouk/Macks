@@ -195,7 +195,7 @@ export function FilterPosBy(ListOfPos: POs[], CorinthianPo?: string,
     factoryEstimatedArrivalDate?: string,
     containerNumber?: string,
     ApprovalStatus?: boolean) {
-    if (CorinthianPo) return ListOfPos.filter(Po => Po.corinthianPO.includes(CorinthianPo))
+    if (CorinthianPo) return ListOfPos.filter(Po => Po.corinthianPO.toLowerCase().includes(CorinthianPo.toLowerCase()))
     if (DealerName) return ListOfPos.filter(Po => Po.corinthianPO == CorinthianPo)
     if (MackPo) return ListOfPos.filter(Po => Po.mackPONumber == MackPo)
     if (Status) return ListOfPos.filter(Po => Po.status == Status)
