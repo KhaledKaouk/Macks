@@ -10,7 +10,7 @@ import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AddPreffixAndExtention, CreateDatabase, Spinner, UploadFile } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, CreateDatabase, RemoveSlashes, Spinner, UploadFile } from 'src/app/Utilities/Common';
 import { CheckDealersToMatchOfflineDB, PromiseAllDealers } from 'src/app/Utilities/DealersCRUD';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling'
 import { NewDealerComponent } from '../new-dealer/new-dealer.component';
@@ -48,7 +48,7 @@ export class NewPoComponent implements OnInit {
     this.GetAllDealers();
   }
 
-  GetAllDealers(){
+  GetAllDealers() {
     this.DealerServies.GetAllDealers().then((res: any) => {
       this.Dealers = res
       this.Dealers.sort((a, b) => {
@@ -63,18 +63,10 @@ export class NewPoComponent implements OnInit {
     this.DisableSubmitButton();
     this.AssignFormValuesToNewPoObject();
 
-    let fd = new FormData();
     if (this.SeletedFile) {
-      let FileName = this.NewPo.dealerPONumber + "_" + this.NewPo.corinthianPO;
-      FileName = AddPreffixAndExtention("NP_", FileName, this.SeletedFile.name)
-
-      this.NewPo.corinthianPOAttach = FileName;
-
-      fd.append('PO', this.SeletedFile, FileName);
-
       let UploadProcess: any;
       (async () => {
-        UploadProcess = await UploadFile(this.Pos, fd, FileName, this.Notification, this.spinner, this.router)
+        UploadProcess = await UploadFile(this.Pos, this.ConstructFormDataFile(), this.ConstructFileName(), this.Notification, this.spinner, this.router)
         if (UploadProcess == true) {
           this.CreatePO();
         }
@@ -86,6 +78,20 @@ export class NewPoComponent implements OnInit {
       this.Notification.OnError('Please Select A Po To Upload')
     }
   }
+
+  ConstructFileName() {
+    let FileName = RemoveSlashes(this.NewPo.dealerPONumber) + "_" + RemoveSlashes(this.NewPo.corinthianPO);
+    FileName = AddPreffixAndExtention("SD_", FileName, this.SeletedFile.name)
+
+    return FileName
+  }
+  ConstructFormDataFile() {
+    let fd = new FormData();
+    this.NewPo.shippingDocs = this.ConstructFileName();
+    fd.append('PO', this.SeletedFile, this.ConstructFileName());
+    return fd;
+  }
+
   CreatePO() {
     this.spinner.WrapWithSpinner(this.Pos.CreatePo(this.NewPo).toPromise().then((res: any) => {
       this.Notification.OnSuccess(res)
@@ -125,7 +131,7 @@ export class NewPoComponent implements OnInit {
     this.NewPo.corinthianPOAttach = this.NewPo.dealerName + this.NewPo.corinthianPO;
 
   }
-  
+
 
   OperNewDealerForm() {
     this.dialog.open(NewDealerComponent, {

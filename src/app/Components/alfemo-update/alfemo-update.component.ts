@@ -8,7 +8,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AddPreffixAndExtention, Spinner, UploadFile } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, RemoveSlashes, Spinner, UploadFile } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 
 @Component({
@@ -96,7 +96,7 @@ export class AlfemoUpdateComponent implements OnInit {
     }
 
   ConstructFileName(){
-    let FileName = this.PoToUpdate.dealerPONumber + "_" + this.PoToUpdate.corinthianPO;
+    let FileName = RemoveSlashes(this.PoToUpdate.dealerPONumber) + "_" + RemoveSlashes(this.PoToUpdate.corinthianPO);
     FileName = AddPreffixAndExtention("SD_", FileName, this.SeletedFile.name)
 
     return FileName

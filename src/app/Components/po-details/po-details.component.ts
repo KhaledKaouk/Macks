@@ -5,7 +5,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
-import { AddPreffixAndExtention, AdjustingDataForDisplay, Directories, DownLoadFile, Functionalities, HideDialog, ProgrssBar, ShowDialog, Spinner, UploadFile } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, AdjustingDataForDisplay, Directories, DownLoadFile, Functionalities, HideDialog, ProgrssBar, RemoveSlashes, ShowDialog, Spinner, UploadFile } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component';
 
@@ -76,29 +76,24 @@ export class PoDetailsComponent implements OnInit {
 
 
   RejectPo() {
-    this.ViewedPO.approvalStatus = false;
-    window.alert("you need to hit Apply changes to Complete the process");
+    if(this.ViewedPO.status == ""){
+      this.ViewedPO.approvalStatus = false;
+      window.alert("you need to hit Apply changes to Complete the process");
+    }else{
+      this.Notification.OnError("You Can Not Reject A Po After being Accepted By Alfemo")
+    }
   }
   ApprovePo() {
-    this.ViewedPO.approvalStatus = true;
-    window.alert("you need to hit Apply changes to Complete the process");
+      this.ViewedPO.approvalStatus = true;
+      window.alert("you need to hit Apply changes to Complete the process");
   }
 
 
   Submit() {
-    let fd = new FormData();
-
     if (this.SeletedFile) {
-      let FileName = this.ViewedPO.dealerPONumber + "_" + this.ViewedPO.corinthianPO;
-      FileName = AddPreffixAndExtention("MP_", FileName, this.SeletedFile.name)
-
-      this.ViewedPO.mackPOAttach = FileName
-
-      fd.append('PO', this.SeletedFile, FileName);
-
       let UploadProcess: any;
       (async () => {
-        UploadProcess = await UploadFile(this.PoService, fd, FileName, this.Notification, this.spinner, this.router)
+        UploadProcess = await UploadFile(this.PoService, this.ConstructFormDataFile(), this.ConstructFileName(), this.Notification, this.spinner, this.router)
         if (UploadProcess == true) {
           this.MackUpdate();
         }
@@ -106,6 +101,18 @@ export class PoDetailsComponent implements OnInit {
     } else {
       this.MackUpdate();
     }
+  }
+  ConstructFileName() {
+    let FileName = RemoveSlashes(this.ViewedPO.dealerPONumber)  + "_" + RemoveSlashes(this.ViewedPO.corinthianPO);
+    FileName = AddPreffixAndExtention("SD_", FileName, this.SeletedFile.name)
+
+    return FileName
+  }
+  ConstructFormDataFile() {
+    let fd = new FormData();
+    this.ViewedPO.shippingDocs = this.ConstructFileName();
+    fd.append('PO', this.SeletedFile, this.ConstructFileName());
+    return fd;
   }
   MackUpdate() {
     this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {

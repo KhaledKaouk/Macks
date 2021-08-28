@@ -51,64 +51,6 @@ export async function UploadFile(
     return result
 }
 
-export let StaticData: POs[] = [
-    {
-        id: 1,
-        dealer_id: "",
-        dealerName: "",
-        dealerEmail: "kaoukyaseenkhaled@gmail.com",
-        dealerPONumber: "00 222 2229191",
-        mackPONumber: "tse1",
-        corinthianPO: "abcd-1234567890",
-        itemID: 0,
-        supplierName: "test1",
-        userID: "",
-        mackPOAttach: "111",
-        corinthianPOAttach: "",
-        shippingDocs: "",
-        comments: "tnaklsjfh;a iosjc;klasjd;k lasmdklaslknmdalsjdfasklnmc as;klndalksdnas;kldnas;kl  na;lksdaklsdm  aklsd klasdn;lqwknmd lksand;lkas mdlasknd klsmd klasnmd klasd lkmaskl mdla's mest",
-        alfemoComments: "tnaklsjfh;aios jc;klasjd;kla mdklaslknmdalsjdfask nmcas;klndalk sdnas;kldnas;kl na;lksdaklsdm  aklsd klasdn;lqwknmd lksand;lkas mdlasknd klsmd klasnmd klasd lkmaskl mdla's mest",
-        status: "tseetssetest",
-        productionRequestDate: "08/09/2022",
-        factoryEstimatedShipDate: "08/09/2022",
-        dateReceived: "08/09/2022",
-        factoryEstimatedArrivalDate: "11111111",
-        booked: false,
-        finalDestLocation: "22222222",
-        containerNumber: "333",
-        productionRequestTime: "123123",
-        approvalStatus: false,
-        deleted: false
-    },
-    {
-        id: 1,
-        dealer_id: "",
-        dealerName: "abcd-1234567890",
-        dealerPONumber: "test",
-        dealerEmail: "Example@gmail.com",
-        mackPONumber: "tse",
-        corinthianPO: "test",
-        itemID: 0,
-        supplierName: "test",
-        userID: "test",
-        mackPOAttach: "123",
-        corinthianPOAttach: "1",
-        shippingDocs: "stst",
-        comments: "setse",
-        alfemoComments: "test",
-        status: "tseetssetest",
-        productionRequestDate: "1950-08-06T00:00:00",
-        factoryEstimatedShipDate: "1950-08-06T00:00:00",
-        dateReceived: "tsetsetste",
-        factoryEstimatedArrivalDate: "1950-08-06T00:00:00",
-        booked: false,
-        finalDestLocation: "22222222",
-        containerNumber: "333",
-        productionRequestTime: "123123",
-        approvalStatus: true,
-        deleted: false
-    }
-];
 
 export let FrightPricesStaticData: frightPrices[] = [{
     id: 1,
@@ -267,3 +209,8 @@ export function ExportPosToXLSX(Pos: POs[]){
       workbook = {Sheets:{'Pos':worksheet},SheetNames: ["Pos"]}
       XLSX.writeFile(workbook,"POs.xlsx")
 }
+
+export function RemoveSlashes(ForTrmining: string){
+    return ForTrmining.replace(/\\|\//g,"")
+}
+

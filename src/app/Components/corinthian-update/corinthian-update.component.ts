@@ -8,7 +8,7 @@ import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AddPreffixAndExtention, CreateDatabase, Spinner } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, CreateDatabase, RemoveSlashes, Spinner } from 'src/app/Utilities/Common';
 import { CheckDealersToMatchOfflineDB, PromiseAllDealers } from 'src/app/Utilities/DealersCRUD';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { NewDealerComponent } from '../new-dealer/new-dealer.component';
@@ -66,7 +66,7 @@ export class CorinthianUpdateComponent implements OnInit {
 
   AssignFormValuesToUpdatedPo() {
     let DealerId =  this.CreatePo.get("DealerId")?.value;
-    let NewFileName = AddPreffixAndExtention("NP_", this.PoToUpdate.dealerPONumber + "_" + this.PoToUpdate.corinthianPO,this.PoToUpdate.corinthianPOAttach);
+    let NewFileName = AddPreffixAndExtention("NP_", RemoveSlashes(this.PoToUpdate.dealerPONumber) + "_" + RemoveSlashes(this.PoToUpdate.corinthianPO),this.PoToUpdate.corinthianPOAttach);
     
     this.PoToUpdate.dealerName = this.ExtractDealerName(DealerId);
     this.PoToUpdate.dealerEmail = this.ExtractDealerEmail(DealerId);
