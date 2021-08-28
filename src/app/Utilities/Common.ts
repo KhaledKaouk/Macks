@@ -131,27 +131,13 @@ export class Spinner {
         this.app.ShowSpinner();
     }
 }
-export function FilterPosBy(ListOfPos: POs[], CorinthianPo?: string,
-    DealerName?: string,
-    MackPo?: string,
-    Status?: string,
-    productionRequestDate?: string,
-    factoryEstimatedShipDate?: string,
-    factoryEstimatedArrivalDate?: string,
-    containerNumber?: string,
-    ApprovalStatus?: boolean) {
-    if (CorinthianPo) return ListOfPos.filter(Po => Po.corinthianPO.toLowerCase().includes(CorinthianPo.toLowerCase()))
-    if (DealerName) return ListOfPos.filter(Po => Po.corinthianPO == CorinthianPo)
-    if (MackPo) return ListOfPos.filter(Po => Po.mackPONumber == MackPo)
-    if (Status) return ListOfPos.filter(Po => Po.status == Status)
-    if (productionRequestDate) return ListOfPos.filter(Po => Po.productionRequestDate == productionRequestDate)
-    if (factoryEstimatedShipDate) return ListOfPos.filter(Po => Po.factoryEstimatedShipDate == factoryEstimatedShipDate)
-    if (factoryEstimatedArrivalDate) return ListOfPos.filter(Po => Po.factoryEstimatedArrivalDate == factoryEstimatedArrivalDate)
-    if (containerNumber) return ListOfPos.filter(Po => Po.containerNumber == containerNumber)
-    if (ApprovalStatus) return ListOfPos.filter(Po => Po.approvalStatus == ApprovalStatus)
-
-    return ListOfPos;
+export function FilterPosBy(ListOfPos: POs[], SearchKey: string) {
+     return ListOfPos.filter(Po => CheckField(Po.corinthianPO,SearchKey) || CheckField(Po.dealerPONumber,SearchKey) || CheckField(Po.dealerName,SearchKey) || CheckField(Po.mackPONumber,SearchKey))
 }
+function CheckField(Filed:string, SearchKey: string){
+    return Filed.toLowerCase().includes(SearchKey.toLowerCase())
+}
+
 @Pipe({ name: 'EmptyField' })
 export class EmptyField implements PipeTransform {
     transform(PoProperty: string | null) {
