@@ -60,7 +60,7 @@ export async function CheckDealersToMatchOfflineDB(PoService: POsService) {
         console.log("Data Cleared")
     }
     for (let Po of AllPos) {
-        let NewDealer: Dealers = { Id: CreateDealerId(), name: Po.dealerName, email: Po.dealerEmail, mobile: "", address: "" };
+        let NewDealer: Dealers = { id: CreateDealerId(), name: Po.dealerName, email: Po.dealerEmail, mobile: "", address: "" };
         if (DBDealers.length == 0) {
              AddNewDealer(NewDealer);
             await PromiseAllDealers().then((res: any) => {
@@ -103,7 +103,7 @@ export function DeleteDealer(Dealer: Dealers) {
 
             let NewDealer = db.transaction("DealersInfo", "readwrite")
             let Store = NewDealer.objectStore("DealersInfo");
-            let DeleteDealer = Store.delete(Dealer.Id);
+            let DeleteDealer = Store.delete(Dealer.id);
 
             DeleteDealer.onsuccess = function (event) { }
             NewDealer.oncomplete = function () {

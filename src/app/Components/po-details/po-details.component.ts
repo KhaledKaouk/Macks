@@ -63,6 +63,7 @@ export class PoDetailsComponent implements OnInit {
       this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('CorinthainPo')
   }
 
+
   DownloadMackPo() {
     DownLoadFile(Directories.MackPo, this.ViewedPO.mackPOAttach)
   }
@@ -72,6 +73,8 @@ export class PoDetailsComponent implements OnInit {
   DownloadcorithainPo() {
     DownLoadFile(Directories.CorinthainPo, this.ViewedPO.corinthianPOAttach)
   }
+
+
   RejectPo() {
     this.ViewedPO.approvalStatus = false;
     window.alert("you need to hit Apply changes to Complete the process");
@@ -80,6 +83,8 @@ export class PoDetailsComponent implements OnInit {
     this.ViewedPO.approvalStatus = true;
     window.alert("you need to hit Apply changes to Complete the process");
   }
+
+
   Submit() {
     let fd = new FormData();
 
@@ -146,6 +151,7 @@ export class PoDetailsComponent implements OnInit {
   UploadPo(event: any) {
     this.SeletedFile = event.target.files[0];
   }
+  
   SetNewDate(event: any) {
     this.ViewedPO.productionRequestDate = event.target.value;
   }

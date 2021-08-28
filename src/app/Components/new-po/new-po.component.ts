@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { promise } from 'protractor';
 import { Dealers } from 'src/app/Models/Dealers';
 import { POs } from 'src/app/Models/Po-model';
+import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
@@ -39,14 +40,17 @@ export class NewPoComponent implements OnInit {
     private Notification: NotificationserService,
     private router: Router,
     private dialog: MatDialog,
+    private DealerServies: DealersService,
     private spinner: Spinner) { }
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     CheckToken(this.router);
-    CreateDatabase();
-    CheckDealersToMatchOfflineDB(this.Pos);
-    PromiseAllDealers().then((res: any) => {
-      this.Dealers = res;
+    this.GetAllDealers();
+  }
+
+  GetAllDealers(){
+    this.DealerServies.GetAllDealers().then((res: any) => {
+      this.Dealers = res
       this.Dealers.sort((a, b) => {
         if (a.name[0].toLowerCase() > b.name[0].toLowerCase()) return +1
         if (a.name[0].toLowerCase() < b.name[0].toLowerCase()) return -1
@@ -55,13 +59,9 @@ export class NewPoComponent implements OnInit {
     })
   }
 
-  UploadPo(event: any) {
-    this.SeletedFile = event.target.files[0];
-  }
-
   Submit() {
     this.DisableSubmitButton();
-    this.AssignFormValuesToObject();
+    this.AssignFormValuesToNewPoObject();
 
     let fd = new FormData();
     if (this.SeletedFile) {
@@ -71,7 +71,6 @@ export class NewPoComponent implements OnInit {
       this.NewPo.corinthianPOAttach = FileName;
 
       fd.append('PO', this.SeletedFile, FileName);
-
 
       let UploadProcess: any;
       (async () => {
@@ -87,29 +86,6 @@ export class NewPoComponent implements OnInit {
       this.Notification.OnError('Please Select A Po To Upload')
     }
   }
-  DisableSubmitButton() { this.Loading = true }
-
-  EnableSubmitButton() { this.Loading = false }
-
-  AssignFormValuesToObject() {
-    let DealerId =  this.CreatePo.get("DealerId")?.value;
-    
-    this.NewPo.dealerName = this.ExtractDealerName(DealerId);
-    this.NewPo.dealerEmail = this.ExtractDealerEmail(DealerId);
-    this.NewPo.dealerPONumber = this.CreatePo.get("DealerPo")?.value;
-    this.NewPo.corinthianPO = this.CreatePo.get("CorinthainPo")?.value;
-    this.NewPo.productionRequestDate = this.CreatePo.get("ProductionRequestDate")?.value;
-    this.NewPo.comments = this.CreatePo.get("Comments")?.value;
-    this.NewPo.corinthianPOAttach = this.NewPo.dealerName + this.NewPo.corinthianPO;
-
-
-  }
-  ExtractDealerName(Id:string){
-    return this.Dealers.find(Dealer => Dealer.Id == Id)?.name || "Unavailable"
-  }
-  ExtractDealerEmail(Id: string){
-    return this.Dealers.find(Dealer => Dealer.Id == Id)?.email || "Unavailable "
-  }
   CreatePO() {
     this.spinner.WrapWithSpinner(this.Pos.CreatePo(this.NewPo).toPromise().then((res: any) => {
       this.Notification.OnSuccess(res)
@@ -120,6 +96,37 @@ export class NewPoComponent implements OnInit {
       this.EnableSubmitButton();
     }))
   }
+
+  SaveFileInObject(event: any) {
+    this.SeletedFile = event.target.files[0];
+  }
+  ExtractDealerName(Id: string) {
+    return this.Dealers.find(Dealer => Dealer.id == Id)?.name || "Unavailable"
+  }
+  ExtractDealerEmail(Id: string) {
+    return this.Dealers.find(Dealer => Dealer.id == Id)?.email || "Unavailable "
+  }
+
+
+  DisableSubmitButton() { this.Loading = true }
+  EnableSubmitButton() { this.Loading = false }
+
+
+  AssignFormValuesToNewPoObject() {
+    let DealerId = this.CreatePo.get("DealerId")?.value;
+
+    this.NewPo.dealer_id = DealerId;
+    this.NewPo.dealerName = this.ExtractDealerName(DealerId);
+    this.NewPo.dealerEmail = this.ExtractDealerEmail(DealerId);
+    this.NewPo.dealerPONumber = this.CreatePo.get("DealerPo")?.value;
+    this.NewPo.corinthianPO = this.CreatePo.get("CorinthainPo")?.value;
+    this.NewPo.productionRequestDate = this.CreatePo.get("ProductionRequestDate")?.value;
+    this.NewPo.comments = this.CreatePo.get("Comments")?.value;
+    this.NewPo.corinthianPOAttach = this.NewPo.dealerName + this.NewPo.corinthianPO;
+
+  }
+  
+
   OperNewDealerForm() {
     this.dialog.open(NewDealerComponent, {
       height: '30rem',

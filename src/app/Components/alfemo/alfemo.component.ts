@@ -16,16 +16,13 @@ import { PoDetailsComponent } from '../po-details/po-details.component';
 })
 export class AlfemoComponent implements OnInit {
 
-
-  
-
-  mydata: POs[] = []
+  AllPos: POs[] = []
   DataRowsInPage: number = 15;
   PagesCount: number = 1;
   PageCountArray: number[] = [0];
   DataOfCurrentPage: POs[] = [];
   CurrentPage: number = 0;
-  
+
 
   constructor(private dialog: MatDialog,
     private poservice: POsService,
@@ -33,61 +30,63 @@ export class AlfemoComponent implements OnInit {
     private router: Router,
     private spinner: Spinner) { }
 
-    ngAfterViewChecked() {
-      ColorTR();
-    }
+
   ngOnInit(): void {
     CheckToken(this.router);
-      this.GetPos();
+    this.GetPos();
+  }
+  ngAfterViewChecked() {
+    ColorTR();
+  }
+  
+  GetPos() {
+    this.spinner.WrapWithSpinner(this.poservice.GetPos().then((res: any) => {
+      this.AllPos = res;
+      this.AllPos = this.AllPos.filter(PO => PO.deleted != true)
+      this.AllPos.reverse();
+      this.AllPos = this.AllPos.filter(E => E.approvalStatus == true)
+      this.PagesCount = Math.ceil(this.AllPos.length / this.DataRowsInPage);
+      this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
+      this.SliceDataForPaginantion(0);
+    }, (err: any) => {
+      Auth_error_handling(err, this.notification, this.router)
+    }))
   }
 
   DownloadMackPo(Index: number) {
-     let FileName = this.DataOfCurrentPage[Index].mackPOAttach;
-      DownLoadFile(Directories.MackPo,FileName)
+    let FileName = this.DataOfCurrentPage[Index].mackPOAttach;
+    DownLoadFile(Directories.MackPo, FileName)
   }
-
-  VeiwDetails(P: POs) {
+  VeiwPoDetails(P: POs) {
     this.dialog.open(PoDetailsComponent, {
       height: '30rem',
       width: '55rem',
-      data: [P,Functionalities.Alfemo],
+      data: [P, Functionalities.Alfemo],
     });
   }
 
-  SliceDataForPaginantion(PageNumber: number,Pos?:POs[]) {
-    let PosForSlicing: POs[] = this.mydata;
-    if(Pos) PosForSlicing = Pos;
+
+  SliceDataForPaginantion(PageNumber: number, SearchedPos?: POs[]) {
+    let PosForSlicing: POs[] = this.AllPos;
+    if (SearchedPos) PosForSlicing = SearchedPos;
     let SliceBegining = PageNumber * this.DataRowsInPage;
     if (PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length >= 1) {
       this.DataOfCurrentPage = PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage)
       this.CurrentPage = PageNumber;
     }
   }
-  NextPage(){
+  NextPage() {
     this.SliceDataForPaginantion(this.CurrentPage + 1)
   }
-
-  PreviousPage(){
+  PreviousPage() {
     this.SliceDataForPaginantion(this.CurrentPage - 1)
   }
 
-  AdjustingDataForDisplay(approvalStatus: boolean){
+
+  AdjustApprovalStatusForDisplay(approvalStatus: boolean) {
     return AdjustingDataForDisplay(approvalStatus);
   }
-  GetPos(){
-   this.spinner.WrapWithSpinner( this.poservice.GetPos().then((res: any) => {
-      this.mydata = res;
-      this.mydata = this.mydata.filter(PO => PO.deleted != true)
-      this.mydata.reverse();
-      this.mydata = this.mydata.filter(E => E.approvalStatus == true)
-      this.PagesCount = Math.ceil (this.mydata.length / this.DataRowsInPage );
-      this.PageCountArray = Array(this.PagesCount).fill(0).map((x,i)=>i)
-      this.SliceDataForPaginantion(0);
-    },(err:any) => {
-      Auth_error_handling(err,this.notification,this.router)
-    }))
-  }
-  FilterPosByCorinthainPo(event: any){
-    this.SliceDataForPaginantion(0,FilterPosBy(this.mydata,event.target.value))
+  SearchPosByCorinthainPo(event: any) {
+    this.SliceDataForPaginantion(0, FilterPosBy(this.AllPos, event.target.value))
   }
 }

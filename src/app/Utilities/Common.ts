@@ -12,6 +12,7 @@ import { POs } from "../Models/Po-model";
 import { NotificationserService } from "../Services/notificationser.service";
 import { POsService } from "../Services/pos.service";
 import { Auth_error_handling } from "./Errorhadling";
+import * as XLSX from 'xlsx';
 
 export function AddPreffixAndExtention(Preffix: string, FileNameBody: string, GetExtentionFrom: string) {
     let extenstion: string = GetExtentionFrom;
@@ -53,6 +54,7 @@ export async function UploadFile(
 export let StaticData: POs[] = [
     {
         id: 1,
+        dealer_id: "",
         dealerName: "",
         dealerEmail: "kaoukyaseenkhaled@gmail.com",
         dealerPONumber: "00 222 2229191",
@@ -80,6 +82,7 @@ export let StaticData: POs[] = [
     },
     {
         id: 1,
+        dealer_id: "",
         dealerName: "abcd-1234567890",
         dealerPONumber: "test",
         dealerEmail: "Example@gmail.com",
@@ -258,3 +261,9 @@ export function ColorTR() {
     })
   }
 
+export function ExportPosToXLSX(Pos: POs[]){
+    let worksheet = XLSX.utils.json_to_sheet(Pos);
+      let workbook = XLSX.utils.book_new();
+      workbook = {Sheets:{'Pos':worksheet},SheetNames: ["Pos"]}
+      XLSX.writeFile(workbook,"POs.xlsx")
+}

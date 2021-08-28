@@ -2,7 +2,7 @@
     <h1>Dealers</h1>
     <h2>Home / Dealers</h2>
 </div>
-<div class="SearchInput"><input type="text" placeholder="Search Dealers" (input) = "FilterByDealerName($event)"></div>
+<div class="SearchInput"><input type="text" placeholder="Search Dealers" (input) = "SearchDealersByDealerName($event)"></div>
 <div class="DataTableWraper">
     <div>
         <table class="table">
@@ -31,7 +31,7 @@
                         {{D.address}}
                     </td>
                     <td >
-                        <a type="button" (click)=Edit(D)>Edit</a>
+                        <a type="button" (click)=OpenEditDealerForm(D)>Edit</a>
                     </td>
                     <td class="LargeScreenOnly">
                         <a type="button" (click)=Delete(D)>Delete</a>

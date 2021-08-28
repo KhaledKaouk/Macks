@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Dealers } from 'src/app/Models/Dealers';
+import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
+import { Spinner } from 'src/app/Utilities/Common';
 import { AddNewDealer } from 'src/app/Utilities/DealersCRUD';
 
 @Component({
@@ -22,6 +24,8 @@ export class NewDealerComponent implements OnInit {
   Loading: boolean = false;
   NewDealer: Dealers = new Dealers();
   constructor(
+    private DealerService: DealersService,
+    private spinner: Spinner,
     private Notification: NotificationserService,
     private dialogref: MatDialogRef<NewDealerComponent>) { }
 
@@ -30,11 +34,11 @@ export class NewDealerComponent implements OnInit {
 
   async CreateNewDealer() {
     this.AssignFormValuesToDealerObject();
-    this.CreateDealerId();
-    await AddNewDealer(this.NewDealer);
-    this.Notification.OnSuccess("You Have Created a New Dealer Successfully")
-    location.reload();
-    this.Close();
+    this.spinner.WrapWithSpinner(this.DealerService.CreateDealer(this.NewDealer).then((res) => {
+      this.Notification.OnSuccess("You Have Created a New Dealer Successfully")
+      location.reload();
+      this.Close();
+    }),this.dialogref)
   }
 
   AssignFormValuesToDealerObject() {
@@ -44,9 +48,6 @@ export class NewDealerComponent implements OnInit {
     this.NewDealer.address = this.NewDealerForm.get('DealerAddress')?.value
   }
 
-  CreateDealerId() {
-    this.NewDealer.Id = Math.random().toFixed(6);
-  }
   Close() {
     this.dialogref.close();
   }

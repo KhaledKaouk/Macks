@@ -1,5 +1,6 @@
 export class POs {
     id: number;
+    dealer_id: string;
     dealerName: string;
     dealerEmail: string;
     dealerPONumber: string;
@@ -27,6 +28,7 @@ export class POs {
     
     constructor(){
             this.id = 0;
+            this.dealer_id = "",
             this.dealerName = "";
             this.dealerEmail = "";
             this.dealerPONumber = "0";

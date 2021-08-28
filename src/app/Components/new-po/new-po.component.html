@@ -10,7 +10,7 @@
         <label for="DealerName">Dealer Name</label>
         <select name="DealerName" type="text" id="DealerName" formControlName="DealerId" aria-label="Dealer Name"
             placeholder="Dealer Name" >
-            <option *ngFor= "let Dealers of Dealers index as i" value={{Dealers.Id}}>{{Dealers.name}}</option>
+            <option *ngFor= "let Dealers of Dealers index as i" value={{Dealers.id}}>{{Dealers.name}}</option>
         </select>
     </div>
     <div class="InputWraper">
@@ -35,7 +35,7 @@
 
     <div class="InputWraper">
         <label for="file">Upload Po</label>
-        <input class="file" type="file" id="file" (change)=UploadPo($event)>
+        <input class="file" type="file" id="file" (change)=SaveFileInObject($event)>
     </div>
 
     <div class="InputWraper">

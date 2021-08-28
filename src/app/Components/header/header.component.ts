@@ -50,10 +50,4 @@ export class HeaderComponent implements OnInit {
   CheckRole() {
     return localStorage.getItem('Role') ;
   }
-  FilterPosByCorinthainPo(event:any){
-    if(this.CheckRole() == "admin") this.adminComponent.FilterPosByCorinthainPo(event.target.value);
-    if(this.CheckRole() == "alfemo") this.CorinthainComponent.FilterPosByCorinthainPo(event.target.value);
-    if(this.CheckRole() == "corinthian") this.alfemoComponent.FilterPosByCorinthainPo(event.target.value);
-
-  }
 }

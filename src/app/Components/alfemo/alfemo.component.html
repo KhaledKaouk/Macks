@@ -2,7 +2,7 @@
     <h1>Alfemo</h1>
     <h2>Home / Alfemo</h2>
 </div>
-<div class="SearchInput"><input type="text" placeholder="Search Corinthain PO" (input) = "FilterPosByCorinthainPo($event)"></div>
+<div class="SearchInput"><input type="text" placeholder="Search Corinthain PO" (input) = "SearchPosByCorinthainPo($event)"></div>
 <div class="DataTableWraper">
     <div>
         <table class="table">
@@ -31,10 +31,10 @@
                         {{P.status}}
                     </td>
                     <td class="LargeScreenOnly">
-                        {{AdjustingDataForDisplay(P.approvalStatus)}}
+                        {{AdjustApprovalStatusForDisplay(P.approvalStatus)}}
                     </td>
                     <td class="td-btn">
-                        <a (click)=VeiwDetails(P)>Details</a>
+                        <a (click)=VeiwPoDetails(P)>Details</a>
                     </td>
                 </tr>
             </tbody>

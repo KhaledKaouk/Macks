@@ -2,7 +2,7 @@
     <h1>My Pos</h1>
     <h2>Home  /  My Pos</h2>
 </div>
-<div class="SearchInput"><input type="text" placeholder="Search Corinthain PO" (input) = "FilterPosByCorinthainPo($event)"></div>
+<div class="SearchInput"><input type="text" placeholder="Search Corinthain PO" (input) = "SearchPosByCorinthainPo($event)"></div>
 <div class="DataTableWraper">
 
     <div>
@@ -34,13 +34,13 @@
                     </td>
         
                     <td class="LargeScreenOnly">
-                        {{AdjustingDataForDisplay(P.approvalStatus)}}
+                        {{AdjustApprovalStatusForDisplay(P.approvalStatus)}}
                     </td>
                     <td>
-                        <a (click) = "VeiwDetails(P)">Details</a>
+                        <a (click) = "ViewPoDetails(P)">Details</a>
                     </td>
                     <td>
-                        <a (click) = "EditPo(P)" *ngIf = !P.approvalStatus>Edit</a>
+                        <a (click) = "OpenEditPoForm(P)" *ngIf = !P.approvalStatus>Edit</a>
                     </td>
                 </tr>
             </tbody>

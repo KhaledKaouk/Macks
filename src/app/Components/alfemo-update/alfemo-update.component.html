@@ -36,12 +36,12 @@
 
   <div class="InputWraper">
     <label for="file">Upload Shipment Document</label>
-    <input type="file" id="file" (change)=UploadPo($event) style="border: none;">
+    <input type="file" id="file" (change)=SaveFileInObject($event) style="border: none;">
   </div>
 
 
   <div>
-    <button (click)=Update() style="margin-bottom: 10px;" [disabled]="!UpdatedPo.valid" >Update</button>
+    <button (click)=Submit() style="margin-bottom: 10px;" [disabled]="!UpdatedPo.valid" >Update</button>
   </div>
 </div>
 <ng-progress id="PopUProgress"></ng-progress>

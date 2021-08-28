@@ -1,9 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Dealers } from 'src/app/Models/Dealers';
+import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
+import { Spinner } from 'src/app/Utilities/Common';
 import { UpdateDealer } from 'src/app/Utilities/DealersCRUD';
+import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 
 @Component({
   selector: 'app-editdealerinformation',
@@ -23,26 +27,36 @@ export class EditdealerinformationComponent implements OnInit {
   })
   constructor(
     private dialogref: MatDialogRef<EditdealerinformationComponent>,
+    private router: Router,
+    private spinner: Spinner,
+    private DealerServies: DealersService,
     @Inject (MAT_DIALOG_DATA) public data: Dealers,
     private Notification: NotificationserService) { }
 
   ngOnInit(): void {
     this.DealerToUpdate = this.data;
-    this.AssignObjectToForm();
+    this.AssignDealerInfoToForm();
   }
+  
   async UpdateDealer(){
-    this.UpdatedDealer.Id = this.DealerToUpdate.Id;
+    this.AssignFormValuesToUpdatedDealer();
+     this.spinner.WrapWithSpinner (this.DealerServies.UpdateDealer(this.UpdatedDealer).then((res) =>{
+        this.Notification.OnSuccess("You have Updated Your Dealer Info Successfully");
+        location.reload();
+        this.Close();
+    },(err: any) => {
+      Auth_error_handling(err, this.Notification, this.router)  
+    }),this.dialogref)
+  }
+
+  AssignFormValuesToUpdatedDealer(){
+    this.UpdatedDealer.id = this.DealerToUpdate.id;
     this.UpdatedDealer.name =  this.DealerForm.get('DealerName')?.value;
     this.UpdatedDealer.email = this.DealerForm.get('DealerEmail')?.value;
     this.UpdatedDealer.mobile = this.DealerForm.get('DealerMobile')?.value;
     this.UpdatedDealer.address = this.DealerForm.get('DealerAddress')?.value;
-    await UpdateDealer(this.UpdatedDealer);
-    this.Notification.OnSuccess("You have Updated Your Dealer Info Successfully");
-    location.reload();
-    this.Close();
   }
-
-  AssignObjectToForm(){
+  AssignDealerInfoToForm(){
     this.DealerForm.setValue({
       DealerName: this.DealerToUpdate.name,
       DealerEmail: this.DealerToUpdate.email,

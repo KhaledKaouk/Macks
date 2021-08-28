@@ -32,14 +32,11 @@ export class FrightPriceUpdateComponent implements OnInit {
   private spinner: Spinner) { }
 
   ngOnInit(): void {
-    this.UpdateFrightPriceForm.setValue({
-      Location: this.data.locations,
-      Price:  this.data.currentprice
-    });
+    this.AssignFrightPriceInfoToForm();
   }
 
   Submit(){
-    this.AssignFormValuesToObject();
+    this.AssignFormValuesToFrightPriceObject();
     this.UpdateFrightPrice(this.ToUpdateFrightPrice);
   }
   
@@ -54,12 +51,18 @@ export class FrightPriceUpdateComponent implements OnInit {
     }))
   }
   
-  AssignFormValuesToObject(){
+  AssignFormValuesToFrightPriceObject(){
     this.ToUpdateFrightPrice.id = this.data.id;
     this.ToUpdateFrightPrice.locations =  this.UpdateFrightPriceForm.get('Location')?.value;
     this.ToUpdateFrightPrice.currentprice = this.UpdateFrightPriceForm.get('Price')?.value;
     this.ToUpdateFrightPrice.oldprice = this.data.currentprice;
     this.ToUpdateFrightPrice.changedon = new Date().toLocaleDateString()
+  }
+  AssignFrightPriceInfoToForm(){
+    this.UpdateFrightPriceForm.setValue({
+      Location: this.data.locations,
+      Price:  this.data.currentprice
+    });
   }
   
   Close(){

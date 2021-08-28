@@ -40,18 +40,18 @@ export class AlfemoUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     CheckToken(this.router);
-
     this.PoToUpdate = this.data;
+    this.NotifyIfShippingDocsExist();
+    this.AssignPoDataToForm();
+  }
+
+  NotifyIfShippingDocsExist(){
     if(this.PoToUpdate.shippingDocs != ""){
       this.Notification.DisplayInfo("You Already Uploaded A ShippingDocs ")
     }
-/*     this.UpdatedPo.get('Status')?.setValue(this.data.status);
-    this.UpdatedPo.get('ContainerNumber')?.setValue(this.data.containerNumber);
-    this.UpdatedPo.get('FinalDestination')?.setValue(this.data.finalDestLocation);
-    this.UpdatedPo.get('FactoryEstimatedArrivalDate')?.setValue(this.data.factoryEstimatedArrivalDate);
-    this.UpdatedPo.get('FactoryEstimatedShipDate')?.setValue(this.data.factoryEstimatedShipDate);
-    this.UpdatedPo.get('AlfemoComents')?.setValue(this.data.alfemoComments)
- */
+  }
+
+  AssignPoDataToForm(){
     this.UpdatedPo.setValue({
       Status: this.data.status,
       ContainerNumber: this.data.containerNumber,
@@ -62,22 +62,14 @@ export class AlfemoUpdateComponent implements OnInit {
     })
   }
 
-  Update() {    
+  
+  Submit() {    
     this.AssignformValuesToObject();
 
-    let fd = new FormData();
-    
-    if (this.SeletedFile) {
-      let FileName = this.PoToUpdate.dealerPONumber + "_" + this.PoToUpdate.corinthianPO;
-      FileName = AddPreffixAndExtention("SD_", FileName, this.SeletedFile.name)
-
-      this.PoToUpdate.shippingDocs = FileName;
-
-      fd.append('PO', this.SeletedFile, FileName);
-
+    if (this.SeletedFile) {  
       let UploadProcess: any;
       (async () => {
-        UploadProcess = await UploadFile(this.PoService, fd, FileName, this.Notification, this.spinner, this.router)
+        UploadProcess = await UploadFile(this.PoService, this.ConstructFormDataFile(), this.ConstructFileName(), this.Notification, this.spinner, this.router)
         if (UploadProcess == true) {
           this.UpdatePo();
         }
@@ -85,13 +77,6 @@ export class AlfemoUpdateComponent implements OnInit {
     } else {
       this.UpdatePo();
     }
-  }
-
-  UploadPo(event: any) {
-    this.SeletedFile = event.target.files[0];
-  }
-  Close() {
-    this.dialogref.close();
   }
   UpdatePo(){
     if(this.UpdatedPo.get('Status')?.value == "Shipped" && !this.SeletedFile){
@@ -110,6 +95,25 @@ export class AlfemoUpdateComponent implements OnInit {
       }
     }
 
+  ConstructFileName(){
+    let FileName = this.PoToUpdate.dealerPONumber + "_" + this.PoToUpdate.corinthianPO;
+    FileName = AddPreffixAndExtention("SD_", FileName, this.SeletedFile.name)
+
+    return FileName
+  }
+  ConstructFormDataFile(){
+    let fd = new FormData();
+    this.PoToUpdate.shippingDocs = this.ConstructFileName();
+    fd.append('PO', this.SeletedFile, this.ConstructFileName());
+    return fd;
+  }
+  SaveFileInObject(event: any) {
+    this.SeletedFile = event.target.files[0];
+  }
+
+  Close() {
+    this.dialogref.close();
+  }
   AssignformValuesToObject(){
     this.PoToUpdate.status = this.UpdatedPo.get('Status')?.value;
     this.PoToUpdate.containerNumber = this.UpdatedPo.get('ContainerNumber')?.value;

@@ -4,10 +4,11 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { Dealers } from 'src/app/Models/Dealers';
 import { POs } from 'src/app/Models/Po-model';
+import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { CreateDatabase, Spinner } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, CreateDatabase, Spinner } from 'src/app/Utilities/Common';
 import { CheckDealersToMatchOfflineDB, PromiseAllDealers } from 'src/app/Utilities/DealersCRUD';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { NewDealerComponent } from '../new-dealer/new-dealer.component';
@@ -32,6 +33,7 @@ export class CorinthianUpdateComponent implements OnInit {
   })
 
   constructor(private Pos: POsService,
+    private DealerServies: DealersService,
     private Notification: NotificationserService,
     private router: Router,
     private dialog: MatDialog,
@@ -42,27 +44,29 @@ export class CorinthianUpdateComponent implements OnInit {
   ngOnInit(): void {
     CheckToken(this.router);
     this.PoToUpdate = this.data;
-    CreateDatabase();
-    CheckDealersToMatchOfflineDB(this.Pos);
-    PromiseAllDealers().then((res: any) => {
+    this.GetAllDealers();
+ 
+  }
+
+  GetAllDealers(){
+    this.DealerServies.GetAllDealers().then((res: any) =>{
       this.Dealers = res;
       this.AssignPoToForm();
     })
   }
-
   Submit(){
     this.DisableSubmitButton();
-    this.AssignFormValuesToObject();
+    this.AssignFormValuesToUpdatedPo();
     this.UpdatePO();
     this.EnableSubmitButton();
 
   }
   DisableSubmitButton() { this.Loading = true }
-
   EnableSubmitButton() { this.Loading = false }
 
-  AssignFormValuesToObject() {
+  AssignFormValuesToUpdatedPo() {
     let DealerId =  this.CreatePo.get("DealerId")?.value;
+    let NewFileName = AddPreffixAndExtention("NP_", this.PoToUpdate.dealerPONumber + "_" + this.PoToUpdate.corinthianPO,this.PoToUpdate.corinthianPOAttach);
     
     this.PoToUpdate.dealerName = this.ExtractDealerName(DealerId);
     this.PoToUpdate.dealerEmail = this.ExtractDealerEmail(DealerId);
@@ -70,19 +74,22 @@ export class CorinthianUpdateComponent implements OnInit {
     this.PoToUpdate.corinthianPO = this.CreatePo.get("CorinthainPo")?.value;
     this.PoToUpdate.productionRequestDate = this.CreatePo.get("ProductionRequestDate")?.value;
     this.PoToUpdate.comments = this.CreatePo.get("Comments")?.value;
-    this.PoToUpdate.corinthianPOAttach = this.PoToUpdate.dealerName + this.PoToUpdate.corinthianPO;
+    this.PoToUpdate.corinthianPOAttach = NewFileName;
 
 
   }
+
+
   ExtractDealerName(Id:string){
-    return this.Dealers.find(Dealer => Dealer.Id == Id)?.name || "Unavailable"
+    return this.Dealers.find(Dealer => Dealer.id == Id)?.name || "Unavailable"
   }
   ExtractDealerEmail(Id: string){
-    return this.Dealers.find(Dealer => Dealer.Id == Id)?.email || "Unavailable"
+    return this.Dealers.find(Dealer => Dealer.id == Id)?.email || "Unavailable"
   }
   ExtractDealerId(DealerName: string){
-    return this.Dealers.find(Dealer => Dealer.name === DealerName)?.Id
+    return this.Dealers.find(Dealer => Dealer.name === DealerName)?.id
   }
+
   UpdatePO() {
     this.spinner.WrapWithSpinner(this.Pos.UpdatePo(this.PoToUpdate).toPromise().then((res: any) => {
       this.Notification.OnSuccess(res)
