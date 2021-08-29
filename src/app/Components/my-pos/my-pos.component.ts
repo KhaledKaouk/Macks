@@ -6,7 +6,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AdjustingDataForDisplay, CheckCorinthianUserPermissions, ColorTR, DeleteTestingPos, Directories, DownLoadFile, FilterPosBy, Functionalities, OrderPosByDate, Spinner } from 'src/app/Utilities/Common';
+import { AdjustingDataForDisplay, CheckCorinthianUserPermissions, ColorTR, DeleteTestingPos, Directories, DownLoadFile, FilterPosBy, Functionalities, OrderPosByDate, RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { CorinthianUpdateComponent } from '../corinthian-update/corinthian-update.component';
 import { NewPoComponent } from '../new-po/new-po.component';
@@ -77,8 +77,12 @@ export class MyPosComponent implements OnInit {
     if (Pos) PosForSlicing = Pos;
     let SliceBegining = PageNumber * this.DataRowsInPage;
     if (PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length >= 1) {
+      RemoveSearchDisclaimer();
       this.DataOfCurrentPage = PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage)
       this.CurrentPage = PageNumber;
+    }else{
+      this.DataOfCurrentPage = []
+      ShowSearchDisclaimer(this.DataOfCurrentPage.length);
     }
   }
   NextPage() {
@@ -102,7 +106,7 @@ export class MyPosComponent implements OnInit {
   AdjustApprovalStatusForDisplay(approvalStatus: boolean) {
     return AdjustingDataForDisplay(approvalStatus);
   }
-  SearchPosByCorinthainPo(event: any) {
+  SearchPos(event: any) {
     this.SliceDataForPaginantion(0, FilterPosBy(this.mydata, event.target.value))
   }
 

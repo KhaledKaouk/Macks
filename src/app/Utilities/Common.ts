@@ -180,7 +180,9 @@ export function FilterDealersByName(ListOfDealers: Dealers[],DealerName: string)
 }
 
 export function ColorTR() {
-    Array.from(document.getElementsByTagName('tr')).forEach((Tr, index) => {
+    let PoRows = document.getElementsByTagName('tr');
+    let DisClaimerIsOff = document.getElementById('SearchDisclaimer') == null
+     if (DisClaimerIsOff) Array.from(document.getElementsByTagName('tr')).forEach((Tr, index) => {
       if (index != 0) {
         if(Tr.children[4].textContent?.toLowerCase().trim() == "pendding approval") Tr.style.borderLeft = '7px solid #800000'
         if(Tr.children[4].textContent?.toLowerCase().trim() == "approved") Tr.style.borderLeft = '7px solid coral'
@@ -202,4 +204,25 @@ export function RemoveSlashes(ForTrmining: string){
 
 export function CheckCorinthianUserPermissions(){
     return localStorage.getItem('username') === "HolleyF"
+}
+export function ShowSearchDisclaimer(PoCount: number){
+    let tobody = document.getElementById('tbody')
+     if(tobody) if(PoCount >= 1) {
+
+    }else{
+        if(!document.getElementById('SearchDisclaimer')){
+            let TrElement= document.createElement('tr');
+            let SearchDisclaimer = document.createElement('td')
+        
+            SearchDisclaimer.textContent = "No Results are Found"
+            SearchDisclaimer.id = 'SearchDisclaimer'
+            let TrInsideTbody = tobody.appendChild(TrElement)
+            TrInsideTbody?.appendChild(SearchDisclaimer)
+        }
+    }  
+}
+
+export function RemoveSearchDisclaimer(){
+    let SearchDisclaimer = document.getElementById('SearchDisclaimer'); 
+    if(SearchDisclaimer) SearchDisclaimer.remove(); 
 }

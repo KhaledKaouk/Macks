@@ -2,7 +2,7 @@
     <h1>My Pos</h1>
     <h2>Home  /  My Pos</h2>
 </div>
-<div class="SearchInput"><input type="text" placeholder="Search Corinthain PO" (input) = "SearchPosByCorinthainPo($event)"></div>
+<div class="SearchInput"><input type="text" placeholder="Search" (input) = "SearchPos($event)"></div>
 <div class="DataTableWraper">
 
     <div>
@@ -18,7 +18,7 @@
                     <th>Edit</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tbody">
                 <tr *ngFor="let P of DataOfCurrentPage index as i">
                     <td class="LargeScreenOnly">
                         {{P.dealerName}}
