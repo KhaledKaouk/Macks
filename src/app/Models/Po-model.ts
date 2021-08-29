@@ -11,6 +11,7 @@ export class POs {
     userID: string;
     mackPOAttach: string;
     corinthianPOAttach: string;
+    shipBy:string;
     shippingDocs: string;
     comments: string;
     alfemoComments:string;
@@ -39,6 +40,7 @@ export class POs {
             this.userID = "";
             this.mackPOAttach = "";
             this.corinthianPOAttach = "";
+            this.shipBy = ""
             this.shippingDocs = "";
             this.comments = "";
             this.alfemoComments="";
