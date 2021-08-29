@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { rejects } from 'assert';
 import { NgProgress } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
@@ -78,6 +79,7 @@ export class PoDetailsComponent implements OnInit {
   RejectPo() {
     if(this.ViewedPO.status == ""){
       this.ViewedPO.approvalStatus = false;
+      this.ViewedPO.status = "Rejected";
       window.alert("you need to hit Apply changes to Complete the process");
     }else{
       this.Notification.OnError("You Can Not Reject A Po After being Accepted By Alfemo")
@@ -85,6 +87,7 @@ export class PoDetailsComponent implements OnInit {
   }
   ApprovePo() {
       this.ViewedPO.approvalStatus = true;
+      this.ViewedPO.status = "";
       window.alert("you need to hit Apply changes to Complete the process");
   }
 
@@ -196,6 +199,7 @@ export class PoDetailsComponent implements OnInit {
       this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
         if (res == true) {
           this.Notification.OnSuccess("You have Deleted the Po successfully")
+          location.reload();
           this.Close();
         } else {
           this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
@@ -206,4 +210,10 @@ export class PoDetailsComponent implements OnInit {
     }
   }
 }
+
+// Reject
+// Notify Corinthian
+// Update Po Or Cancel it
+// Notify Mack
+
 
