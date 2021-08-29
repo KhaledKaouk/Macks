@@ -95,5 +95,7 @@ export class AdminComponent implements OnInit {
   SearchPosByCorinthainPo(event: any){
     this.SliceDataForPaginantion(0,FilterPosBy(this.AllPos,event.target.value))
   }
-  
+  ExportPosToExcel(){
+    ExportPosToXLSX(this.AllPos)
+  }
 }
