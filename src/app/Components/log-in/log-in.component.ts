@@ -29,6 +29,7 @@ export class LogInComponent implements OnInit {
 
   ngOnInit(): void {
     this.Logout();
+    if(process.env.NODE_ENV !== 'production') localStorage.setItem('DevMode', "true")
   }
 
   Submit() {
