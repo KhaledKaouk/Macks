@@ -200,3 +200,6 @@ export function RemoveSlashes(ForTrmining: string){
     return ForTrmining.replace(/\\|\//g,"")
 }
 
+export function CheckCorinthianUserPermissions(){
+    return localStorage.getItem('username') === "HolleyF"
+}

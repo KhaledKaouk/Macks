@@ -6,7 +6,7 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AdjustingDataForDisplay, ColorTR, DeleteTestingPos, Directories, DownLoadFile, FilterPosBy, Functionalities, OrderPosByDate, Spinner } from 'src/app/Utilities/Common';
+import { AdjustingDataForDisplay, CheckCorinthianUserPermissions, ColorTR, DeleteTestingPos, Directories, DownLoadFile, FilterPosBy, Functionalities, OrderPosByDate, Spinner } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { CorinthianUpdateComponent } from '../corinthian-update/corinthian-update.component';
 import { NewPoComponent } from '../new-po/new-po.component';
@@ -28,7 +28,7 @@ export class MyPosComponent implements OnInit {
   PageCountArray: number[] = [0];
   DataOfCurrentPage: POs[] = [];
   CurrentPage: number = 0;
-
+  UserIsAllowed = CheckCorinthianUserPermissions();
 
   constructor(private poservice: POsService,
     private notification: NotificationserService,
@@ -106,5 +106,4 @@ export class MyPosComponent implements OnInit {
     this.SliceDataForPaginantion(0, FilterPosBy(this.mydata, event.target.value))
   }
 
-  
 }

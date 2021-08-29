@@ -40,7 +40,7 @@
                         <a (click) = "ViewPoDetails(P)">Details</a>
                     </td>
                     <td>
-                        <a (click) = "OpenEditPoForm(P)" *ngIf = !P.approvalStatus>Edit</a>
+                        <a (click) = "OpenEditPoForm(P)" *ngIf = '!P.approvalStatus && UserIsAllowed'>Edit</a>
                     </td>
                 </tr>
             </tbody>
