@@ -73,6 +73,14 @@
             }
         }
     }
+    .DownLoad{
+        color:$footer-color;
+        transition:width 0.5s ease-in;
+        &:hover{
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+    }
 }
 .SearchInput{
     display: flex;
