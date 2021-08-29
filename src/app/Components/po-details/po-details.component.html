@@ -23,9 +23,10 @@
             <div class="labels">
                 <label>Factory ETA</label>
                 <label>Factory ESA</label>
-                <label>ShipBy</label>
+                <label>Ship By</label>
                 <label>Status</label>
                 <label>Approval Status</label>
+                <label *ngIf ="UserIsAdmin" >Created On</label>
             </div>
             <div class="labels">
                 <a>{{ViewedPO.factoryEstimatedArrivalDate | date:"MM/dd/yyyy" | EmptyField }} </a>
@@ -33,6 +34,7 @@
                 <a>{{ViewedPO.shipBy | date:"MM/dd/yyyy" | EmptyField }}</a>
                 <a>{{ViewedPO.status | EmptyField}}</a>
                 <a>{{AdjustingDataForDisplay(ViewedPO.approvalStatus) | EmptyField}}</a>
+                <a *ngIf ="UserIsAdmin">{{ViewedPO.dateReceived | date:"MM/dd/yyyy" | EmptyField}}</a>
             </div>
         </div>
     </div>
@@ -52,7 +54,7 @@
             <input tabindex="-1" type="file" id="file" (change)=UploadPo($event)>
         </div>
         <div name="ProductionRequestDate" class="element">
-            <label tabindex="-1" for="ProductionRequestDate">Production Request Date</label>
+            <label tabindex="-1" for="ProductionRequestDate">ShipBy</label>
             <input tabindex="-1" name="ProductionRequestDate" type="date" (change)="SetNewDate($event)" aria-label="CorinthainPo">
         </div>
     </div>

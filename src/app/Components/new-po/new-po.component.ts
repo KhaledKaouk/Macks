@@ -81,13 +81,13 @@ export class NewPoComponent implements OnInit {
 
   ConstructFileName() {
     let FileName = RemoveSlashes(this.NewPo.dealerPONumber) + "_" + RemoveSlashes(this.NewPo.corinthianPO);
-    FileName = AddPreffixAndExtention("SD_", FileName, this.SeletedFile.name)
+    FileName = AddPreffixAndExtention("NP_", FileName, this.SeletedFile.name)
 
     return FileName
   }
   ConstructFormDataFile() {
     let fd = new FormData();
-    this.NewPo.shippingDocs = this.ConstructFileName();
+    this.NewPo.corinthianPOAttach = this.ConstructFileName();
     fd.append('PO', this.SeletedFile, this.ConstructFileName());
     return fd;
   }
@@ -128,7 +128,7 @@ export class NewPoComponent implements OnInit {
     this.NewPo.corinthianPO = this.CreatePo.get("CorinthainPo")?.value;
     this.NewPo.shipBy = this.CreatePo.get("ShipBy")?.value;
     this.NewPo.comments = this.CreatePo.get("Comments")?.value;
-    this.NewPo.corinthianPOAttach = this.NewPo.dealerName + this.NewPo.corinthianPO;
+    this.NewPo.corinthianPOAttach = this.NewPo.dealerPONumber + this.NewPo.corinthianPO;
     this.NewPo.dateReceived = new Date().toLocaleDateString()
 
   }

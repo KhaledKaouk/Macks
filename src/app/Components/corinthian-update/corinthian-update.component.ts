@@ -26,9 +26,9 @@ export class CorinthianUpdateComponent implements OnInit {
 
   CreatePo = new FormGroup({
     DealerId: new FormControl('', Validators.required),
-    DealerPo: new FormControl('', Validators.required),
-    CorinthainPo: new FormControl('', Validators.required),
-    ProductionRequestDate: new FormControl('', Validators.required),
+    // DealerPo: new FormControl('', Validators.required),
+    // CorinthainPo: new FormControl('', Validators.required),
+    shipBy: new FormControl('', Validators.required),
     Comments: new FormControl('')
   })
 
@@ -66,15 +66,15 @@ export class CorinthianUpdateComponent implements OnInit {
 
   AssignFormValuesToUpdatedPo() {
     let DealerId =  this.CreatePo.get("DealerId")?.value;
-    let NewFileName = AddPreffixAndExtention("NP_", RemoveSlashes(this.PoToUpdate.dealerPONumber) + "_" + RemoveSlashes(this.PoToUpdate.corinthianPO),this.PoToUpdate.corinthianPOAttach);
     
     this.PoToUpdate.dealerName = this.ExtractDealerName(DealerId);
     this.PoToUpdate.dealerEmail = this.ExtractDealerEmail(DealerId);
-    this.PoToUpdate.dealerPONumber = this.CreatePo.get("DealerPo")?.value;
-    this.PoToUpdate.corinthianPO = this.CreatePo.get("CorinthainPo")?.value;
-    this.PoToUpdate.productionRequestDate = this.CreatePo.get("ProductionRequestDate")?.value;
+    // this.PoToUpdate.dealerPONumber = this.CreatePo.get("DealerPo")?.value;
+    // this.PoToUpdate.corinthianPO = this.CreatePo.get("CorinthainPo")?.value;
+    this.PoToUpdate.shipBy = this.CreatePo.get("shipBy")?.value;
     this.PoToUpdate.comments = this.CreatePo.get("Comments")?.value;
-    this.PoToUpdate.corinthianPOAttach = NewFileName;
+    // let NewFileName = AddPreffixAndExtention("NP_", RemoveSlashes(this.PoToUpdate.dealerPONumber) + "_" + RemoveSlashes(this.PoToUpdate.corinthianPO),this.PoToUpdate.corinthianPOAttach);
+    // this.PoToUpdate.corinthianPOAttach = NewFileName;
 
 
   }
@@ -108,9 +108,9 @@ export class CorinthianUpdateComponent implements OnInit {
   AssignPoToForm(){
     this.CreatePo.setValue({
       DealerId: this.ExtractDealerId(this.PoToUpdate.dealerName),
-      DealerPo: this .PoToUpdate.dealerPONumber,
-      CorinthainPo: this.PoToUpdate.corinthianPO,
-      ProductionRequestDate: this.PoToUpdate.productionRequestDate,
+      // DealerPo: this .PoToUpdate.dealerPONumber,
+      // CorinthainPo: this.PoToUpdate.corinthianPO,
+      shipBy: this.PoToUpdate.shipBy,
       Comments: this.PoToUpdate.comments
     })
   }

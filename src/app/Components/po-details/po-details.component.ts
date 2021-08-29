@@ -19,6 +19,7 @@ export class PoDetailsComponent implements OnInit {
 
   ViewedPO: POs = new POs();
   SeletedFile: any;
+  UserIsAdmin = this.CheckIfAdmin();
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: [POs, string[]],
     private dialogref: MatDialogRef<PoDetailsComponent>,
@@ -107,13 +108,13 @@ export class PoDetailsComponent implements OnInit {
   }
   ConstructFileName() {
     let FileName = RemoveSlashes(this.ViewedPO.dealerPONumber)  + "_" + RemoveSlashes(this.ViewedPO.corinthianPO);
-    FileName = AddPreffixAndExtention("SD_", FileName, this.SeletedFile.name)
+    FileName = AddPreffixAndExtention("MP_", FileName, this.SeletedFile.name)
 
     return FileName
   }
   ConstructFormDataFile() {
     let fd = new FormData();
-    this.ViewedPO.shippingDocs = this.ConstructFileName();
+    this.ViewedPO.mackPOAttach = this.ConstructFileName();
     fd.append('PO', this.SeletedFile, this.ConstructFileName());
     return fd;
   }
@@ -163,7 +164,7 @@ export class PoDetailsComponent implements OnInit {
   }
   
   SetNewDate(event: any) {
-    this.ViewedPO.productionRequestDate = event.target.value;
+    this.ViewedPO.shipBy = event.target.value;
   }
   CheckMackFile() {
     if (this.ViewedPO.mackPOAttach == "") {
@@ -208,6 +209,9 @@ export class PoDetailsComponent implements OnInit {
         Auth_error_handling(err, this.Notification, this.router)
       }), this.dialogref)
     }
+  }
+  CheckIfAdmin(){
+    return localStorage.getItem('Role') === "admin"
   }
 }
 

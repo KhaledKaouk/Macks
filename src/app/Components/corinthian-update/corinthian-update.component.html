@@ -13,19 +13,19 @@
             <option *ngFor= "let Dealers of Dealers index as i" value={{Dealers.id}}>{{Dealers.name}}</option>
         </select>
     </div>
-    <div class="InputWraper">
+    <!-- <div class="InputWraper">
         <input name="DealerPo" type="text" formControlName="DealerPo" aria-label="DealerPo" placeholder="Dealer Po">
     </div>
 
     <div class="InputWraper">
         <input name="CorinthainPo" type="text" formControlName="CorinthainPo" aria-label="CorinthainPo"
             placeholder="CorinthainPo">
-    </div>
+    </div> -->
 
     <div class="InputWraper">
-        <label for="CorinthainPo">Production Request Date</label>
-        <input name="CorinthainPo" type="date" formControlName="ProductionRequestDate" aria-label="CorinthainPo"
-            placeholder="Production Request Date">
+        <label for="shipBy">Ship By</label>
+        <input name="ShipBy" type="date" formControlName="shipBy" aria-label="SipBy"
+            placeholder="shipBy">
     </div>
 
     <div class="InputWraper">
