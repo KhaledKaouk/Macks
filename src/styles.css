@@ -263,8 +263,8 @@
 }
 
 .middleOfHeader .right:hover {
-  -webkit-transform: scale(0.8);
-          transform: scale(0.8);
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
 }
 
 .middleOfHeader a {

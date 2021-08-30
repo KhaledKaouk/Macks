@@ -5,8 +5,7 @@ import { Router } from '@angular/router';
 import { Dealers } from 'src/app/Models/Dealers';
 import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
-import { Spinner } from 'src/app/Utilities/Common';
-import { UpdateDealer } from 'src/app/Utilities/DealersCRUD';
+import { Spinner, CheckDealersForDuplicate } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 
 @Component({
@@ -20,7 +19,7 @@ export class EditdealerinformationComponent implements OnInit {
   UpdatedDealer: Dealers = new Dealers();
   Loading: boolean = false;
   DealerForm = new FormGroup({
-    DealerName: new FormControl('',Validators.required),
+    DealerName: new FormControl('', Validators.required),
     DealerEmail: new FormControl(''),
     DealerMobile: new FormControl(''),
     DealerAddress: new FormControl('')
@@ -30,33 +29,41 @@ export class EditdealerinformationComponent implements OnInit {
     private router: Router,
     private spinner: Spinner,
     private DealerServies: DealersService,
-    @Inject (MAT_DIALOG_DATA) public data: Dealers,
+    @Inject(MAT_DIALOG_DATA) public data: Dealers,
     private Notification: NotificationserService) { }
 
   ngOnInit(): void {
     this.DealerToUpdate = this.data;
     this.AssignDealerInfoToForm();
   }
-  
-  async UpdateDealer(){
+
+  async UpdateDealer() {
     this.AssignFormValuesToUpdatedDealer();
-     this.spinner.WrapWithSpinner (this.DealerServies.UpdateDealer(this.UpdatedDealer).then((res) =>{
-        this.Notification.OnSuccess("You have Updated Your Dealer Info Successfully");
+    if (!CheckDealersForDuplicate(this.UpdatedDealer, this.DealerServies)) {
+      this.spinner.WrapWithSpinner(this.DealerServies.UpdateDealer(this.UpdatedDealer).then((res) => {
+        if (res == true) {
+          this.Notification.OnSuccess("You have Updated Your Dealer Info Successfully");
+        } else {
+          this.Notification.OnError("The Dealer " + this.UpdatedDealer.name + " Already exists")
+        }
         location.reload();
         this.Close();
-    },(err: any) => {
-      Auth_error_handling(err, this.Notification, this.router)  
-    }),this.dialogref)
+      }, (err: any) => {
+        Auth_error_handling(err, this.Notification, this.router)
+      }), this.dialogref)
+    } else {
+      this.Notification.OnError("The Dealer " + this.UpdatedDealer.name + " Already exists")
+    }
   }
 
-  AssignFormValuesToUpdatedDealer(){
+  AssignFormValuesToUpdatedDealer() {
     this.UpdatedDealer.id = this.DealerToUpdate.id;
-    this.UpdatedDealer.name =  this.DealerForm.get('DealerName')?.value;
+    this.UpdatedDealer.name = this.DealerForm.get('DealerName')?.value;
     this.UpdatedDealer.email = this.DealerForm.get('DealerEmail')?.value;
     this.UpdatedDealer.mobile = this.DealerForm.get('DealerMobile')?.value;
     this.UpdatedDealer.address = this.DealerForm.get('DealerAddress')?.value;
   }
-  AssignDealerInfoToForm(){
+  AssignDealerInfoToForm() {
     this.DealerForm.setValue({
       DealerName: this.DealerToUpdate.name,
       DealerEmail: this.DealerToUpdate.email,
@@ -64,8 +71,7 @@ export class EditdealerinformationComponent implements OnInit {
       DealerAddress: this.DealerToUpdate.address
     })
   }
-  Close(){
+  Close() {
     this.dialogref.close();
   }
-
 }

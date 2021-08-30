@@ -13,6 +13,7 @@ import { NotificationserService } from "../Services/notificationser.service";
 import { POsService } from "../Services/pos.service";
 import { Auth_error_handling } from "./Errorhadling";
 import * as XLSX from 'xlsx';
+import { DealersService } from "../Services/dealers.service";
 
 export function AddPreffixAndExtention(Preffix: string, FileNameBody: string, GetExtentionFrom: string) {
     let extenstion: string = GetExtentionFrom;
@@ -226,3 +227,12 @@ export function RemoveSearchDisclaimer(){
     let SearchDisclaimer = document.getElementById('SearchDisclaimer'); 
     if(SearchDisclaimer) SearchDisclaimer.remove(); 
 }
+
+export async function  CheckDealersForDuplicate(InspectedDealer: Dealers,DealerService: DealersService) {
+    let IsDupicate: boolean = false;
+    await DealerService.GetAllDealers().then((res: any) => {
+      let Dealers: Dealers[] = res;
+      IsDupicate = Dealers.filter(Dealer => Dealer.name.toLowerCase() == InspectedDealer.name.toLowerCase()).length > 0
+    })
+    return IsDupicate
+  }
