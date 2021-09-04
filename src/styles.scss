@@ -10,7 +10,9 @@
 @import "./SassPages/HomeSlide";
 @import "./SassPages/AddressHeader";
 @import "./SassPages/InputForm";
-@import "./SassPages/Spinner";   
+@import "./SassPages/Spinner";  
+@import "./SassPages/DealerDetails"; 
+@import "./SassPages/Reports";
 * {
     box-sizing: border-box;
     margin: 0;
@@ -65,6 +67,20 @@ ul{
             width: 100%;
             display: none;
         }
+        #DealerSubMenu{
+            position: relative !important;
+            color: red !important;
+            top: 0.7rem !important;
+            left:  2rem !important;
+            border: none !important;
+            box-shadow: none !important;
+            li{
+                border: none !important;
+                background-color: white !important;
+
+            }
+            
+        }
     }
 
     #check:checked + #test {
@@ -75,6 +91,8 @@ ul{
         z-index: 100;
         left: 0;
     }
+
+    
 }
 
 @media screen and (max-width: 800px) {

@@ -26,7 +26,7 @@ export class POs {
     productionRequestTime: string;
     approvalStatus: boolean;
     deleted: boolean;
-    
+    [key:string]: string | boolean | number;
     constructor(){
             this.id = 0;
             this.dealer_id = "",
@@ -56,4 +56,5 @@ export class POs {
             this.approvalStatus = false;
             this.deleted = false;
     }
+
 }
