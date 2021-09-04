@@ -35,6 +35,6 @@ export class POsService {
 
   DeletePo(Po: POs) {
     Po.deleted = confirm("Are you Sure you Want To Delete this Po?")
-    return this.http.post(this.ApiURL + "/updatepo", Po);
+    return this.http.post(this.ApiURL + "/deletepofromdb", Po);
   }
 }

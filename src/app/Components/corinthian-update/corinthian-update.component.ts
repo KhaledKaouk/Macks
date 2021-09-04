@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -108,9 +109,7 @@ export class CorinthianUpdateComponent implements OnInit {
   AssignPoToForm(){
     this.CreatePo.setValue({
       DealerId: this.ExtractDealerId(this.PoToUpdate.dealerName),
-      // DealerPo: this .PoToUpdate.dealerPONumber,
-      // CorinthainPo: this.PoToUpdate.corinthianPO,
-      shipBy: this.PoToUpdate.shipBy,
+      shipBy: new DatePipe('en-Us').transform(this.PoToUpdate.shipBy,'YYYY-MM-dd') ,
       Comments: this.PoToUpdate.comments
     })
   }

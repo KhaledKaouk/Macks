@@ -7,7 +7,7 @@ import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { CheckDealersForDuplicate, Spinner } from 'src/app/Utilities/Common';
 import { AddNewDealer } from 'src/app/Utilities/DealersCRUD';
-import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
+import { Auth_error_handling, DealerWithAuth_error_handling } from 'src/app/Utilities/Errorhadling';
 
 @Component({
   selector: 'app-new-dealer',
@@ -38,21 +38,21 @@ export class NewDealerComponent implements OnInit {
   async CreateNewDealer() {
     this.AssignFormValuesToDealerObject();
 
-    if (!CheckDealersForDuplicate(this.NewDealer,this.DealerService)) {
+    // if (!CheckDealersForDuplicate(this.NewDealer,this.DealerService)) {
       this.spinner.WrapWithSpinner(this.DealerService.CreateDealer(this.NewDealer).then((res) => {
-        if(res == true){
+        // if(res == true){
           this.Notification.OnSuccess("You Have Created a New Dealer Successfully")  
-        }else{
-          this.Notification.OnError("The Dealer " + this.NewDealer.name + " Already exists")
-        }
+        // }else{
+        //   this.Notification.OnError("The Dealer " + this.NewDealer.name + " Already exists")
+        // }
         location.reload();
         this.Close();
       },(err) => {
-        Auth_error_handling(err, this.Notification, this.router)
+        DealerWithAuth_error_handling(err, this.Notification, this.router,this.NewDealer)
       }), this.dialogref)
-    }else{
-      this.Notification.OnError("The Dealer " + this.NewDealer.name + " Already exists")
-    }
+    // }else{
+    //   this.Notification.OnError("The Dealer " + this.NewDealer.name + " Already exists")
+    // }
   }
 
   AssignFormValuesToDealerObject() {

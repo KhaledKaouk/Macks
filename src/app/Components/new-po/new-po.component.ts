@@ -96,12 +96,19 @@ export class NewPoComponent implements OnInit {
     this.spinner.WrapWithSpinner(this.Pos.CreatePo(this.NewPo).toPromise().then((res: any) => {
       this.Notification.OnSuccess(res)
       this.router.navigateByUrl('/MyPos')
-
     }, (err: any) => {
       Auth_error_handling(err, this.Notification, this.router)
       this.EnableSubmitButton();
     }))
   }
+  // async GetCreatedPo(CorinthianPoNo: string) {
+  //   let CreatedPo;
+  //   await this.Pos.GetPos().then((res: any) => {
+  //     let AllPos: POs[] = res;
+  //     CreatedPo = AllPos.find(Po => Po.corinthianPO == CorinthianPoNo)
+  //   })
+  //   return CreatedPo;
+  // }
 
   SaveFileInObject(event: any) {
     this.SeletedFile = event.target.files[0];

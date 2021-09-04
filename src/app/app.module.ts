@@ -35,6 +35,8 @@ import { NewDealerComponent } from './Components/new-dealer/new-dealer.component
 import { CorinthianUpdateComponent } from './Components/corinthian-update/corinthian-update.component';
 import { DealersComponent } from './Components/dealers/dealers.component';
 import { EditdealerinformationComponent } from './Components/editdealerinformation/editdealerinformation.component';
+import { DealerProfileComponent } from './Components/dealer-profile/dealer-profile.component';
+import { ReportsComponent } from './Components/reports/reports.component';
 
 
 @NgModule({
@@ -60,6 +62,8 @@ import { EditdealerinformationComponent } from './Components/editdealerinformati
     CorinthianUpdateComponent,
     DealersComponent,
     EditdealerinformationComponent,
+    DealerProfileComponent,
+    ReportsComponent,
   ],
   imports: [
     BrowserModule,

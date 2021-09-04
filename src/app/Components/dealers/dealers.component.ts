@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Dealers } from 'src/app/Models/Dealers';
 import { DealersService } from 'src/app/Services/dealers.service';
-import { FilterDealersByName } from 'src/app/Utilities/Common';
+import { FilterDealersByName, RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
 import { CheckDealersToMatchOfflineDB, DeleteDealer, PromiseAllDealers } from 'src/app/Utilities/DealersCRUD';
 import { EditdealerinformationComponent } from '../editdealerinformation/editdealerinformation.component';
 
@@ -21,6 +22,8 @@ export class DealersComponent implements OnInit {
   CurrentPage: number = 0;
 
   constructor(private dialog: MatDialog,
+    private spinner: Spinner,
+    private router: Router,
     private DealerServies: DealersService) { }
 
   ngOnInit(): void {
@@ -28,7 +31,7 @@ export class DealersComponent implements OnInit {
   }
 
   GetAllDealers(){
-    this.DealerServies.GetAllDealers().then((res: any) => {
+     this.spinner.WrapWithSpinner(this.DealerServies.GetAllDealers().then((res: any) => {
       this.Dealers = res
       this.Dealers.sort((a, b) => {
         if (a.name[0].toLowerCase() > b.name[0].toLowerCase()) return +1
@@ -38,7 +41,7 @@ export class DealersComponent implements OnInit {
       this.PagesCount = Math.ceil(this.Dealers.length / this.DataRowsInPage);
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
       this.SliceDataForPaginantion(0)
-    })
+    }))
   }
 
   async Delete(Dealer: Dealers) {}
@@ -55,8 +58,12 @@ export class DealersComponent implements OnInit {
     if (Dealers) DealersForSlicing = Dealers;
     let SliceBegining = PageNumber * this.DataRowsInPage;
     if (DealersForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length >= 1) {
+      RemoveSearchDisclaimer();
       this.DataOfCurrentPage = DealersForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage)
       this.CurrentPage = PageNumber;
+    }else{
+      this.DataOfCurrentPage = [];
+      ShowSearchDisclaimer(this.DataOfCurrentPage.length);
     }
   }
   NextPage() {
@@ -69,5 +76,8 @@ export class DealersComponent implements OnInit {
 
   SearchDealersByDealerName(event: any) {
     this.SliceDataForPaginantion(0,FilterDealersByName(this.Dealers,event.target.value))
+  }
+  ViewDealerProfile(Dealer: Dealers){
+    this.router.navigate(['/DealerProfile', Dealer.id]);
   }
 }

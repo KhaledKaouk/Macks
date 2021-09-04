@@ -130,34 +130,34 @@ export class PoDetailsComponent implements OnInit {
       Auth_error_handling(err, this.Notification, this.router)
     }), this.dialogref)
   }
-  CorinthainUpdate() {
-    this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
-      if (res == true) {
-        this.Notification.OnSuccess("You Updated the Po successfully")
-        this.Close()
-      } else {
-        this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
-      }
-    }, (err: any) => {
+  // CorinthainUpdate() {
+  //   this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
+  //     if (res == true) {
+  //       this.Notification.OnSuccess("You Updated the Po successfully")
+  //       this.Close()
+  //     } else {
+  //       this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
+  //     }
+  //   }, (err: any) => {
 
-      Auth_error_handling(err, this.Notification, this.router)
-    }), this.dialogref)
-  }
+  //     Auth_error_handling(err, this.Notification, this.router)
+  //   }), this.dialogref)
+  // }
   Close() {
     this.dialogref.close();
   }
   Update() {
 
-    if (this.data[1] == Functionalities.Alfemo) {
+    // if (this.data[1] == Functionalities.Alfemo) {
       this.dialog.open(AlfemoUpdateComponent, {
         height: '60rem',
         width: '45rem',
         data: this.ViewedPO,
       });
       this.Close();
-    } else {
-      this.CorinthainUpdate();
-    }
+    // } else {
+    //   // this.CorinthainUpdate();
+    // }
   }
   UploadPo(event: any) {
     this.SeletedFile = event.target.files[0];
@@ -214,10 +214,3 @@ export class PoDetailsComponent implements OnInit {
     return localStorage.getItem('Role') === "admin"
   }
 }
-
-// Reject
-// Notify Corinthian
-// Update Po Or Cancel it
-// Notify Mack
-
-

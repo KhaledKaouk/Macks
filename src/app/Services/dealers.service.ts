@@ -9,7 +9,6 @@ import { InDevMode } from '../Utilities/Common';
 export class DealersService {
 
   ApiUrl = "https://macksdistribution.com/api/account";
-
   constructor(private http: HttpClient) {
     if (InDevMode) this.ApiUrl = "http://localhost:5000"
    }

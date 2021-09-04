@@ -10,13 +10,14 @@
                 <tr>
                     <th >Name</th>
                     <th >Email</th>
-                    <th class="LargeScreenOnly">Mobile</th>
+                    <th class="LargeScreenOnly">Customer #</th>
                     <th class="LargeScreenOnly">Address</th>
                     <th>Edit</th>
                     <th class="LargeScreenOnly">Delete</th>
+                    <th class="LargeScreenOnly">View</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tbody">
                 <tr *ngFor="let D of DataOfCurrentPage index as i">
                     <td >
                         {{D.name}}
@@ -29,6 +30,9 @@
                     </td>
                     <td class="LargeScreenOnly">
                         {{D.address}}
+                    </td>
+                    <td >
+                        <a type="button" (click)=ViewDealerProfile(D)>ViewProfile</a>
                     </td>
                     <td >
                         <a type="button" (click)=OpenEditDealerForm(D)>Edit</a>

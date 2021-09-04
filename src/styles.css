@@ -298,6 +298,7 @@
 }
 
 .bottomOfHeader ul li {
+  position: relative;
   padding: 0.83em 1.04em;
   color: #6f5948;
   font-size: 1.5rem;
@@ -306,11 +307,58 @@
 
 .bottomOfHeader ul li label {
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .bottomOfHeader ul li label:hover {
   cursor: pointer;
   color: #bba695;
+}
+
+.bottomOfHeader #DealerSubMenutitle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.bottomOfHeader #DealerSubMenutitle #DealerSubMenu {
+  display: none;
+  position: absolute;
+  top: 3rem;
+  left: 1rem;
+  background-color: transparent;
+  -webkit-box-shadow: 0px 0px 3px #494949;
+          box-shadow: 0px 0px 3px #494949;
+}
+
+.bottomOfHeader #DealerSubMenutitle #DealerSubMenu li {
+  background-color: #f5f5f5;
+  border: 1px solid #6f5948;
+  margin-bottom: 2px;
+}
+
+.bottomOfHeader #DealerSubMenutitle:hover #DealerSubMenu {
+  display: block;
+}
+
+.bottomOfHeader #DealerSubMenutitle:hover #DealerSubMenu li {
+  display: block;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+.bottomOfHeader #DealerSubMenutitle:hover #DealerSubMenu li label:hover {
+  cursor: pointer;
 }
 
 .bottomOfHeader #menuCheckBox {
@@ -911,6 +959,280 @@
   }
 }
 
+.DealerDetailsWraper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 1rem;
+  border: 0.01rem solid #e4e4e4;
+  background-color: #f3f3f3;
+  margin-bottom: 10px;
+}
+
+.DealerCard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.DealerCard label {
+  text-align: right;
+  margin: 0.5rem;
+  color: #3c2e25;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.DealerCard a {
+  text-align: left;
+  margin: 0.5rem;
+  color: #3c2e25;
+  font-size: 1.1rem;
+}
+
+.DealerCard .labels {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.DealerCard p {
+  display: block;
+  padding: 1rem;
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.Report {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 3rem;
+  margin: 2rem;
+  color: #3c2e25;
+  font-size: 1.1rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.Report label {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  padding: 0.5rem;
+}
+
+.Report label:hover {
+  cursor: pointer;
+}
+
+.Report .InputWraper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 1%;
+}
+
+.Report .InputWraper label {
+  font-size: 1.1rem;
+  margin-bottom: 2%;
+}
+
+.Report select {
+  font-size: 1.1rem;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #e4e4e4;
+  -webkit-transition: border 0.4s ease-in;
+  transition: border 0.4s ease-in;
+}
+
+.Report select:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.Report .input {
+  font-size: 1.1rem;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #e4e4e4;
+  -webkit-transition: border 0.4s ease-in;
+  transition: border 0.4s ease-in;
+}
+
+.Report .input:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.PoFiledCheckList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  padding: 0.5rem;
+  border: 1px solid #cfcfcf;
+}
+
+.CheckItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.5rem;
+}
+
+.CheckItem:hover {
+  background-color: #f5f5f5;
+}
+
+.button {
+  border: 1px solid #3c2e25;
+  padding: 0.2rem;
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
+}
+
+.button:hover {
+  background-color: #b99b85;
+  color: #f5f5f5;
+  border-color: #b99b85;
+  cursor: pointer;
+}
+
+#Dealers {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  position: relative;
+  border: 1px solid #cfcfcf;
+  padding: 1rem;
+  max-width: 30rem;
+  min-width: 10rem;
+  min-height: 5rem;
+}
+
+#Dealers .SearcHeader {
+  position: absolute;
+  top: -1rem;
+  z-index: 10;
+  background-color: white;
+}
+
+#Dealers .DealerId {
+  margin: 0.5rem;
+  border: 1px solid #6f5948;
+  padding-left: 0.2rem;
+}
+
+#Dealers .DealerId .RemoveDealer {
+  margin: 0.5rem;
+}
+
+#Dealers .DealerId .RemoveDealer:hover {
+  cursor: pointer;
+  background-color: #f5f5f5;
+}
+
+.Options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.FilterSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 2rem;
+  padding: 0.5rem;
+  border: 1px solid #cfcfcf;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -983,6 +1305,19 @@ ul {
   .bottomOfHeader ul {
     width: 100%;
     display: none;
+  }
+  .bottomOfHeader #DealerSubMenu {
+    position: relative !important;
+    color: red !important;
+    top: 0.7rem !important;
+    left: 2rem !important;
+    border: none !important;
+    -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+  }
+  .bottomOfHeader #DealerSubMenu li {
+    border: none !important;
+    background-color: white !important;
   }
   #check:checked + #test {
     display: -webkit-box;

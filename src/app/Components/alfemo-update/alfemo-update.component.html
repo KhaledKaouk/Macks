@@ -7,7 +7,7 @@
     <select name="Status" aria-label="Default select example" formControlName="Status" (change) = "AssignValidators($event)">
       <option value="confirm Po Receipt">Confirm Po Receipt</option>
       <option value="Waiting For Production">Waiting For Production</option>
-      <option value="Production">In Production</option>
+      <option value="In Production">In Production</option>
       <option value="ContainerBooked">Container Booked</option>
       <option value="Loading">Loading</option>
       <option value="Shipped">Shipped</option>
@@ -31,7 +31,7 @@
 
   <div class="InputWraper">
     <label for="CorinthainPo">Comments</label>
-    <textarea name="CorinthainPo" type="text" formControlName="AlfemoComents" aria-label="CorinthainPo"></textarea>
+    <textarea name="CorinthainPo" type="text" formControlName="AlfemoComents" aria-label="CorinthainPo" maxlength="200"></textarea>
   </div>
 
   <div class="InputWraper">

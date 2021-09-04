@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { FormControl, FormGroup, RequiredValidator, Validators } from '@angular/forms';
@@ -56,8 +57,8 @@ export class AlfemoUpdateComponent implements OnInit {
       Status: this.data.status,
       ContainerNumber: this.data.containerNumber,
       FinalDestination: this.data.finalDestLocation,
-      FactoryEstimatedArrivalDate: this.data.factoryEstimatedArrivalDate,
-      FactoryEstimatedShipDate: this.data.factoryEstimatedShipDate,
+      FactoryEstimatedArrivalDate: new DatePipe('en-US').transform(this.data.factoryEstimatedArrivalDate,'YYYY-MM-dd') ,
+      FactoryEstimatedShipDate: new DatePipe('en-US').transform(this.data.factoryEstimatedShipDate,'YYYY-MM-dd'),
       AlfemoComents: this.data.alfemoComments
     })
   }
@@ -115,6 +116,7 @@ export class AlfemoUpdateComponent implements OnInit {
     this.dialogref.close();
   }
   AssignformValuesToObject(){
+    console.log(this.UpdatedPo.get('Status')?.value)
     this.PoToUpdate.status = this.UpdatedPo.get('Status')?.value;
     this.PoToUpdate.containerNumber = this.UpdatedPo.get('ContainerNumber')?.value;
     this.PoToUpdate.finalDestLocation = this.UpdatedPo.get('FinalDestination')?.value;
