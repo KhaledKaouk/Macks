@@ -1,0 +1,76 @@
+<div class="AddressHeader">
+    <h1>Dealer Profile</h1>
+    <h2>Home / Dealers</h2>
+</div>
+<div class="DealerDetailsWraper">
+    <div class="DealerCard">
+        <div class="labels">
+            <label>Dealer Name :</label>
+            <label>Dealer Email :</label>
+        </div>
+        <div class="labels">
+            <a>{{Dealer.name | EmptyField}}</a>
+            <a>{{Dealer.email | EmptyField}}</a>
+        </div>
+    </div>
+    <div class="Potest">
+        <div class="labels">
+            <label>Customer # :</label>
+            <label>Dealer Address :</label>
+        </div>
+        <div class="labels">
+            <a>{{Dealer.mobile | EmptyField}}</a>
+            <a>{{Dealer.address | EmptyField}}</a>
+        </div>
+    </div>
+</div>
+<div class="SearchInput"><input type="text" placeholder="Search" (input)="SearchPos($event)"></div>
+<div class="DataTableWraper">
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="LargeScreenOnly">Dealer Name</th>
+                    <th>Dealer Po no</th>
+                    <th>Corinthain Po No</th>
+                    <th class="LargeScreenOnly">Status</th>
+                    <th class="LargeScreenOnly">Approved</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <tr *ngFor="let P of DataOfCurrentPage index as i">
+                    <td class="LargeScreenOnly">
+                        {{P.dealerName}}
+                    </td>
+                    <td>
+                        {{P.dealerPONumber}}
+                    </td>
+                    <td>
+                        {{P.corinthianPO}}
+                    </td>
+                    <td class="LargeScreenOnly">
+                        {{P.status}}
+                    </td>
+                    <td class="LargeScreenOnly">
+                        {{AdjustApprovalStatusForDisplay(P.approvalStatus)}}
+                    </td>
+                    <td>
+                        <a type="button" (click)=VeiwPoDetails(P)>Details</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class="pagination" aria-label="Page navigation example">
+            <ul>
+                <li><button (click)=PreviousPage()>Previous</button></li>
+                <li *ngFor="let PC of PageCountArray index as i"><button
+                        (click)=SliceDataForPaginantion(i)>{{i}}</button>
+                </li>
+                <li><button (click)=NextPage()>Next</button></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<ng-progress id="myProgress"></ng-progress>
+<simple-notifications></simple-notifications>
