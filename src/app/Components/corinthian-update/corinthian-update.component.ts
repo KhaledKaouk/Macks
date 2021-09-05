@@ -30,6 +30,7 @@ export class CorinthianUpdateComponent implements OnInit {
     // DealerPo: new FormControl('', Validators.required),
     // CorinthainPo: new FormControl('', Validators.required),
     shipBy: new FormControl('', Validators.required),
+    InvoiceDate: new FormControl('',Validators.required),
     Comments: new FormControl('')
   })
 
@@ -73,6 +74,7 @@ export class CorinthianUpdateComponent implements OnInit {
     // this.PoToUpdate.dealerPONumber = this.CreatePo.get("DealerPo")?.value;
     // this.PoToUpdate.corinthianPO = this.CreatePo.get("CorinthainPo")?.value;
     this.PoToUpdate.shipBy = this.CreatePo.get("shipBy")?.value;
+    this.PoToUpdate.invoiceDate = this.CreatePo.get('InvoiceDate')?.value;
     this.PoToUpdate.comments = this.CreatePo.get("Comments")?.value;
     // let NewFileName = AddPreffixAndExtention("NP_", RemoveSlashes(this.PoToUpdate.dealerPONumber) + "_" + RemoveSlashes(this.PoToUpdate.corinthianPO),this.PoToUpdate.corinthianPOAttach);
     // this.PoToUpdate.corinthianPOAttach = NewFileName;
@@ -110,7 +112,8 @@ export class CorinthianUpdateComponent implements OnInit {
     this.CreatePo.setValue({
       DealerId: this.ExtractDealerId(this.PoToUpdate.dealerName),
       shipBy: new DatePipe('en-Us').transform(this.PoToUpdate.shipBy,'YYYY-MM-dd') ,
-      Comments: this.PoToUpdate.comments
+      Comments: this.PoToUpdate.comments,
+      InvoiceDate: this.PoToUpdate.invoiceDate,
     })
   }
   Close(){

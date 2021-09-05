@@ -6,7 +6,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
-import { AddPreffixAndExtention, AdjustingDataForDisplay, Directories, DownLoadFile, Functionalities, HideDialog, ProgrssBar, RemoveSlashes, ShowDialog, Spinner, UploadFile } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, AdjustingDataForDisplay, CheckCorinthianUserPermissions, Directories, DownLoadFile, Functionalities, HideDialog, ProgrssBar, RemoveSlashes, ShowDialog, Spinner, UploadFile } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component';
 
@@ -212,5 +212,8 @@ export class PoDetailsComponent implements OnInit {
   }
   CheckIfAdmin(){
     return localStorage.getItem('Role') === "admin"
+  }
+  CheckIfHolley() {
+    return CheckCorinthianUserPermissions();
   }
 }

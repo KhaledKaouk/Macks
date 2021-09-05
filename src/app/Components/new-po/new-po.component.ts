@@ -31,6 +31,7 @@ export class NewPoComponent implements OnInit {
     DealerPo: new FormControl('', Validators.required),
     CorinthainPo: new FormControl('', Validators.required),
     ShipBy: new FormControl('', Validators.required),
+    InvoiceDate: new FormControl('',Validators.required),
     Comments: new FormControl('')
   })
 
@@ -137,6 +138,7 @@ export class NewPoComponent implements OnInit {
     this.NewPo.comments = this.CreatePo.get("Comments")?.value;
     this.NewPo.corinthianPOAttach = this.NewPo.dealerPONumber + this.NewPo.corinthianPO;
     this.NewPo.dateReceived = new Date().toLocaleDateString()
+    this.NewPo.invoiceDate = this.CreatePo.get('InvoiceDate')?.value;
 
   }
 

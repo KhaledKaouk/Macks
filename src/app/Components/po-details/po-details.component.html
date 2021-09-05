@@ -27,6 +27,7 @@
                 <label>Status</label>
                 <label>Approval Status</label>
                 <label *ngIf ="UserIsAdmin" >Created On</label>
+                <label *ngIf ="CheckIfHolley()" >Invoice Date</label>
             </div>
             <div class="labels">
                 <a>{{ViewedPO.factoryEstimatedArrivalDate | date:"MM/dd/yyyy" | EmptyField }} </a>
@@ -35,6 +36,7 @@
                 <a>{{ViewedPO.status | EmptyField}}</a>
                 <a>{{AdjustingDataForDisplay(ViewedPO.approvalStatus) | EmptyField}}</a>
                 <a *ngIf ="UserIsAdmin">{{ViewedPO.dateReceived | date:"MM/dd/yyyy" | EmptyField}}</a>
+                <a *ngIf ="CheckIfHolley()">{{ViewedPO.invoiceDate | date:"MM/dd/yyyy" | EmptyField}}</a>
             </div>
         </div>
     </div>
