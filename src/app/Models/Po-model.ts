@@ -26,6 +26,7 @@ export class POs {
     productionRequestTime: string;
     approvalStatus: boolean;
     deleted: boolean;
+    invoiceDate: string;
     [key:string]: string | boolean | number;
     constructor(){
             this.id = 0;
@@ -55,6 +56,7 @@ export class POs {
             this.productionRequestTime = "";
             this.approvalStatus = false;
             this.deleted = false;
+            this.invoiceDate = "";
     }
 
 }

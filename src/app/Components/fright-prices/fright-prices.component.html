@@ -8,8 +8,7 @@
             <tr>
                 <th>Location</th>
                 <th>Current Price</th>
-                <th class="LargeScreenOnly">Old Price</th>
-                <th class="LargeScreenOnly">Updated Date</th>
+                <th class="LargeScreenOnly">Delivery Type</th>
                 <th>Edit</th>
             </tr>
         </thead>
@@ -17,8 +16,7 @@
             <tr *ngFor = "let FrightPrice of FrightPricesList index as i">
                 <td>{{FrightPrice.locations}}</td>
                 <td>$ {{FrightPrice.currentprice}}</td>
-                <td class="LargeScreenOnly">$ {{FrightPrice.oldprice}}</td>
-                <td class="LargeScreenOnly">{{FrightPrice.changedon | date:"MM/dd/yyyy"}}</td>
+                <td class="LargeScreenOnly">{{FrightPrice.deliveryType}}</td>
                 <td><a (click) =  UpdateSinglePrice(FrightPrice) *ngIf = CheckRole()>Edit</a></td>
             </tr>
         </tbody>

@@ -21,7 +21,8 @@ export class FrightPriceUpdateComponent implements OnInit {
   UpdateFrightPriceForm = new FormGroup(
     {
       Location: new FormControl({value: this.data.locations, disabled: true},Validators.required),
-      Price: new FormControl('',Validators.required)
+      Price: new FormControl('',Validators.required),
+      DeliveryType: new FormControl('',Validators.required)
     }
   )
   constructor(@Inject(MAT_DIALOG_DATA) public data: frightPrices,
@@ -55,13 +56,15 @@ export class FrightPriceUpdateComponent implements OnInit {
     this.ToUpdateFrightPrice.id = this.data.id;
     this.ToUpdateFrightPrice.locations =  this.UpdateFrightPriceForm.get('Location')?.value;
     this.ToUpdateFrightPrice.currentprice = this.UpdateFrightPriceForm.get('Price')?.value;
+    this.ToUpdateFrightPrice.deliveryType = this.UpdateFrightPriceForm.get('DeliveryType')?.value;
     this.ToUpdateFrightPrice.oldprice = this.data.currentprice;
     this.ToUpdateFrightPrice.changedon = new Date().toLocaleDateString()
   }
   AssignFrightPriceInfoToForm(){
     this.UpdateFrightPriceForm.setValue({
       Location: this.data.locations,
-      Price:  this.data.currentprice
+      Price:  this.data.currentprice,
+      DeliveryType: this.data.deliveryType
     });
   }
   

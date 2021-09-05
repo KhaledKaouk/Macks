@@ -55,15 +55,6 @@ export async function UploadFile(
 }
 
 
-export let FrightPricesStaticData: frightPrices[] = [{
-    id: 1,
-    locations: "nY",
-    currentprice: 125,
-    oldprice: 100,
-    changedon: "1998-2-12"
-
-}]
-
 export function DownLoadFile(Directory: string, FileName: string) {
     const link = document.createElement('a');
     link.setAttribute('target', '_blank');

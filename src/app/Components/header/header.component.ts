@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { CheckCorinthianUserPermissions } from 'src/app/Utilities/Common';
 import { AdminComponent } from '../admin/admin.component';
 import { AlfemoComponent } from '../alfemo/alfemo.component';
+import { CreateFeightPriceComponent } from '../create-feight-price/create-feight-price.component';
 import { MyPosComponent } from '../my-pos/my-pos.component';
 import { NewDealerComponent } from '../new-dealer/new-dealer.component';
 
@@ -26,9 +27,6 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router,
     private AuthSer: AuthService,
     private dialog: MatDialog,
-    private adminComponent: AdminComponent,
-    private CorinthainComponent: MyPosComponent,
-    private alfemoComponent: AlfemoComponent
   ) { }
 
   ngOnInit(): void {
@@ -60,6 +58,12 @@ export class HeaderComponent implements OnInit {
   }
   OperNewDealerForm() {
     this.dialog.open(NewDealerComponent, {
+      height: '30rem',
+      width: '55rem',
+    })
+  }
+  OpenNewFreightPriceForm(){
+    this.dialog.open(CreateFeightPriceComponent,{
       height: '30rem',
       width: '55rem',
     })

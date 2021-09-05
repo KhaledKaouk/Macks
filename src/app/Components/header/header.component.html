@@ -46,7 +46,14 @@
         <li *ngIf="(CheckRole() === 'corinthian') || (CheckRole() === 'admin')"><label routerLink="reports" for="check">Reports</label></li>
         <li *ngIf="CheckRole() === 'admin'"><label routerLink="Admin" for="check">Mack</label></li>
         <li *ngIf="CheckRole() === 'alfemo'"><label routerLink="Alfemo" for="check">Alfemo</label></li>
-        <li *ngIf="CheckRole() !== '' && CheckRole() !== null "><label routerLink="FrightPrices"
-                for="check">Freight Prices</label></li>
+        <!-- <li *ngIf="CheckRole() !== '' && CheckRole() !== null "><label routerLink="FrightPrices"
+                for="check">Freight Prices</label></li> -->
+                <li *ngIf="CheckRole() !== '' && CheckRole() !== null " id="DealerSubMenutitle">
+                    <label >Freight Prices</label>
+                    <ul id="DealerSubMenu">
+                        <li><label routerLink="FrightPrices">Freight Prices</label></li>
+                        <li *ngIf="CheckRole() === 'alfemo'"><label  (click) = "OpenNewFreightPriceForm()">Create Freight Price</label></li>
+                    </ul>
+                </li>
     </ul>
 </div>

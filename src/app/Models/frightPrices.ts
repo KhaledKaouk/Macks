@@ -3,7 +3,8 @@ export class frightPrices{
     locations: string;
     currentprice: number;
     oldprice: number;
-    changedon: string
+    changedon: string;
+    deliveryType: string;
 
     constructor(){
         this.id = 0;
@@ -11,6 +12,7 @@ export class frightPrices{
         this.currentprice = 0;
         this.oldprice = 0;
         this.changedon = "";
+        this.deliveryType = "";
     }
 
 

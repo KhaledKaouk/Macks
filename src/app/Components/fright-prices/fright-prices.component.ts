@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { FrightpricesService } from 'src/app/Services/frightprices.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { CapitlizeFirstLater, FrightPricesStaticData, ProgrssBar, Spinner, Tools } from 'src/app/Utilities/Common';
+import { CapitlizeFirstLater, Spinner, Tools } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { FrightPriceUpdateComponent } from '../fright-price-update/fright-price-update.component';
 import { HeaderComponent } from '../header/header.component';
