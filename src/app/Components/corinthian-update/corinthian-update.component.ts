@@ -83,10 +83,10 @@ export class CorinthianUpdateComponent implements OnInit {
   }
 
 
-  ExtractDealerName(Id:string){
+  ExtractDealerName(Id:number){
     return this.Dealers.find(Dealer => Dealer.id == Id)?.name || "Unavailable"
   }
-  ExtractDealerEmail(Id: string){
+  ExtractDealerEmail(Id: number){
     return this.Dealers.find(Dealer => Dealer.id == Id)?.email || "Unavailable"
   }
   ExtractDealerId(DealerName: string){

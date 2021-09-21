@@ -46,7 +46,8 @@
         <nav class="pagination">
             <ul>
                 <li><button (click)=PreviousPage()>Previous</button></li>
-                <li *ngFor="let PC of PageCountArray index as i"><button (click)=SliceDataForPaginantion(i)>{{i}}</button>
+                <li *ngFor="let PC of PageCountArray index as i">
+                    <button (click)=SliceDataForPaginantion(i) [ngClass] = "{'CurrentPage': CurrentPage === i}">{{i}}</button>
                 </li>
                 <li><button (click)=NextPage()>Next</button></li>
             </ul>

@@ -1,4 +1,4 @@
-.AlfemoUpdateWraper{
+.AlfemoUpdateWraper {
     @include FlexSpaceAround;
     flex-direction: row;
     position: relative;
@@ -20,6 +20,22 @@
     }
 }
 
+.File {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.1rem;
+    i{
+        color: $footer-color;
+        transition: width 0.7s ease-in;
+        &:hover{
+            cursor:  pointer;
+            transform: scale(1.1);
+            
+        }
+    }
+}
 #AlfemoUpdate {
     margin: 0%;
 }

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { read } from 'fs';
+import { parse } from 'path';
 import { Dealers } from 'src/app/Models/Dealers';
 import { POs } from 'src/app/Models/Po-model';
 import { DealersService } from 'src/app/Services/dealers.service';
 import { POsService } from 'src/app/Services/pos.service';
-import { GenerateDefaultReport, GenerateFilterdReport } from 'src/app/Utilities/Common';
+import { FormatPoDateFields, GenerateDefaultReport, GenerateFilterdReport } from 'src/app/Utilities/Common';
 
 @Component({
   selector: 'app-reports',
@@ -16,11 +17,27 @@ export class ReportsComponent implements OnInit {
 
   AllPos: POs[] = [];
   keys: string[] = [];
-  WantedFileds: string[] = []
+  AllFields: string[] = [
+    'dealerName',
+    'dealerEmail',
+    'dealerPONumber',
+    'corinthianPO',
+    'shipBy',
+    'comments',
+    'alfemoComments',
+    'status',
+    'factoryEstimatedShipDate',
+    'factoryEstimatedArrivalDate',
+    'finalDestLocation',
+    'containerNumber',
+    'approvalStatus',
+    'invoiceDate',
+  ];
+  WantedFileds: string[]= []; 
   Dealers: Dealers[] = [];
-  WantedDealersId: string[] = [];
+  WantedDealersId: number[] = [];
   WantedDealerPo: string[] = [];
-  WantedCorinthainPo : string[] = [];
+  WantedCorinthainPo: string[] = [];
 
   Options = new FormGroup({
     DealerId: new FormControl()
@@ -31,6 +48,7 @@ export class ReportsComponent implements OnInit {
   ngOnInit(): void {
     this.GetAllDealers();
     this.GetAllPos();
+    this.WantedFileds = this.AllFields
   }
   GetAllDealers() {
     this.DealerServise.GetAllDealers().then((res: any) => {
@@ -45,6 +63,9 @@ export class ReportsComponent implements OnInit {
   async GetAllPos() {
     await this.PosServise.GetPos().then((res: any) => {
       this.AllPos = res;
+      this.AllPos.forEach(Po => {
+        FormatPoDateFields(Po)
+      })
       this.keys = Object.keys(this.AllPos[0])
     })
   }
@@ -60,16 +81,24 @@ export class ReportsComponent implements OnInit {
       this.WantedFileds.splice(keyIndex, 1)
     }
   }
+  AddOrDeleteAllIntoReport(event: any) {
+    Array.from(document.querySelectorAll('input[name=CheckBox]')).forEach((CheckItem) => {
+      (CheckItem as HTMLInputElement).checked = !(CheckItem as HTMLInputElement).checked;
+    })
+    let Checked = event.target.checked;
+    if(Checked) {this.WantedFileds = this.AllFields;} else { this.WantedFileds = []}
+  }
   GenerateReport() {
+
     let PosWithNoDuplicate = this.FilterPosByDealrs().filter(Po => !this.FilterPoByDealerPo().includes(Po));
     let FilteredPos = PosWithNoDuplicate.concat(this.FilterPoByDealerPo());
-    let PosWithNoDuplicate2 =  FilteredPos.filter(Po => !this.FilterPoByCorinthianPo().includes(Po))
-    
+    let PosWithNoDuplicate2 = FilteredPos.filter(Po => !this.FilterPoByCorinthianPo().includes(Po))
+
     FilteredPos = PosWithNoDuplicate2.concat(this.FilterPoByCorinthianPo());
     GenerateFilterdReport(FilteredPos, this.WantedFileds)
-    
+
   }
-  GenerateDefaultReport(){
+  GenerateDefaultReport() {
     GenerateDefaultReport(this.AllPos)
   }
 
@@ -87,7 +116,7 @@ export class ReportsComponent implements OnInit {
       this.CreateDealerElement(DealerId, DealerName)
     }
   }
-  CreateDealerElement(DealerId: string, DealerName: string) {
+  CreateDealerElement(DealerId: number, DealerName: string) {
 
     let DealerElement = document.createElement('a');
     let DealerRemoveButton = document.createElement('a');
@@ -96,13 +125,13 @@ export class ReportsComponent implements OnInit {
     DealerRemoveButton.style.color = 'red';
     DealerRemoveButton.className = "RemoveDealer";
     DealerRemoveButton.onclick = () => {
-      document.getElementById(DealerId)?.remove();
+      document.getElementById(DealerId.toString())?.remove();
       this.WantedDealersId.splice(this.WantedDealersId.indexOf(DealerId), 1)
     }
 
     DealerElement.textContent = DealerName;
     DealerElement.className = "DealerId";
-    DealerElement.id = DealerId;
+    DealerElement.id = DealerId.toString();
     DealerElement.appendChild(DealerRemoveButton);
 
     document.getElementById('Dealers')?.appendChild(DealerElement)
@@ -115,34 +144,35 @@ export class ReportsComponent implements OnInit {
   FilterPoByDealerPo() {
     return this.AllPos.filter(Po => this.WantedDealerPo.includes(Po.dealerPONumber))
   }
-  AddToSearchKeys(event: any,SearchKeyList: string[],IsDealer?:boolean){
-    let SearchKey = event.target.value; 
+  AddToSearchKeys(event: any, SearchKeyList: (string | number)[], IsDealer?: boolean) {
+    let SearchKey = event.target.value;
+    if (IsDealer) SearchKey = parseInt(event.target.value)
     let Submit: boolean
-    let SearchKeyNotEmpty:boolean
+    let SearchKeyNotEmpty: boolean
     let SearchKeyAlreadyExist = document.getElementById(SearchKey) != null;
-    if(IsDealer){
+    if (IsDealer) {
       Submit = true;
       SearchKeyNotEmpty = true;
-    }else{
+    } else {
       Submit = event.key == "Enter";
-      SearchKeyNotEmpty =  SearchKey != "";
+      SearchKeyNotEmpty = SearchKey != "";
     }
 
     if (Submit && SearchKeyNotEmpty && !SearchKeyAlreadyExist) {
-        SearchKeyList.push(SearchKey)
-        if(IsDealer){
-          let SelectElement = event.target as HTMLSelectElement
-          let Option = SelectElement.selectedIndex
-          let DealerName = SelectElement[Option].textContent || ""
+      SearchKeyList.push(SearchKey)
+      if (IsDealer) {
+        let SelectElement = event.target as HTMLSelectElement
+        let Option = SelectElement.selectedIndex
+        let DealerName = SelectElement[Option].textContent || ""
 
-          this.CreateSearchKeyElement(SearchKey,SearchKeyList,DealerName)
-        }else{
-          this.CreateSearchKeyElement(SearchKey,SearchKeyList)
-          event.target.value = "";
-        }
+        this.CreateSearchKeyElement(SearchKey, SearchKeyList, DealerName)
+      } else {
+        this.CreateSearchKeyElement(SearchKey, SearchKeyList)
+        event.target.value = "";
       }
     }
-  CreateSearchKeyElement(SearchKey: string,SearchKeyList: string[],DealerName?:string){
+  }
+  CreateSearchKeyElement(SearchKey: string, SearchKeyList: (string | number)[], DealerName?: string) {
     let SearchKeyElement = document.createElement('a');
     let RemoveButton = document.createElement('a');
 
@@ -153,15 +183,15 @@ export class ReportsComponent implements OnInit {
       document.getElementById(SearchKey)?.remove();
       SearchKeyList.splice(SearchKeyList.indexOf(SearchKey), 1)
     }
- 
-    SearchKeyElement.textContent = DealerName? DealerName : SearchKey;
+
+    SearchKeyElement.textContent = DealerName ? DealerName : SearchKey;
     SearchKeyElement.className = "DealerId";
     SearchKeyElement.id = SearchKey;
     SearchKeyElement.appendChild(RemoveButton);
 
     document.getElementById('Dealers')?.appendChild(SearchKeyElement)
   }
-  FilterPoByCorinthianPo(){
+  FilterPoByCorinthianPo() {
     return this.AllPos.filter(Po => this.WantedCorinthainPo.includes(Po.corinthianPO))
   }
 

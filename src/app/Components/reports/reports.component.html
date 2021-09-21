@@ -1,67 +1,73 @@
 <div class="Report">
     <div class="PoFiledCheckList">
-        <div class="CheckItem">
-            <input id="{{keys[2]}}" (input)="AddOrDeleteIntoReport($event)" type="checkbox">
-            <label for="{{keys[2]}}">Dealer Name </label>
+        <label class="PoPropertyListHeader">Include:</label>
+        <div class="CheckItem CheckAll">
+            <input id="CheckAll" checked (input)="AddOrDeleteAllIntoReport($event)" type="checkbox">
+            <label for="CheckAll">Select All </label>
         </div>
         <div class="CheckItem">
-            <input id="{{keys[3]}}" type="checkbox" (input)="AddOrDeleteIntoReport($event)">
-            <label for="{{keys[3]}}">Dealer Email </label>
+            <input id="dealerName" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)" type="checkbox">
+            <label for="dealerName">Dealer Name </label>
         </div>
         <div class="CheckItem">
-            <input id="{{keys[4]}}" type="checkbox" (input)="AddOrDeleteIntoReport($event)">
-            <label for="{{keys[4]}}">Dealer Po </label>
+            <input id="dealerEmail" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="dealerEmail">Dealer Email </label>
+        </div>
+        <div class="CheckItem">
+            <input id="dealerPONumber" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="dealerPONumber">Dealer Po </label>
 
         </div>
         <div class="CheckItem">
-            <input id="{{keys[6]}}" type="checkbox" (input)="AddOrDeleteIntoReport($event)">
-            <label for="{{keys[6]}}">Corinthian Po </label>
+            <input id="corinthianPO" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="corinthianPO">Corinthian Po </label>
 
         </div>
         <div class="CheckItem">
-            <input id="{{keys[12]}}" type="checkbox" (input)="AddOrDeleteIntoReport($event)">
-            <label for="{{keys[12]}}">Ship By </label>
+            <input id="shipBy" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="shipBy">Ship By </label>
 
         </div>
         <div class="CheckItem">
-            <input id="{{keys[14]}}" type="checkbox" (input)="AddOrDeleteIntoReport($event)">
-            <label for="{{keys[14]}}">Corinthian Comments </label>
+            <input id="comments" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="comments">Corinthian Comments </label>
         </div>
         <div class="CheckItem">
-            <input id="{{keys[15]}}" type="checkbox" (input)="AddOrDeleteIntoReport($event)">
-            <label for="{{keys[15]}}">Alfemo Comments </label>
+            <input id="alfemoComments" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="alfemoComments">Alfemo Comments </label>
         </div>
         <div class="CheckItem">
-            <input id="{{keys[16]}}" type="checkbox" (input)="AddOrDeleteIntoReport($event)">
-            <label for="{{keys[16]}}">Status </label>
+            <input id="status" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="status">Status </label>
         </div>
         <div class="CheckItem">
-            <input id="{{keys[18]}}" type="checkbox" (input)="AddOrDeleteIntoReport($event)">
-            <label for="{{keys[18]}}">Factory ESA </label>
+            <input id="factoryEstimatedShipDate" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="factoryEstimatedShipDate">Factory ESA </label>
         </div>
         <div class="CheckItem">
-            <input id="{{keys[20]}}" type="checkbox" (input)="AddOrDeleteIntoReport($event)">
-            <label for="{{keys[20]}}">Facroty ETA </label>
+            <input id="factoryEstimatedArrivalDate" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="factoryEstimatedArrivalDate">Facroty ETA </label>
         </div>
         <div class="CheckItem">
-            <input id="{{keys[22]}}" type="checkbox" (input)="AddOrDeleteIntoReport($event)">
-            <label for="{{keys[22]}}">Final Destination </label>
+            <input id="finalDestLocation" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="finalDestLocation">Final Destination </label>
         </div>
         <div class="CheckItem">
-            <input id="{{keys[23]}}" type="checkbox" (input)="AddOrDeleteIntoReport($event)">
-            <label for="{{keys[23]}}">Container Number </label>
+            <input id="containerNumber" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="containerNumber">Container Number </label>
         </div>
         <div class="CheckItem">
-            <input id="{{keys[25]}}" type="checkbox" (input)="AddOrDeleteIntoReport($event)">
-            <label for="{{keys[25]}}">Approval Status </label>
+            <input id="approvalStatus" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="approvalStatus">Approval Status </label>
         </div>
         <div class="CheckItem">
-            <input id="{{keys[27]}}" type="checkbox" (input)="AddOrDeleteIntoReport($event)">
-            <label for="{{keys[27]}}">Invoice Date </label>
+            <input id="invoiceDate" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="invoiceDate">Invoice Date </label>
         </div>
 
     </div>
     <div class="FilterSection">
+        <label class="OptionsHeader">Search By</label>
         <div class="Options" [formGroup] = "Options">
             <div class="InputWraper">
                 <label for="DealerName">Dealer Name</label>
@@ -81,9 +87,9 @@
             </div>
         </div>
         <div id="Dealers">
-            <label class="SearcHeader">Search Keys</label>
+            <label class="SearcHeader">Selected Filters</label>
         </div>
         <a class="button" (click)= GenerateReport()>Generate Filtered Report</a>
-        <a class="button" (click)= GenerateDefaultReport()>Generate Default Report</a>
+        <a class="button DefaultReport" (click)= GenerateDefaultReport()>Generate Default Report</a>
     </div>
 </div>

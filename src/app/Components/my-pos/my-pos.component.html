@@ -14,13 +14,14 @@
                     <th >Corinthain Po No</th>
                     <th class="LargeScreenOnly">Status</th>
                     <th class="LargeScreenOnly">Approved</th>
+                    <th class="LargeScreenOnly ClickableHeader" (click) = "OrderPosByShipByDate()">Ship By</th>
                     <th>Details</th>
                     <th>Edit</th>
                 </tr>
             </thead>
             <tbody id="tbody">
                 <tr *ngFor="let P of DataOfCurrentPage index as i">
-                    <td class="LargeScreenOnly">
+                    <td class="LargeScreenOnly ClickableTd" (click) = "ShowDealerProfile(P.dealer_id)">
                         {{P.dealerName}} 
                     </td>
                     <td class="LargeScreenOnly">
@@ -37,6 +38,9 @@
                         {{AdjustApprovalStatusForDisplay(P.approvalStatus)}}
                     </td>
                     <td>
+                        {{P.shipBy | date:"MM/dd/yyyy"}}
+                    </td>
+                    <td>
                         <a (click) = "ViewPoDetails(P)">Details</a>
                     </td>
                     <td>
@@ -51,7 +55,7 @@
                     <button (click)=PreviousPage()>Previous</button>
                 </li>
                 <li *ngFor="let PC of PageCountArray index as i">
-                    <button (click)=SliceDataForPaginantion(i)>{{i}}</button>
+                    <button (click)=SliceDataForPaginantion(i) [ngClass] = "{'CurrentPage': CurrentPage === i}">{{i}}</button>
                 </li>
                 <li>
                     <button (click)=NextPage()>Next</button>

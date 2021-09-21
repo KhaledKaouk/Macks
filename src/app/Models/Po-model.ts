@@ -1,6 +1,6 @@
 export class POs {
     id: number;
-    dealer_id: string;
+    dealer_id: number;
     dealerName: string;
     dealerEmail: string;
     dealerPONumber: string;
@@ -30,7 +30,7 @@ export class POs {
     [key:string]: string | boolean | number;
     constructor(){
             this.id = 0;
-            this.dealer_id = "",
+            this.dealer_id = 0,
             this.dealerName = "";
             this.dealerEmail = "";
             this.dealerPONumber = "0";

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -28,6 +29,7 @@ export class MyPosComponent implements OnInit {
   PageCountArray: number[] = [0];
   DataOfCurrentPage: POs[] = [];
   CurrentPage: number = 0;
+  PosForSlicing: POs[] = [];
   UserIsAllowed = CheckCorinthianUserPermissions();
 
   constructor(private poservice: POsService,
@@ -73,12 +75,12 @@ export class MyPosComponent implements OnInit {
 
   
   SliceDataForPaginantion(PageNumber: number, Pos?: POs[]) {
-    let PosForSlicing: POs[] = this.mydata;
-    if (Pos) PosForSlicing = Pos;
+    this.PosForSlicing= this.mydata;
+    if (Pos) this.PosForSlicing = Pos;
     let SliceBegining = PageNumber * this.DataRowsInPage;
-    if (PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length >= 1) {
+    if (this.PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length >= 1) {
       RemoveSearchDisclaimer();
-      this.DataOfCurrentPage = PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage)
+      this.DataOfCurrentPage = this.PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage)
       this.CurrentPage = PageNumber;
     }else{
       this.DataOfCurrentPage = []
@@ -108,6 +110,17 @@ export class MyPosComponent implements OnInit {
   }
   SearchPos(event: any) {
     this.SliceDataForPaginantion(0, FilterPosBy(this.mydata, event.target.value))
+  }
+  OrderPosByShipByDate(){
+    this.PosForSlicing.sort((a, b) => {
+      if ((new DatePipe('en-US').transform(a.shipBy,'YYYY-MM-dd') || "") > (new DatePipe('en-US').transform(b.shipBy,'YYYY-MM-dd') || "")) return +1
+      if ((new DatePipe('en-US').transform(a.shipBy,'YYYY-MM-dd') || "") < (new DatePipe('en-US').transform(b.shipBy,'YYYY-MM-dd') || "")) return -1
+      return 0
+    });
+    this.SliceDataForPaginantion(0,this.PosForSlicing)
+  }
+  ShowDealerProfile(dealer_Id: number){
+    this.router.navigate(['/DealerProfile', dealer_Id])
   }
 
 }

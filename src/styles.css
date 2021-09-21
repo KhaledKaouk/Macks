@@ -73,6 +73,10 @@
   cursor: pointer;
 }
 
+.DataTableWraper .table .ClickableHeader:hover, .DataTableWraper .table .ClickableTd:hover {
+  cursor: pointer;
+}
+
 .DataTableWraper .pagination ul {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -99,6 +103,11 @@
   cursor: pointer;
   background-color: #b99b85;
   color: white;
+}
+
+.DataTableWraper .pagination .CurrentPage {
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 .DataTableWraper .DownLoad {
@@ -476,6 +485,32 @@
   background-color: #b11818;
   color: white;
   cursor: pointer;
+}
+
+.File {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+}
+
+.File i {
+  color: #3c2e25;
+  -webkit-transition: width 0.7s ease-in;
+  transition: width 0.7s ease-in;
+}
+
+.File i:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }
 
 #AlfemoUpdate {
@@ -1122,8 +1157,20 @@
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  padding: 0.5rem;
+  position: relative;
+  padding: 1.5rem;
   border: 1px solid #cfcfcf;
+}
+
+.PoFiledCheckList .PoPropertyListHeader {
+  font-weight: bold;
+  position: absolute;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  top: -1rem;
+  z-index: 10;
+  background-color: white;
 }
 
 .CheckItem {
@@ -1141,6 +1188,11 @@
 
 .CheckItem:hover {
   background-color: #f5f5f5;
+}
+
+.CheckAll {
+  font-weight: bold;
+  border-bottom: 1px solid #cfc0b4;
 }
 
 .button {
@@ -1177,6 +1229,7 @@
 }
 
 #Dealers .SearcHeader {
+  font-weight: bold;
   position: absolute;
   top: -1rem;
   z-index: 10;
@@ -1229,8 +1282,25 @@
       -ms-flex-align: center;
           align-items: center;
   gap: 2rem;
+  position: relative;
   padding: 0.5rem;
   border: 1px solid #cfcfcf;
+}
+
+.FilterSection .OptionsHeader {
+  font-weight: bold;
+  position: absolute;
+  top: -1rem;
+  z-index: 10;
+  background-color: white;
+}
+
+.FilterSection .DefaultReport {
+  border: 2px solid #3c2e25;
+}
+
+.FilterSection .DefaultReport:hover {
+  border: none;
 }
 
 * {

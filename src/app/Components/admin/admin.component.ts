@@ -10,6 +10,7 @@ import { AdjustingDataForDisplay, ColorTR, ExportPosToXLSX, FilterPosBy, Functio
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { PoDetailsComponent } from '../po-details/po-details.component';
 import * as XLSX from 'xlsx';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-admin',
@@ -25,7 +26,7 @@ export class AdminComponent implements OnInit {
   DataRowsInPage: number = 15;
   DataOfCurrentPage: POs[] = [];
   CurrentPage: number = 0;
-
+  PosForSlicing: POs[] = [];
 
   constructor(
     private poservice: POsService,
@@ -55,6 +56,7 @@ export class AdminComponent implements OnInit {
       this.PagesCount = Math.ceil(this.AllPos.length / this.DataRowsInPage);
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
       this.SliceDataForPaginantion(0);
+      
     }, (err: any) => {
       Auth_error_handling(err, this.notification, this.router)
       
@@ -72,12 +74,12 @@ export class AdminComponent implements OnInit {
 
 
   SliceDataForPaginantion(PageNumber: number,SearchedPos?:POs[]) {
-    let PosForSlicing: POs[] = this.AllPos;
-    if(SearchedPos) PosForSlicing = SearchedPos;
+     this.PosForSlicing = this.AllPos;
+    if(SearchedPos) this.PosForSlicing = SearchedPos;
     let SliceBegining = PageNumber * this.DataRowsInPage;
-    if (PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length >= 1) {
+    if (this.PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length >= 1) {
       RemoveSearchDisclaimer();
-      this.DataOfCurrentPage = PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage)
+      this.DataOfCurrentPage = this.PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage)
       this.CurrentPage = PageNumber;
     }else{
       this.DataOfCurrentPage = []
@@ -100,5 +102,17 @@ export class AdminComponent implements OnInit {
   }
   ExportPosToExcel(){
     ExportPosToXLSX(this.AllPos)
+  }
+  OrderPosByShipByDate(){
+    this.PosForSlicing.sort((a, b) => {
+      if ((new DatePipe('en-US').transform(a.shipBy,'YYYY-MM-dd') || "") > (new DatePipe('en-US').transform(b.shipBy,'YYYY-MM-dd') || "")) return +1
+      if ((new DatePipe('en-US').transform(a.shipBy,'YYYY-MM-dd') || "") < (new DatePipe('en-US').transform(b.shipBy,'YYYY-MM-dd') || "")) return -1
+      return 0
+    });
+    
+    this.SliceDataForPaginantion(0,this.PosForSlicing)
+  }
+  ShowDealerProfile(dealer_Id: number){
+    this.router.navigate(['/DealerProfile', dealer_Id])
   }
 }

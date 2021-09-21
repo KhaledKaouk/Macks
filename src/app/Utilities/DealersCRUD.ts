@@ -43,7 +43,7 @@ export function PromiseAllDealers() {
     })
 }
 export function CreateDealerId() {
-    return Math.random().toFixed(6);
+    return parseInt(Math.random().toFixed(6));
 }
 export async function CheckDealersToMatchOfflineDB(PoService: POsService) {
     let AllPos: POs[] = [];

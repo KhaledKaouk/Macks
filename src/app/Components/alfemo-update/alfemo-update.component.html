@@ -4,7 +4,8 @@
 <div class="CreatePo" id="AlfemoUpdate" [formGroup]="UpdatedPo">
   <div class="InputWraper">
     <label for="Status">Status</label>
-    <select name="Status" aria-label="Default select example" formControlName="Status" (change) = "AssignValidators($event)">
+    <select name="Status" aria-label="Default select example" formControlName="Status"
+      (change)="AssignValidators($event)">
       <option value="confirm Po Receipt">Confirm Po Receipt</option>
       <option value="Waiting For Production">Waiting For Production</option>
       <option value="In Production">In Production</option>
@@ -31,17 +32,29 @@
 
   <div class="InputWraper">
     <label for="CorinthainPo">Comments</label>
-    <textarea name="CorinthainPo" type="text" formControlName="AlfemoComents" aria-label="CorinthainPo" maxlength="200"></textarea>
+    <textarea name="CorinthainPo" type="text" formControlName="AlfemoComents" aria-label="CorinthainPo"
+      maxlength="200"></textarea>
   </div>
 
-  <div class="InputWraper">
+  <div class="InputWraper" *ngIf = 'PoToUpdate.shippingDocs == ""'>
+    <!-- <label (click)="CombineFilesInZip()">combineFilesInZip</label> -->
     <label for="file">Upload Shipment Document</label>
-    <input type="file" id="file" (change)=SaveFileInObject($event) style="border: none;">
+    <input type="file" id="file" multiple=true (change)=SaveFileInObject($event) style="border: none;">
   </div>
 
+  <div class="InputWraper" *ngIf = 'PoToUpdate.shippingDocs != ""'>
+    <div class="File" *ngFor = 'let FileName of FilesNames; index as i'>
+      <label>{{FileName}}</label>
+      <i class="far fa-trash-alt" (click) = "DeleteFile(FileName)"></i>
+    </div>
+  </div>
+  <div class="InputWraper" *ngIf = 'PoToUpdate.shippingDocs != ""'>
+    <label for="FilesArea">Add Files</label>
+    <input type="file" id="FilesArea" multiple = true (change) = "AddFilesToShippingDocs($event)">
+  </div>
 
   <div>
-    <button (click)=Submit() style="margin-bottom: 10px;" [disabled]="!UpdatedPo.valid" >Update</button>
+    <button (click)=Submit() style="margin-bottom: 10px;" [disabled]="!UpdatedPo.valid">Update</button>
   </div>
 </div>
 <ng-progress id="PopUProgress"></ng-progress>

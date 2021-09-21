@@ -16,6 +16,7 @@ import * as XLSX from 'xlsx';
 import { DealersService } from "../Services/dealers.service";
 import { StringDecoder } from "string_decoder";
 import { unwatchFile } from "fs";
+import { DatePipe } from "@angular/common";
 
 export function AddPreffixAndExtention(Preffix: string, FileNameBody: string, GetExtentionFrom: string) {
     let extenstion: string = GetExtentionFrom;
@@ -277,29 +278,91 @@ export function GenerateFilterdReport(AllPos: POs[], WantedFields: string[]) {
         let worksheet = XLSX.utils.json_to_sheet(Report);
         let workbook = XLSX.utils.book_new();
         workbook = { Sheets: { 'Pos': worksheet }, SheetNames: ["Pos"] }
-        XLSX.writeFile(workbook, "POs.xlsx")
+        XLSX.writeFile(workbook, "macksdistribution_Pos_Report_" + new Date().toLocaleDateString() + ".xlsx")
     }
 }
-export function GenerateDefaultReport(AllPos: POs[]){
+export function GenerateDefaultReport(AllPos: POs[]) {
     let Report = new Array();
     if (AllPos != []) {
         AllPos.forEach(Po => {
-            let wantedFields = {Shipper: 'ALFEMO',
-            Customer:Po.dealerName,
-            'PO#': Po.dealerPONumber,
-            'Delivery Destination':Po.finalDestLocation,
-            'Requested Ship Date': Po.shipBy,
-            Status: Po.status,
-            'Estimated Ship Date':Po.factoryEstimatedShipDate,
-            'Container Bokking Confirmed': Po.status == 'Container Booked'? 'Yes': 'No',
+            let wantedFields = {
+                Shipper: 'ALFEMO',
+                Customer: Po.dealerName,
+                'PO#': Po.dealerPONumber,
+                'Delivery Destination': Po.finalDestLocation,
+                'Requested Ship Date': Po.shipBy,
+                Status: Po.status,
+                'Estimated Ship Date': Po.factoryEstimatedShipDate,
+                'Container Bokking Confirmed': Po.status == 'Container Booked' ? 'Yes' : 'No',
 
-        }
+            }
             Report.push(wantedFields);
         })
         let worksheet = XLSX.utils.json_to_sheet(Report);
         let workbook = XLSX.utils.book_new();
         workbook = { Sheets: { 'Pos': worksheet }, SheetNames: ["Pos"] }
-        XLSX.writeFile(workbook, "POs.xlsx")
+        XLSX.writeFile(workbook, "macksdistribution_Pos_Report_" + new Date().toLocaleDateString() + ".xlsx")
     }
+}
+export async function CreateMackPo(CorinthianPo: File,FileName: string) {
+
+
+    let arrayBuffer: any;
+    await CorinthianPo.arrayBuffer().then((buffer) => { arrayBuffer = buffer })
+    var data = new Uint8Array(arrayBuffer);
+    var arr = new Array();
+    for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+    var bstr = arr.join("");
+    var workbook = XLSX.read(bstr, { type: "binary" });
+    var first_sheet_name = workbook.SheetNames[0];
+    var worksheet = workbook.Sheets[first_sheet_name];
+    worksheet['J17'] = '';
+    worksheet['J18'] = '';
+    worksheet['J19'] = '';
+    worksheet['J20'] = '';
+    worksheet['J21'] = '';
+    worksheet['J22'] = '';
+    worksheet['M17'] = '';
+    worksheet['M18'] = '';
+    worksheet['M19'] = '';
+    worksheet['M20'] = '';
+    worksheet['M21'] = '';
+    worksheet['M22'] = '';
+    worksheet['M23'] = '';
+    worksheet['O17'] = '';
+    worksheet['O18'] = '';
+    worksheet['O19'] = '';
+    worksheet['O20'] = '';
+    worksheet['O21'] = '';
+    worksheet['O22'] = '';
+    worksheet['O23'] = '';
+    worksheet['Q17'] = '';
+    worksheet['Q18'] = '';
+    worksheet['Q19'] = '';
+    worksheet['Q20'] = '';
+    worksheet['Q21'] = '';
+    worksheet['Q22'] = '';
+    worksheet['Q23'] = '';
+    workbook = { Sheets: { 'Pos': worksheet }, SheetNames: ["Pos"] }
+
+    var out = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
+    let blob = new Blob([s2ab(out)], { type: "application/octet-stream" });
+    let MackPo = new File([blob],FileName)
+    return MackPo
+}
+function s2ab(s: any) {
+    var buf = new ArrayBuffer(s.length);
+    var view = new Uint8Array(buf);
+    for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+    return buf;
+}
+export function FormatPoDateFields(Po: POs) {
+    Po.factoryEstimatedArrivalDate = new DatePipe('en-US').transform(Po.factoryEstimatedArrivalDate, 'YYYY-MM-dd') || "";
+    Po.factoryEstimatedShipDate = new DatePipe('en-US').transform(Po.factoryEstimatedShipDate, 'YYYY-MM-dd') || "";
+    Po.dateReceived = new DatePipe('en-US').transform(Po.dateReceived, 'YYYY-MM-dd') || "";
+    Po.invoiceDate = new DatePipe('en-US').transform(Po.invoiceDate, 'YYYY-MM-dd') || "";
+    Po.productionRequestDate = new DatePipe('en-US').transform(Po.productionRequestDate, 'YYYY-MM-dd') || "";
+    Po.productionRequestTime = new DatePipe('en-US').transform(Po.productionRequestTime, 'YYYY-MM-dd') || "";
+    Po.shipBy = new DatePipe('en-US').transform(Po.shipBy, 'YYYY-MM-dd') || "";
 }
 

@@ -33,7 +33,7 @@ export class DealerProfileComponent implements OnInit {
     private Poservice: POsService ) { }
 
   ngOnInit(): void {
-    let DealerId = this.ActivatedRoute.snapshot.paramMap.get('DealerId') || "";
+    let DealerId = parseInt(this.ActivatedRoute.snapshot.paramMap.get('DealerId') || "");
     this.spinner.WrapWithSpinner(this.DealerService.GetAllDealers().then((res:any) => {
       this.AllDealers = res
       this.Dealer = this.AllDealers.find(Dealer => Dealer.id == DealerId) || this.Dealer;

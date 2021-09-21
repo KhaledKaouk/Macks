@@ -10,7 +10,7 @@ import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AddPreffixAndExtention, CreateDatabase, RemoveSlashes, Spinner, UploadFile } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, CreateDatabase, CreateMackPo, RemoveSlashes, Spinner, UploadFile } from 'src/app/Utilities/Common';
 import { CheckDealersToMatchOfflineDB, PromiseAllDealers } from 'src/app/Utilities/DealersCRUD';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling'
 import { NewDealerComponent } from '../new-dealer/new-dealer.component';
@@ -31,7 +31,7 @@ export class NewPoComponent implements OnInit {
     DealerPo: new FormControl('', Validators.required),
     CorinthainPo: new FormControl('', Validators.required),
     ShipBy: new FormControl('', Validators.required),
-    InvoiceDate: new FormControl('',Validators.required),
+    InvoiceDate: new FormControl('', Validators.required),
     Comments: new FormControl('')
   })
 
@@ -57,6 +57,8 @@ export class NewPoComponent implements OnInit {
         if (a.name[0].toLowerCase() < b.name[0].toLowerCase()) return -1
         return 0
       });
+    }, (err) => {
+      Auth_error_handling(err, this.Notification, this.router)
     })
   }
 
@@ -67,6 +69,17 @@ export class NewPoComponent implements OnInit {
     if (this.SeletedFile) {
       let UploadProcess: any;
       (async () => {
+        let FileName = RemoveSlashes(this.NewPo.dealerPONumber) + "_" + RemoveSlashes(this.NewPo.corinthianPO);
+        FileName = AddPreffixAndExtention("MP_", FileName, this.SeletedFile.name);
+        let MackPo: File;
+        let fd = new FormData();
+        await CreateMackPo(this.SeletedFile, FileName).then(async (res: File) => {
+          MackPo = res;
+          this.NewPo.mackPOAttach = FileName;
+          fd.append('PO', MackPo, MackPo.name);
+          await UploadFile(this.Pos,fd,MackPo.name,this.Notification,this.spinner,this.router)
+        })
+
         UploadProcess = await UploadFile(this.Pos, this.ConstructFormDataFile(), this.ConstructFileName(), this.Notification, this.spinner, this.router)
         if (UploadProcess == true) {
           this.CreatePO();
@@ -113,11 +126,12 @@ export class NewPoComponent implements OnInit {
 
   SaveFileInObject(event: any) {
     this.SeletedFile = event.target.files[0];
+
   }
-  ExtractDealerName(Id: string) {
+  ExtractDealerName(Id: number) {
     return this.Dealers.find(Dealer => Dealer.id == Id)?.name || "Unavailable"
   }
-  ExtractDealerEmail(Id: string) {
+  ExtractDealerEmail(Id: number) {
     return this.Dealers.find(Dealer => Dealer.id == Id)?.email || "Unavailable "
   }
 

@@ -52,6 +52,12 @@
                 cursor: pointer;
             }
         }
+        .ClickableHeader, .ClickableTd {
+            &:hover{
+                cursor: pointer;
+            }
+        }
+
     } 
     .pagination {
         ul {
@@ -72,6 +78,10 @@
                 }
             }
         }
+        .CurrentPage{
+            text-decoration: underline;
+            font-weight: bold;
+        }
     }
     .DownLoad{
         color:$footer-color;
@@ -81,6 +91,7 @@
             cursor: pointer;
         }
     }
+    
 }
 .SearchInput{
     display: flex;
