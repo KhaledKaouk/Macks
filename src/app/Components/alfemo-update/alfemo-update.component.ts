@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
+import { ThrowStmt } from '@angular/compiler';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Component, Inject, OnInit } from '@angular/core';
-import { async } from '@angular/core/testing';
 import { FormControl, FormGroup, RequiredValidator, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -37,8 +37,10 @@ export class AlfemoUpdateComponent implements OnInit {
   PoToUpdate: POs = new POs();
   ShippingDocsAreEdited: boolean = false;
   SeletedFile: any;
+  ArchivedFiles: any;
   AddtitionalShippingDocs: any;
   NewShippingDocs = new JSZip();
+  ArchivedShippingDocs = new JSZip();
   FilesNames: string[] = [];
 
   constructor(private PoService: POsService,
@@ -50,28 +52,14 @@ export class AlfemoUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     CheckToken(this.router);
+    console.log(this.ReplaceBackSlashInDate(this.GetCurrentDate()))
+    console.log(this.GetCurrentDate())
     this.PoToUpdate = this.data;
-    this.NotifyIfShippingDocsExist();
     this.AssignPoDataToForm();
-
-    this.GetShippingDocs().then(async (res) => {
-      let file = res;
-
-      file.name = this.PoToUpdate.shippingDocs + '.zip';
-      file.lastModifiedDate = new Date();
-
-      this.DisplayShippingDocs(file);
-
-      this.NewShippingDocs = await this.ArchiveOldShippingDocs(file);
-
-    })
+    if (this.PoToUpdate.shippingDocs != "") this.GetShippingDocs()
   }
 
-  NotifyIfShippingDocsExist() {
-    if (this.PoToUpdate.shippingDocs != "") {
-      this.Notification.DisplayInfo("You Already Uploaded A ShippingDocs ")
-    }
-  }
+
 
   AssignPoDataToForm() {
     this.UpdatedPo.setValue({
@@ -91,13 +79,33 @@ export class AlfemoUpdateComponent implements OnInit {
       await this.NewShippingDocs.generateAsync({ type: 'blob' }).then(content => {
         this.SeletedFile = content
       })
-    } else {
-      await this.CombineFilesInZip();
+      await this.ArchivedShippingDocs.generateAsync({ type: 'blob' }).then(content => {
+        this.ArchivedFiles = content
+      })
     }
     if (this.SeletedFile) {
+      if (!this.ShippingDocsAreEdited) await this.CombineFilesInZip();
+      console.log(this.SeletedFile)
+      console.log(this.ArchivedFiles)
       let UploadProcess: any;
       (async () => {
-        UploadProcess = await UploadFile(this.PoService, this.ConstructFormDataFile(), this.ConstructFileName(), this.Notification, this.spinner, this.router)
+        UploadProcess = await UploadFile(
+          this.PoService,
+          this.ConstructFormDataFile(this.SeletedFile),
+          this.ConstructFileName(),
+          this.Notification,
+          this.spinner,
+          this.router,
+          this.dialogref)
+
+        let UploadArchiveProccess = await UploadFile(this.PoService,
+          this.ConstructArchivedFormData(this.ArchivedFiles),
+          this.ConstructArchiveFileName(),
+          this.Notification,
+          this.spinner,
+          this.router,
+          this.dialogref)
+
         if (UploadProcess == true) {
           this.UpdatePo();
         }
@@ -130,10 +138,21 @@ export class AlfemoUpdateComponent implements OnInit {
 
     return FileName
   }
-  ConstructFormDataFile() {
+  ConstructArchiveFileName() {
+    let FileName = RemoveSlashes(this.PoToUpdate.dealerPONumber) + "_" + RemoveSlashes(this.PoToUpdate.corinthianPO);
+    FileName = AddPreffixAndExtention("Archive_" + this.ReplaceBackSlashInDate(this.GetCurrentDate()) + "_", FileName, 'Example.zip')
+
+    return FileName
+  }
+  ConstructArchivedFormData(Files: any) {
+    let fd = new FormData();
+    fd.append('PO', Files, this.ConstructArchiveFileName());
+    return fd;
+  }
+  ConstructFormDataFile(Files: any) {
     let fd = new FormData();
     this.PoToUpdate.shippingDocs = this.ConstructFileName();
-    fd.append('PO', this.SeletedFile, this.ConstructFileName());
+    fd.append('PO', Files, this.ConstructFileName());
     return fd;
   }
   SaveFileInObject(event: any) {
@@ -190,15 +209,25 @@ export class AlfemoUpdateComponent implements OnInit {
 
   async GetShippingDocs() {
     let ShippingDocs: File;
+    let localApi = 'http://localhost:5000/Assets/';
+    let realapi = 'https://macksdistribution.com/Attatchments/SD/'
+    return ShippingDocs = await fetch(realapi + this.PoToUpdate.shippingDocs).then((res: any) => {
+      this.spinner.WrapWithSpinner(res.clone().blob().then(async (res1: any) => {
+        let file = res1;
+        file.name = this.PoToUpdate.shippingDocs;
+        file.lastModifiedDate = new Date();
 
-    return ShippingDocs = await fetch('https://macksdistribution.com/Attatchments/SD/'+this.PoToUpdate.shippingDocs).then((res: any) => {
+        this.DisplayShippingDocs(file);
+
+        this.NewShippingDocs = await this.GetNewShippingDocsCopy(file);
+        this.ArchivedShippingDocs = await this.GetNewShippingDocsCopy(file);
+      }), this.dialogref)
       return res.clone().blob()
     })
   }
   DeleteFile(FileName: string) {
     this.ShippingDocsAreEdited = true
     this.FilesNames.splice(this.FilesNames.indexOf(FileName), 1)
-    console.log(this.FilesNames)
     this.NewShippingDocs.remove(FileName);
   }
   async UnzipShippingDocs(file: File) {
@@ -237,24 +266,37 @@ export class AlfemoUpdateComponent implements OnInit {
 
     return FinalShippingDocs
   }
-  DeleteFileFromZip(ShippingDocs: JSZip, FileName: string) {
-    let ModefiedShippingDocs = ShippingDocs;
-    return ModefiedShippingDocs.remove(FileName)
+  async GetNewShippingDocsCopy(OldShippingDocs: File) {
+    let CopyOfShippingDocs = new JSZip();
+    let OldDocs = await this.UnzipShippingDocs(OldShippingDocs)
+
+    OldDocs.forEach(file => {
+      if (this.GetFileExtenstion(file) != 'zip') {
+        CopyOfShippingDocs.file(file.name, file)
+      }
+    })
+    return CopyOfShippingDocs
+
   }
-  AddFileToZip(ShippingDocs: JSZip, File: File) {
-    let ModefiedShippingDocs = ShippingDocs;
-    return ModefiedShippingDocs.file(File.name, File)
-  }
+  // DeleteFileFromZip(ShippingDocs: JSZip, FileName: string) {
+  //   let ModefiedShippingDocs = ShippingDocs;
+  //   return ModefiedShippingDocs.remove(FileName)
+  // }
+  // AddFileToZip(ShippingDocs: JSZip, File: File) {
+  //   let ModefiedShippingDocs = ShippingDocs;
+  //   return ModefiedShippingDocs.file(File.name, File)
+  // }
 
   GetFileExtenstion(file: File) {
     let indexOExtention = file.name.indexOf('.') + 1;
     return file.name.substring(indexOExtention, file.name.length)
   }
   ReplaceBackSlashInDate(Date: string) {
-    return Date.replace(/\\|\//g, "-")
+    return Date.replace(/\\|\//g, "_")
   }
   GetCurrentDate() {
-    return new Date().toLocaleString();
+    let Now = new Date().toLocaleString().replace(",", "_").replace(":","").replace(":","");
+    return Now.replace(/ /g,"")
   }
 
   AddFilesToShippingDocs(event: any) {
@@ -272,5 +314,4 @@ export class AlfemoUpdateComponent implements OnInit {
       })
     })
   }
-  // GetShippingDocs()
 }

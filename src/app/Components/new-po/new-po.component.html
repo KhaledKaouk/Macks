@@ -21,6 +21,13 @@
         <input name="CorinthainPo" type="text" formControlName="CorinthainPo" aria-label="CorinthainPo"
             placeholder="CorinthainPo">
     </div>
+    <div class="InputWraper">
+        <label for="port">Port Name</label>
+        <select name="port" type="text" id="port" formControlName="port" aria-label="port Name"
+            placeholder="port Name" >
+            <option *ngFor= "let Port of Ports index as i" value={{Port.portName}}>{{Port.portName}}</option>
+        </select>
+    </div>
 
     <div class="InputWraper">
         <label for="ShipBy">Ship By</label>

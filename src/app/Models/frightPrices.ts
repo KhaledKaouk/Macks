@@ -5,6 +5,7 @@ export class frightPrices{
     oldprice: number;
     changedon: string;
     deliveryType: string;
+    port: string;
 
     constructor(){
         this.id = 0;
@@ -13,6 +14,7 @@ export class frightPrices{
         this.oldprice = 0;
         this.changedon = "";
         this.deliveryType = "";
+        this.port = "";
     }
 
 

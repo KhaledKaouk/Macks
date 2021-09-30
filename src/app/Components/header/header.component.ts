@@ -8,6 +8,7 @@ import { AlfemoComponent } from '../alfemo/alfemo.component';
 import { CreateFeightPriceComponent } from '../create-feight-price/create-feight-price.component';
 import { MyPosComponent } from '../my-pos/my-pos.component';
 import { NewDealerComponent } from '../new-dealer/new-dealer.component';
+import { NewPortComponent } from '../new-port/new-port.component';
 
 @Component({
   selector: 'app-header',
@@ -66,6 +67,12 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(CreateFeightPriceComponent,{
       height: '30rem',
       width: '55rem',
+    })
+  }
+  OpenNewPort(){
+    this.dialog.open(NewPortComponent, {
+      height: '30rem',
+      width: '30rem',
     })
   }
 }

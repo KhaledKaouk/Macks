@@ -99,6 +99,7 @@
                     color: lighten($Secondary-Color, 30%);
                 }
             }
+
         }
     }
     #DealerSubMenutitle {
@@ -134,7 +135,47 @@
             }
         }
     }
+    #PortsSubMenuTitle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        #PortsSubMenu {
+            li {
+                background-color: $Primary-color;
+                border: 1px solid $Secondary-Color;
+                margin-bottom: 2px;
+            }
+            display: none;
+            position: absolute;
+            top: 3rem;
+            left: 1rem;
+            background-color: transparent;
+            box-shadow: 0px 0px 3px rgb(73, 73, 73);
+        }
+        &:hover {
+            #PortsSubMenu {
+                display: block;
+                li {
+                    display: block;
+                    white-space: nowrap;
+                    font-size: 1rem;
+                    // margin: 2px;
+                    label:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
     #menuCheckBox {
         display: none;
+    }
+}
+
+#NormalCursor{
+    &:hover{
+        cursor:default;
+        color: $Secondary-Color;
     }
 }

@@ -1,0 +1,36 @@
+<div class="AddressHeader">
+    <h1>Ports</h1>
+    <h2>Home / Ports</h2>
+</div>
+<div class="SearchInput"><input type="text" placeholder="Search Ports" (input) = "SearchByPortsAndCities($event)"></div>
+<div class="DataTableWraper">
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Port Name</th>
+                    <th>City</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <tr *ngFor = "let Port of DataOfCurrentPage index as i">
+                    <td>{{Port.portName}}</td>
+                    <td>{{Port.city}}</td>
+                    <td><a (click) =  UpdatePort(Port)>Edit</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class="pagination">
+            <ul>
+                <li><button (click)=PreviousPage()>Previous</button></li>
+                <li *ngFor="let PC of PageCountArray index as i">
+                    <button (click)=SliceDataForPaginantion(i) [ngClass] = "{'CurrentPage': CurrentPage === i}">{{i}}</button>
+                </li>
+                <li><button (click)=NextPage()>Next</button></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<ng-progress id="myProgress"></ng-progress>
+<simple-notifications></simple-notifications>

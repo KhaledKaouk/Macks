@@ -1,0 +1,11 @@
+<div class="AddressHeader" style="height: 5rem;">
+    <h1>Create New Port</h1>
+</div>
+<div class="CreatePo" [formGroup] = "NewPortForm">
+    <div class="InputWraper"><input type="text" placeholder="PortName" formControlName = "PortName"></div>
+    <div class="InputWraper"><input type="text" placeholder="City" formControlName = "City"></div>
+    <div class="InputWraper"><button (click) = Submit() [disabled]  = "!NewPortForm.valid">Submit</button></div>
+    <div class="InputWraper"><button (click) = Close()>Cancel</button></div>
+</div>
+<ng-progress id="myProgress"></ng-progress>
+<simple-notifications></simple-notifications>

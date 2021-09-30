@@ -6,8 +6,10 @@ import { Router } from '@angular/router';
 import { promise } from 'protractor';
 import { Dealers } from 'src/app/Models/Dealers';
 import { POs } from 'src/app/Models/Po-model';
+import { port } from 'src/app/Models/port';
 import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
+import { PortService } from 'src/app/Services/port.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
 import { AddPreffixAndExtention, CreateDatabase, CreateMackPo, RemoveSlashes, Spinner, UploadFile } from 'src/app/Utilities/Common';
@@ -25,6 +27,7 @@ export class NewPoComponent implements OnInit {
   Loading: boolean = false;
   Dealers: Dealers[] = [];
   NewPo: POs = new POs();
+  Ports: port[] = [];
 
   CreatePo = new FormGroup({
     DealerId: new FormControl('', Validators.required),
@@ -32,12 +35,14 @@ export class NewPoComponent implements OnInit {
     CorinthainPo: new FormControl('', Validators.required),
     ShipBy: new FormControl('', Validators.required),
     InvoiceDate: new FormControl('', Validators.required),
-    Comments: new FormControl('')
+    Comments: new FormControl(''),
+    port: new FormControl('',Validators.required)
   })
 
   SeletedFile: any;
 
   constructor(private Pos: POsService,
+    private portservice: PortService,
     private Notification: NotificationserService,
     private router: Router,
     private dialog: MatDialog,
@@ -47,6 +52,7 @@ export class NewPoComponent implements OnInit {
   ngOnInit(): void {
     CheckToken(this.router);
     this.GetAllDealers();
+    this.GetPorts();
   }
 
   GetAllDealers() {
@@ -153,10 +159,15 @@ export class NewPoComponent implements OnInit {
     this.NewPo.corinthianPOAttach = this.NewPo.dealerPONumber + this.NewPo.corinthianPO;
     this.NewPo.dateReceived = new Date().toLocaleDateString()
     this.NewPo.invoiceDate = this.CreatePo.get('InvoiceDate')?.value;
+    this.NewPo.port = this.CreatePo.get('port')?.value;
 
   }
 
-
+  GetPorts(){
+    this.portservice.GetPorts().then((res: any) => {
+      this.Ports = res
+    })
+  }
   OperNewDealerForm() {
     this.dialog.open(NewDealerComponent, {
       height: '30rem',

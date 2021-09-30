@@ -85,6 +85,16 @@
                 <input class="input" name="CorinthainPo" type="text" aria-label="CorinthainPo"
                     placeholder="CorinthainPo" (keyup)=AddToSearchKeys($event,WantedCorinthainPo)>
             </div>
+            <div class="InputWraper">
+                <label for="FromShipDate">From ESA</label>
+                <input name="FromShipDate" type="date" formControlName="FromShipDate" class="input" aria-label="FromShipDate"
+                     placeholder="From Ship Date">
+            </div>
+            <div class="InputWraper">
+                <label for="ToShipDate">To ESA</label>
+                <input name="ToShipDate" type="date" formControlName="ToShipDate" class="input" aria-label="ToShipDate"
+                    placeholder="To Ship Date">
+            </div>
         </div>
         <div id="Dealers">
             <label class="SearcHeader">Selected Filters</label>

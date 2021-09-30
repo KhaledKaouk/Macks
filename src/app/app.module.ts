@@ -38,6 +38,9 @@ import { EditdealerinformationComponent } from './Components/editdealerinformati
 import { DealerProfileComponent } from './Components/dealer-profile/dealer-profile.component';
 import { ReportsComponent } from './Components/reports/reports.component';
 import { CreateFeightPriceComponent } from './Components/create-feight-price/create-feight-price.component';
+import { NewPortComponent } from './Components/new-port/new-port.component';
+import { UpdatePortComponent } from './Components/update-port/update-port.component';
+import { PortsComponent } from './Components/ports/ports.component';
 
 
 @NgModule({
@@ -66,6 +69,9 @@ import { CreateFeightPriceComponent } from './Components/create-feight-price/cre
     DealerProfileComponent,
     ReportsComponent,
     CreateFeightPriceComponent,
+    NewPortComponent,
+    PortsComponent,
+    UpdatePortComponent,
   ],
   imports: [
     BrowserModule,

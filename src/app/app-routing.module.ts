@@ -10,6 +10,8 @@ import { HomeComponent } from './Components/home/home.component';
 import { LogInComponent } from './Components/log-in/log-in.component';
 import { MyPosComponent } from './Components/my-pos/my-pos.component';
 import { NewPoComponent } from './Components/new-po/new-po.component';
+import { NewPortComponent } from './Components/new-port/new-port.component';
+import { PortsComponent } from './Components/ports/ports.component';
 import { ReportsComponent } from './Components/reports/reports.component';
 
 const routes: Routes = [
@@ -23,7 +25,9 @@ const routes: Routes = [
   {path:'FrightPrices', component: FrightPricesComponent},
   {path:'Dealers', component: DealersComponent},
   {path: 'DealerProfile/:DealerId', component: DealerProfileComponent},
-  {path: 'reports', component: ReportsComponent}
+  {path: 'reports', component: ReportsComponent},
+  {path: 'NewPort', component: NewPortComponent},
+  {path: 'Ports', component: PortsComponent}
 ];
 
 @NgModule({

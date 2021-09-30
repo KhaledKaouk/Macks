@@ -17,6 +17,7 @@ import { DealersService } from "../Services/dealers.service";
 import { StringDecoder } from "string_decoder";
 import { unwatchFile } from "fs";
 import { DatePipe } from "@angular/common";
+import { port } from "../Models/port";
 
 export function AddPreffixAndExtention(Preffix: string, FileNameBody: string, GetExtentionFrom: string) {
     let extenstion: string = GetExtentionFrom;
@@ -27,16 +28,18 @@ export function AddPreffixAndExtention(Preffix: string, FileNameBody: string, Ge
     return AdjustedFileName;
 }
 
-export async function UploadFile(
+export async function UploadFile<T>(
     PoService: POsService,
     FormData: FormData,
     FileName: string,
     Notification: NotificationserService,
     spinner: Spinner,
-    router: Router) {
+    router: Router,
+    dialogref?: MatDialogRef<T>) {
 
     let result: boolean = true;
     spinner.ShowSpinner();
+    if (dialogref) HideDialog(dialogref)
     await PoService.Uploadfile(FormData, FileName).toPromise().then((res: any) => {
         if (res == true) {
             result = res;
@@ -51,7 +54,10 @@ export async function UploadFile(
             Auth_error_handling(err, Notification, router);
             result = false;
             return false;
-        }).finally(() => { spinner.HideSppiner() });
+        }).finally(() => {
+            spinner.HideSppiner();
+            if (dialogref) ShowDialog(dialogref)
+        });
     return result
 }
 
@@ -173,6 +179,9 @@ export let InDevMode = localStorage.getItem('DevMode')?.toLowerCase() === "true"
 export function FilterDealersByName(ListOfDealers: Dealers[], DealerName: string) {
     return ListOfDealers.filter(Dealer => Dealer.name.toLowerCase().includes(DealerName.toLowerCase()))
 }
+export function FilterPortsByNameAndCity(ListOfPorts: port[], SearchKeyWord: string){
+    return ListOfPorts.filter(Port => Port.portName.toLowerCase().includes(SearchKeyWord.toLowerCase()) || Port.city.toLowerCase().includes(SearchKeyWord.toLowerCase()))
+}
 
 export function ColorTR() {
     let PoRows = document.getElementsByTagName('tr');
@@ -279,6 +288,7 @@ export function GenerateFilterdReport(AllPos: POs[], WantedFields: string[]) {
         let workbook = XLSX.utils.book_new();
         workbook = { Sheets: { 'Pos': worksheet }, SheetNames: ["Pos"] }
         XLSX.writeFile(workbook, "macksdistribution_Pos_Report_" + new Date().toLocaleDateString() + ".xlsx")
+        // return XLSX.writeFile(workbook, "macksdistribution_Pos_Report_" + new Date().toLocaleDateString() + ".xlsx")
     }
 }
 export function GenerateDefaultReport(AllPos: POs[]) {
@@ -304,7 +314,10 @@ export function GenerateDefaultReport(AllPos: POs[]) {
         XLSX.writeFile(workbook, "macksdistribution_Pos_Report_" + new Date().toLocaleDateString() + ".xlsx")
     }
 }
-export async function CreateMackPo(CorinthianPo: File,FileName: string) {
+export function FilterPosByShipDate(POsList: POs[],FromShipDate: string, ToShipDate: string){
+    return POsList.filter(Po => (Po.factoryEstimatedShipDate > FromShipDate) && (Po.factoryEstimatedShipDate < ToShipDate) )
+}
+export async function CreateMackPo(CorinthianPo: File, FileName: string) {
 
 
     let arrayBuffer: any;
@@ -347,7 +360,7 @@ export async function CreateMackPo(CorinthianPo: File,FileName: string) {
 
     var out = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
     let blob = new Blob([s2ab(out)], { type: "application/octet-stream" });
-    let MackPo = new File([blob],FileName)
+    let MackPo = new File([blob], FileName)
     return MackPo
 }
 function s2ab(s: any) {

@@ -27,6 +27,7 @@ export class POs {
     approvalStatus: boolean;
     deleted: boolean;
     invoiceDate: string;
+    port: string;
     [key:string]: string | boolean | number;
     constructor(){
             this.id = 0;
@@ -57,6 +58,7 @@ export class POs {
             this.approvalStatus = false;
             this.deleted = false;
             this.invoiceDate = "";
+            this.port = "";
     }
 
 }

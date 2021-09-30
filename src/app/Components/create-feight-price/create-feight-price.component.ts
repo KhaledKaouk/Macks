@@ -19,7 +19,8 @@ export class CreateFeightPriceComponent implements OnInit {
     {
       Location: new FormControl('',Validators.required),
       Price: new FormControl('',Validators.required),
-      DeliveryType: new FormControl('',Validators.required)
+      DeliveryType: new FormControl('',Validators.required),
+      Port: new FormControl('',Validators.required)
     }
   )
   NewFreidghtPrice: frightPrices = new frightPrices();
@@ -53,6 +54,7 @@ export class CreateFeightPriceComponent implements OnInit {
     this.NewFreidghtPrice.locations =  this.CreateFreightPriceForm.get('Location')?.value;
     this.NewFreidghtPrice.currentprice = this.CreateFreightPriceForm.get('Price')?.value;
     this.NewFreidghtPrice.deliveryType = this.CreateFreightPriceForm.get('DeliveryType')?.value;
+    this.NewFreidghtPrice.port = this.CreateFreightPriceForm.get('Port')?.value;
     this.NewFreidghtPrice.changedon = new Date().toLocaleDateString()
   }
 

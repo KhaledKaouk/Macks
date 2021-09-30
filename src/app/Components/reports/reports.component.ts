@@ -1,12 +1,14 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { read } from 'fs';
 import { parse } from 'path';
+import { $ } from 'protractor';
 import { Dealers } from 'src/app/Models/Dealers';
 import { POs } from 'src/app/Models/Po-model';
 import { DealersService } from 'src/app/Services/dealers.service';
 import { POsService } from 'src/app/Services/pos.service';
-import { FormatPoDateFields, GenerateDefaultReport, GenerateFilterdReport } from 'src/app/Utilities/Common';
+import { FilterPosByShipDate, FormatPoDateFields, GenerateDefaultReport, GenerateFilterdReport } from 'src/app/Utilities/Common';
 
 @Component({
   selector: 'app-reports',
@@ -40,7 +42,9 @@ export class ReportsComponent implements OnInit {
   WantedCorinthainPo: string[] = [];
 
   Options = new FormGroup({
-    DealerId: new FormControl()
+    DealerId: new FormControl(),
+    FromShipDate: new FormControl(),
+    ToShipDate: new FormControl()
   })
   constructor(private PosServise: POsService,
     private DealerServise: DealersService) { }
@@ -49,6 +53,8 @@ export class ReportsComponent implements OnInit {
     this.GetAllDealers();
     this.GetAllPos();
     this.WantedFileds = this.AllFields
+    // this.SetUpFormDateValue();
+ 
   }
   GetAllDealers() {
     this.DealerServise.GetAllDealers().then((res: any) => {
@@ -93,11 +99,29 @@ export class ReportsComponent implements OnInit {
     let PosWithNoDuplicate = this.FilterPosByDealrs().filter(Po => !this.FilterPoByDealerPo().includes(Po));
     let FilteredPos = PosWithNoDuplicate.concat(this.FilterPoByDealerPo());
     let PosWithNoDuplicate2 = FilteredPos.filter(Po => !this.FilterPoByCorinthianPo().includes(Po))
-
     FilteredPos = PosWithNoDuplicate2.concat(this.FilterPoByCorinthianPo());
+    let PosFilteredByShipDate = FilterPosByShipDate(this.AllPos,this.GetFromShipDateKey(),this.GetToShipDateKey() );
+    let PosWithNoDuplicate3 = FilteredPos.filter(Po => !PosFilteredByShipDate.includes(Po))
+    FilteredPos = PosWithNoDuplicate3.concat(PosFilteredByShipDate)
+
     GenerateFilterdReport(FilteredPos, this.WantedFileds)
 
   }
+
+  GetFromShipDateKey(){
+    return this.Options.get('FromShipDate')?.value
+  }
+  GetToShipDateKey(){
+    return this.Options.get('ToShipDate')?.value
+  }
+  SetUpFormDateValue(){
+    this.Options.setValue({
+      DealerId: '',
+      FromShipDate: new DatePipe('en-US').transform(Date.now(), 'YYYY-MM-dd'),
+      ToShipDate: new DatePipe('en-US').transform(Date.now(), 'YYYY-MM-dd'),
+    })
+  }
+
   GenerateDefaultReport() {
     GenerateDefaultReport(this.AllPos)
   }
