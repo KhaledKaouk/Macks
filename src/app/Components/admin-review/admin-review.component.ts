@@ -8,7 +8,10 @@ import { NotificationserService } from 'src/app/Services/notificationser.service
 import { NgProgress } from 'ngx-progressbar';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AddPreffixAndExtention, AdjustingDataForDisplay, Directories, DownLoadFile, UploadFile } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention } from 'src/app/Utilities/Common';
+import { DownLoadFile, UploadFile } from 'src/app/Utilities/FileHandlers';
+import { Directories } from 'src/app/Utilities/Variables';
+import { AdjustApprovalStatusForDisplay } from 'src/app/Utilities/PoHandlers';
 @Component({
   selector: 'app-admin-review',
   templateUrl: './admin-review.component.html',
@@ -87,12 +90,12 @@ export class AdminReviewComponent implements OnInit {
       fd.append('PO', this.SeletedFile, FileName);
 
       let UploadProcess: any;
-      (async () => {
-        UploadProcess = await UploadFile(this.PoService, fd, FileName, this.Notification, this.progressRef, this.router)
-        if (UploadProcess == true) {
-          this.UpdatePo();
-        }
-      })();
+      // (async () => {
+      //   UploadProcess = await UploadFile(this.PoService, fd, FileName, this.Notification, this.progressRef, this.router)
+      //   if (UploadProcess == true) {
+      //     this.UpdatePo();
+      //   }
+      // })();
     } else {
       this.UpdatePo();
     }
@@ -134,6 +137,6 @@ export class AdminReviewComponent implements OnInit {
     })
   }
   AdjustingDataForDisplay(approvalStatus: boolean) {
-    return AdjustingDataForDisplay(approvalStatus);
+    return AdjustApprovalStatusForDisplay(approvalStatus);
   }
 }

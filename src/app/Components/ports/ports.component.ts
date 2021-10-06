@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { port } from 'src/app/Models/port';
 import { PortService } from 'src/app/Services/port.service';
-import { FilterPortsByNameAndCity, RemoveSearchDisclaimer, ShowSearchDisclaimer } from 'src/app/Utilities/Common';
+import {  RemoveSearchDisclaimer, ShowSearchDisclaimer } from 'src/app/Utilities/Common';
+import { FilterPortsByNameAndCity } from 'src/app/Utilities/PortHandlers';
 import { UpdatePortComponent } from '../update-port/update-port.component';
 
 @Component({

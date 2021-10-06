@@ -13,12 +13,12 @@
                     <th >Port</th>
                     <th class="LargeScreenOnly">Status</th>
                     <th class="LargeScreenOnly">Approved</th>
-                    <th class="LargeScreenOnly ClickableHeader" (click) = "OrderPosByShipByDate()">Ship By</th>
+                    <th class=" ClickableHeader" (click) = "OrderPosByShipByDate()">Ship By</th>
                     <th >Details</th>
                 </tr>
             </thead>
             <tbody id="tbody">
-                <tr *ngFor="let P of DataOfCurrentPage index as i">
+                <tr class= "row" *ngFor="let P of DataOfCurrentPage index as i">
                     <td class="LargeScreenOnly ClickableTd" (click) = "ShowDealerProfile(P.dealer_id)" >
                         {{P.dealerName}}
                     </td>

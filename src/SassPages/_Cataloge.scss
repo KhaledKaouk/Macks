@@ -4,9 +4,10 @@
 
     padding: 5rem;
     img {
-        width: 100%;
+        width: 18rem;
         height: 18rem;
         opacity: 1;
+        object-fit: cover;
     }
 
     button {

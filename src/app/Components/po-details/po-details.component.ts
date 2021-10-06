@@ -6,8 +6,12 @@ import { NgProgress } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
-import { AddPreffixAndExtention, AdjustingDataForDisplay, CheckCorinthianUserPermissions, Directories, DownLoadFile, Functionalities, HideDialog, ProgrssBar, RemoveSlashes, ShowDialog, Spinner, UploadFile } from 'src/app/Utilities/Common';
+import { CheckCorinthianUserPermissions } from 'src/app/Utilities/CheckAuth';
+import { AddPreffixAndExtention, DIs, RemoveSlashes, Spinner } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
+import { DownLoadFile, UploadFile } from 'src/app/Utilities/FileHandlers';
+import { AdjustApprovalStatusForDisplay } from 'src/app/Utilities/PoHandlers';
+import { Directories, Functionalities, Tools } from 'src/app/Utilities/Variables';
 import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component';
 
 @Component({
@@ -27,7 +31,8 @@ export class PoDetailsComponent implements OnInit {
     private PoService: POsService,
     private Notification: NotificationserService,
     private router: Router,
-    private spinner: Spinner
+    private spinner: Spinner,
+    private DIs: DIs
   ) { }
 
   Functionalities: string[] = this.data[1];
@@ -40,7 +45,7 @@ export class PoDetailsComponent implements OnInit {
   }
 
   AdjustingDataForDisplay(approvalStatus: boolean) {
-    return AdjustingDataForDisplay(approvalStatus);
+    return AdjustApprovalStatusForDisplay(approvalStatus);
   }
   RemoveDownloadButtonsForNullFilesAndCreateDisclaimers(HtmlElementName: string) {
     document.getElementsByName(HtmlElementName)[0].remove();
@@ -49,23 +54,26 @@ export class PoDetailsComponent implements OnInit {
     document.getElementById('buttons-2')?.appendChild(Disclaimer)
   }
   CheckFunctionalities() {
+    this.RemoveNotAllowedButtons();
+    if (this.CheckPoFileAndDownLoadButton(this.ViewedPO.mackPOAttach, "MackPo"))
+    this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('MackPo')
+    if (this.CheckPoFileAndDownLoadButton(this.ViewedPO.shippingDocs, "ShippingDocs"))
+    this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('ShippingDocs')
+    if (this.CheckPoFileAndDownLoadButton(this.ViewedPO.corinthianPOAttach, "CorinthainPo"))
+      this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('CorinthainPo')
+  }
 
+  CheckPoFileAndDownLoadButton(PoFileField: string, ButtonName: string) {
+    return PoFileField == "" && document.getElementsByName(ButtonName).length >= 1
+  }
+  RemoveNotAllowedButtons() {
     (Array.from(document.getElementsByClassName('buttons'))).forEach(ParentOfDownloadFileButtons => {
       Array.from(ParentOfDownloadFileButtons.children).forEach(DownloadButton => {
         let ButtonName = DownloadButton.getAttribute('name');
         if (!this.Functionalities.includes(ButtonName ?? "")) document.getElementsByName(ButtonName ?? "")[0].remove();
       })
     });
-
-    if (this.ViewedPO.mackPOAttach == "" && document.getElementsByName('MackPo').length >= 1)
-      this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('MackPo')
-    if (this.ViewedPO.shippingDocs == "" && document.getElementsByName('ShippingDocs').length >= 1)
-      this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('ShippingDocs')
-    if (this.ViewedPO.corinthianPOAttach == "" && document.getElementsByName('CorinthainPo').length >= 1)
-      this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('CorinthainPo')
   }
-
-
   DownloadMackPo() {
     DownLoadFile(Directories.MackPo, this.ViewedPO.mackPOAttach)
   }
@@ -78,36 +86,39 @@ export class PoDetailsComponent implements OnInit {
 
 
   RejectPo() {
-    if(this.ViewedPO.status == ""){
+    if (this.ViewedPO.status == "") {
       this.ViewedPO.approvalStatus = false;
       this.ViewedPO.status = "Rejected";
       window.alert("you need to hit Apply changes to Complete the process");
-    }else{
+    } else {
       this.Notification.OnError("You Can Not Reject A Po After being Accepted By Alfemo")
     }
   }
   ApprovePo() {
-      this.ViewedPO.approvalStatus = true;
-      this.ViewedPO.status = "";
-      window.alert("you need to hit Apply changes to Complete the process");
+    this.ViewedPO.approvalStatus = true;
+    this.ViewedPO.status = "";
+    window.alert("you need to hit Apply changes to Complete the process");
   }
 
 
-  Submit() {
+  async Submit() {
     if (this.SeletedFile) {
       let UploadProcess: any;
-      (async () => {
-        UploadProcess = await UploadFile(this.PoService, this.ConstructFormDataFile(), this.ConstructFileName(), this.Notification, this.spinner, this.router)
-        if (UploadProcess == true) {
-          this.MackUpdate();
-        }
-      })();
+      UploadProcess = await UploadFile(
+        this.ConstructFormDataFile(),
+        this.ConstructFileName(),
+        this.DIs,
+        this.dialogref)
+
+      if (UploadProcess == true) {
+        this.MackUpdate();
+      }
     } else {
       this.MackUpdate();
     }
   }
   ConstructFileName() {
-    let FileName = RemoveSlashes(this.ViewedPO.dealerPONumber)  + "_" + RemoveSlashes(this.ViewedPO.corinthianPO);
+    let FileName = RemoveSlashes(this.ViewedPO.dealerPONumber) + "_" + RemoveSlashes(this.ViewedPO.corinthianPO);
     FileName = AddPreffixAndExtention("MP_", FileName, this.SeletedFile.name)
 
     return FileName
@@ -120,49 +131,31 @@ export class PoDetailsComponent implements OnInit {
   }
   MackUpdate() {
     this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
-      if (res == true) {
-        this.Notification.OnSuccess("You Updated the Po successfully")
-        this.Close()
-      } else {
-        this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
-      }
+      this.DisplayNotification();
+      this.Close()
     }, (err: any) => {
       Auth_error_handling(err, this.Notification, this.router)
     }), this.dialogref)
   }
-  // CorinthainUpdate() {
-  //   this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
-  //     if (res == true) {
-  //       this.Notification.OnSuccess("You Updated the Po successfully")
-  //       this.Close()
-  //     } else {
-  //       this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
-  //     }
-  //   }, (err: any) => {
 
-  //     Auth_error_handling(err, this.Notification, this.router)
-  //   }), this.dialogref)
-  // }
+  DisplayNotification() {
+    this.Notification.OnSuccess("You Updated the Po successfully")
+  }
   Close() {
     this.dialogref.close();
   }
   Update() {
-
-    // if (this.data[1] == Functionalities.Alfemo) {
-      this.dialog.open(AlfemoUpdateComponent, {
-        height: '60rem',
-        width: '45rem',
-        data: this.ViewedPO,
-      });
-      this.Close();
-    // } else {
-    //   // this.CorinthainUpdate();
-    // }
+    this.dialog.open(AlfemoUpdateComponent, {
+      height: '60rem',
+      width: '45rem',
+      data: this.ViewedPO,
+    });
+    this.Close();
   }
   UploadPo(event: any) {
     this.SeletedFile = event.target.files[0];
   }
-  
+
   SetNewDate(event: any) {
     this.ViewedPO.shipBy = event.target.value;
   }
@@ -195,22 +188,19 @@ export class PoDetailsComponent implements OnInit {
     }
   }
   DeletePo() {
-    if (confirm("Are You Sure You Want To Delete This Po")) {
-      this.ViewedPO.deleted = true;
-      this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
-        if (res == true) {
-          this.Notification.OnSuccess("You have Deleted the Po successfully")
-          location.reload();
-          this.Close();
-        } else {
-          this.Notification.OnError("Some Thing Went Wrong Please Try Again Later")
-        }
-      }, (err: any) => {
-        Auth_error_handling(err, this.Notification, this.router)
-      }), this.dialogref)
-    }
+    this.ViewedPO.deleted = true;
+    this.spinner.WrapWithSpinner(this.PoService.UpdatePo(this.ViewedPO).toPromise().then((res: any) => {
+      this.Notification.OnSuccess("You have Deleted the Po successfully")
+      location.reload();
+      this.Close();
+    }, (err: any) => {
+      Auth_error_handling(err, this.Notification, this.router)
+    }), this.dialogref)
   }
-  CheckIfAdmin(){
+  ConfirmDeleteRequest() {
+    if (confirm("Are You Sure You Want To Delete This Po")) this.DeletePo()
+  }
+  CheckIfAdmin() {
     return localStorage.getItem('Role') === "admin"
   }
   CheckIfHolley() {

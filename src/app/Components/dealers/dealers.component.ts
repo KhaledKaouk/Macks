@@ -3,8 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Dealers } from 'src/app/Models/Dealers';
 import { DealersService } from 'src/app/Services/dealers.service';
-import { FilterDealersByName, RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
+import { RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
 import { CheckDealersToMatchOfflineDB, DeleteDealer, PromiseAllDealers } from 'src/app/Utilities/DealersCRUD';
+import { CompareDealerNames, FilterDealersByName } from 'src/app/Utilities/DealersHandlers';
 import { EditdealerinformationComponent } from '../editdealerinformation/editdealerinformation.component';
 
 @Component({
@@ -31,13 +32,9 @@ export class DealersComponent implements OnInit {
   }
 
   GetAllDealers(){
-     this.spinner.WrapWithSpinner(this.DealerServies.GetAllDealers().then((res: any) => {
-      this.Dealers = res
-      this.Dealers.sort((a, b) => {
-        if (a.name[0].toLowerCase() > b.name[0].toLowerCase()) return +1
-        if (a.name[0].toLowerCase() < b.name[0].toLowerCase()) return -1
-        return 0
-      });
+     this.spinner.WrapWithSpinner(this.DealerServies.GetAllDealers().then((dealers: any) => {
+      this.Dealers = dealers
+      this.Dealers.sort((a, b) => CompareDealerNames(a.name,b.name));
       this.PagesCount = Math.ceil(this.Dealers.length / this.DataRowsInPage);
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
       this.SliceDataForPaginantion(0)

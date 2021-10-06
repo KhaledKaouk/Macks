@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Token } from '../Models/token';
-import { InDevMode } from '../Utilities/Common';
+import { InDevMode } from '../Utilities/Variables';
 import { NotificationserService } from './notificationser.service';
 
 @Injectable({

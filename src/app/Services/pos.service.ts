@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { POs } from '../Models/Po-model';
-import { InDevMode } from '../Utilities/Common';
+import { InDevMode } from '../Utilities/Variables';
 
 @Injectable({
   providedIn: 'root'

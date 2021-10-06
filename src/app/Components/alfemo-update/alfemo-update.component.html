@@ -37,7 +37,6 @@
   </div>
 
   <div class="InputWraper" *ngIf = 'PoToUpdate.shippingDocs == ""'>
-    <!-- <label (click)="CombineFilesInZip()">combineFilesInZip</label> -->
     <label for="file">Upload Shipment Document</label>
     <input type="file" id="file" multiple=true (change)=SaveFileInObject($event) style="border: none;">
   </div>
@@ -45,7 +44,7 @@
   <div class="InputWraper" *ngIf = 'PoToUpdate.shippingDocs != ""'>
     <div class="File" *ngFor = 'let FileName of FilesNames; index as i'>
       <label>{{FileName}}</label>
-      <i class="far fa-trash-alt" (click) = "DeleteFile(FileName)"></i>
+      <i class="far fa-trash-alt" (click) = "DeleteFileFromShippingDocs(FileName)"></i>
     </div>
   </div>
   <div class="InputWraper" *ngIf = 'PoToUpdate.shippingDocs != ""'>

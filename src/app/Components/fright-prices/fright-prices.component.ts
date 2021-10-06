@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { FrightpricesService } from 'src/app/Services/frightprices.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { CapitlizeFirstLater, Spinner, Tools } from 'src/app/Utilities/Common';
+import { CapitlizeFirstLater, Spinner } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { FrightPriceUpdateComponent } from '../fright-price-update/fright-price-update.component';
 import { HeaderComponent } from '../header/header.component';
@@ -33,9 +33,6 @@ export class FrightPricesComponent implements OnInit {
   ngOnInit(): void {
     CheckToken(this.router)
     this.GetFrightPrices();
-    // this.FrightPricesList = FrightPricesStaticData;
-    // this.FrightPricesList.forEach(FrightPrice => { FrightPrice.locations = CapitlizeFirstLater(FrightPrice.locations) })
-
   }
   UpdateSinglePrice(FrightPriceToUpdate: frightPrices) {
     this.dialog.open(FrightPriceUpdateComponent, {
@@ -46,12 +43,19 @@ export class FrightPricesComponent implements OnInit {
   }
 
   GetFrightPrices() {
-    this.spinner.WrapWithSpinner(this.FirghtpricesSer.GetAllFrightPrices().then((res: any) => {
-      this.FrightPricesList = res ?? [];
-      this.FrightPricesList.forEach(FrightPrice => { FrightPrice.locations = CapitlizeFirstLater(FrightPrice.locations) })
+    this.spinner.WrapWithSpinner(this.FirghtpricesSer.GetAllFrightPrices().then((freightPrices: any) => {
+      this.FrightPricesList = freightPrices;
+      this.SetFreightPricesForDisplay();
     }, (err: any) => {
       Auth_error_handling(err, this.notification, this.router)
     }))
+  }
+
+  SetFreightPricesForDisplay(){
+    this.FrightPricesList.forEach(FrightPrice => this.CapitlizeLocationFirstLater(FrightPrice))
+  }
+  CapitlizeLocationFirstLater(FreightPrice: frightPrices){
+    FreightPrice.locations = CapitlizeFirstLater(FreightPrice.locations)
   }
 
   CheckRole() {

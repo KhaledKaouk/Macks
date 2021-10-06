@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { frightPrices } from '../Models/frightPrices';
-import { InDevMode } from '../Utilities/Common';
+import { InDevMode } from '../Utilities/Variables';
 
 @Injectable({
   providedIn: 'root'

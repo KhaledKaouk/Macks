@@ -6,8 +6,11 @@ import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AdjustingDataForDisplay, ColorTR, Directories, DownLoadFile, FilterPosBy, Functionalities, RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
+import { CalculatePageCount, ColorTR, InitPageCountArray, RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
+import { DownLoadFile } from 'src/app/Utilities/FileHandlers';
+import { AdjustApprovalStatusForDisplay, FilterPosBy, RemoveDissapprovedPos, SetUpPOsForDisplay, SortPosByShipByDate } from 'src/app/Utilities/PoHandlers';
+import { Directories, Functionalities } from 'src/app/Utilities/Variables';
 import { PoDetailsComponent } from '../po-details/po-details.component';
 
 @Component({
@@ -42,22 +45,15 @@ export class AlfemoComponent implements OnInit {
   
   GetPos() {
     this.spinner.WrapWithSpinner(this.poservice.GetPos().then((res: any) => {
-      this.AllPos = res;
-      this.AllPos = this.AllPos.filter(PO => PO.deleted != true)
-      this.AllPos.reverse();
-      this.AllPos = this.AllPos.filter(E => E.approvalStatus == true)
-      this.PagesCount = Math.ceil(this.AllPos.length / this.DataRowsInPage);
-      this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
+      this.AllPos = RemoveDissapprovedPos(SetUpPOsForDisplay(res));
+      this.PagesCount = CalculatePageCount(this.AllPos.length,this.DataRowsInPage);
+      this.PageCountArray = InitPageCountArray(this.PagesCount)
       this.SliceDataForPaginantion(0);
     }, (err: any) => {
       Auth_error_handling(err, this.notification, this.router)
     }))
   }
 
-  DownloadMackPo(Index: number) {
-    let FileName = this.DataOfCurrentPage[Index].mackPOAttach;
-    DownLoadFile(Directories.MackPo, FileName)
-  }
   VeiwPoDetails(P: POs) {
     this.dialog.open(PoDetailsComponent, {
       height: '30rem',
@@ -89,19 +85,14 @@ export class AlfemoComponent implements OnInit {
 
 
   AdjustApprovalStatusForDisplay(approvalStatus: boolean) {
-    return AdjustingDataForDisplay(approvalStatus);
+    return AdjustApprovalStatusForDisplay(approvalStatus);
   }
   SearchPos(event: any) {
     this.SliceDataForPaginantion(0, FilterPosBy(this.AllPos, event.target.value))
   }
 
   OrderPosByShipByDate(){
-    this.PosForSlicing.sort((a, b) => {
-      if ((new DatePipe('en-US').transform(a.shipBy,'YYYY-MM-dd') || "") > (new DatePipe('en-US').transform(b.shipBy,'YYYY-MM-dd') || "")) return +1
-      if ((new DatePipe('en-US').transform(a.shipBy,'YYYY-MM-dd') || "") < (new DatePipe('en-US').transform(b.shipBy,'YYYY-MM-dd') || "")) return -1
-      return 0
-    });
-    
+    SortPosByShipByDate(this.PosForSlicing)
     this.SliceDataForPaginantion(0,this.PosForSlicing)
   }
   ShowDealerProfile(dealer_Id: number){

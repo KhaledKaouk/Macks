@@ -5,3 +5,8 @@ export function CheckToken(router: Router){
         router.navigateByUrl('/LogIn')
     }
 }
+
+export function CheckCorinthianUserPermissions() {
+    let HolleyUser: string = "HolleyF"
+    return localStorage.getItem('username')?.toLowerCase() === HolleyUser.toLowerCase()
+}

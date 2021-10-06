@@ -15,7 +15,7 @@ export class LogInComponent implements OnInit {
 
   username: string = "";
 
-  LogIn = new FormGroup({
+  LogInForm = new FormGroup({
     UserName: new FormControl(''),
     Password: new FormControl('')
   })
@@ -33,25 +33,23 @@ export class LogInComponent implements OnInit {
   }
 
   Submit() {
-    let UserName = this.LogIn.get('UserName')?.value;
-    let Password = this.LogIn.get('Password')?.value;
+    this.spinner.WrapWithSpinner(this.auth.LogIn(this.LogInForm.get('UserName')?.value, this.LogInForm.get('Password')?.value).toPromise().then(res => {
 
-    this.spinner.WrapWithSpinner(this.auth.LogIn(this.LogIn.get('UserName')?.value, this.LogIn.get('Password')?.value).toPromise().then(res => {
-
-      this.SaveUserNameAndTokenToLocalStorage(this.LogIn.get('UserName')?.value, res.access_token)
+      this.SaveUserNameAndTokenToLocalStorage(this.LogInForm.get('UserName')?.value, res.access_token)
       this.SetUserNameAndLogStatusToHeader();
 
       this.Notificationser.OnSuccess("Hello " + this.header.UserName + " Welcome To Mack Distribution")
 
       this.router.navigateByUrl('')
 
-    }, (err: any) => {
-      if (err.error == "invalid_grant") {
-        this.router.navigateByUrl('/LogIn')
-      } else {
-        this.Notificationser.OnError('wrong username or password')
-      }
-    }))
+    }, (err: any) => this.HandleInvalidCreditials(err)))
+  }
+  HandleInvalidCreditials(err:any){
+    if (err.error == "invalid_grant") {
+      this.router.navigateByUrl('/LogIn')
+    } else {
+      this.Notificationser.OnError('wrong username or password')
+    }
   }
 
   SaveUserNameAndTokenToLocalStorage(username: string, token: any) {
@@ -68,25 +66,5 @@ export class LogInComponent implements OnInit {
     localStorage.clear();
     this.header.Logged();
     this.header.SetUserName()
-  }
-
-  RedirectAlfemoLogIn() {
-
-    this.spinner.WrapWithSpinner(this.auth.LogIn("HolleyF", "h123sas").toPromise().then(res => {
-
-      this.SaveUserNameAndTokenToLocalStorage(this.LogIn.get('UserName')?.value, res.access_token)
-      this.SetUserNameAndLogStatusToHeader();
-
-      this.Notificationser.OnSuccess("Hello " + this.header.UserName + " Welcome To Mack Distribution")
-
-      this.router.navigateByUrl('')
-
-    }, (err: any) => {
-      if (err.error == "invalid_grant") {
-        this.router.navigateByUrl('/LogIn')
-      } else {
-        this.Notificationser.OnError('wrong username or password')
-      }
-    }))
   }
 }

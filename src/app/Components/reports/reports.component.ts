@@ -7,8 +7,11 @@ import { $ } from 'protractor';
 import { Dealers } from 'src/app/Models/Dealers';
 import { POs } from 'src/app/Models/Po-model';
 import { DealersService } from 'src/app/Services/dealers.service';
+import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
-import { FilterPosByShipDate, FormatPoDateFields, GenerateDefaultReport, GenerateFilterdReport } from 'src/app/Utilities/Common';
+import { CompareDealerNames } from 'src/app/Utilities/DealersHandlers';
+import { FormatPoDateFields } from 'src/app/Utilities/PoHandlers';
+import { FilterPosByShipDate, GenerateDefaultReport, GenerateFilterdReport } from 'src/app/Utilities/ReportsHandlers';
 
 @Component({
   selector: 'app-reports',
@@ -35,7 +38,7 @@ export class ReportsComponent implements OnInit {
     'approvalStatus',
     'invoiceDate',
   ];
-  WantedFileds: string[]= []; 
+  WantedFileds: string[] = [];
   Dealers: Dealers[] = [];
   WantedDealersId: number[] = [];
   WantedDealerPo: string[] = [];
@@ -47,23 +50,19 @@ export class ReportsComponent implements OnInit {
     ToShipDate: new FormControl()
   })
   constructor(private PosServise: POsService,
-    private DealerServise: DealersService) { }
+    private DealerServise: DealersService,
+    private notifications: NotificationserService) { }
 
   ngOnInit(): void {
     this.GetAllDealers();
     this.GetAllPos();
     this.WantedFileds = this.AllFields
-    // this.SetUpFormDateValue();
- 
+
   }
   GetAllDealers() {
     this.DealerServise.GetAllDealers().then((res: any) => {
       this.Dealers = res
-      this.Dealers.sort((a, b) => {
-        if (a.name[0].toLowerCase() > b.name[0].toLowerCase()) return +1
-        if (a.name[0].toLowerCase() < b.name[0].toLowerCase()) return -1
-        return 0
-      });
+      this.Dealers.sort((a, b) => CompareDealerNames(a.name, b.name));
     })
   }
   async GetAllPos() {
@@ -92,7 +91,7 @@ export class ReportsComponent implements OnInit {
       (CheckItem as HTMLInputElement).checked = !(CheckItem as HTMLInputElement).checked;
     })
     let Checked = event.target.checked;
-    if(Checked) {this.WantedFileds = this.AllFields;} else { this.WantedFileds = []}
+    if (Checked) { this.WantedFileds = this.AllFields; } else { this.WantedFileds = [] }
   }
   GenerateReport() {
 
@@ -100,21 +99,26 @@ export class ReportsComponent implements OnInit {
     let FilteredPos = PosWithNoDuplicate.concat(this.FilterPoByDealerPo());
     let PosWithNoDuplicate2 = FilteredPos.filter(Po => !this.FilterPoByCorinthianPo().includes(Po))
     FilteredPos = PosWithNoDuplicate2.concat(this.FilterPoByCorinthianPo());
-    let PosFilteredByShipDate = FilterPosByShipDate(this.AllPos,this.GetFromShipDateKey(),this.GetToShipDateKey() );
+    let PosFilteredByShipDate = FilterPosByShipDate(this.AllPos, this.GetFromShipDateKey(), this.GetToShipDateKey());
     let PosWithNoDuplicate3 = FilteredPos.filter(Po => !PosFilteredByShipDate.includes(Po))
     FilteredPos = PosWithNoDuplicate3.concat(PosFilteredByShipDate)
 
-    GenerateFilterdReport(FilteredPos, this.WantedFileds)
+    if (!this.NotifyUserOfNoPos(FilteredPos)) GenerateFilterdReport(FilteredPos, this.WantedFileds)
 
   }
 
-  GetFromShipDateKey(){
+  NotifyUserOfNoPos(Pos: POs[]) {
+    let PosAreEmpty = Pos.length == 0;
+    if (PosAreEmpty) this.notifications.DisplayInfo("No Pos Matches Your Search Keys")
+    return PosAreEmpty
+  }
+  GetFromShipDateKey() {
     return this.Options.get('FromShipDate')?.value
   }
-  GetToShipDateKey(){
+  GetToShipDateKey() {
     return this.Options.get('ToShipDate')?.value
   }
-  SetUpFormDateValue(){
+  SetUpFormDateValue() {
     this.Options.setValue({
       DealerId: '',
       FromShipDate: new DatePipe('en-US').transform(Date.now(), 'YYYY-MM-dd'),
@@ -170,31 +174,43 @@ export class ReportsComponent implements OnInit {
   }
   AddToSearchKeys(event: any, SearchKeyList: (string | number)[], IsDealer?: boolean) {
     let SearchKey = event.target.value;
-    if (IsDealer) SearchKey = parseInt(event.target.value)
-    let Submit: boolean
-    let SearchKeyNotEmpty: boolean
-    let SearchKeyAlreadyExist = document.getElementById(SearchKey) != null;
-    if (IsDealer) {
-      Submit = true;
-      SearchKeyNotEmpty = true;
-    } else {
-      Submit = event.key == "Enter";
-      SearchKeyNotEmpty = SearchKey != "";
-    }
 
-    if (Submit && SearchKeyNotEmpty && !SearchKeyAlreadyExist) {
+    SearchKey = this.ConverDealerIdToInt(SearchKey, IsDealer)
+    if (this.CheckSearchKeyValidations(event.key, SearchKey, IsDealer)) {
       SearchKeyList.push(SearchKey)
       if (IsDealer) {
-        let SelectElement = event.target as HTMLSelectElement
-        let Option = SelectElement.selectedIndex
-        let DealerName = SelectElement[Option].textContent || ""
-
-        this.CreateSearchKeyElement(SearchKey, SearchKeyList, DealerName)
+        this.CreateSearchKeyElement(SearchKey, SearchKeyList, this.GetDealerName(event.target))
       } else {
         this.CreateSearchKeyElement(SearchKey, SearchKeyList)
         event.target.value = "";
       }
     }
+  }
+  GetDealerName(HtmlSelectElement: any) {
+    let SelectElement = HtmlSelectElement as HTMLSelectElement
+    let Option = SelectElement.selectedIndex
+    let DealerName = SelectElement[Option].textContent || ""
+
+    return DealerName;
+  }
+  CheckSearchKeyValidations(key: string, SearchKey: string, IsDealer?: boolean) {
+    let Valid: boolean
+
+    let SearchKeyAlreadyExist = document.getElementById(SearchKey) != null
+
+    Valid = key == "Enter" && this.CheckSearchKeyValue(SearchKey) && !SearchKeyAlreadyExist
+    if (IsDealer) Valid = !SearchKeyAlreadyExist
+
+    return Valid
+  }
+  ConverDealerIdToInt(SearchKey: string, IsDealer?: boolean) {
+    let ConvertedSearchKey: number | string = SearchKey
+    if (IsDealer) ConvertedSearchKey = parseInt(SearchKey)
+
+    return ConvertedSearchKey
+  }
+  CheckSearchKeyValue(SearchKey: string) {
+    return SearchKey != ""
   }
   CreateSearchKeyElement(SearchKey: string, SearchKeyList: (string | number)[], DealerName?: string) {
     let SearchKeyElement = document.createElement('a');

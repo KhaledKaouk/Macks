@@ -23,7 +23,7 @@ export class CatalogComponent implements OnInit {
     itemid: "",
     itemname: "Sofa",
     itemdesc: "this is the finet Sofa in Turkey, nade from oak",
-    itempic: "../assets/sample2.jpg",
+    itempic: "../assets/sample2.jfif",
     itemdescfile: "",
     dimensions: "50  x  75",
     linename: "Alfemo",
@@ -34,7 +34,7 @@ export class CatalogComponent implements OnInit {
     itemid: "",
     itemname: "Chair",
     itemdesc: "this is the finet Chair in Turkey, nade from oak",
-    itempic: "../assets/sample1.jpg",
+    itempic: "../assets/sample1.jfif",
     itemdescfile: "",
     dimensions: "50  x  75",
     linename: "Alfemo",
@@ -45,7 +45,7 @@ export class CatalogComponent implements OnInit {
     itemid: "",
     itemname: "Table",
     itemdesc: "this is the finet Table in Turkey, nade from oak",
-    itempic: "../assets/sample3.jpg",
+    itempic: "../assets/sample3.jfif",
     itemdescfile: "",
     dimensions: "50  x  75",
     linename: "Alfemo",
@@ -62,13 +62,12 @@ export class CatalogComponent implements OnInit {
 
   ngOnInit(): void {
     this.authser.GetRole();
-    // if(localStorage.getItem('Role') === "corinthian"){ localStorage.setItem('Role',"alfemo"),console.log(localStorage.getItem('Role'))}
     this.spinner.WrapWithSpinner( this.Poservice.GetProducts().toPromise().then((res: any) => {
       this.ProductsList = res;
-
     }, (err: any) => {
       Auth_error_handling(err, this.Notification, this.router)
     }))
+    this.ProductsList = this.testProduct
   }
 
   ShowDetails(ProductToShow: Product) {

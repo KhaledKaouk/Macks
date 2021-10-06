@@ -6,7 +6,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { frightPrices } from 'src/app/Models/frightPrices';
 import { FrightpricesService } from 'src/app/Services/frightprices.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
-import { ProgrssBar, Spinner } from 'src/app/Utilities/Common';
+import {  Spinner } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 
 @Component({

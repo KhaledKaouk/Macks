@@ -2,7 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
-import { CheckCorinthianUserPermissions } from 'src/app/Utilities/Common';
+import { CheckCorinthianUserPermissions } from 'src/app/Utilities/CheckAuth';
 import { AdminComponent } from '../admin/admin.component';
 import { AlfemoComponent } from '../alfemo/alfemo.component';
 import { CreateFeightPriceComponent } from '../create-feight-price/create-feight-price.component';

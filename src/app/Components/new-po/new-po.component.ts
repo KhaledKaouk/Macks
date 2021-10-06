@@ -1,9 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { inject } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { promise } from 'protractor';
 import { Dealers } from 'src/app/Models/Dealers';
 import { POs } from 'src/app/Models/Po-model';
 import { port } from 'src/app/Models/port';
@@ -12,9 +10,11 @@ import { NotificationserService } from 'src/app/Services/notificationser.service
 import { PortService } from 'src/app/Services/port.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AddPreffixAndExtention, CreateDatabase, CreateMackPo, RemoveSlashes, Spinner, UploadFile } from 'src/app/Utilities/Common';
-import { CheckDealersToMatchOfflineDB, PromiseAllDealers } from 'src/app/Utilities/DealersCRUD';
+import { AddPreffixAndExtention, DIs, RemoveSlashes, Spinner } from 'src/app/Utilities/Common';
+import { CompareDealerNames } from 'src/app/Utilities/DealersHandlers';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling'
+import * as FileHandlers from 'src/app/Utilities/FileHandlers';
+import { CreateMackPo } from 'src/app/Utilities/PoHandlers';
 import { NewDealerComponent } from '../new-dealer/new-dealer.component';
 @Component({
   selector: 'app-new-po',
@@ -36,7 +36,7 @@ export class NewPoComponent implements OnInit {
     ShipBy: new FormControl('', Validators.required),
     InvoiceDate: new FormControl('', Validators.required),
     Comments: new FormControl(''),
-    port: new FormControl('',Validators.required)
+    port: new FormControl('', Validators.required)
   })
 
   SeletedFile: any;
@@ -47,7 +47,9 @@ export class NewPoComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private DealerServies: DealersService,
-    private spinner: Spinner) { }
+    private spinner: Spinner,
+    private DIs: DIs
+  ) { }
 
   ngOnInit(): void {
     CheckToken(this.router);
@@ -56,49 +58,42 @@ export class NewPoComponent implements OnInit {
   }
 
   GetAllDealers() {
-    this.DealerServies.GetAllDealers().then((res: any) => {
-      this.Dealers = res
-      this.Dealers.sort((a, b) => {
-        if (a.name[0].toLowerCase() > b.name[0].toLowerCase()) return +1
-        if (a.name[0].toLowerCase() < b.name[0].toLowerCase()) return -1
-        return 0
-      });
-    }, (err) => {
-      Auth_error_handling(err, this.Notification, this.router)
-    })
+    this.DealerServies.GetAllDealers().then((dealers: any) => {
+      this.Dealers = dealers
+      this.Dealers.sort((a, b) => CompareDealerNames(a.name, b.name))
+    }, err => Auth_error_handling(err, this.Notification, this.router))
   }
 
-  Submit() {
+  async Submit() {
     this.DisableSubmitButton();
     this.AssignFormValuesToNewPoObject();
 
     if (this.SeletedFile) {
       let UploadProcess: any;
-      (async () => {
-        let FileName = RemoveSlashes(this.NewPo.dealerPONumber) + "_" + RemoveSlashes(this.NewPo.corinthianPO);
-        FileName = AddPreffixAndExtention("MP_", FileName, this.SeletedFile.name);
-        let MackPo: File;
-        let fd = new FormData();
-        await CreateMackPo(this.SeletedFile, FileName).then(async (res: File) => {
-          MackPo = res;
-          this.NewPo.mackPOAttach = FileName;
-          fd.append('PO', MackPo, MackPo.name);
-          await UploadFile(this.Pos,fd,MackPo.name,this.Notification,this.spinner,this.router)
-        })
+      let FileName = FileHandlers.ConstructFileName(this.NewPo, "MP_", this.SeletedFile.name)
+      let MackPo: File;
+      let fd = new FormData();
 
-        UploadProcess = await UploadFile(this.Pos, this.ConstructFormDataFile(), this.ConstructFileName(), this.Notification, this.spinner, this.router)
-        if (UploadProcess == true) {
-          this.CreatePO();
-        }
-        this.EnableSubmitButton();
-      })();
+      MackPo = await CreateMackPo(this.SeletedFile, FileName)
+      this.AssignMackPoFileToPo(FileName)
+      await FileHandlers.UploadFile(FileHandlers.ConstructFormDataFile(MackPo, MackPo.name), MackPo.name, this.DIs)
+
+      UploadProcess = await FileHandlers.UploadFile(
+        this.ConstructFormDataFile(),
+        this.ConstructFileName(),
+        this.DIs)
+
+      if (UploadProcess == true) this.CreatePO();
+      this.EnableSubmitButton();
     }
     else {
       this.EnableSubmitButton();
       this.Notification.OnError('Please Select A Po To Upload')
     }
   }
-
+  AssignMackPoFileToPo(FileName: string) {
+    this.NewPo.mackPOAttach = FileName;
+  }
   ConstructFileName() {
     let FileName = RemoveSlashes(this.NewPo.dealerPONumber) + "_" + RemoveSlashes(this.NewPo.corinthianPO);
     FileName = AddPreffixAndExtention("NP_", FileName, this.SeletedFile.name)
@@ -121,14 +116,6 @@ export class NewPoComponent implements OnInit {
       this.EnableSubmitButton();
     }))
   }
-  // async GetCreatedPo(CorinthianPoNo: string) {
-  //   let CreatedPo;
-  //   await this.Pos.GetPos().then((res: any) => {
-  //     let AllPos: POs[] = res;
-  //     CreatedPo = AllPos.find(Po => Po.corinthianPO == CorinthianPoNo)
-  //   })
-  //   return CreatedPo;
-  // }
 
   SaveFileInObject(event: any) {
     this.SeletedFile = event.target.files[0];
@@ -163,7 +150,7 @@ export class NewPoComponent implements OnInit {
 
   }
 
-  GetPorts(){
+  GetPorts() {
     this.portservice.GetPorts().then((res: any) => {
       this.Ports = res
     })

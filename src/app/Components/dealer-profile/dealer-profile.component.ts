@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Dealers } from 'src/app/Models/Dealers';
 import { POs } from 'src/app/Models/Po-model';
 import { DealersService } from 'src/app/Services/dealers.service';
+import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
-import { AdjustingDataForDisplay, FilterPosBy, Functionalities, RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
+import { RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
+import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
+import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
+import { AdjustApprovalStatusForDisplay, FilterPosBy, FilterPosByDealerId, SetUpPOsForDisplay } from 'src/app/Utilities/PoHandlers';
+import { Functionalities } from 'src/app/Utilities/Variables';
 import { PoDetailsComponent } from '../po-details/po-details.component';
 
 @Component({
@@ -30,24 +35,43 @@ export class DealerProfileComponent implements OnInit {
     private spinner: Spinner,
     private ActivatedRoute: ActivatedRoute,
     private DealerService: DealersService,
-    private Poservice: POsService ) { }
+    private Poservice: POsService,
+    private notification: NotificationserService,
+    private router: Router ) { }
 
   ngOnInit(): void {
-    let DealerId = parseInt(this.ActivatedRoute.snapshot.paramMap.get('DealerId') || "");
-    this.spinner.WrapWithSpinner(this.DealerService.GetAllDealers().then((res:any) => {
-      this.AllDealers = res
-      this.Dealer = this.AllDealers.find(Dealer => Dealer.id == DealerId) || this.Dealer;
-    }))
-    this.spinner.WrapWithSpinner(this.Poservice.GetPos().then((res: any) => {
-      this.AllPos = res;
-      this.AllPos =  this.AllPos.filter(Po => Po.dealer_id == DealerId)
-      this.AllPos.reverse();
-      this.PagesCount = Math.ceil(this.AllPos.length / this.DataRowsInPage);
-      this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
-      this.SliceDataForPaginantion(0);
-    }))
+    this.SetUpDealersDataForDisplay();
   }
 
+  async GetDealerPos(){
+    let AllPos: POs[] = []
+    await this.Poservice.GetPos().then(
+      (res:any) => {AllPos = SetUpPOsForDisplay(FilterPosByDealerId(this.GetDealerId(),res))},
+      (err) => Auth_error_handling(err,this.notification,this.router)  
+    )
+    return AllPos
+  }
+  async GetAllDealers(){
+    let AllDealers: Dealers[] = []
+    await this.DealerService.GetAllDealers().then(
+      (res:any) => {AllDealers = res},
+      (err) => Auth_error_handling(err,this.notification,this.router)
+    )
+    return AllDealers
+  }
+  GetDealerId(){
+    return parseInt(this.ActivatedRoute.snapshot.paramMap.get('DealerId') || "");
+  }
+  
+  async SetUpDealersDataForDisplay(){
+    this.AllDealers = await this.GetAllDealers();
+    this.Dealer = GetDealerById(this.AllDealers,this.GetDealerId())
+    this.AllPos = await this.GetDealerPos();
+
+    this.PagesCount = Math.ceil(this.AllPos.length / this.DataRowsInPage);
+    this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
+    this.SliceDataForPaginantion(0);
+  }
   SliceDataForPaginantion(PageNumber: number,SearchedPos?:POs[]) {
     let PosForSlicing: POs[] = this.AllPos;
     if(SearchedPos) PosForSlicing = SearchedPos;
@@ -70,7 +94,7 @@ export class DealerProfileComponent implements OnInit {
 
   
   AdjustApprovalStatusForDisplay(approvalStatus: boolean){
-    return AdjustingDataForDisplay(approvalStatus);
+    return AdjustApprovalStatusForDisplay(approvalStatus);
   }
   SearchPos(event: any){
     this.SliceDataForPaginantion(0,FilterPosBy(this.AllPos,event.target.value))

@@ -6,9 +6,12 @@ import { NgProgress } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
-import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AdjustingDataForDisplay, CheckCorinthianUserPermissions, ColorTR, DeleteTestingPos, Directories, DownLoadFile, FilterPosBy, Functionalities, OrderPosByDate, RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
+import { CheckCorinthianUserPermissions, CheckToken } from 'src/app/Utilities/CheckAuth';
+import { ColorTR, RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
+import { DownLoadFile } from 'src/app/Utilities/FileHandlers';
+import { AdjustApprovalStatusForDisplay, FilterPosBy, OrderPosByDate, SetUpPOsForDisplay, SortPosByShipByDate } from 'src/app/Utilities/PoHandlers';
+import { Directories, Functionalities } from 'src/app/Utilities/Variables';
 import { CorinthianUpdateComponent } from '../corinthian-update/corinthian-update.component';
 import { NewPoComponent } from '../new-po/new-po.component';
 import { PoDetailsComponent } from '../po-details/po-details.component';
@@ -47,17 +50,14 @@ export class MyPosComponent implements OnInit {
   }
 
   GetPos() {
-    this.spinner.WrapWithSpinner(this.poservice.GetPos().then((res: any) => {
-      this.mydata = res;
-      this.mydata = this.mydata.filter(PO => PO.deleted != true)
-      this.mydata = OrderPosByDate(this.mydata);
+    this.spinner.WrapWithSpinner(this.poservice.GetPos().then((pos: any) => {
+      this.mydata = SetUpPOsForDisplay(pos);
       this.PagesCount = Math.ceil(this.mydata.length / this.DataRowsInPage);
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
       this.SliceDataForPaginantion(0);
-    }, (err: any) => {
-      Auth_error_handling(err, this.notification, this.router)
-    }))
+    }, err => Auth_error_handling(err, this.notification, this.router)))
   }
+
   OpenEditPoForm(P: POs) {
     this.dialog.open(CorinthianUpdateComponent, {
       height: '60rem',
@@ -106,17 +106,13 @@ export class MyPosComponent implements OnInit {
 
 
   AdjustApprovalStatusForDisplay(approvalStatus: boolean) {
-    return AdjustingDataForDisplay(approvalStatus);
+    return AdjustApprovalStatusForDisplay(approvalStatus);
   }
   SearchPos(event: any) {
     this.SliceDataForPaginantion(0, FilterPosBy(this.mydata, event.target.value))
   }
   OrderPosByShipByDate(){
-    this.PosForSlicing.sort((a, b) => {
-      if ((new DatePipe('en-US').transform(a.shipBy,'YYYY-MM-dd') || "") > (new DatePipe('en-US').transform(b.shipBy,'YYYY-MM-dd') || "")) return +1
-      if ((new DatePipe('en-US').transform(a.shipBy,'YYYY-MM-dd') || "") < (new DatePipe('en-US').transform(b.shipBy,'YYYY-MM-dd') || "")) return -1
-      return 0
-    });
+    SortPosByShipByDate(this.PosForSlicing)
     this.SliceDataForPaginantion(0,this.PosForSlicing)
   }
   ShowDealerProfile(dealer_Id: number){

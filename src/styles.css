@@ -474,9 +474,11 @@
 }
 
 .ProductSamples img {
-  width: 100%;
+  width: 18rem;
   height: 18rem;
   opacity: 1;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .ProductSamples button {

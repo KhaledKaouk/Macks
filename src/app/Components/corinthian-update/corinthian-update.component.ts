@@ -9,7 +9,7 @@ import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { AddPreffixAndExtention, CreateDatabase, RemoveSlashes, Spinner } from 'src/app/Utilities/Common';
+import { AddPreffixAndExtention, CreateDatabase, FormatDate, RemoveSlashes, Spinner } from 'src/app/Utilities/Common';
 import { CheckDealersToMatchOfflineDB, PromiseAllDealers } from 'src/app/Utilities/DealersCRUD';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { NewDealerComponent } from '../new-dealer/new-dealer.component';
@@ -27,8 +27,6 @@ export class CorinthianUpdateComponent implements OnInit {
 
   CreatePo = new FormGroup({
     DealerId: new FormControl('', Validators.required),
-    // DealerPo: new FormControl('', Validators.required),
-    // CorinthainPo: new FormControl('', Validators.required),
     shipBy: new FormControl('', Validators.required),
     InvoiceDate: new FormControl('',Validators.required),
     Comments: new FormControl('')
@@ -71,15 +69,9 @@ export class CorinthianUpdateComponent implements OnInit {
     
     this.PoToUpdate.dealerName = this.ExtractDealerName(DealerId);
     this.PoToUpdate.dealerEmail = this.ExtractDealerEmail(DealerId);
-    // this.PoToUpdate.dealerPONumber = this.CreatePo.get("DealerPo")?.value;
-    // this.PoToUpdate.corinthianPO = this.CreatePo.get("CorinthainPo")?.value;
     this.PoToUpdate.shipBy = this.CreatePo.get("shipBy")?.value;
     this.PoToUpdate.invoiceDate = this.CreatePo.get('InvoiceDate')?.value;
     this.PoToUpdate.comments = this.CreatePo.get("Comments")?.value;
-    // let NewFileName = AddPreffixAndExtention("NP_", RemoveSlashes(this.PoToUpdate.dealerPONumber) + "_" + RemoveSlashes(this.PoToUpdate.corinthianPO),this.PoToUpdate.corinthianPOAttach);
-    // this.PoToUpdate.corinthianPOAttach = NewFileName;
-
-
   }
 
 
@@ -111,7 +103,7 @@ export class CorinthianUpdateComponent implements OnInit {
   AssignPoToForm(){
     this.CreatePo.setValue({
       DealerId: this.ExtractDealerId(this.PoToUpdate.dealerName),
-      shipBy: new DatePipe('en-Us').transform(this.PoToUpdate.shipBy,'YYYY-MM-dd') ,
+      shipBy: FormatDate(this.PoToUpdate.shipBy) ,
       Comments: this.PoToUpdate.comments,
       InvoiceDate: this.PoToUpdate.invoiceDate,
     })

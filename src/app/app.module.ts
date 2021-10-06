@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminReviewComponent } from './Components/admin-review/admin-review.component';
 import { AdminComponent } from './Components/admin/admin.component';
-import { AlfemoUpdateComponent } from './Components/alfemo-update/alfemo-update.component';
 import { AlfemoComponent } from './Components/alfemo/alfemo.component';
 import { CatalogComponent } from './Components/catalog/catalog.component';
 import { FooterComponent } from './Components/footer/footer.component';
@@ -30,7 +29,7 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { PoDetailsComponent } from './Components/po-details/po-details.component';
 import { FrightPricesComponent } from './Components/fright-prices/fright-prices.component';
 import { FrightPriceUpdateComponent } from './Components/fright-price-update/fright-price-update.component';
-import { EmptyField, Spinner } from './Utilities/Common';
+import { DIs, EmptyField, Spinner } from './Utilities/Common';
 import { NewDealerComponent } from './Components/new-dealer/new-dealer.component';
 import { CorinthianUpdateComponent } from './Components/corinthian-update/corinthian-update.component';
 import { DealersComponent } from './Components/dealers/dealers.component';
@@ -41,6 +40,7 @@ import { CreateFeightPriceComponent } from './Components/create-feight-price/cre
 import { NewPortComponent } from './Components/new-port/new-port.component';
 import { UpdatePortComponent } from './Components/update-port/update-port.component';
 import { PortsComponent } from './Components/ports/ports.component';
+import { AlfemoUpdateComponent } from './Components/alfemo-update/alfemo-update.component';
 
 
 @NgModule({
@@ -54,8 +54,8 @@ import { PortsComponent } from './Components/ports/ports.component';
     MyPosComponent,
     AdminComponent,
     AlfemoComponent,
-    AdminReviewComponent,
     AlfemoUpdateComponent,
+    AdminReviewComponent,
     LogInComponent,
     ProductdetailsComponent,
     PoDetailsComponent,
@@ -81,7 +81,7 @@ import { PortsComponent } from './Components/ports/ports.component';
     AppRoutingModule,
     ReactiveFormsModule,
     MatDialogModule,
-    NgProgressModule,    
+    NgProgressModule,
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
@@ -96,7 +96,8 @@ import { PortsComponent } from './Components/ports/ports.component';
     AppComponent,
     AdminComponent,
     MyPosComponent,
-    AlfemoComponent
+    AlfemoComponent,
+    DIs
   ],
   bootstrap: [AppComponent]
 })
