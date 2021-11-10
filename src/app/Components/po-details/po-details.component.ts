@@ -39,6 +39,8 @@ export class PoDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.ViewedPO = this.data[0];
+    console.log(this.ViewedPO)
+    console.log(this.ViewedPO.productionStartDate)
     this.AlertMackOnUploadedPO();
     this.CheckFunctionalities();
 

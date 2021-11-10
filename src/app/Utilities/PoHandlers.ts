@@ -85,6 +85,10 @@ export function FormatPoDateFields(Po: POs) {
     Po.productionRequestDate = FormatDate(Po.productionRequestDate);
     Po.productionRequestTime = FormatDate(Po.productionRequestTime);
     Po.shipBy = FormatDate(Po.shipBy);
+    Po.productionStartDate = FormatDate(Po.productionStartDate);
+    Po.productionFinishDate = FormatDate(Po.productionFinishDate);
+    Po.dateOfDeparture = FormatDate(Po.dateOfDeparture);
+    Po.factoryLoadDate = FormatDate(Po.factoryLoadDate);
 }
 export function SortPosByShipByDate(POs: POs[]){
     POs.sort((a,b) => CompareDates(a.shipBy,b.shipBy));

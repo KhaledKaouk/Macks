@@ -2,6 +2,70 @@
     @include FlexSpaceAround;
     flex-direction: row;
     position: relative;
+    .TableHeader {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+        label {
+            font-size: 1.1rem;
+            white-space: nowrap;
+        }
+        .button {
+            // width: 100%;
+            border: 1px solid $footer-color;
+            padding: 0.2rem;
+            transition: background-color 0.3s ease-in;
+
+            &:hover {
+                background-color: $buttonhover;
+                color: $Primary-color;
+                border-color: $buttonhover;
+                cursor: pointer;
+            }
+        }
+    }
+    #InvoicePosSubMenutitle {
+        max-width: 5rem;
+        position: relative;
+        #InvoicePosSubMenu {
+            li {
+                background-color: $Primary-color;
+                border: 1px solid $Secondary-Color;
+                margin-bottom: 2px;
+                display: flex;
+                justify-content: space-between;
+                a,
+                i {
+                    padding: 0.5rem;
+                }
+            }
+            display: none;
+            position: absolute;
+            top: 1.2rem;
+            left: 1rem;
+            background-color: transparent;
+            box-shadow: 0px 0px 3px rgb(73, 73, 73);
+        }
+        &:hover {
+            #InvoicePosSubMenu {
+                display: block;
+                li {
+                    display: block;
+                    white-space: nowrap;
+                    font-size: 1rem;
+                    label:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+    .fa-trash-alt {
+        &:hover {
+            cursor: pointer;
+        }
+    }
     .table {
         border-collapse: collapse;
         margin: 1.5rem 0px;
@@ -15,6 +79,24 @@
             color: $footer-color;
             text-align: center;
             font-weight: bold;
+            .fa-industry {
+                &:hover {
+                    cursor: pointer;
+                    ul {
+                        z-index: 100;
+                        padding: 0.5rem;
+                        color: $footer-color;
+                        position: absolute;
+                        display: block;
+                        li {
+                            padding: 0.5rem;
+                            background-color: $Primary-color;
+                            border: 1px solid $Secondary-Color;
+                            margin-bottom: 2px;
+                        }
+                    }
+                }
+            }
         }
         td {
             padding: 0.8rem 0.9rem;
@@ -52,17 +134,17 @@
                 cursor: pointer;
             }
         }
-        .ClickableHeader, .ClickableTd {
-            &:hover{
+        .ClickableHeader,
+        .ClickableTd {
+            &:hover {
                 cursor: pointer;
             }
         }
-
-    } 
+    }
     .pagination {
         ul {
             @include FlexAllCenter;
-            
+
             button {
                 background-color: transparent;
                 border: 1px solid $footer-color;
@@ -78,26 +160,25 @@
                 }
             }
         }
-        .CurrentPage{
+        .CurrentPage {
             text-decoration: underline;
             font-weight: bold;
         }
     }
-    .DownLoad{
-        color:$footer-color;
-        transition:width 0.5s ease-in;
-        &:hover{
+    .DownLoad {
+        color: $footer-color;
+        transition: width 0.5s ease-in;
+        &:hover {
             transform: scale(1.1);
             cursor: pointer;
         }
     }
-    
 }
-.SearchInput{
+.SearchInput {
     display: flex;
     justify-content: center;
     align-items: center;
-    input{
+    input {
         font-size: 1.1rem;
         padding-inline-start: 10px;
         @include InputFormElementsSize;

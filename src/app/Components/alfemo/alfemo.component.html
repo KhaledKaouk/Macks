@@ -8,21 +8,31 @@
         <table class="table">
             <thead>
                 <tr class="tableheader">
+                    <th *ngIf = "SelectionMode">Select</th>
                     <th class="LargeScreenOnly">Dealer Name</th>
                     <th >Dealer Po no</th>
                     <th >Port</th>
-                    <th class="LargeScreenOnly">Status</th>
+                    <th class="LargeScreenOnly">Status 
+                        <i (click)="TurnOnSelectionMode()" title="Click And Choose Pos To push into Production" class="fas fa-industry">
+                            <ul hidden>
+                                <li *ngFor = " let Po of SelectedPos; index as i">{{Po.dealerPONumber}}</li>
+                            </ul>
+                        </i>
+                    </th>
                     <th class="LargeScreenOnly">Approved</th>
                     <th class=" ClickableHeader" (click) = "OrderPosByShipByDate()">Ship By</th>
                     <th >Details</th>
                 </tr>
             </thead>
             <tbody id="tbody">
-                <tr class= "row" *ngFor="let P of DataOfCurrentPage index as i">
-                    <td class="LargeScreenOnly ClickableTd" (click) = "ShowDealerProfile(P.dealer_id)" >
+                <tr class= "row" *ngFor="let P of DataOfCurrentPage index as i"  (click) = "SelectPo(P,i,$event)" [ngStyle]="{'font-weight': (CheckPoInSelectedPos(P)) ? 'bold' : 'normal'}">
+                    <td *ngIf = "SelectionMode">
+                        <input id="CheckPo{{i}}" type="checkbox" (check) = "SelectPo(P,i,$event)">
+                    </td>
+                    <td class="LargeScreenOnly ClickableTd" (click) = "ShowDealerProfile(P.dealer_id)">
                         {{P.dealerName}}
                     </td>
-                    <td >
+                    <td>
                         {{P.dealerPONumber}}
                     </td>
                     <td >

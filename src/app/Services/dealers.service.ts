@@ -10,7 +10,7 @@ export class DealersService {
 
   ApiUrl = "https://macksdistribution.com/api/account";
   constructor(private http: HttpClient) {
-    if (InDevMode) this.ApiUrl = "http://localhost:5000"
+    if (InDevMode) this.ApiUrl = "http://localhost:5000/Dealer"
    }
 
   CreateDealer(NewDealer: Dealers){

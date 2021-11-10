@@ -9,9 +9,10 @@ import { POs } from 'src/app/Models/Po-model';
 import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
+import { GetRole } from 'src/app/Utilities/CheckAuth';
 import { CompareDealerNames } from 'src/app/Utilities/DealersHandlers';
 import { FormatPoDateFields } from 'src/app/Utilities/PoHandlers';
-import { FilterPosByShipDate, GenerateDefaultReport, GenerateFilterdReport } from 'src/app/Utilities/ReportsHandlers';
+import { FilterPosByShipDate, GenerateDefaultReport, GenerateFilterdReport, GenerateWeeklyReport } from 'src/app/Utilities/ReportsHandlers';
 
 @Component({
   selector: 'app-reports',
@@ -68,13 +69,18 @@ export class ReportsComponent implements OnInit {
   async GetAllPos() {
     await this.PosServise.GetPos().then((res: any) => {
       this.AllPos = res;
+      this.AllPos = this.FilterPosForAlfemo();
       this.AllPos.forEach(Po => {
         FormatPoDateFields(Po)
       })
       this.keys = Object.keys(this.AllPos[0])
     })
   }
-
+  FilterPosForAlfemo(){
+    let AllowdPos: POs[] = this.AllPos;
+    if (GetRole()?.toLowerCase() == 'alfemo') AllowdPos = this.AllPos.filter(Po => Po.approvalStatus == true)
+    return AllowdPos
+  }
   AddOrDeleteIntoReport(event: any) {
     let key = event.srcElement.id
     let Checked = event.target.checked;
@@ -128,6 +134,9 @@ export class ReportsComponent implements OnInit {
 
   GenerateDefaultReport() {
     GenerateDefaultReport(this.AllPos)
+  }
+  GenerateWeeklyReport(){
+    GenerateWeeklyReport(this.AllPos);
   }
 
   AddDealerToFilter(event: any) {

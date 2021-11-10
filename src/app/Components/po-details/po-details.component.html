@@ -9,6 +9,8 @@
                 <label>Corinthain Po</label>
                 <label>Created By</label>
                 <label>Container No</label>       
+                <label>Production Start Date</label>       
+                <label>Production Finish Date</label>       
             </div>
             <div class="labels">
                 <a>{{ViewedPO.dealerName | EmptyField}}</a>
@@ -17,6 +19,8 @@
                 <a>{{ViewedPO.corinthianPO | EmptyField}}</a>
                 <a>{{ViewedPO.userID | EmptyField}}</a>
                 <a>{{ViewedPO.containerNumber | EmptyField}}</a> 
+                <a>{{ViewedPO.productionStartDate | date:"MM/dd/yyyy" | EmptyField}}</a> 
+                <a>{{ViewedPO.productionFinishDate | date:"MM/dd/yyyy" | EmptyField}}</a> 
             </div>
         </div>
         <div class="Potest">
@@ -29,6 +33,8 @@
                 <label>Approval Status</label>
                 <label *ngIf ="UserIsAdmin" >Created On</label>
                 <label *ngIf ="CheckIfHolley()" >Invoice Date</label>
+                <label>Factory Load Date</label>
+                <label>Date Of Departure</label>
             </div>
             <div class="labels">
                 <a>{{ViewedPO.factoryEstimatedArrivalDate | date:"MM/dd/yyyy" | EmptyField }} </a>
@@ -39,6 +45,8 @@
                 <a>{{AdjustingDataForDisplay(ViewedPO.approvalStatus) | EmptyField}}</a>
                 <a *ngIf ="UserIsAdmin">{{ViewedPO.dateReceived | date:"MM/dd/yyyy" | EmptyField}}</a>
                 <a *ngIf ="CheckIfHolley()">{{ViewedPO.invoiceDate | date:"MM/dd/yyyy" | EmptyField}}</a>
+                <a>{{ViewedPO.factoryLoadDate | date:"MM/dd/yyyy" | EmptyField }}</a>
+                <a>{{ViewedPO.dateOfDeparture | date:"MM/dd/yyyy" | EmptyField }}</a>
             </div>
         </div>
     </div>

@@ -67,7 +67,6 @@ export class NewPoComponent implements OnInit {
   async Submit() {
     this.DisableSubmitButton();
     this.AssignFormValuesToNewPoObject();
-
     if (this.SeletedFile) {
       let UploadProcess: any;
       let FileName = FileHandlers.ConstructFileName(this.NewPo, "MP_", this.SeletedFile.name)
@@ -119,7 +118,6 @@ export class NewPoComponent implements OnInit {
 
   SaveFileInObject(event: any) {
     this.SeletedFile = event.target.files[0];
-
   }
   ExtractDealerName(Id: number) {
     return this.Dealers.find(Dealer => Dealer.id == Id)?.name || "Unavailable"
@@ -161,6 +159,5 @@ export class NewPoComponent implements OnInit {
       width: '55rem',
     })
   }
-
 }
 

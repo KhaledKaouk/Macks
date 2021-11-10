@@ -17,7 +17,11 @@ export class POs {
     alfemoComments:string;
     status: string;
     productionRequestDate: string;
+    productionStartDate: string;
+    productionFinishDate: string;
     factoryEstimatedShipDate: string;
+    factoryLoadDate: string;
+    dateOfDeparture: string;
     dateReceived: string;
     factoryEstimatedArrivalDate: string;
     booked: boolean;
@@ -48,6 +52,10 @@ export class POs {
             this.alfemoComments="";
             this.status = "";
             this.productionRequestDate = "";
+            this.productionStartDate = "";
+            this.productionFinishDate = "";
+            this.factoryLoadDate = "";
+            this.dateOfDeparture = "";
             this.factoryEstimatedShipDate = "";
             this.dateReceived = "";
             this.factoryEstimatedArrivalDate = "";

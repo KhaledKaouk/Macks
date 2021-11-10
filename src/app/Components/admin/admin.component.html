@@ -2,11 +2,24 @@
     <h1>Mack</h1>
     <h2>Home / Mack</h2>
 </div>
-<div class="SearchInput"><input type="text" placeholder="Search"
-        (input)="SearchPos($event)"></div>
+<div class="SearchInput"><input type="text" placeholder="Search" (input)="SearchPos($event)"></div>
 <div class="DataTableWraper">
     <div>
-        <i class="fas fa-file-export fa-lg DownLoad" (click)=ExportPosToExcel()></i>
+        <div class="TableHeader">
+            <i class="fas fa-file-export fa-lg DownLoad" (click)=ExportPosToExcel()></i>
+            <label class="button" (click) = "ViewInvoiceForm()">Generate Invoice & ISF</label>
+            <ul>
+                <li id="InvoicePosSubMenutitle">
+                    <label >Invoice Pos </label>
+                    <ul id ="InvoicePosSubMenu">
+                        <li *ngFor='let Po of InvoicePOs; index as i'>
+                            <a>{{i}}.   {{Po.dealerPONumber}}</a> 
+                            <i class="far fa-trash-alt" (click)="removePoFromInvoice(Po)"></i>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -15,13 +28,14 @@
                     <th>Port</th>
                     <th class="LargeScreenOnly">Status</th>
                     <th class="LargeScreenOnly">Approved</th>
-                    <th class="LargeScreenOnly ClickableHeader" (click) = "OrderPosByShipByDate()">Ship By</th>
+                    <th class="LargeScreenOnly ClickableHeader" (click)="OrderPosByShipByDate()">Ship By</th>
                     <th>Details</th>
+                    <th>Invoice</th>
                 </tr>
             </thead>
             <tbody id="tbody">
-                <tr *ngFor="let P of DataOfCurrentPage index as i">
-                    <td class="LargeScreenOnly ClickableTd" (click) = "ShowDealerProfile(P.dealer_id)">
+                <tr *ngFor="let P of DataOfCurrentPage index as i" >
+                    <td class="LargeScreenOnly ClickableTd" (click)="ShowDealerProfile(P.dealer_id)">
                         {{P.dealerName}}
                     </td>
                     <td>
@@ -42,14 +56,17 @@
                     <td>
                         <a type="button" (click)=VeiwPoDetails(P)>Details</a>
                     </td>
+                    <td>
+                        <a type="button" (click)="AddPoToInvoice(P)">Add To Invoice</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
         <nav class="pagination" aria-label="Page navigation example">
             <ul>
                 <li><button (click)=PreviousPage()>Previous</button></li>
-                <li *ngFor="let PC of PageCountArray index as i"><button
-                        (click)=SliceDataForPaginantion(i) [ngClass] = "{'CurrentPage': CurrentPage === i}">{{i}}</button>
+                <li *ngFor="let PC of PageCountArray index as i"><button (click)=SliceDataForPaginantion(i)
+                        [ngClass]="{'CurrentPage': CurrentPage === i}">{{i}}</button>
                 </li>
                 <li><button (click)=NextPage()>Next</button></li>
             </ul>

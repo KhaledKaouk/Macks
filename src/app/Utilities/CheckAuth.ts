@@ -10,3 +10,6 @@ export function CheckCorinthianUserPermissions() {
     let HolleyUser: string = "HolleyF"
     return localStorage.getItem('username')?.toLowerCase() === HolleyUser.toLowerCase()
 }
+export function GetRole(){
+    return localStorage.getItem('Role')
+}

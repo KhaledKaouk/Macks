@@ -81,6 +81,38 @@ export function GenerateDefaultReport(AllPos: POs[]) {
         XLSX.writeFile(workbook, "macksdistribution_Pos_Report_" + new Date().toLocaleDateString() + ".xlsx")
     }
 }
+export function GenerateWeeklyReport(AllPos: POs[]) {
+    let Report = new Array();
+    if (AllPos != []) {
+        AllPos.forEach(Po => {
+            let wantedFields = {
+                Shipper: 'ALFEMO',
+                Customer: Po.dealerName,
+                'PO#': Po.dealerPONumber,
+                'Delivery Destination': Po.finalDestLocation,
+                'Requested Ship Date': Po.shipBy,
+                Status: Po.status,
+                'Estimated Ship Date': Po.factoryEstimatedShipDate,
+                'Date of Departure': Po.dateOfDeparture,
+                'Carrier': '',
+                'Container#': Po.containerNumber,
+                'Remarks/BOL': '',
+                'Style': '',
+                'Production Start Date': Po.productionStartDate,
+                'Production Complete': Po.productionFinishDate,
+                'Booking request': '',
+                'Shipt To vessel': '',
+                'Freight Rate': '',  
+
+            }
+            Report.push(wantedFields);
+        })
+        let worksheet = XLSX.utils.json_to_sheet(Report);
+        let workbook = XLSX.utils.book_new();
+        workbook = { Sheets: { 'Pos': worksheet }, SheetNames: ["Pos"] }
+        XLSX.writeFile(workbook, "macksdistribution_Pos_Report_" + new Date().toLocaleDateString() + ".xlsx")
+    }
+}
 export function FilterPosByShipDate(POsList: POs[],FromShipDate: string, ToShipDate: string){
     return POsList.filter(Po => (Po.factoryEstimatedShipDate > FromShipDate) && (Po.factoryEstimatedShipDate < ToShipDate) )
 }

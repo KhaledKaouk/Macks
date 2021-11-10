@@ -14,8 +14,8 @@ export class AuthService {
   constructor(private http: HttpClient,
     private notification: NotificationserService) {
       if (InDevMode) {
-        this.ApiURL = "http://localhost:5000"
-        this.GetRoleApi = "http://localhost:5000" 
+        this.ApiURL = "http://localhost:5000/Auth"
+        this.GetRoleApi = "http://localhost:5000/Auth" 
       }
      }
 

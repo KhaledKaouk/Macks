@@ -41,6 +41,9 @@ import { NewPortComponent } from './Components/new-port/new-port.component';
 import { UpdatePortComponent } from './Components/update-port/update-port.component';
 import { PortsComponent } from './Components/ports/ports.component';
 import { AlfemoUpdateComponent } from './Components/alfemo-update/alfemo-update.component';
+import { UpdateProductionDatesComponent } from './Components/update-production-dates/update-production-dates.component';
+import { CommercialInnvoiceComponent } from './Components/commercial-innvoice/commercial-innvoice.component';
+import { PrdouctShippingDetailsComponent } from './Components/prdouct-shipping-details/prdouct-shipping-details.component';
 
 
 @NgModule({
@@ -72,6 +75,9 @@ import { AlfemoUpdateComponent } from './Components/alfemo-update/alfemo-update.
     NewPortComponent,
     PortsComponent,
     UpdatePortComponent,
+    CommercialInnvoiceComponent,
+    PrdouctShippingDetailsComponent,
+    UpdateProductionDatesComponent,
   ],
   imports: [
     BrowserModule,

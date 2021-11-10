@@ -67,7 +67,6 @@ export class CatalogComponent implements OnInit {
     }, (err: any) => {
       Auth_error_handling(err, this.Notification, this.router)
     }))
-    this.ProductsList = this.testProduct
   }
 
   ShowDetails(ProductToShow: Product) {

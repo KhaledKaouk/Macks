@@ -1,0 +1,11 @@
+<div class="CreatePo" [formGroup] = 'ProductionDatesForm'>
+    <div class="InputWraper">
+        <label>Production Start Date</label>
+        <input type="date" formControlName = 'ProductionStartDate' >
+    </div>
+    <div class="InputWraper">
+        <label>Production Finish Date</label>
+        <input type="date" formControlName = 'ProductionFinishDate'>
+    </div>
+    <button (click) = "Submit()" [disabled]="!ProductionDatesForm.valid ? true: false">Submit</button>
+</div>

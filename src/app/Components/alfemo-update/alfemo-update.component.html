@@ -22,34 +22,50 @@
     <input name="FinalDestination" type="text" formControlName="FinalDestination" placeholder="Final Destination">
   </div>
   <div class="InputWraper">
-    <label for="CorinthainPo">Factory Estimated Ship Date</label>
-    <input name="CorinthainPo" type="date" formControlName="FactoryEstimatedShipDate" aria-label="CorinthainPo">
+    <label for="ProductionStartDate">Production Start Date</label>
+    <input name= 'ProductionStartDate' type='date' formControlName='ProductionStartDate' paceholder = 'ProductionStartDate'>
   </div>
   <div class="InputWraper">
-    <label for="CorinthainPo">Factory Estimated arrival Date</label>
-    <input name="CorinthainPo" type="date" formControlName="FactoryEstimatedArrivalDate" aria-label="CorinthainPo">
+    <label for="ProductionFinishDate">Production Finish Date</label>
+    <input name= 'ProductionFinishDate' type='date' formControlName='ProductionFinishDate' paceholder = 'ProductionFinishDate'>
+  </div>
+  <div class="InputWraper">
+    <label for="FactoryLoadDate">Factory Load Date</label>
+    <input name= 'FactoryLoadDate' type='date' formControlName='FactoryLoadDate' paceholder = 'FactoryLoadDate'>
+  </div>
+  <div class="InputWraper">
+    <label for="DateOfDeparture">Date Of Departure</label>
+    <input name= 'DateOfDeparture' type='date' formControlName='DateOfDeparture' paceholder = 'DateOfDeparture'>
+  </div>
+  <div class="InputWraper">
+    <label for="FactoryEstimatedShipDate">Factory Estimated Ship Date</label>
+    <input name="FactoryEstimatedShipDate" type="date" formControlName="FactoryEstimatedShipDate">
+  </div>
+  <div class="InputWraper">
+    <label for="FactoryEstimatedArrivalDate">Factory Estimated arrival Date</label>
+    <input name="FactoryEstimatedArrivalDate" type="date" formControlName="FactoryEstimatedArrivalDate" >
   </div>
 
   <div class="InputWraper">
-    <label for="CorinthainPo">Comments</label>
-    <textarea name="CorinthainPo" type="text" formControlName="AlfemoComents" aria-label="CorinthainPo"
+    <label for="AlfemoComents">Comments</label>
+    <textarea name="AlfemoComents" type="text" formControlName="AlfemoComents"
       maxlength="200"></textarea>
   </div>
 
-  <div class="InputWraper" *ngIf = 'PoToUpdate.shippingDocs == ""'>
+  <div class="InputWraper" *ngIf='PoToUpdate.shippingDocs == ""'>
     <label for="file">Upload Shipment Document</label>
     <input type="file" id="file" multiple=true (change)=SaveFileInObject($event) style="border: none;">
   </div>
 
-  <div class="InputWraper" *ngIf = 'PoToUpdate.shippingDocs != ""'>
-    <div class="File" *ngFor = 'let FileName of FilesNames; index as i'>
+  <div class="InputWraper" *ngIf='PoToUpdate.shippingDocs != ""'>
+    <div class="File" *ngFor='let FileName of FilesNames; index as i'>
       <label>{{FileName}}</label>
-      <i class="far fa-trash-alt" (click) = "DeleteFileFromShippingDocs(FileName)"></i>
+      <i class="far fa-trash-alt" (click)="DeleteFileFromShippingDocs(FileName)"></i>
     </div>
   </div>
-  <div class="InputWraper" *ngIf = 'PoToUpdate.shippingDocs != ""'>
+  <div class="InputWraper" *ngIf='PoToUpdate.shippingDocs != ""'>
     <label for="FilesArea">Add Files</label>
-    <input type="file" id="FilesArea" multiple = true (change) = "AddFilesToShippingDocs($event)">
+    <input type="file" id="FilesArea" multiple=true (change)="AddFilesToShippingDocs($event)">
   </div>
 
   <div>

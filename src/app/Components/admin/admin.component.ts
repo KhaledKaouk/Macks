@@ -14,6 +14,9 @@ import { CalculatePageCount, ColorTR, InitPageCountArray, RemoveSearchDisclaimer
 import { Functionalities } from 'src/app/Utilities/Variables';
 import { AdjustApprovalStatusForDisplay, FilterPosBy, RemoveDeletedPOs, SetUpPOsForDisplay, SortPosByShipByDate } from 'src/app/Utilities/PoHandlers';
 import { ExportPosToXLSX } from 'src/app/Utilities/ReportsHandlers';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { AbstractControl, FormArray, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-admin',
@@ -30,6 +33,8 @@ export class AdminComponent implements OnInit {
   DataOfCurrentPage: POs[] = [];
   CurrentPage: number = 0;
   PosForSlicing: POs[] = [];
+  PoUnderControl: POs = new POs();
+  InvoicePOs: POs[] = [];
 
   constructor(
     private poservice: POsService,
@@ -39,28 +44,27 @@ export class AdminComponent implements OnInit {
     private spinner: Spinner
   ) {
   }
-  
+
 
   ngOnInit(): void {
-
     CheckToken(this.router);
     this.GetAllPos();
-    
   }
   ngAfterViewChecked() {
     ColorTR();
   }
 
-  GetAllPos(){
-    this.spinner.WrapWithSpinner( this.poservice.GetPos().then((res: any) => {
+
+  GetAllPos() {
+    this.spinner.WrapWithSpinner(this.poservice.GetPos().then((res: any) => {
       this.AllPos = SetUpPOsForDisplay(res)
-      this.PagesCount = CalculatePageCount(this.AllPos.length,this.DataRowsInPage);
+      this.PagesCount = CalculatePageCount(this.AllPos.length, this.DataRowsInPage);
       this.PageCountArray = InitPageCountArray(this.PagesCount)
       this.SliceDataForPaginantion(0);
-      
+
     }, (err: any) => {
       Auth_error_handling(err, this.notification, this.router)
-      
+
     }))
   }
 
@@ -69,20 +73,20 @@ export class AdminComponent implements OnInit {
     let dialogRef = this.dialog.open(PoDetailsComponent, {
       height: '30rem',
       width: '55rem',
-      data: [P,Functionalities.Admin],
+      data: [P, Functionalities.Admin],
     });
   }
 
 
-  SliceDataForPaginantion(PageNumber: number,SearchedPos?:POs[]) {
-     this.PosForSlicing = this.AllPos;
-    if(SearchedPos) this.PosForSlicing = SearchedPos;
+  SliceDataForPaginantion(PageNumber: number, SearchedPos?: POs[]) {
+    this.PosForSlicing = this.AllPos;
+    if (SearchedPos) this.PosForSlicing = SearchedPos;
     let SliceBegining = PageNumber * this.DataRowsInPage;
     if (this.PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length >= 1) {
       RemoveSearchDisclaimer();
       this.DataOfCurrentPage = this.PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage)
       this.CurrentPage = PageNumber;
-    }else{
+    } else {
       this.DataOfCurrentPage = []
       ShowSearchDisclaimer(this.DataOfCurrentPage.length);
     }
@@ -94,21 +98,47 @@ export class AdminComponent implements OnInit {
     this.SliceDataForPaginantion(this.CurrentPage - 1)
   }
 
-  
-  AdjustApprovalStatusForDisplay(approvalStatus: boolean){
+
+  AdjustApprovalStatusForDisplay(approvalStatus: boolean) {
     return AdjustApprovalStatusForDisplay(approvalStatus);
   }
-  SearchPos(event: any){
-    this.SliceDataForPaginantion(0,FilterPosBy(this.AllPos,event.target.value))
+  SearchPos(event: any) {
+    this.SliceDataForPaginantion(0, FilterPosBy(this.AllPos, event.target.value))
   }
-  ExportPosToExcel(){
+  ExportPosToExcel() {
     ExportPosToXLSX(this.AllPos)
   }
-  OrderPosByShipByDate(){
+  OrderPosByShipByDate() {
     SortPosByShipByDate(this.PosForSlicing)
-    this.SliceDataForPaginantion(0,this.PosForSlicing)
+    this.SliceDataForPaginantion(0, this.PosForSlicing)
   }
-  ShowDealerProfile(dealer_Id: number){
+  ShowDealerProfile(dealer_Id: number) {
     this.router.navigate(['/DealerProfile', dealer_Id])
+  }
+  ViewInvoiceForm() {
+    this.router.navigate(['/Invoice'], {queryParams:{IP:this.GetCorinthianPoFileNames(),Port:this.InvoicePOs[0].port}})
+  }
+
+  GetCorinthianPoFileNames(){
+    let PoFileNames: string[] = []
+    this.InvoicePOs.forEach(Po =>PoFileNames.push(Po.corinthianPOAttach))
+    return PoFileNames
+  }
+  AddPoToInvoice(Po: POs) {
+    if (!this.CheckPoInInvoice(Po) && this.CheckPortOfPo(Po)) {
+      this.InvoicePOs.push(Po)
+      this.notification.DisplayInfo('You have added Po of: ' + Po.dealerPONumber + ' to the invoice')
+    }else{
+      this.notification.OnError('you have added this Po or the port of the Po doesnot match')
+    }
+  }
+  CheckPortOfPo(Po: POs){
+    return this.InvoicePOs.length == 0 || this.InvoicePOs[0].port == Po.port
+  }
+  CheckPoInInvoice(Po: POs) {
+    return this.InvoicePOs.includes(Po)
+  }
+  removePoFromInvoice(Po: POs){
+    this.InvoicePOs.splice(this.InvoicePOs.indexOf(Po),1)
   }
 }

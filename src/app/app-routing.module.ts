@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './Components/admin/admin.component';
 import { AlfemoComponent } from './Components/alfemo/alfemo.component';
 import { CatalogComponent } from './Components/catalog/catalog.component';
+import { CommercialInnvoiceComponent } from './Components/commercial-innvoice/commercial-innvoice.component';
 import { DealerProfileComponent } from './Components/dealer-profile/dealer-profile.component';
 import { DealersComponent } from './Components/dealers/dealers.component';
 import { FrightPricesComponent } from './Components/fright-prices/fright-prices.component';
@@ -27,7 +28,9 @@ const routes: Routes = [
   {path: 'DealerProfile/:DealerId', component: DealerProfileComponent},
   {path: 'reports', component: ReportsComponent},
   {path: 'NewPort', component: NewPortComponent},
-  {path: 'Ports', component: PortsComponent}
+  {path: 'Ports', component: PortsComponent},
+  {path: 'Invoice', component: CommercialInnvoiceComponent},
+
 ];
 
 @NgModule({

@@ -1,0 +1,72 @@
+<div class="CreatePo commercialInvoice" [formGroup]='PS_DetailsForm'>
+
+    <div class="InputWraper">
+        <div>
+            <label>PRODUCT_CODE</label>
+            <input placeholder="PRODUCT_CODE" formControlName="PRODUCT_CODE" >
+        </div>
+        <div>
+            <label>PRODUCT</label>
+            <input placeholder="PRODUCT" formControlName="PRODUCT" >
+        </div>
+    </div>
+    <div class="InputWraper">    
+        <div>
+            <label>Po</label>
+            <input placeholder="PO" formControlName="Po">
+        </div>
+        <div>
+            <label>QTY</label>
+            <input placeholder="QTY" formControlName="QTY" >
+        </div>
+    </div>
+
+
+    <div class="InputWraper">
+        <div>
+            <label>PACKS</label>
+            <input placeholder="PACKS" formControlName="PACKS">
+        </div>
+        <div>
+            <label>TOTAL_PACKS</label>
+            <input placeholder="TOTAL_PACKS" formControlName="TOTAL_PACKS" >
+        </div>
+    </div>
+    <div class="InputWraper"></div>
+    <div class="InputWraper">
+        <div>
+            <label>UNIT_KG</label>
+            <input placeholder="UNIT_KG" formControlName="UNIT_KG">
+        </div>
+        <div>
+            <label>TOTAL_KG</label>
+            <input placeholder="TOTAL_KG" formControlName="TOTAL_KG" >
+        </div>
+    </div>
+    <div class="InputWraper"></div>
+    <div class="InputWraper">
+        <div>
+            <label>UNIT_CUBM</label>
+            <input placeholder="UNIT_CUBM" formControlName="UNIT_CUBM">
+        </div>
+        <div>
+            <label>TOTAL_CUBM</label>
+            <input placeholder="TOTAL_CUBM" formControlName="TOTAL_CUBM" >
+        </div>
+    </div>
+    <div class="InputWraper"></div>
+    <div class="InputWraper">
+        <div>
+            <label>UNIT_PRICE</label>
+            <input placeholder="UNIT_PRICE" formControlName="UNIT_PRICE">
+        </div>
+        <div>
+            <label>TOTAL_PRICE</label>
+            <input placeholder="TOTAL_PRICE" formControlName="TOTAL_PRICE" >
+        </div>
+    </div>
+    <div class="InputWraper"></div>
+    <div>
+        <button (click)=Submit() style="margin-bottom: 10px;">Submit</button>
+    </div>
+</div>

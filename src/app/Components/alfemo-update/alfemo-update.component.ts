@@ -23,12 +23,15 @@ export class AlfemoUpdateComponent implements OnInit {
   UpdatedPo = new FormGroup({
     Status: new FormControl(''),
     ContainerNumber: new FormControl(''),
+    ProductionStartDate: new FormControl(''),
+    ProductionFinishDate: new FormControl(''),
+    FactoryLoadDate: new FormControl(''),
+    DateOfDeparture: new FormControl(''),
     FinalDestination: new FormControl(''),
     FactoryEstimatedArrivalDate: new FormControl(''),
     FactoryEstimatedShipDate: new FormControl(''),
     AlfemoComents: new FormControl('')
   })
-
 
   PoToUpdate: POs = new POs();
   ShippingDocsAreEdited: boolean = false;
@@ -64,6 +67,10 @@ export class AlfemoUpdateComponent implements OnInit {
       Status: this.data.status,
       ContainerNumber: this.data.containerNumber,
       FinalDestination: this.data.finalDestLocation,
+      ProductionStartDate: FormatDate(this.data.productionStartDate) ,
+      ProductionFinishDate: FormatDate(this.data.productionFinishDate) ,
+      FactoryLoadDate:FormatDate(this.data.factoryLoadDate) ,
+      DateOfDeparture: FormatDate(this.data.dateOfDeparture) ,
       FactoryEstimatedArrivalDate: FormatDate(this.data.factoryEstimatedArrivalDate),
       FactoryEstimatedShipDate: FormatDate(this.data.factoryEstimatedShipDate),
       AlfemoComents: this.data.alfemoComments
@@ -73,6 +80,10 @@ export class AlfemoUpdateComponent implements OnInit {
     this.PoToUpdate.status = this.UpdatedPo.get('Status')?.value;
     this.PoToUpdate.containerNumber = this.UpdatedPo.get('ContainerNumber')?.value;
     this.PoToUpdate.finalDestLocation = this.UpdatedPo.get('FinalDestination')?.value;
+    this.PoToUpdate.productionStartDate = this.UpdatedPo.get('ProductionStartDate')?.value;
+    this.PoToUpdate.productionFinishDate = this.UpdatedPo.get('ProductionFinishDate')?.value;
+    this.PoToUpdate.factoryLoadDate = this.UpdatedPo.get('FactoryLoadDate')?.value;
+    this.PoToUpdate.dateOfDeparture = this.UpdatedPo.get('DateOfDeparture')?.value
     this.PoToUpdate.factoryEstimatedArrivalDate = this.UpdatedPo.get('FactoryEstimatedArrivalDate')?.value;
     this.PoToUpdate.factoryEstimatedShipDate = this.UpdatedPo.get('FactoryEstimatedShipDate')?.value;
     this.PoToUpdate.alfemoComments = this.UpdatedPo.get('AlfemoComents')?.value;
@@ -172,7 +183,7 @@ export class AlfemoUpdateComponent implements OnInit {
 
     let ShippingDocsFile: any;
 
-    let ResponseWithShippingDocsBlob = await fetch(localApi + this.PoToUpdate.shippingDocs)
+    let ResponseWithShippingDocsBlob = await fetch(realapi + this.PoToUpdate.shippingDocs)
     let ShippingDocsBlob = await ResponseWithShippingDocsBlob.clone().blob();
 
     ShippingDocsFile = ShippingDocsBlob;

@@ -11,7 +11,7 @@ export class POsService {
 
    ApiURL: string = "https://macksdistribution.com/api/account";
   constructor(private http: HttpClient,) {
-    if (InDevMode) this.ApiURL = "http://localhost:5000"
+    if (InDevMode) this.ApiURL = "http://localhost:5000/Po"
    }
 
   GetPos() {
@@ -36,5 +36,8 @@ export class POsService {
   DeletePo(Po: POs) {
     Po.deleted = confirm("Are you Sure you Want To Delete this Po?")
     return this.http.post(this.ApiURL + "/deletepofromdb", Po);
+  }
+  UpdatePosBulk(Pos: POs[]){
+    return this.http.post(this.ApiURL + "/UpdatePosStatusAndDates",Pos)
   }
 }

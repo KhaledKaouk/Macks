@@ -1,0 +1,138 @@
+.InvoiceHeader {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 2rem;
+    .SellerInfo,
+    .BuyerInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        div{
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: bold;
+        }
+    }
+    .InvoiceInfo {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+    }
+}
+.ProductsDetails,
+.InvoiceFooter {
+    margin: 2rem;
+    .button {
+        border: 1px solid;
+        padding: 0.5rem;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+}
+
+.NumberField {
+    max-width: 3rem;
+}
+.InvoiceFooter {
+    display: flex;
+    flex-direction: row;
+        select{
+            appearance: none;
+            &::-ms-expand {
+                display: none;
+            }
+        }
+    input{
+        min-height: 1.3rem;
+    }
+
+    .labels,
+    .values {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .values {
+        margin-left: 3rem;
+    }
+    .labels {
+        margin-left: 0.3rem;
+        font-weight: bold;
+    }
+}
+
+.Invoice {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .table {
+        border-collapse: collapse;
+        margin: 1.5rem 1.5rem;
+        min-width: 15rem;
+        overflow: hidden;
+        thead {
+            color: $footer-color;
+            text-align: center;
+            font-weight: bold;
+            th {
+                padding: 0.5rem 0.5rem;
+                border: 1px solid;
+            }
+        }
+        tbody {
+            tr {
+                td:last-of-type {
+                    border: none;
+                }
+            }
+            tr:nth-last-of-type(-n + 3) {
+                td {
+                    border: none;
+                }
+            }
+            td {
+                text-align: center;
+                color: $footer-color;
+                border: 1px solid;
+                padding: 0.5rem 0.5rem;
+            }
+            a {
+                width: 100%;
+                border: 1px solid $footer-color;
+                padding: 0.2rem;
+                transition: background-color 0.3s ease-in;
+            }
+            a:hover {
+                background-color: $buttonhover;
+                color: $Primary-color;
+                border-color: $buttonhover;
+                cursor: pointer;
+            }
+        }
+    }
+    .generateInvoice {
+        align-self: center;
+        padding: 0.5rem;
+        margin-right: 3rem;
+        border: 1px solid $footer-color;
+        transition: background-color 0.3s ease-in;
+        &:hover {
+            background-color: $buttonhover;
+            color: $Primary-color;
+            border-color: $buttonhover;
+            cursor: pointer;
+        }
+    }
+}
+.TotalPrice {
+    display: flex;
+    flex-direction: row;
+    // justify-content: flex-end;
+    gap: 0.3rem;
+}
+

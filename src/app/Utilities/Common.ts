@@ -131,7 +131,7 @@ export function GetCurrentDate() {
     return Now.replace(/ /g, "")
 }
 export function FormatDate(Date: string) {
-    return new DatePipe('en-US').transform(Date, 'YYYY-MM-dd') || ""
+    return new DatePipe('en-US').transform(Date, 'MM-dd-YYYY') || ""
 }
 
 

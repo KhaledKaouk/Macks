@@ -1,0 +1,15 @@
+.Tools{
+    display: flex;
+    position: relative;
+    .FlexBox{
+        display: block;
+        border: 1px dashed;
+        margin: 2rem;
+        min-width: 5rem;
+        min-height: 2rem;
+        position: absolute;
+        &:active{
+            
+        }
+    }
+}
