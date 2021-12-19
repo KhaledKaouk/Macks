@@ -60,7 +60,7 @@ export class DealerProfileComponent implements OnInit {
     return AllDealers
   }
   GetDealerId(){
-    return parseInt(this.ActivatedRoute.snapshot.paramMap.get('DealerId') || "");
+    return (this.ActivatedRoute.snapshot.paramMap.get('DealerId') || "");
   }
   
   async SetUpDealersDataForDisplay(){
@@ -97,7 +97,7 @@ export class DealerProfileComponent implements OnInit {
     return AdjustApprovalStatusForDisplay(approvalStatus);
   }
   SearchPos(event: any){
-    this.SliceDataForPaginantion(0,FilterPosBy(this.AllPos,event.target.value))
+    this.SliceDataForPaginantion(0,FilterPosBy(this.AllPos,this.AllDealers,event.target.value))
   }
   VeiwPoDetails(P: POs) {
     let dialogRef = this.dialog.open(PoDetailsComponent, {

@@ -9,8 +9,8 @@ import { NotificationserService } from './notificationser.service';
 })
 export class AuthService {
 
-  ApiURL: string = "https://macksdistribution.com";
-  GetRoleApi: string = "https://macksdistribution.com/api/account";
+  ApiURL: string = "http://macksdis.com/Auth";
+  GetRoleApi: string = "http://macksdis.com/Auth";
   constructor(private http: HttpClient,
     private notification: NotificationserService) {
       if (InDevMode) {

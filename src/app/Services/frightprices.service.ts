@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { frightPrices } from '../Models/frightPrices';
+import { freightPrices } from '../Models/frightPrices';
 import { InDevMode } from '../Utilities/Variables';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { InDevMode } from '../Utilities/Variables';
 })
 export class FrightpricesService {
 
-  ApiURL: string = "https://macksdistribution.com/api/account";
+  ApiURL: string = "http://macksdis.com/FreightPrice";
   constructor(private http: HttpClient) {
     if (InDevMode) this.ApiURL = "http://localhost:5000/FreightPrice"
    }
@@ -17,15 +17,15 @@ export class FrightpricesService {
     return this.http.get(this.ApiURL +'/getfrightprices').toPromise();
   }
 
-  AddFrightPrice(NewFrightPrice: frightPrices){
+  AddFrightPrice(NewFrightPrice: freightPrices){
     return this.http.post(this.ApiURL + '/createfrightprices',NewFrightPrice).toPromise();
   }
 
-  UpdateFrightPricesByBulk(UpdatedFrightPrices: frightPrices[]){
+  UpdateFrightPricesByBulk(UpdatedFrightPrices: freightPrices[]){
     return this.http.post('',UpdatedFrightPrices).toPromise();
   }
 
-  UpdateSinglefrightPrice(UpdatedFrithPrice: frightPrices){
+  UpdateSinglefrightPrice(UpdatedFrithPrice: freightPrices){
     return this.http.post(this.ApiURL + '/Updatefrightprices',UpdatedFrithPrice).toPromise();
   }
   DeleteFrightPrice(FrightPriceId: number){

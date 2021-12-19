@@ -13,7 +13,7 @@
                     <label >Invoice Pos </label>
                     <ul id ="InvoicePosSubMenu">
                         <li *ngFor='let Po of InvoicePOs; index as i'>
-                            <a>{{i}}.   {{Po.dealerPONumber}}</a> 
+                            <a>{{i}}.   {{Po.dealerPoNumber}}</a> 
                             <i class="far fa-trash-alt" (click)="removePoFromInvoice(Po)"></i>
                         </li>
                     </ul>
@@ -36,10 +36,10 @@
             <tbody id="tbody">
                 <tr *ngFor="let P of DataOfCurrentPage index as i" >
                     <td class="LargeScreenOnly ClickableTd" (click)="ShowDealerProfile(P.dealer_id)">
-                        {{P.dealerName}}
+                        {{DisplayDealerName(P.dealer_id)}}
                     </td>
                     <td>
-                        {{P.dealerPONumber}}
+                        {{P.dealerPoNumber}}
                     </td>
                     <td>
                         {{P.port}}

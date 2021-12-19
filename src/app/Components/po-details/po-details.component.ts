@@ -3,11 +3,14 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { rejects } from 'assert';
 import { NgProgress } from 'ngx-progressbar';
+import { Dealers } from 'src/app/Models/Dealers';
 import { POs } from 'src/app/Models/Po-model';
+import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckCorinthianUserPermissions } from 'src/app/Utilities/CheckAuth';
 import { AddPreffixAndExtention, DIs, RemoveSlashes, Spinner } from 'src/app/Utilities/Common';
+import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { DownLoadFile, UploadFile } from 'src/app/Utilities/FileHandlers';
 import { AdjustApprovalStatusForDisplay } from 'src/app/Utilities/PoHandlers';
@@ -22,6 +25,8 @@ import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component'
 export class PoDetailsComponent implements OnInit {
 
   ViewedPO: POs = new POs();
+  AllDealers: Dealers[] =[];
+  Dealer: Dealers = new Dealers();
   SeletedFile: any;
   UserIsAdmin = this.CheckIfAdmin();
 
@@ -29,6 +34,7 @@ export class PoDetailsComponent implements OnInit {
     private dialogref: MatDialogRef<PoDetailsComponent>,
     private dialog: MatDialog,
     private PoService: POsService,
+    private DealerService: DealersService,
     private Notification: NotificationserService,
     private router: Router,
     private spinner: Spinner,
@@ -39,15 +45,23 @@ export class PoDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.ViewedPO = this.data[0];
-    console.log(this.ViewedPO)
-    console.log(this.ViewedPO.productionStartDate)
     this.AlertMackOnUploadedPO();
     this.CheckFunctionalities();
+    this.GetAllDealers();
 
   }
 
   AdjustingDataForDisplay(approvalStatus: boolean) {
     return AdjustApprovalStatusForDisplay(approvalStatus);
+  }
+  GetAllDealers(){
+    this.spinner.WrapWithSpinner(this.DealerService.GetAllDealers().then((Dealers: any) => {
+      this.AllDealers = Dealers;
+      this.DisplayDealerInfo();
+    }),this.dialogref)
+  }
+  DisplayDealerInfo(){
+    this.Dealer = GetDealerById(this.AllDealers,this.ViewedPO.dealer_id)
   }
   RemoveDownloadButtonsForNullFilesAndCreateDisclaimers(HtmlElementName: string) {
     document.getElementsByName(HtmlElementName)[0].remove();
@@ -120,7 +134,7 @@ export class PoDetailsComponent implements OnInit {
     }
   }
   ConstructFileName() {
-    let FileName = RemoveSlashes(this.ViewedPO.dealerPONumber) + "_" + RemoveSlashes(this.ViewedPO.corinthianPO);
+    let FileName = RemoveSlashes(this.ViewedPO.dealerPoNumber) + "_" + RemoveSlashes(this.ViewedPO.corinthianPoNumber);
     FileName = AddPreffixAndExtention("MP_", FileName, this.SeletedFile.name)
 
     return FileName

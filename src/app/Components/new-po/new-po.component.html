@@ -10,7 +10,7 @@
         <label for="DealerName">Dealer Name</label>
         <select name="DealerName" type="text" id="DealerName" formControlName="DealerId" aria-label="Dealer Name"
             placeholder="Dealer Name" >
-            <option *ngFor= "let Dealers of Dealers index as i" value={{Dealers.id}}>{{Dealers.name}}</option>
+            <option *ngFor= "let Dealers of Dealers index as i" value={{Dealers._id}}>{{Dealers.name}}</option>
         </select>
     </div>
     <div class="InputWraper">

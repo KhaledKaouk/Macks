@@ -2,12 +2,16 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { EPROTONOSUPPORT } from 'constants';
 import { NgProgress } from 'ngx-progressbar';
+import { Dealers } from 'src/app/Models/Dealers';
 import { POs } from 'src/app/Models/Po-model';
+import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckCorinthianUserPermissions, CheckToken } from 'src/app/Utilities/CheckAuth';
 import { ColorTR, RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
+import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { DownLoadFile } from 'src/app/Utilities/FileHandlers';
 import { AdjustApprovalStatusForDisplay, FilterPosBy, OrderPosByDate, SetUpPOsForDisplay, SortPosByShipByDate } from 'src/app/Utilities/PoHandlers';
@@ -26,7 +30,7 @@ export class MyPosComponent implements OnInit {
 
 
   mydata: POs[] = [];
-
+  AllDealers: Dealers[] = [];
   DataRowsInPage: number = 15;
   PagesCount: number = 1;
   PageCountArray: number[] = [0];
@@ -36,6 +40,7 @@ export class MyPosComponent implements OnInit {
   UserIsAllowed = CheckCorinthianUserPermissions();
 
   constructor(private poservice: POsService,
+    private DealerService: DealersService,
     private notification: NotificationserService,
     private router: Router,
     private dialog: MatDialog,
@@ -46,6 +51,7 @@ export class MyPosComponent implements OnInit {
   }
   ngOnInit(): void {
     CheckToken(this.router);
+    this.GetAllDealers();
     this.GetPos();
   }
 
@@ -56,6 +62,14 @@ export class MyPosComponent implements OnInit {
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
       this.SliceDataForPaginantion(0);
     }, err => Auth_error_handling(err, this.notification, this.router)))
+  }
+  GetAllDealers(){
+    this.spinner.WrapWithSpinner(this.DealerService.GetAllDealers().then((Dealers: any) => {
+      this.AllDealers = Dealers;
+    }))
+  }
+  DisplayDealerName(DealerId: string){
+    return GetDealerById(this.AllDealers,DealerId).name
   }
 
   OpenEditPoForm(P: POs) {
@@ -109,13 +123,13 @@ export class MyPosComponent implements OnInit {
     return AdjustApprovalStatusForDisplay(approvalStatus);
   }
   SearchPos(event: any) {
-    this.SliceDataForPaginantion(0, FilterPosBy(this.mydata, event.target.value))
+    this.SliceDataForPaginantion(0, FilterPosBy(this.mydata,this.AllDealers, event.target.value))
   }
   OrderPosByShipByDate(){
     SortPosByShipByDate(this.PosForSlicing)
     this.SliceDataForPaginantion(0,this.PosForSlicing)
   }
-  ShowDealerProfile(dealer_Id: number){
+  ShowDealerProfile(dealer_Id: string){
     this.router.navigate(['/DealerProfile', dealer_Id])
   }
 

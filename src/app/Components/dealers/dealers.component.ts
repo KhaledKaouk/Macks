@@ -75,6 +75,6 @@ export class DealersComponent implements OnInit {
     this.SliceDataForPaginantion(0,FilterDealersByName(this.Dealers,event.target.value))
   }
   ViewDealerProfile(Dealer: Dealers){
-    this.router.navigate(['/DealerProfile', Dealer.id]);
+    this.router.navigate(['/DealerProfile', Dealer._id]);
   }
 }

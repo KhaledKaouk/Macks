@@ -14,6 +14,7 @@ import { NewPoComponent } from './Components/new-po/new-po.component';
 import { NewPortComponent } from './Components/new-port/new-port.component';
 import { PortsComponent } from './Components/ports/ports.component';
 import { ReportsComponent } from './Components/reports/reports.component';
+import { UsersComponent } from './Components/users/users.component';
 
 const routes: Routes = [
   {path:'LogIn',component:LogInComponent},
@@ -30,7 +31,7 @@ const routes: Routes = [
   {path: 'NewPort', component: NewPortComponent},
   {path: 'Ports', component: PortsComponent},
   {path: 'Invoice', component: CommercialInnvoiceComponent},
-
+  {path: 'Users', component: UsersComponent},
 ];
 
 @NgModule({

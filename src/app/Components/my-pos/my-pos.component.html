@@ -22,10 +22,10 @@
             <tbody id="tbody">
                 <tr *ngFor="let P of DataOfCurrentPage index as i">
                     <td class="LargeScreenOnly ClickableTd" (click) = "ShowDealerProfile(P.dealer_id)">
-                        {{P.dealerName}} 
+                        {{DisplayDealerName(P.dealer_id)}} 
                     </td>
                     <td class="LargeScreenOnly">
-                        {{P.dealerPONumber}}
+                        {{P.dealerPoNumber}}
                     </td>
                     <td >
                         {{P.port}}

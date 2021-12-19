@@ -1,11 +1,11 @@
 export class Dealers{
-    id: number
+    _id: string
     name: string
     email: string
     mobile: string
     address: string
     constructor(){
-        this.id = 0;
+        this._id = "1";
         this.name = ""
         this.email = ""
         this.mobile = ""

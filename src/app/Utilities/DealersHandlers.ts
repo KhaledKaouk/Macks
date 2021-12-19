@@ -12,13 +12,11 @@ export async function CheckDealersForDuplicate(InspectedDealer: Dealers, DealerS
         let Dealers: Dealers[] = res;
         IsDupicate = Dealers.filter(Dealer => Dealer.name.toLowerCase() == InspectedDealer.name.toLowerCase()).length > 0
     })
-    console.log(IsDupicate)
     return IsDupicate
 }
 
-export function GetDealerById(AllDealers: Dealers[], DealerId: number){
-    console.log()
-    return AllDealers.find(Dealer => Dealer.id == DealerId) || new Dealers()
+export function GetDealerById(AllDealers: Dealers[], DealerId: string){
+    return AllDealers.find(Dealer => Dealer._id == DealerId) || new Dealers()
 }
 export function CompareDealerNames(FirstDealerName: string,SecondDealerName: string){
    return (FirstDealerName[0].toLowerCase() > SecondDealerName[0].toLowerCase())? +1 : -1

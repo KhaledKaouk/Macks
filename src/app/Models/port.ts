@@ -1,10 +1,10 @@
 export class port{
-    id:number;
+    _id:string;
     portName: string;
     city: string;
 
     constructor(){
-        this.id = 0;
+        this._id = '';
         this.portName = "";
         this.city = "";
     }

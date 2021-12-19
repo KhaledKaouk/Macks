@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { frightPrices } from 'src/app/Models/frightPrices';
+import { freightPrices } from 'src/app/Models/frightPrices';
 import { FrightpricesService } from 'src/app/Services/frightprices.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { Spinner } from 'src/app/Utilities/Common';
@@ -23,7 +23,7 @@ export class CreateFeightPriceComponent implements OnInit {
       Port: new FormControl('',Validators.required)
     }
   )
-  NewFreidghtPrice: frightPrices = new frightPrices();
+  NewFreidghtPrice: freightPrices = new freightPrices();
   constructor(
     private spinner: Spinner,
     private FrightPriceSer:FrightpricesService,
@@ -39,7 +39,7 @@ export class CreateFeightPriceComponent implements OnInit {
     this.CreateFreightPrice(this.NewFreidghtPrice);
   }
   
-  CreateFreightPrice(FrightPriceToUpdate: frightPrices){
+  CreateFreightPrice(FrightPriceToUpdate: freightPrices){
     this.spinner.WrapWithSpinner (this.FrightPriceSer.AddFrightPrice(FrightPriceToUpdate).then((res: any) =>{
         this.notification.OnSuccess(res)
         location.reload();

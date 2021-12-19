@@ -1,19 +1,15 @@
 export class POs {
-    id: number;
-    dealer_id: number;
-    dealerName: string;
-    dealerEmail: string;
-    dealerPONumber: string;
-    mackPONumber: string;
-    corinthianPO: string;
-    itemID: number;
-    supplierName: string;
-    userID: string;
+    _id: string;
+    dealer_id: string;
+    dealerPoNumber: string;
+    mackPoNumber: string;
+    corinthianPoNumber: string;
     mackPOAttach: string;
     corinthianPOAttach: string;
+    userId: string;
     shipBy:string;
     shippingDocs: string;
-    comments: string;
+    corinthianComments: string;
     alfemoComments:string;
     status: string;
     productionRequestDate: string;
@@ -24,7 +20,6 @@ export class POs {
     dateOfDeparture: string;
     dateReceived: string;
     factoryEstimatedArrivalDate: string;
-    booked: boolean;
     finalDestLocation: string;
     containerNumber: string;
     productionRequestTime: string;
@@ -34,21 +29,17 @@ export class POs {
     port: string;
     [key:string]: string | boolean | number;
     constructor(){
-            this.id = 0;
-            this.dealer_id = 0,
-            this.dealerName = "";
-            this.dealerEmail = "";
-            this.dealerPONumber = "0";
-            this.mackPONumber = "";
-            this.corinthianPO = "";
-            this.itemID = 0;
-            this.supplierName = "";
-            this.userID = "";
+            this._id = "";
+            this.dealer_id = "",
+            this.dealerPoNumber = "";
+            this.mackPoNumber = "";
+            this.corinthianPoNumber = "";
+            this.userId = "";
             this.mackPOAttach = "";
             this.corinthianPOAttach = "";
             this.shipBy = ""
             this.shippingDocs = "";
-            this.comments = "";
+            this.corinthianComments = "";
             this.alfemoComments="";
             this.status = "";
             this.productionRequestDate = "";
@@ -59,7 +50,6 @@ export class POs {
             this.factoryEstimatedShipDate = "";
             this.dateReceived = "";
             this.factoryEstimatedArrivalDate = "";
-            this.booked = false;
             this.finalDestLocation = "";
             this.containerNumber = "";
             this.productionRequestTime = "";

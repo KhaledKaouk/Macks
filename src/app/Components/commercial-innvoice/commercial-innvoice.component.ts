@@ -62,7 +62,7 @@ export class CommercialInnvoiceComponent implements OnInit {
   async getPO(POFileName: string) {
     let realapi = 'https://macksdistribution.com/Attatchments/NP/';
     let localApi = 'http://localhost:5000/Assets/';
-    let ResponseWithPoBlob = await fetch(realapi + POFileName)
+    let ResponseWithPoBlob = await fetch(localApi + POFileName)
     let POBlob = await ResponseWithPoBlob.clone().blob();
 
     let POFile: any

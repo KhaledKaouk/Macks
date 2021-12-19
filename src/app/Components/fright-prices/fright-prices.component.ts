@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
-import { frightPrices } from 'src/app/Models/frightPrices';
+import { freightPrices } from 'src/app/Models/frightPrices';
 import { AuthService } from 'src/app/Services/auth.service';
 import { FrightpricesService } from 'src/app/Services/frightprices.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
@@ -19,7 +19,7 @@ import { HeaderComponent } from '../header/header.component';
 })
 export class FrightPricesComponent implements OnInit {
 
-  FrightPricesList: frightPrices[] = [];
+  FrightPricesList: freightPrices[] = [];
 
   progressRef: any
   constructor(private FirghtpricesSer: FrightpricesService,
@@ -34,7 +34,7 @@ export class FrightPricesComponent implements OnInit {
     CheckToken(this.router)
     this.GetFrightPrices();
   }
-  UpdateSinglePrice(FrightPriceToUpdate: frightPrices) {
+  UpdateSinglePrice(FrightPriceToUpdate: freightPrices) {
     this.dialog.open(FrightPriceUpdateComponent, {
       height: '30rem',
       width: '40rem',
@@ -54,7 +54,7 @@ export class FrightPricesComponent implements OnInit {
   SetFreightPricesForDisplay(){
     this.FrightPricesList.forEach(FrightPrice => this.CapitlizeLocationFirstLater(FrightPrice))
   }
-  CapitlizeLocationFirstLater(FreightPrice: frightPrices){
+  CapitlizeLocationFirstLater(FreightPrice: freightPrices){
     FreightPrice.locations = CapitlizeFirstLater(FreightPrice.locations)
   }
 

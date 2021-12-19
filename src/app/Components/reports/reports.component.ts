@@ -1,9 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { read } from 'fs';
-import { parse } from 'path';
-import { $ } from 'protractor';
 import { Dealers } from 'src/app/Models/Dealers';
 import { POs } from 'src/app/Models/Po-model';
 import { DealersService } from 'src/app/Services/dealers.service';
@@ -41,7 +38,7 @@ export class ReportsComponent implements OnInit {
   ];
   WantedFileds: string[] = [];
   Dealers: Dealers[] = [];
-  WantedDealersId: number[] = [];
+  WantedDealersId: string[] = [];
   WantedDealerPo: string[] = [];
   WantedCorinthainPo: string[] = [];
 
@@ -133,10 +130,10 @@ export class ReportsComponent implements OnInit {
   }
 
   GenerateDefaultReport() {
-    GenerateDefaultReport(this.AllPos)
+    GenerateDefaultReport(this.AllPos,this.Dealers)
   }
   GenerateWeeklyReport(){
-    GenerateWeeklyReport(this.AllPos);
+    GenerateWeeklyReport(this.AllPos,this.Dealers);
   }
 
   AddDealerToFilter(event: any) {
@@ -153,7 +150,7 @@ export class ReportsComponent implements OnInit {
       this.CreateDealerElement(DealerId, DealerName)
     }
   }
-  CreateDealerElement(DealerId: number, DealerName: string) {
+  CreateDealerElement(DealerId: string, DealerName: string) {
 
     let DealerElement = document.createElement('a');
     let DealerRemoveButton = document.createElement('a');
@@ -179,7 +176,7 @@ export class ReportsComponent implements OnInit {
 
 
   FilterPoByDealerPo() {
-    return this.AllPos.filter(Po => this.WantedDealerPo.includes(Po.dealerPONumber))
+    return this.AllPos.filter(Po => this.WantedDealerPo.includes(Po.dealerPoNumber))
   }
   AddToSearchKeys(event: any, SearchKeyList: (string | number)[], IsDealer?: boolean) {
     let SearchKey = event.target.value;
@@ -214,7 +211,7 @@ export class ReportsComponent implements OnInit {
   }
   ConverDealerIdToInt(SearchKey: string, IsDealer?: boolean) {
     let ConvertedSearchKey: number | string = SearchKey
-    if (IsDealer) ConvertedSearchKey = parseInt(SearchKey)
+    // if (IsDealer) ConvertedSearchKey = parseInt(SearchKey)
 
     return ConvertedSearchKey
   }
@@ -241,7 +238,7 @@ export class ReportsComponent implements OnInit {
     document.getElementById('Dealers')?.appendChild(SearchKeyElement)
   }
   FilterPoByCorinthianPo() {
-    return this.AllPos.filter(Po => this.WantedCorinthainPo.includes(Po.corinthianPO))
+    return this.AllPos.filter(Po => this.WantedCorinthainPo.includes(Po.corinthianPoNumber))
   }
 
   AddDealerPoToFilter(event: any) {

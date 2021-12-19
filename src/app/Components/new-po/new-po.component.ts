@@ -94,7 +94,7 @@ export class NewPoComponent implements OnInit {
     this.NewPo.mackPOAttach = FileName;
   }
   ConstructFileName() {
-    let FileName = RemoveSlashes(this.NewPo.dealerPONumber) + "_" + RemoveSlashes(this.NewPo.corinthianPO);
+    let FileName = RemoveSlashes(this.NewPo.dealerPoNumber) + "_" + RemoveSlashes(this.NewPo.corinthianPoNumber);
     FileName = AddPreffixAndExtention("NP_", FileName, this.SeletedFile.name)
 
     return FileName
@@ -119,11 +119,11 @@ export class NewPoComponent implements OnInit {
   SaveFileInObject(event: any) {
     this.SeletedFile = event.target.files[0];
   }
-  ExtractDealerName(Id: number) {
-    return this.Dealers.find(Dealer => Dealer.id == Id)?.name || "Unavailable"
+  ExtractDealerName(Id: string) {
+    return this.Dealers.find(Dealer => Dealer._id == Id)?.name || "Unavailable"
   }
-  ExtractDealerEmail(Id: number) {
-    return this.Dealers.find(Dealer => Dealer.id == Id)?.email || "Unavailable "
+  ExtractDealerEmail(Id: string) {
+    return this.Dealers.find(Dealer => Dealer._id == Id)?.email || "Unavailable "
   }
 
 
@@ -135,13 +135,11 @@ export class NewPoComponent implements OnInit {
     let DealerId = this.CreatePo.get("DealerId")?.value;
 
     this.NewPo.dealer_id = DealerId;
-    this.NewPo.dealerName = this.ExtractDealerName(DealerId);
-    this.NewPo.dealerEmail = this.ExtractDealerEmail(DealerId);
-    this.NewPo.dealerPONumber = this.CreatePo.get("DealerPo")?.value;
-    this.NewPo.corinthianPO = this.CreatePo.get("CorinthainPo")?.value;
+    this.NewPo.dealerPoNumber = this.CreatePo.get("DealerPo")?.value;
+    this.NewPo.corinthianPoNumber = this.CreatePo.get("CorinthainPo")?.value;
     this.NewPo.shipBy = this.CreatePo.get("ShipBy")?.value;
-    this.NewPo.comments = this.CreatePo.get("Comments")?.value;
-    this.NewPo.corinthianPOAttach = this.NewPo.dealerPONumber + this.NewPo.corinthianPO;
+    this.NewPo.corinthianComments = this.CreatePo.get("Comments")?.value;
+    this.NewPo.corinthianPOAttach = this.NewPo.dealerPoNumber + this.NewPo.corinthianPoNumber;
     this.NewPo.dateReceived = new Date().toLocaleDateString()
     this.NewPo.invoiceDate = this.CreatePo.get('InvoiceDate')?.value;
     this.NewPo.port = this.CreatePo.get('port')?.value;

@@ -1,6 +1,7 @@
 import { POs } from "../Models/Po-model";
 import * as XLSX from 'xlsx';
-
+import { Dealers } from "../Models/Dealers";
+import { GetDealerById } from "./DealersHandlers";
 export function ExportPosToXLSX(Pos: POs[]) {
     let worksheet = XLSX.utils.json_to_sheet(Pos);
     let workbook = XLSX.utils.book_new();
@@ -55,17 +56,16 @@ export function GenerateFilterdReport(AllPos: POs[], WantedFields: string[]) {
         let workbook = XLSX.utils.book_new();
         workbook = { Sheets: { 'Pos': worksheet }, SheetNames: ["Pos"] }
         XLSX.writeFile(workbook, "macksdistribution_Pos_Report_" + new Date().toLocaleDateString() + ".xlsx")
-        // return XLSX.writeFile(workbook, "macksdistribution_Pos_Report_" + new Date().toLocaleDateString() + ".xlsx")
     }
 }
-export function GenerateDefaultReport(AllPos: POs[]) {
+export function GenerateDefaultReport(AllPos: POs[],Dealers: Dealers[],) {
     let Report = new Array();
     if (AllPos != []) {
         AllPos.forEach(Po => {
             let wantedFields = {
                 Shipper: 'ALFEMO',
-                Customer: Po.dealerName,
-                'PO#': Po.dealerPONumber,
+                Customer: GetDealerById(Dealers,Po.dealer_id).name,
+                'PO#': Po.dealerPoNumber,
                 'Delivery Destination': Po.finalDestLocation,
                 'Requested Ship Date': Po.shipBy,
                 Status: Po.status,
@@ -81,28 +81,30 @@ export function GenerateDefaultReport(AllPos: POs[]) {
         XLSX.writeFile(workbook, "macksdistribution_Pos_Report_" + new Date().toLocaleDateString() + ".xlsx")
     }
 }
-export function GenerateWeeklyReport(AllPos: POs[]) {
+export function GenerateWeeklyReport(AllPos: POs[],Dealers: Dealers[]) {
     let Report = new Array();
     if (AllPos != []) {
         AllPos.forEach(Po => {
             let wantedFields = {
                 Shipper: 'ALFEMO',
-                Customer: Po.dealerName,
-                'PO#': Po.dealerPONumber,
-                'Delivery Destination': Po.finalDestLocation,
-                'Requested Ship Date': Po.shipBy,
+                Customer: GetDealerById(Dealers,Po.dealer_id).name,
+                'PO #': Po.dealerPoNumber,
+                'Delivery destination': Po.finalDestLocation,
+                'Requested ship date': Po.shipBy,
                 Status: Po.status,
-                'Estimated Ship Date': Po.factoryEstimatedShipDate,
-                'Date of Departure': Po.dateOfDeparture,
+                'Estimated ship date': Po.factoryEstimatedShipDate,
+                'Booking confirmation Y/N': '',
+                'ETA to POD': '',
+                'Date of departure': Po.dateOfDeparture,
                 'Carrier': '',
-                'Container#': Po.containerNumber,
-                'Remarks/BOL': '',
+                'Container #': Po.containerNumber,
+                'Remarks (notes)': '',
                 'Style': '',
-                'Production Start Date': Po.productionStartDate,
-                'Production Complete': Po.productionFinishDate,
-                'Booking request': '',
-                'Shipt To vessel': '',
-                'Freight Rate': '',  
+                'Freight amount': '',
+                'Production start date': Po.productionStartDate,
+                'Production complete date': Po.productionFinishDate,
+                'Booking request date': '',
+                'Shipt to vessel date': '',
 
             }
             Report.push(wantedFields);

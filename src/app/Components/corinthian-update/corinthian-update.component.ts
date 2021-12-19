@@ -67,22 +67,10 @@ export class CorinthianUpdateComponent implements OnInit {
   AssignFormValuesToUpdatedPo() {
     let DealerId =  this.CreatePo.get("DealerId")?.value;
     
-    this.PoToUpdate.dealerName = this.ExtractDealerName(DealerId);
-    this.PoToUpdate.dealerEmail = this.ExtractDealerEmail(DealerId);
+    this.PoToUpdate.dealer_id = DealerId;
     this.PoToUpdate.shipBy = this.CreatePo.get("shipBy")?.value;
     this.PoToUpdate.invoiceDate = this.CreatePo.get('InvoiceDate')?.value;
-    this.PoToUpdate.comments = this.CreatePo.get("Comments")?.value;
-  }
-
-
-  ExtractDealerName(Id:number){
-    return this.Dealers.find(Dealer => Dealer.id == Id)?.name || "Unavailable"
-  }
-  ExtractDealerEmail(Id: number){
-    return this.Dealers.find(Dealer => Dealer.id == Id)?.email || "Unavailable"
-  }
-  ExtractDealerId(DealerName: string){
-    return this.Dealers.find(Dealer => Dealer.name === DealerName)?.id
+    this.PoToUpdate.corinthianComments = this.CreatePo.get("Comments")?.value;
   }
 
   UpdatePO() {
@@ -102,9 +90,9 @@ export class CorinthianUpdateComponent implements OnInit {
   }
   AssignPoToForm(){
     this.CreatePo.setValue({
-      DealerId: this.ExtractDealerId(this.PoToUpdate.dealerName),
+      DealerId: this.PoToUpdate.dealer_id,
       shipBy: FormatDate(this.PoToUpdate.shipBy) ,
-      Comments: this.PoToUpdate.comments,
+      Comments: this.PoToUpdate.corinthianComments,
       InvoiceDate: this.PoToUpdate.invoiceDate,
     })
   }

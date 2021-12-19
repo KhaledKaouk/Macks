@@ -13,11 +13,11 @@
                 <label>Production Finish Date</label>       
             </div>
             <div class="labels">
-                <a>{{ViewedPO.dealerName | EmptyField}}</a>
-                <a>{{ViewedPO.dealerEmail | EmptyField}}</a>
-                <a>{{ViewedPO.dealerPONumber | EmptyField}}</a>
-                <a>{{ViewedPO.corinthianPO | EmptyField}}</a>
-                <a>{{ViewedPO.userID | EmptyField}}</a>
+                <a>{{Dealer.name | EmptyField}}</a>
+                <a>{{Dealer.email | EmptyField}}</a>
+                <a>{{ViewedPO.dealerPoNumber | EmptyField}}</a>
+                <a>{{ViewedPO.corinthianPoNumber | EmptyField}}</a>
+                <a>{{ViewedPO.userId | EmptyField}}</a>
                 <a>{{ViewedPO.containerNumber | EmptyField}}</a> 
                 <a>{{ViewedPO.productionStartDate | date:"MM/dd/yyyy" | EmptyField}}</a> 
                 <a>{{ViewedPO.productionFinishDate | date:"MM/dd/yyyy" | EmptyField}}</a> 
@@ -57,7 +57,7 @@
         </div>
         <div class="Potest">
             <label>Corinthain Comments</label>
-            <p>{{ViewedPO.comments | EmptyField}}</p>
+            <p>{{ViewedPO.corinthianComments | EmptyField}}</p>
         </div>
     </div>
     <div  id="buttons-1" class="buttons">

@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
-import { frightPrices } from 'src/app/Models/frightPrices';
+import { freightPrices } from 'src/app/Models/frightPrices';
 import { FrightpricesService } from 'src/app/Services/frightprices.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import {  Spinner } from 'src/app/Utilities/Common';
@@ -16,7 +16,7 @@ import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 })
 export class FrightPriceUpdateComponent implements OnInit {
 
-  ToUpdateFrightPrice: frightPrices = new frightPrices();
+  ToUpdateFrightPrice: freightPrices = new freightPrices();
 
   UpdateFrightPriceForm = new FormGroup(
     {
@@ -26,7 +26,7 @@ export class FrightPriceUpdateComponent implements OnInit {
       Port: new FormControl('',Validators.required)
     }
   )
-  constructor(@Inject(MAT_DIALOG_DATA) public data: frightPrices,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: freightPrices,
   private dialogref: MatDialogRef<FrightPriceUpdateComponent>,
   private FrightPriceSer: FrightpricesService,
   private notification : NotificationserService,
@@ -42,7 +42,7 @@ export class FrightPriceUpdateComponent implements OnInit {
     this.UpdateFrightPrice(this.ToUpdateFrightPrice);
   }
   
-  UpdateFrightPrice(FrightPriceToUpdate: frightPrices){
+  UpdateFrightPrice(FrightPriceToUpdate: freightPrices){
     this.spinner.WrapWithSpinner (this.FrightPriceSer.UpdateSinglefrightPrice(FrightPriceToUpdate).then((res: any) =>{
         this.notification.OnSuccess(res)
         location.reload();
@@ -54,7 +54,7 @@ export class FrightPriceUpdateComponent implements OnInit {
   }
   
   AssignFormValuesToFrightPriceObject(){
-    this.ToUpdateFrightPrice.id = this.data.id;
+    this.ToUpdateFrightPrice._id = this.data._id;
     this.ToUpdateFrightPrice.locations =  this.UpdateFrightPriceForm.get('Location')?.value;
     this.ToUpdateFrightPrice.currentprice = this.UpdateFrightPriceForm.get('Price')?.value;
     this.ToUpdateFrightPrice.deliveryType = this.UpdateFrightPriceForm.get('DeliveryType')?.value;

@@ -1,22 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { NgProgress } from 'ngx-progressbar';
 import { POs } from 'src/app/Models/Po-model';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { PoDetailsComponent } from '../po-details/po-details.component';
-import * as XLSX from 'xlsx';
-import { DatePipe } from '@angular/common';
 import { CalculatePageCount, ColorTR, InitPageCountArray, RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
 import { Functionalities } from 'src/app/Utilities/Variables';
-import { AdjustApprovalStatusForDisplay, FilterPosBy, RemoveDeletedPOs, SetUpPOsForDisplay, SortPosByShipByDate } from 'src/app/Utilities/PoHandlers';
+import { AdjustApprovalStatusForDisplay, FilterPosBy, SetUpPOsForDisplay, SortPosByShipByDate } from 'src/app/Utilities/PoHandlers';
 import { ExportPosToXLSX } from 'src/app/Utilities/ReportsHandlers';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
-import { AbstractControl, FormArray, FormControl } from '@angular/forms';
+import { DealersService } from 'src/app/Services/dealers.service';
+import { Dealers } from 'src/app/Models/Dealers';
+import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
 
 @Component({
   selector: 'app-admin',
@@ -27,6 +24,7 @@ export class AdminComponent implements OnInit {
 
 
   AllPos: POs[] = []
+  AllDealers: Dealers[] = [];
   PageCountArray: number[] = [0];
   PagesCount: number = 1;
   DataRowsInPage: number = 15;
@@ -38,6 +36,7 @@ export class AdminComponent implements OnInit {
 
   constructor(
     private poservice: POsService,
+    private dealerService: DealersService,
     private dialog: MatDialog,
     private router: Router,
     private notification: NotificationserService,
@@ -48,6 +47,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     CheckToken(this.router);
+    this.GetAllDealers();
     this.GetAllPos();
   }
   ngAfterViewChecked() {
@@ -68,7 +68,14 @@ export class AdminComponent implements OnInit {
     }))
   }
 
-
+  GetAllDealers(){
+    this.spinner.WrapWithSpinner(this.dealerService.GetAllDealers().then((Dealers: any) => {
+      this.AllDealers = Dealers
+    }))
+  }
+  DisplayDealerName(dealerId: string){
+    return GetDealerById(this.AllDealers,dealerId).name
+  }
   VeiwPoDetails(P: POs) {
     let dialogRef = this.dialog.open(PoDetailsComponent, {
       height: '30rem',
@@ -103,7 +110,7 @@ export class AdminComponent implements OnInit {
     return AdjustApprovalStatusForDisplay(approvalStatus);
   }
   SearchPos(event: any) {
-    this.SliceDataForPaginantion(0, FilterPosBy(this.AllPos, event.target.value))
+    this.SliceDataForPaginantion(0, FilterPosBy(this.AllPos,this.AllDealers, event.target.value))
   }
   ExportPosToExcel() {
     ExportPosToXLSX(this.AllPos)
@@ -112,7 +119,7 @@ export class AdminComponent implements OnInit {
     SortPosByShipByDate(this.PosForSlicing)
     this.SliceDataForPaginantion(0, this.PosForSlicing)
   }
-  ShowDealerProfile(dealer_Id: number) {
+  ShowDealerProfile(dealer_Id: string) {
     this.router.navigate(['/DealerProfile', dealer_Id])
   }
   ViewInvoiceForm() {

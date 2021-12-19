@@ -52,7 +52,7 @@ export class UpdatePortComponent implements OnInit {
   }
 
   AssignFormValuesToUpdatedPo(){
-    this.UpdatedPort.id = this.PortToUpdate.id
+    this.UpdatedPort._id = this.PortToUpdate._id
     this.UpdatedPort.portName =  this.UpdatePortForm.get('PortName')?.value
     this.UpdatedPort.city =  this.UpdatePortForm.get('City')?.value
   }

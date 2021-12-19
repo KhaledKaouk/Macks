@@ -14,13 +14,13 @@
             <label for="dealerEmail">Dealer Email </label>
         </div>
         <div class="CheckItem">
-            <input id="dealerPONumber" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
-            <label for="dealerPONumber">Dealer Po </label>
+            <input id="dealerPoNumber" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="dealerPoNumber">Dealer Po </label>
 
         </div>
         <div class="CheckItem">
-            <input id="corinthianPO" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
-            <label for="corinthianPO">Corinthian Po </label>
+            <input id="corinthianPoNumber" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="corinthianPoNumber">Corinthian Po </label>
 
         </div>
         <div class="CheckItem">
@@ -29,8 +29,8 @@
 
         </div>
         <div class="CheckItem">
-            <input id="comments" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
-            <label for="comments">Corinthian Comments </label>
+            <input id="corinthianComments" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <label for="corinthianComments">Corinthian Comments </label>
         </div>
         <div class="CheckItem">
             <input id="alfemoComments" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
@@ -74,7 +74,7 @@
                 <select name="DealerName" type="text" id="DealerName" formControlName="DealerId"
                     aria-label="Dealer Name" placeholder="Dealer Name"
                     (change)="AddToSearchKeys($event,WantedDealersId,true)">
-                    <option *ngFor="let Dealers of Dealers index as i" value={{Dealers.id}}>{{Dealers.name}}</option>
+                    <option *ngFor="let Dealers of Dealers index as i" value={{Dealers._id}}>{{Dealers.name}}</option>
                 </select>
             </div>
             <div class="InputWraper">

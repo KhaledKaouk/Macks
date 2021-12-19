@@ -34,7 +34,7 @@ export async function UploadFile<T>(
 export function DownLoadFile(Directory: string, FileName: string) {
     const link = document.createElement('a');
     link.setAttribute('target', '_blank');
-    link.setAttribute('href', 'https://macksdistribution.com/Attatchments/' + Directory + FileName);
+    link.setAttribute('href', 'http://localhost:5000/Assets/' + Directory + FileName);
     link.setAttribute('download', FileName);
     document.body.appendChild(link);
     link.click();
@@ -45,7 +45,7 @@ export function ConstructFileName(PO: POs, PreFix: string, Extention: string) {
     if (PreFix == "Archive_") PreFix = PreFix + ReplaceBackSlashInDate(GetCurrentDate()) + "_";
     return AddPreffixAndExtention(
         PreFix,
-        RemoveSlashes(PO.dealerPONumber) + "_" + RemoveSlashes(PO.corinthianPO),
+        RemoveSlashes(PO.dealerPoNumber) + "_" + RemoveSlashes(PO.corinthianPoNumber),
         Extention)
 }
 export function ConstructFormDataFile(Files: any, FileName: string) {

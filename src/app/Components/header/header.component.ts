@@ -6,6 +6,7 @@ import { CheckCorinthianUserPermissions } from 'src/app/Utilities/CheckAuth';
 import { AdminComponent } from '../admin/admin.component';
 import { AlfemoComponent } from '../alfemo/alfemo.component';
 import { CreateFeightPriceComponent } from '../create-feight-price/create-feight-price.component';
+import { CreateUserComponent } from '../create-user/create-user.component';
 import { MyPosComponent } from '../my-pos/my-pos.component';
 import { NewDealerComponent } from '../new-dealer/new-dealer.component';
 import { NewPortComponent } from '../new-port/new-port.component';
@@ -71,6 +72,12 @@ export class HeaderComponent implements OnInit {
   }
   OpenNewPort(){
     this.dialog.open(NewPortComponent, {
+      height: '30rem',
+      width: '30rem',
+    })
+  }
+  OperNewUserForm(){
+    this.dialog.open(CreateUserComponent, {
       height: '30rem',
       width: '30rem',
     })

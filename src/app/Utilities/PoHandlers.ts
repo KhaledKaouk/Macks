@@ -2,7 +2,8 @@ import { POs } from "../Models/Po-model";
 import * as XLSX from 'xlsx';
 import { DatePipe } from "@angular/common";
 import { FormatDate } from "./Common";
-
+import {Dealers } from"../Models/Dealers"
+import { GetDealerById } from "./DealersHandlers";
 export function AdjustApprovalStatusForDisplay(ApprovedStatus: boolean) {
     if (ApprovedStatus == true) {
         return "Approved";
@@ -15,14 +16,14 @@ export function OrderPosByDate(Pos: POs[]) {
     return Pos.reverse();
 }
 
-export function FilterPosBy(ListOfPos: POs[], SearchKey: string) {
-    return ListOfPos.filter(Po => LookForSearchKeyInPo(Po,SearchKey))
+export function FilterPosBy(ListOfPos: POs[],Dealers: Dealers[], SearchKey: string) {
+    return ListOfPos.filter(Po => LookForSearchKeyInPo(Po,GetDealerById(Dealers,Po.dealer_id).name, SearchKey))
 }
 function CheckField(Filed: string, SearchKey: string) {
     return Filed.toLowerCase().includes(SearchKey.toLowerCase())
 }
-function LookForSearchKeyInPo(Po: POs,SearchKey: string){
-    return CheckField(Po.corinthianPO, SearchKey) || CheckField(Po.dealerPONumber, SearchKey) || CheckField(Po.dealerName, SearchKey) || CheckField(Po.mackPONumber, SearchKey)
+function LookForSearchKeyInPo(Po: POs,DealerName: string,SearchKey: string){
+    return CheckField(Po.corinthianPoNumber, SearchKey) || CheckField(Po.dealerPoNumber, SearchKey) || CheckField(DealerName, SearchKey) || CheckField(Po.mackPoNumber, SearchKey)
 }
 
 export async function CreateMackPo(CorinthianPo: File, FileName: string) {
@@ -106,7 +107,7 @@ export function SetUpPOsForDisplay(POs: POs[]){
 export function RemoveDissapprovedPos(POs: POs[]){
     return POs.filter(PO => PO.approvalStatus == true)
 }
-export function FilterPosByDealerId(DealerId: number, POs: POs[]){
+export function FilterPosByDealerId(DealerId: string, POs: POs[]){
     return POs.filter(Po => Po.dealer_id == DealerId)
 }
 

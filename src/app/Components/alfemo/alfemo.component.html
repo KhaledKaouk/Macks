@@ -15,7 +15,7 @@
                     <th class="LargeScreenOnly">Status 
                         <i (click)="TurnOnSelectionMode()" title="Click And Choose Pos To push into Production" class="fas fa-industry">
                             <ul hidden>
-                                <li *ngFor = " let Po of SelectedPos; index as i">{{Po.dealerPONumber}}</li>
+                                <li *ngFor = " let Po of SelectedPos; index as i">{{Po.dealerPoNumber}}</li>
                             </ul>
                         </i>
                     </th>
@@ -30,10 +30,10 @@
                         <input id="CheckPo{{i}}" type="checkbox" (check) = "SelectPo(P,i,$event)">
                     </td>
                     <td class="LargeScreenOnly ClickableTd" (click) = "ShowDealerProfile(P.dealer_id)">
-                        {{P.dealerName}}
+                        {{DisplayDealerName(P.dealer_id)}}
                     </td>
                     <td>
-                        {{P.dealerPONumber}}
+                        {{P.dealerPoNumber}}
                     </td>
                     <td >
                         {{P.port}}

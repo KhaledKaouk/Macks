@@ -1,0 +1,13 @@
+<div class="AddressHeader" style="height: 5rem;">
+    <h1>Create New User</h1>
+</div>
+<div class="CreatePo" [formGroup] = "NewUserForm">
+    <div class="InputWraper"><input type="text" placeholder="UserName" formControlName = "UserName"></div>
+    <div class="InputWraper"><input type="password" placeholder="Password" formControlName = "Password"></div>
+    <div class="InputWraper"><input type="password" placeholder="ConfirmPassword" formControlName = "ConfirmPassword"></div>
+    <div class="InputWraper"><input type="text" placeholder="Role" formControlName = "Role"></div>
+    <div class="InputWraper"><button (click) = Submit() [disabled]  = "!NewUserForm.valid">Submit</button></div>
+    <div class="InputWraper"><button (click) = Close()>Cancel</button></div>
+</div>
+<ng-progress id="myProgress"></ng-progress>
+<simple-notifications></simple-notifications>

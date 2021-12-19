@@ -9,6 +9,13 @@ import { Router } from '@angular/router';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { Spinner } from 'src/app/Utilities/Common';
 import { AuthService } from 'src/app/Services/auth.service';
+import * as XLSX from 'xlsx';
+import { port } from 'src/app/Models/port';
+import { PortService } from 'src/app/Services/port.service';
+import { Dealers } from 'src/app/Models/Dealers';
+import { DealersService } from 'src/app/Services/dealers.service';
+import { POs } from 'src/app/Models/Po-model';
+import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
 
 @Component({
   selector: 'app-catalog',
@@ -58,6 +65,7 @@ export class CatalogComponent implements OnInit {
     private router: Router,
     private spinner: Spinner,
     private Poservice: POsService,
+    private DealerService: DealersService,
     private authser: AuthService) { }
 
   ngOnInit(): void {
@@ -76,5 +84,4 @@ export class CatalogComponent implements OnInit {
       data: ProductToShow
     })
   }
-
 }

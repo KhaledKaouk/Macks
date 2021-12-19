@@ -40,6 +40,13 @@
                 <li><label (click)="OperNewDealerForm()" for="check">Create New Dealer</label></li>
             </ul>
         </li>
+        <li *ngIf="CheckRole() === 'admin'" id="DealerSubMenutitle">
+            <label id="NormalCursor">Users</label>
+            <ul id="DealerSubMenu">
+                <li><label routerLink="Users" for="check">All Users</label></li>
+                <li><label (click)="OperNewUserForm()" for="check">Create New User</label></li>
+            </ul>
+        </li>
         <li *ngIf="CheckRole() === 'corinthian'" id="PortsSubMenuTitle">
             <label id="NormalCursor">Ports</label>
             <ul id="PortsSubMenu">

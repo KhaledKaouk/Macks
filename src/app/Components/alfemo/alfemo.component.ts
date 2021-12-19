@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,10 +9,12 @@ import { UpdateProductionDatesComponent } from 'src/app/Components/update-produc
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
 import { CalculatePageCount, ColorTR, InitPageCountArray, RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
-import { DownLoadFile } from 'src/app/Utilities/FileHandlers';
 import { AdjustApprovalStatusForDisplay, FilterPosBy, RemoveDissapprovedPos, SetUpPOsForDisplay, SortPosByShipByDate } from 'src/app/Utilities/PoHandlers';
-import { Directories, Functionalities } from 'src/app/Utilities/Variables';
+import { Functionalities } from 'src/app/Utilities/Variables';
 import { PoDetailsComponent } from '../po-details/po-details.component';
+import { DealersService } from 'src/app/Services/dealers.service';
+import { Dealers } from 'src/app/Models/Dealers';
+import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
 @Component({
   selector: 'app-alfemo',
   templateUrl: './alfemo.component.html',
@@ -22,6 +23,7 @@ import { PoDetailsComponent } from '../po-details/po-details.component';
 export class AlfemoComponent implements OnInit {
 
   AllPos: POs[] = []
+  AllDealers : Dealers[] = [];
   DataRowsInPage: number = 15;
   PagesCount: number = 1;
   PageCountArray: number[] = [0];
@@ -34,6 +36,7 @@ export class AlfemoComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
     private poservice: POsService,
+    private DealerService: DealersService,
     private notification: NotificationserService,
     private router: Router,
     private spinner: Spinner) { }
@@ -41,6 +44,7 @@ export class AlfemoComponent implements OnInit {
 
   ngOnInit(): void {
     CheckToken(this.router);
+    this.GetAllDealers();
     this.GetPos();
   }
   ngAfterViewChecked() {
@@ -58,6 +62,14 @@ export class AlfemoComponent implements OnInit {
     }))
   }
 
+  GetAllDealers(){
+    this.spinner.WrapWithSpinner(this.DealerService.GetAllDealers().then((Dealers: any) => {
+      this.AllDealers = Dealers;
+    }))
+  }
+  DisplayDealerName(DealerId: string){
+    return GetDealerById(this.AllDealers,DealerId).name
+  }
   VeiwPoDetails(P: POs) {
     this.dialog.open(PoDetailsComponent, {
       height: '30rem',
@@ -95,7 +107,7 @@ export class AlfemoComponent implements OnInit {
     return AdjustApprovalStatusForDisplay(approvalStatus);
   }
   SearchPos(event: any) {
-    this.SliceDataForPaginantion(0, FilterPosBy(this.AllPos, event.target.value))
+    this.SliceDataForPaginantion(0, FilterPosBy(this.AllPos,this.AllDealers, event.target.value))
 
   }
 
@@ -104,7 +116,7 @@ export class AlfemoComponent implements OnInit {
     this.SliceDataForPaginantion(0, this.PosForSlicing)
 
   }
-  ShowDealerProfile(dealer_Id: number) {
+  ShowDealerProfile(dealer_Id: string) {
     this.router.navigate(['/DealerProfile', dealer_Id])
   }
   TurnOnSelectionMode() {

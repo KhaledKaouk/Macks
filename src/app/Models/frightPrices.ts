@@ -1,5 +1,5 @@
-export class frightPrices{
-    id: number;
+export class freightPrices{
+    _id: number;
     locations: string;
     currentprice: number;
     oldprice: number;
@@ -8,7 +8,7 @@ export class frightPrices{
     port: string;
 
     constructor(){
-        this.id = 0;
+        this._id = 0;
         this.locations = "";
         this.currentprice = 0;
         this.oldprice = 0;

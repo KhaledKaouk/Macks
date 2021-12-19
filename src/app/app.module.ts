@@ -44,6 +44,9 @@ import { AlfemoUpdateComponent } from './Components/alfemo-update/alfemo-update.
 import { UpdateProductionDatesComponent } from './Components/update-production-dates/update-production-dates.component';
 import { CommercialInnvoiceComponent } from './Components/commercial-innvoice/commercial-innvoice.component';
 import { PrdouctShippingDetailsComponent } from './Components/prdouct-shipping-details/prdouct-shipping-details.component';
+import { UsersComponent } from './Components/users/users.component';
+import { CreateUserComponent } from './Components/create-user/create-user.component';
+import { UpdateUserComponent } from './Components/update-user/update-user.component';
 
 
 @NgModule({
@@ -78,6 +81,9 @@ import { PrdouctShippingDetailsComponent } from './Components/prdouct-shipping-d
     CommercialInnvoiceComponent,
     PrdouctShippingDetailsComponent,
     UpdateProductionDatesComponent,
+    UsersComponent,
+    CreateUserComponent,
+    UpdateUserComponent,
   ],
   imports: [
     BrowserModule,

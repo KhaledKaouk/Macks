@@ -16,7 +16,7 @@
             </div>
             <div>
                 <a>INVOICE NUMBER: </a>
-                <a>{{InvoiceNumber}}</a>
+                <input type="text" class="Draft">
             </div>
         </div>
         <div class="BuyerInfo">
@@ -62,7 +62,7 @@
                 <td>{{CommercialInvoiceRow.PRODUCT_CODE}}</td>
                 <td>{{CommercialInvoiceRow.PRODUCT}}</td>
                 <td>{{CommercialInvoiceRow.Po}}</td>
-                <td>{{CommercialInvoiceRow.QTY}}</td>
+                <td><input type="text" class="Draft" value="{{CommercialInvoiceRow.QTY}}"></td>
                 <td>{{CommercialInvoiceRow.PACKS}}</td>
                 <td>{{CommercialInvoiceRow.TOTAL_PACKS}}</td>
                 <td>{{CommercialInvoiceRow.UNIT_KG}}</td>

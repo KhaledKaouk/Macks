@@ -50,7 +50,7 @@ export class EditdealerinformationComponent implements OnInit {
   }
 
   AssignFormValuesToUpdatedDealer() {
-    this.UpdatedDealer.id = this.DealerToUpdate.id;
+    this.UpdatedDealer._id = this.DealerToUpdate._id;
     this.UpdatedDealer.name = this.DealerForm.get('DealerName')?.value;
     this.UpdatedDealer.email = this.DealerForm.get('DealerEmail')?.value;
     this.UpdatedDealer.mobile = this.DealerForm.get('DealerMobile')?.value;

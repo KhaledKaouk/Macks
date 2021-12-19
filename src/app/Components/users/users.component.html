@@ -1,0 +1,36 @@
+<div class="AddressHeader">
+    <h1>Users</h1>
+    <h2>Home / Users</h2>
+</div>
+<div class="SearchInput"><input type="text" placeholder="Search Users" (input) = "SearchByUserName($event)"></div>
+<div class="DataTableWraper">
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>Role</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <tr *ngFor = "let User of DataOfCurrentPage index as i">
+                    <td>{{User.userName}}</td>
+                    <td>{{User.Role}}</td>
+                    <td><a (click) =  UpdateUser(User)>Edit</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class="pagination">
+            <ul>
+                <li><button (click)=PreviousPage()>Previous</button></li>
+                <li *ngFor="let PC of PageCountArray index as i">
+                    <button (click)=SliceDataForPaginantion(i) [ngClass] = "{'CurrentPage': CurrentPage === i}">{{i}}</button>
+                </li>
+                <li><button (click)=NextPage()>Next</button></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<ng-progress id="myProgress"></ng-progress>
+<simple-notifications></simple-notifications>

@@ -43,7 +43,7 @@ export function PromiseAllDealers() {
     })
 }
 export function CreateDealerId() {
-    return parseInt(Math.random().toFixed(6));
+    return Math.random().toFixed(6);
 }
 export async function CheckDealersToMatchOfflineDB(PoService: POsService) {
     let AllPos: POs[] = [];
@@ -60,14 +60,14 @@ export async function CheckDealersToMatchOfflineDB(PoService: POsService) {
         console.log("Data Cleared")
     }
     for (let Po of AllPos) {
-        let NewDealer: Dealers = { id: CreateDealerId(), name: Po.dealerName, email: Po.dealerEmail, mobile: "", address: "" };
+        let NewDealer: Dealers = { _id: CreateDealerId(), name: 'Po.dealerName', email: 'Po.dealerEmail', mobile: "", address: "" };
         if (DBDealers.length == 0) {
              AddNewDealer(NewDealer);
             await PromiseAllDealers().then((res: any) => {
                 DBDealers = res;
             })
         } else {
-            if (DBDealers.filter(Dealer => Dealer.name.toLowerCase() === Po.dealerName.replace(/[^a-zA-Z0-9 ]/g, " ").toLowerCase()).length === 0) {
+            if (DBDealers.filter(Dealer => Dealer.name.toLowerCase() === "Po.dealerName".replace(/[^a-zA-Z0-9 ]/g, " ").toLowerCase()).length === 0) {
                  AddNewDealer(NewDealer);
                  console.log(NewDealer.name)
             }
@@ -103,7 +103,7 @@ export function DeleteDealer(Dealer: Dealers) {
 
             let NewDealer = db.transaction("DealersInfo", "readwrite")
             let Store = NewDealer.objectStore("DealersInfo");
-            let DeleteDealer = Store.delete(Dealer.id);
+            let DeleteDealer = Store.delete(Dealer._id);
 
             DeleteDealer.onsuccess = function (event) { }
             NewDealer.oncomplete = function () {
