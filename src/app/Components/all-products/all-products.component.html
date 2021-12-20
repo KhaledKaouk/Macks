@@ -1,0 +1,44 @@
+<div class="AddressHeader">
+    <h1>Products</h1>
+    <h2>Home / Products</h2>
+</div>
+<div class="SearchInput"><input type="text" placeholder="Search Ports" (input) = "SearchByName($event)"></div>
+<div class="DataTableWraper">
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Line Name </th>
+                    <th>Dimensions </th>
+                    <th>Image </th>
+                    <th>Specification Sheet </th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <tr *ngFor = "let Product of DataOfCurrentPage index as i">
+                    <td>{{Product.itemname}}</td>
+                    <td>{{Product.linename}}</td>
+                    <td>{{Product.dimensions}}</td>
+                    <td><a *ngIf = "CheckImageFile(Product)" (click) = "DownLoadImage(Product.itempic)">DownLoad Image</a></td>
+                    <td><a *ngIf = "CheckImageFile(Product)" (click) = "DownLoadSheet(Product.itemdescfile)"> DownLoad Sheet</a></td>
+                    <td><a (click) =  UpdateProduct(Product)>Edit</a></td>
+                    <td><i class="far fa-trash-alt" (click) = "DeleteProduct(Product)"></i></td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class="pagination">
+            <ul>
+                <li><button (click)=PreviousPage()>Previous</button></li>
+                <li *ngFor="let PC of PageCountArray index as i">
+                    <button (click)=SliceDataForPaginantion(i) [ngClass] = "{'CurrentPage': CurrentPage === i}">{{i}}</button>
+                </li>
+                <li><button (click)=NextPage()>Next</button></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<ng-progress id="myProgress"></ng-progress>
+<simple-notifications></simple-notifications>

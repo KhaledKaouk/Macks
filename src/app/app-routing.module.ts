@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './Components/admin/admin.component';
 import { AlfemoComponent } from './Components/alfemo/alfemo.component';
+import { AllProductsComponent } from './Components/all-products/all-products.component';
 import { CatalogComponent } from './Components/catalog/catalog.component';
 import { CommercialInnvoiceComponent } from './Components/commercial-innvoice/commercial-innvoice.component';
 import { DealerProfileComponent } from './Components/dealer-profile/dealer-profile.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: 'Ports', component: PortsComponent},
   {path: 'Invoice', component: CommercialInnvoiceComponent},
   {path: 'Users', component: UsersComponent},
+  {path: 'Products', component: AllProductsComponent},
 ];
 
 @NgModule({

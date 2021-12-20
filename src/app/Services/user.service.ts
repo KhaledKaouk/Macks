@@ -8,7 +8,7 @@ import { InDevMode } from '../Utilities/Variables';
 })
 export class UserService {
 
-  ApiURL: string = "http://macksdis.com/User";
+  ApiURL: string = "https://macksdis.com/User";
   constructor(private http: HttpClient) {
     if (InDevMode) this.ApiURL = "http://localhost:5000/User"
    }

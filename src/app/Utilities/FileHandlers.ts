@@ -34,7 +34,7 @@ export async function UploadFile<T>(
 export function DownLoadFile(Directory: string, FileName: string) {
     const link = document.createElement('a');
     link.setAttribute('target', '_blank');
-    link.setAttribute('href', 'http://localhost:5000/Assets/' + Directory + FileName);
+    link.setAttribute('href', 'https://macksdis.com/Assets/' + Directory + FileName);
     link.setAttribute('download', FileName);
     document.body.appendChild(link);
     link.click();

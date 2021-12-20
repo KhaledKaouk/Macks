@@ -1,17 +1,15 @@
-export class Product{
-    id : string;
-    itemid : string;
+export class Product {
+    _id: string;
     itemname: string;
-    itemdesc:string;
-    itempic : string;
-    itemdescfile : string;
-    dimensions  : string;
-    linename   : string;
-    itemtype : string;
+    itemdesc: string;
+    itempic: string;
+    itemdescfile: string;
+    dimensions: string;
+    linename: string;
+    itemtype: string;
 
-    constructor(){
-        this.id="";
-        this.itemid = "";
+    constructor() {
+        this._id = "";
         this.itemname = "";
         this.itemdesc = "";
         this.itempic = "";

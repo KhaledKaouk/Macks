@@ -9,7 +9,7 @@ import { InDevMode } from '../Utilities/Variables';
 })
 export class POsService {
 
-   ApiURL: string = "http://macksdis.com/Po";
+   ApiURL: string = "https://macksdis.com/Po";
   constructor(private http: HttpClient,) {
     if (InDevMode) this.ApiURL = "http://localhost:5000/Po"
    }

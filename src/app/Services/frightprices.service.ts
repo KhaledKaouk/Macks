@@ -8,7 +8,7 @@ import { InDevMode } from '../Utilities/Variables';
 })
 export class FrightpricesService {
 
-  ApiURL: string = "http://macksdis.com/FreightPrice";
+  ApiURL: string = "https://macksdis.com/FreightPrice";
   constructor(private http: HttpClient) {
     if (InDevMode) this.ApiURL = "http://localhost:5000/FreightPrice"
    }

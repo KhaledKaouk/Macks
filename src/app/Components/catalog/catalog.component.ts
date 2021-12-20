@@ -26,8 +26,7 @@ export class CatalogComponent implements OnInit {
 
   ProductsList: Product[] = [];
   testProduct: Product[] = [{
-    id: "",
-    itemid: "",
+    _id: "",
     itemname: "Sofa",
     itemdesc: "this is the finet Sofa in Turkey, nade from oak",
     itempic: "../assets/sample2.jfif",
@@ -37,8 +36,7 @@ export class CatalogComponent implements OnInit {
     itemtype: "Sofa",
   },
   {
-    id: "",
-    itemid: "",
+    _id: "",
     itemname: "Chair",
     itemdesc: "this is the finet Chair in Turkey, nade from oak",
     itempic: "../assets/sample1.jfif",
@@ -48,8 +46,7 @@ export class CatalogComponent implements OnInit {
     itemtype: "Chair",
   },
   {
-    id: "",
-    itemid: "",
+    _id: "",
     itemname: "Table",
     itemdesc: "this is the finet Table in Turkey, nade from oak",
     itempic: "../assets/sample3.jfif",
@@ -69,6 +66,7 @@ export class CatalogComponent implements OnInit {
     private authser: AuthService) { }
 
   ngOnInit(): void {
+    this.ProductsList = this.testProduct;
     this.authser.GetRole();
     this.spinner.WrapWithSpinner( this.Poservice.GetProducts().toPromise().then((res: any) => {
       this.ProductsList = res;

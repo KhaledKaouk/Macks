@@ -47,6 +47,9 @@ import { PrdouctShippingDetailsComponent } from './Components/prdouct-shipping-d
 import { UsersComponent } from './Components/users/users.component';
 import { CreateUserComponent } from './Components/create-user/create-user.component';
 import { UpdateUserComponent } from './Components/update-user/update-user.component';
+import { UpdateProductComponent } from './Components/update-product/update-product.component';
+import { CreateProductComponent } from './Components/create-product/create-product.component';
+import { AllProductsComponent } from './Components/all-products/all-products.component';
 
 
 @NgModule({
@@ -84,6 +87,9 @@ import { UpdateUserComponent } from './Components/update-user/update-user.compon
     UsersComponent,
     CreateUserComponent,
     UpdateUserComponent,
+    CreateProductComponent,
+    UpdateProductComponent,
+    AllProductsComponent,
   ],
   imports: [
     BrowserModule,
