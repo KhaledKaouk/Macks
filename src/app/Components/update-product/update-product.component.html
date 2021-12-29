@@ -1,11 +1,19 @@
 <div class="AddressHeader" style="height: 5rem;">
     <h1>Update Product</h1>
 </div>
-<div class="CreatePo" [formGroup] = "UpdateProductForm">
-    <div class="InputWraper"><input type="text" placeholder="Product Name" formControlName = "ProductName"></div>
-    <div class="InputWraper"><input type="text" placeholder="Description" formControlName = "Description"></div>
-    <div class="InputWraper"><input type="text" placeholder="Line Name" formControlName = "LineName"></div>
-    <div class="InputWraper"><input type="text" placeholder="Dimensions" formControlName = "Dimensions"></div>
+<div class="CreatePo" [formGroup]="UpdateProductForm">
+    <div class="InputWraper"><input type="text" placeholder="Product Name" formControlName="ProductName"></div>
+    <div class="InputWraper"><input type="text" placeholder="Description" formControlName="Description"></div>
+    <div class="InputWraper"><input type="text" placeholder="Line Name" formControlName="LineName"></div>
+    <div class="InputWraper"><input type="text" placeholder="Dimensions" formControlName="Dimensions"></div>
+    <div class="InputWraper">
+    <label>Parent Product</label>
+    <select name="ParentProduct" type="text" id="ParentProduct" formControlName="ParentProduct" aria-label="Dealer Name"
+        placeholder="Parent Product">
+        <option value="">Main</option>
+        <option *ngFor="let Product of AllProducts index as i" value={{Product._id}}>{{Product.itemname}}</option>
+    </select>
+    </div>
     <div class="InputWraper">
         <label for="file">Upload Image</label>
         <input class="file" type="file" id="file" (change)=SaveImageFileInObject($event)>
@@ -14,8 +22,8 @@
         <label for="file">Upload Description File</label>
         <input class="file" type="file" id="file" (change)=SaveDescriptionFileInObject($event)>
     </div>
-    <div class="InputWraper"><button (click) = Submit() [disabled]  = "!UpdateProductForm.valid">Submit</button></div>
-    <div class="InputWraper"><button (click) = Close()>Cancel</button></div>
+    <div class="InputWraper"><button (click)=Submit() [disabled]="!UpdateProductForm.valid">Submit</button></div>
+    <div class="InputWraper"><button (click)=Close()>Cancel</button></div>
 </div>
 <ng-progress id="myProgress"></ng-progress>
 <simple-notifications></simple-notifications>

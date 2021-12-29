@@ -7,6 +7,7 @@ export class Product {
     dimensions: string;
     linename: string;
     itemtype: string;
+    parentItemId: string;
 
     constructor() {
         this._id = "";
@@ -17,6 +18,7 @@ export class Product {
         this.dimensions = "";
         this.linename = "";
         this.itemtype = "";
+        this.parentItemId = "";
     }
 
 }

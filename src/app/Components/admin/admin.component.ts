@@ -49,6 +49,7 @@ export class AdminComponent implements OnInit {
     CheckToken(this.router);
     this.GetAllDealers();
     this.GetAllPos();
+
   }
   ngAfterViewChecked() {
     ColorTR();

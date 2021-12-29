@@ -22,7 +22,7 @@
                     <td>{{Product.itemname}}</td>
                     <td>{{Product.linename}}</td>
                     <td>{{Product.dimensions}}</td>
-                    <td><a *ngIf = "CheckImageFile(Product)" (click) = "DownLoadImage(Product.itempic)">DownLoad Image</a></td>
+                    <td><a *ngIf = "CheckImageFile(Product)" (click) = "ViewImage(Product.itempic)">View Image</a></td>
                     <td><a *ngIf = "CheckImageFile(Product)" (click) = "DownLoadSheet(Product.itemdescfile)"> DownLoad Sheet</a></td>
                     <td><a (click) =  UpdateProduct(Product)>Edit</a></td>
                     <td><i class="far fa-trash-alt" (click) = "DeleteProduct(Product)"></i></td>

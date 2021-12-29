@@ -34,6 +34,7 @@ export class AllProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetProducts();
+
   }
 
   GetProducts(){
@@ -44,6 +45,7 @@ export class AllProductsComponent implements OnInit {
     } ))
   }
   PrepareDataForDisplay(Products: any){
+    console.log(Products)
     this.Products = Products
       this.PagesCount = Math.ceil(this.Products.length / this.DataRowsInPage);
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
@@ -83,8 +85,11 @@ export class AllProductsComponent implements OnInit {
     }
   }
 
-  DownLoadImage(ImageFileName: string){
-    DownLoadFile('Products/',ImageFileName)
+  ViewImage(ImageFileName: string){
+    let image = new Image();
+    image.src = 'https://macksdis.com/Assets/Products/' + ImageFileName;
+
+    var w = window.open(image.src);
   }
   DownLoadSheet(SheetFileName: string){
     DownLoadFile('Products/',SheetFileName)

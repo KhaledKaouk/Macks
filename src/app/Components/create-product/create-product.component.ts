@@ -21,11 +21,14 @@ export class CreateProductComponent implements OnInit {
     ProductName: new FormControl('', Validators.required),
     Description: new FormControl('', Validators.required),
     LineName: new FormControl('', Validators.required),
-    Dimensions: new FormControl('')
+    Dimensions: new FormControl(''),
+    ParentProduct: new FormControl('')
   })
   NewProduct: Product = new Product();
   ProductImage: any;
   ProductDescriptionFile: any;
+  AllProducts: Product[] = [];
+
   constructor(
     private dialogref: MatDialogRef<CreateProductComponent>,
     private ProductService: ProductService,
@@ -35,6 +38,12 @@ export class CreateProductComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.GetAllProducts();
+  }
+  GetAllProducts() {
+    this.spinner.WrapWithSpinner (this.ProductService.GetProducts().then((Products: any) => {
+      this.AllProducts = Products;
+    }))
   }
   async Submit() {
     let ImageUploaded = false
@@ -61,6 +70,7 @@ export class CreateProductComponent implements OnInit {
     this.NewProduct.itemdesc = this.NewProductForm.get('Description')?.value;
     this.NewProduct.linename = this.NewProductForm.get('LineName')?.value;
     this.NewProduct.dimensions = this.NewProductForm.get('Dimensions')?.value;
+    this.NewProduct.parentItemId = this.NewProductForm.get('ParentProduct')?.value;
   }
   async UploadProductImage() {
     let result = true;

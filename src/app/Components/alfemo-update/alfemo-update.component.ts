@@ -6,12 +6,15 @@ import { Router } from '@angular/router';
 import * as JSZip from 'jszip';
 import { zip } from 'rxjs';
 import { POs } from 'src/app/Models/Po-model';
+import { port } from 'src/app/Models/port';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
+import { PortService } from 'src/app/Services/port.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
 import { DIs, FormatDate, GetCurrentDate, ReplaceBackSlashInDate, Spinner } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import * as FileHandler from 'src/app/Utilities/FileHandlers';
+import { Status } from 'src/app/Utilities/Variables';
 import * as ZipHandler from 'src/app/Utilities/ZipHandlers'
 @Component({
   selector: 'app-alfemo-update',
@@ -30,7 +33,8 @@ export class AlfemoUpdateComponent implements OnInit {
     FinalDestination: new FormControl(''),
     FactoryEstimatedArrivalDate: new FormControl(''),
     FactoryEstimatedShipDate: new FormControl(''),
-    AlfemoComents: new FormControl('')
+    AlfemoComents: new FormControl(''),
+    port: new FormControl(''),
   })
 
   PoToUpdate: POs = new POs();
@@ -42,9 +46,11 @@ export class AlfemoUpdateComponent implements OnInit {
   ArchivedShippingDocs = new JSZip();
   FilesNames: string[] = [];
   POHasShippingDocsFile: boolean = false;
+  AllPorts: port[] = [];
 
   constructor(private PoService: POsService,
     private Notification: NotificationserService,
+    private PortService: PortService,
     private dialogref: MatDialogRef<AlfemoUpdateComponent>,
     private router: Router,
     private spinner: Spinner,
@@ -55,25 +61,30 @@ export class AlfemoUpdateComponent implements OnInit {
     CheckToken(this.router);
 
     this.PoToUpdate = this.data;
-
+    this.CheckForCancelRequests()
+    this.CheckForHoldRequest()
+    this.GetPorts();
     this.AssignPoDataToForm();
 
     this.POHasShippingDocsFile = this.CheckPoShippingDocsFile()
     this.ConfigureShippingDocsForUserControl();
   }
-
+  async GetPorts() {
+     await this.PortService.GetPorts().then((ports: any) =>  this.AllPorts = ports)
+  }
   AssignPoDataToForm() {
     this.UpdatedPo.setValue({
       Status: this.data.status,
       ContainerNumber: this.data.containerNumber,
       FinalDestination: this.data.finalDestLocation,
-      ProductionStartDate: FormatDate(this.data.productionStartDate) ,
-      ProductionFinishDate: FormatDate(this.data.productionFinishDate) ,
-      FactoryLoadDate:FormatDate(this.data.factoryLoadDate) ,
-      DateOfDeparture: FormatDate(this.data.dateOfDeparture) ,
+      ProductionStartDate: FormatDate(this.data.productionStartDate),
+      ProductionFinishDate: FormatDate(this.data.productionFinishDate),
+      FactoryLoadDate: FormatDate(this.data.factoryLoadDate),
+      DateOfDeparture: FormatDate(this.data.dateOfDeparture),
       FactoryEstimatedArrivalDate: FormatDate(this.data.factoryEstimatedArrivalDate),
       FactoryEstimatedShipDate: FormatDate(this.data.factoryEstimatedShipDate),
-      AlfemoComents: this.data.alfemoComments
+      AlfemoComents: this.data.alfemoComments,
+      port: this.data.port
     })
   }
   AssignformValuesToObject() {
@@ -87,6 +98,7 @@ export class AlfemoUpdateComponent implements OnInit {
     this.PoToUpdate.factoryEstimatedArrivalDate = this.UpdatedPo.get('FactoryEstimatedArrivalDate')?.value;
     this.PoToUpdate.factoryEstimatedShipDate = this.UpdatedPo.get('FactoryEstimatedShipDate')?.value;
     this.PoToUpdate.alfemoComments = this.UpdatedPo.get('AlfemoComents')?.value;
+    this.PoToUpdate.port = this.UpdatedPo.get('port')?.value
   }
 
   async Submit() {
@@ -261,5 +273,24 @@ export class AlfemoUpdateComponent implements OnInit {
   Close() {
     this.dialogref.close();
   }
-
+  CheckForCancelRequests() {
+    let StatusOption: Status;
+    StatusOption = 'Cancel Request';
+    if (this.PoToUpdate.status == StatusOption)
+      if (confirm("The Vendor wnats to cancel this Po do you approve?")) {
+        StatusOption = 'Canceled';
+        this.PoToUpdate.status = StatusOption;
+        this.UpdatePo();
+      }
+  }
+  CheckForHoldRequest() {
+    let StatusOption: Status;
+    StatusOption = 'Hold Request';
+    if (this.PoToUpdate.status == StatusOption)
+      if (confirm("The Vendor wnats to Hold this Po do you approve?")) {
+        StatusOption = 'On Hold';
+        this.PoToUpdate.status = StatusOption
+        this.UpdatePo();
+      }
+  }
 }

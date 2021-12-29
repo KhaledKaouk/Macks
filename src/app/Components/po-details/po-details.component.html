@@ -71,11 +71,13 @@
         <a name="MackPo" (click)=DownloadMackPo()>DownloadMackPo </a>
         <a name="ShippingDocs" (click)=DownloadShippingDocument()>DownloadShippingDocs </a>
         <a name="CorinthainPo" (click)=DownloadcorithainPo()>DownloadCorinthainPo </a>
-        <a name="Reject" (click)=RejectPo()>RejectPo </a>
-        <a name="Approve" (click)=ApprovePo()>ApprovePo </a>
-        <a name="Delete" (click)=ConfirmDeleteRequest()>DeletePo </a>
-        <a name="Update" (click)="Update()">UpdatePo</a>
-        <a name="ApplyChanges" id="SubmitButton" (click)=Submit()>ApplyChanges</a>
+        <a name="Reject" (click)= RejectPo()>RejectPo </a>
+        <a name="Approve" (click)= ApprovePo()>ApprovePo </a>
+        <a name="Cancel" (click)= CancelPo()>Cancel Po </a>
+        <a name="Hold" (click)= HoldPo()>Hold Po </a>
+        <a name="Delete" (click)= ConfirmDeleteRequest()>DeletePo </a>
+        <a name="Update" (click)= "Update()">UpdatePo</a>
+        <a name="ApplyChanges" id= "SubmitButton" (click)=Submit()>ApplyChanges</a>
     </div>
     </mat-dialog-content>
 </div>

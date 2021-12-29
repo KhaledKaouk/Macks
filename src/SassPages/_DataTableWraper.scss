@@ -100,6 +100,7 @@
         }
         td {
             padding: 0.8rem 0.9rem;
+            white-space: pre-wrap;
         }
         th {
             padding: 0.8rem 0.9rem;
@@ -125,6 +126,7 @@
                 width: 100%;
                 border: 1px solid $footer-color;
                 padding: 0.2rem;
+                white-space: nowrap;
                 transition: background-color 0.3s ease-in;
             }
             a:hover {

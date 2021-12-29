@@ -20,11 +20,13 @@ export class UpdateProductComponent implements OnInit {
     ProductName: new FormControl('', Validators.required),
     Description: new FormControl('', Validators.required),
     LineName: new FormControl('', Validators.required),
-    Dimensions: new FormControl('')
+    Dimensions: new FormControl(''),
+    ParentProduct: new FormControl(''),
   })
   ProductToUpdate: Product = new Product();
   ProductImage: any;
   ProductDescriptionFile: any;
+  AllProducts: Product[] = [];
   constructor(
     private dialogref: MatDialogRef<UpdateProductComponent>,
     private ProductService: ProductService,
@@ -36,7 +38,15 @@ export class UpdateProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.ProductToUpdate = this.data;
-    this.AssignProductToUpdateForm();
+    this.PrepareProductsForDisplay()
+  }
+  async PrepareProductsForDisplay(){
+    await this.GetProducts()
+    this.AssignProductToUpdateForm()
+
+  }
+  async GetProducts(){
+    await this.ProductService.GetProducts().then((products: any) => this.AllProducts = products)
   }
   AssignProductToUpdateForm() {
     this.UpdateProductForm.setValue({
@@ -44,6 +54,7 @@ export class UpdateProductComponent implements OnInit {
       Description: this.ProductToUpdate.itemdesc,
       LineName: this.ProductToUpdate.linename,
       Dimensions: this.ProductToUpdate.dimensions,
+      ParentProduct: this.ProductToUpdate.parentItemId || ""
 
     })
   }
@@ -52,6 +63,7 @@ export class UpdateProductComponent implements OnInit {
     this.ProductToUpdate.itemdesc = this.UpdateProductForm.get('Description')?.value
     this.ProductToUpdate.linename = this.UpdateProductForm.get('LineName')?.value
     this.ProductToUpdate.dimensions = this.UpdateProductForm.get('Dimensions')?.value
+    this.ProductToUpdate.parentItemId = this.UpdateProductForm.get('ParentProduct')?.value;
 
   }
   SaveDescriptionFileInObject(event: any) {

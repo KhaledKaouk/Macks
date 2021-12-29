@@ -1,4 +1,4 @@
-import { Inject } from "@angular/core"
+import { Inject, Type } from "@angular/core"
 import { MatDialog, MatDialogRef } from "@angular/material/dialog"
 import { Router } from "@angular/router"
 import { NgProgress } from "ngx-progressbar"
@@ -12,11 +12,13 @@ export let Directories: { [key: string]: string } = {
     CorinthainPo: "NP/"
 }
 export let Functionalities: { [key: string]: string[] } = {
-    Admin: ["Approve", "MackPo", "ShippingDocs", "Reject", "CorinthainPo", "ApplyChanges", "MackUpload", "Delete"],
+    Admin: ["Approve", "MackPo", "ShippingDocs", "Reject", "CorinthainPo", "ApplyChanges", "MackUpload", "Delete", "Cancel", "Hold"],
     Corinthain: ["ShippingDocs", "CorinthainPo", "ProductionRequestDate"],
     Alfemo: ["MackPo", "Update"]
 }
 
+export type Status = "Canceled" | "On Hold" | "Cancel Request" | "Hold Request" | "In Production"
+    | "Booked" | "confirm Po Receipt" | "Waiting For Production" | "ContainerBooked" | "Loading" | "Shipped";
 export type Tools = {
     notifications: NotificationserService,
     router: Router,

@@ -14,7 +14,7 @@ import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { DownLoadFile, UploadFile } from 'src/app/Utilities/FileHandlers';
 import { AdjustApprovalStatusForDisplay } from 'src/app/Utilities/PoHandlers';
-import { Directories, Functionalities, Tools } from 'src/app/Utilities/Variables';
+import { Directories, Functionalities, Status, Tools } from 'src/app/Utilities/Variables';
 import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component';
 
 @Component({
@@ -114,6 +114,18 @@ export class PoDetailsComponent implements OnInit {
     this.ViewedPO.approvalStatus = true;
     this.ViewedPO.status = "";
     window.alert("you need to hit Apply changes to Complete the process");
+  }
+  CancelPo(){
+    let StatusOption : Status;
+    StatusOption = 'Cancel Request';
+    this.ViewedPO.status = StatusOption;
+    this.MackUpdate();
+  }
+  HoldPo(){
+    let StatusOption : Status;
+    StatusOption = 'Hold Request';
+    this.ViewedPO.status = StatusOption;
+    this.MackUpdate()
   }
 
 

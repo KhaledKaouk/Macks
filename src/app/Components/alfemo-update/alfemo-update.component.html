@@ -22,6 +22,13 @@
     <input name="FinalDestination" type="text" formControlName="FinalDestination" placeholder="Final Destination">
   </div>
   <div class="InputWraper">
+    <label for="port">Port Name</label>
+    <select name="port" type="text" id="port" formControlName="port" aria-label="port Name"
+        placeholder="port Name" >
+        <option *ngFor= "let Port of AllPorts index as i" value={{Port.portName}}>{{Port.portName}}</option>
+    </select>
+</div>
+  <div class="InputWraper">
     <label for="ProductionStartDate">Production Start Date</label>
     <input name= 'ProductionStartDate' type='date' formControlName='ProductionStartDate' paceholder = 'ProductionStartDate'>
   </div>

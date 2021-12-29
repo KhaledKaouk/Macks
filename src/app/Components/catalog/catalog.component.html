@@ -1,11 +1,31 @@
 <div class="AddressHeader">
     <h1>Catalog</h1>
-    <h2>Home  /  Catalog</h2>
+    <h2>Home / Catalog</h2>
 </div>
 <div class="ProductSamples">
     <div *ngFor="let Product of ProductsList index as i" class="card">
-        <img src= {{Product.itempic}} alt="">
-        <button class="Image-overlay" (click) = ShowDetails(Product)>Add To Card</button>
+        <div class="ProductImage">
+            <img src={{GetItemImageLink(Product)}} alt="">
+            <button class="Image-overlay" (click)=ShowDetails(Product)>View Sections</button>
+            <button class="Image-overlay SpecSheet" (click) = ViewSpecSheet(Product)> View Spec Sheet</button>
+        </div>
+        <div id="sections" *ngIf="ProductDetails == Product._id">
+            <div *ngFor="let childProduct of GetProductChildren(Product); index as i">
+                <div id="Section" *ngIf='ChildProductOnDisplay == childProduct._id'>
+                    <div class = "childImage">
+                        <img src="{{GetItemImageLink(childProduct)}}" alt="" >
+                        <i class="fas fa-arrow-right fa-lg" (click) = NextSection(i)></i>
+                        <i class="fas fa-arrow-left fa-lg" (click) = PreviousSection(i)></i>
+                        <button (click) = "ViewImage(childProduct)">View Image</button>
+                    </div>
+                    <div id="Info">
+                        <label><b>Name :</b>  {{childProduct.itemname}}</label>
+                        <label><b>Line name :</b>  {{childProduct.linename}}</label>
+                        <label><b>Dimensions :</b>  {{childProduct.dimensions}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-    <ng-progress id="myProgress"></ng-progress>
+<ng-progress id="myProgress"></ng-progress>
