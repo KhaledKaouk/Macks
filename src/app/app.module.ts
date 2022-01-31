@@ -50,6 +50,11 @@ import { UpdateUserComponent } from './Components/update-user/update-user.compon
 import { UpdateProductComponent } from './Components/update-product/update-product.component';
 import { CreateProductComponent } from './Components/create-product/create-product.component';
 import { AllProductsComponent } from './Components/all-products/all-products.component';
+import { BillOfLadingComponent } from './Components/bill-of-lading/bill-of-lading.component';
+import { InvoicesComponent } from './Components/invoices/invoices.component';
+import { ISFComponent } from './Components/isf/isf.component';
+import { PackingListComponent } from './Components/packing-list/packing-list.component';
+import { DeclarationComponent } from './Components/declaration/declaration.component';
 
 
 @NgModule({
@@ -90,6 +95,11 @@ import { AllProductsComponent } from './Components/all-products/all-products.com
     CreateProductComponent,
     UpdateProductComponent,
     AllProductsComponent,
+    BillOfLadingComponent,
+    InvoicesComponent,
+    ISFComponent,
+    PackingListComponent,
+    DeclarationComponent,
   ],
   imports: [
     BrowserModule,

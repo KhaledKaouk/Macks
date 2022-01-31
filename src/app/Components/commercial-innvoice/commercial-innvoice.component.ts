@@ -5,11 +5,28 @@ import * as XLSX from 'xlsx';
 import * as ExcelJS from 'exceljs';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { first } from "rxjs/operators";
 import * as FileSaver from 'file-saver';
-import { FormatDate } from 'src/app/Utilities/Common';
+import { DIs, FormatDate, Spinner } from 'src/app/Utilities/Common';
 import { ProductShippingDetails } from 'src/app/Models/CommercialInvoice';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Invoice } from 'src/app/Models/Invoice';
+import { InvoiceService } from 'src/app/Services/invoice.service';
+import { NotificationserService } from 'src/app/Services/notificationser.service';
+import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
+import { PortService } from 'src/app/Services/port.service';
+import { POsService } from 'src/app/Services/pos.service';
+import { POs } from 'src/app/Models/Po-model';
+import { Shipment } from 'src/app/Models/Shipment';
+import { ShipmentService } from 'src/app/Services/shipment.service';
+import { CombineFilesInZip, ConstructFormDataFile, GenerateZipBlob, UploadFile } from 'src/app/Utilities/FileHandlers';
+import { APIURL } from 'src/app/Utilities/Variables';
+import * as JSZip from 'jszip';
+import * as ZipHandler from 'src/app/Utilities/ZipHandlers'
+import { Container } from '@angular/compiler/src/i18n/i18n_ast';
+
+
 @Component({
   selector: 'app-commercial-innvoice',
   templateUrl: './commercial-innvoice.component.html',
@@ -17,7 +34,7 @@ import { ProductShippingDetails } from 'src/app/Models/CommercialInvoice';
 })
 export class CommercialInnvoiceComponent implements OnInit {
 
-  InvoiceNumber: string = "10293812093801298"
+  InvoiceNumber: string = ""
   InvoiceDate: string = FormatDate(Date.now().toString());
   PS_Details: ProductShippingDetails[] = [];
 
@@ -29,29 +46,83 @@ export class CommercialInnvoiceComponent implements OnInit {
   FreightPrice: number = 0;
   GrantTotal: number = 0;
   POs: string[] = [];
-
+  PosIds: string[] = [];
+  AllPos: POs[] = [];
+  NewShipment: Shipment = new Shipment();
+  ShipmentToUpdate: Shipment = new Shipment();
+  ShippingDocs: any;
+  DeliveryDestination: string = "";
   InvoicePOs: string[] = [];
   PoFileNames: string[] = []
   CostumerAddressPart1: string = "";
   CostumerAddressPart2: string = "";
   CostumerAddressPart3: string = "";
   Port = "";
-  constructor(private dialog: MatDialog,
+  // Containers: string[] = []
+  NewInvoice: Invoice = new Invoice();
+  InvoiceToUpdate: Invoice = new Invoice();
+  Containers = new FormArray([
+  ])
+  InvoiceForm = new FormGroup({
+    Number: new FormControl('', Validators.required),
+    FreightPrice: new FormControl(),
+    PaymentMethod: new FormControl(),
+    Containers: this.Containers
+  })
+  constructor(
+    private dialog: MatDialog,
     private ActivatedRoute: ActivatedRoute,
+    private InvoiceService: InvoiceService,
+    private PosService: POsService,
+    private ShipmentService: ShipmentService,
+    private Notificationservice: NotificationserService,
+    private router: Router,
+    private spinner: Spinner,
+    private DIs: DIs,
   ) { }
 
-  ngOnInit(): void {
-    this.CreateCommercialInvoice();
+  AddContainer() {
+    this.Containers.push(new FormControl('', Validators.required))
   }
-  async GetPoFileNamesAndPort() {
-    await this.ActivatedRoute.queryParams.pipe(first()).toPromise().then(params => {
-      this.PoFileNames = params['IP'] as string[]
-      this.Port = params['Port'] as string
-    })
+  DeleteContainer(i: number) {
+    this.Containers.removeAt(i)
+  }
+  ngOnInit(): void {
+    this.PrepareDataForDisplay();
+  }
+  async PrepareDataForDisplay() {
+    await this.CreateCommercialInvoice()
+    await this.GetPOs();
   }
 
+  async GetPOs() {
+    await this.PosService.GetPos()
+      .then(
+        (pos: any) => {
+          this.AllPos = pos
+        },
+        err => Auth_error_handling(err, this.Notificationservice, this.router))
+    this.GetShipment();
+  }
+  CreateNewShipment() {
+    this.NewShipment.POs = this.AllPos.filter(po => this.PosIds.includes(po._id));
+    this.NewShipment.Invoice = this.NewInvoice;
+    this.NewShipment.DischargePort = this.Port;
+    this.NewShipment.Status = "Container Booked"
+    this.NewShipment.ContainerNumbers = this.InvoiceForm.get('Containers')?.value
+    this.NewShipment.DeliveryDestination = this.DeliveryDestination;
+  }
+  UpdateShipment() {
+    this.ShipmentToUpdate.POs = this.AllPos.filter(po => this.PosIds.includes(po._id));
+    this.ShipmentToUpdate.Invoice = this.InvoiceToUpdate;
+    this.ShipmentToUpdate.DischargePort = this.Port;
+    this.ShipmentToUpdate.Status = "Container Booked";
+    this.ShipmentToUpdate.ContainerNumbers = this.InvoiceForm.get('Containers')?.value
+    this.ShipmentToUpdate.DeliveryDestination = this.DeliveryDestination;
+
+  }
   async CreateCommercialInvoice() {
-    await this.GetPoFileNamesAndPort();
+    await this.GetPoFileNamesAndPortAndIds();
     for (let PoFileName of Array.from(this.PoFileNames)) {
       let PO = await this.getPO(PoFileName)
       await this.GetProductDetailsFromPoFile(await this.GetWorkSheet(PO))
@@ -59,10 +130,16 @@ export class CommercialInnvoiceComponent implements OnInit {
     }
     this.CalculateTotals(this.PS_Details);
   }
+  async GetPoFileNamesAndPortAndIds() {
+    await this.ActivatedRoute.queryParams.pipe(first()).toPromise().then(params => {
+      this.PoFileNames = params['IP'] as string[]
+      this.Port = params['Port'] as string
+      this.PosIds = params['PosIds'] as string[]
+
+    })
+  }
   async getPO(POFileName: string) {
-    let realapi = 'https://macksdistribution.com/Attatchments/NP/';
-    let localApi = 'http://localhost:5000/Assets/';
-    let ResponseWithPoBlob = await fetch(localApi + POFileName)
+    let ResponseWithPoBlob = await fetch(APIURL + 'Assets/NP/' + POFileName)
     let POBlob = await ResponseWithPoBlob.clone().blob();
 
     let POFile: any
@@ -82,21 +159,27 @@ export class CommercialInnvoiceComponent implements OnInit {
     var workbook = XLSX.read(bstr, { type: "binary" });
     var first_sheet_name = workbook.SheetNames[0];
     var worksheet = workbook.Sheets[first_sheet_name];
-    console.log(worksheet)
     return worksheet
   }
+  async GetShipment() {
+    let ShipmentId = this.AllPos.find(po => po._id == this.PosIds[0])?.ShipmentId || '';
+    if (ShipmentId != '') await this.ShipmentService.GetShipmentById(ShipmentId)
+      .then((shipment: any) => {
+        this.ShipmentToUpdate = shipment;
+        this.PS_Details = shipment.Invoice.ProductShippingDetails
+        this.InvoiceForm.get('Number')?.setValue(shipment.Invoice.Number)
+        this.InvoiceForm.get('FreightPrice')?.setValue(shipment.Invoice.FreightPrice)
+        this.InvoiceForm.get('PaymentMethod')?.setValue(shipment.Invoice.PaymentMethod)
+        shipment.ContainerNumbers.forEach((C: any) => this.Containers.push(new FormControl('', Validators.required)))
+        this.InvoiceForm.get('Containers')?.setValue(shipment.ContainerNumbers)
+      })
+    this.CalculateTotals(this.PS_Details);
 
-  GetPrdocutDetailsRowNumbers(Worksheet: XLSX.WorkSheet) {
-    let QTY: string = ''
-    let CellIndex: number = 18;
-    while (QTY != null) {
-      QTY = Worksheet['A' + CellIndex.toString()] ? Worksheet['A' + CellIndex.toString()] : null
-      CellIndex += 1;
-    }
-    return CellIndex - 3
   }
+
+
   async GetProductDetailsFromPoFile(WorkSheet: XLSX.WorkSheet) {
-    let CellIndexEnd = this.GetPrdocutDetailsRowNumbers(WorkSheet)
+    let CellIndexEnd = this.GetLastProductIndex(WorkSheet)
     let CellIndex: number = 18
     while (CellIndex <= CellIndexEnd) {
       let PSD = new ProductShippingDetails();
@@ -106,19 +189,29 @@ export class CommercialInnvoiceComponent implements OnInit {
       PSD.PRODUCT = WorkSheet['E' + CellIndex.toString()].v
       PSD.Po = WorkSheet['P5'].v
 
-      if(!this.CheckPoInPoList(PSD.Po)) this.POs.push(PSD.Po)
+      if (!this.CheckPoInPoList(PSD.Po)) this.POs.push(PSD.Po)
 
       this.PS_Details.push(PSD)
 
       CellIndex += 1;
     }
   }
+  GetLastProductIndex(Worksheet: XLSX.WorkSheet) {
+    let QTY: string = ''
+    let CellIndex: number = 18;
+    while (QTY != null) {
+      QTY = Worksheet['A' + CellIndex.toString()] ? Worksheet['A' + CellIndex.toString()] : null
+      CellIndex += 1;
+    }
+    return CellIndex - 3
+  }
   async GetCustomerAddress(WorkSheet: XLSX.WorkSheet) {
     this.CostumerAddressPart1 = WorkSheet['L10'].v
     this.CostumerAddressPart2 = WorkSheet['L11'].v
     this.CostumerAddressPart3 = WorkSheet['L12'].v
+    this.DeliveryDestination = WorkSheet['L10'].v + "," + WorkSheet['L11'].v + "," + WorkSheet['L12'].v
   }
-  CheckPoInPoList(Po: string){
+  CheckPoInPoList(Po: string) {
     return this.POs.includes(Po)
   }
 
@@ -152,22 +245,144 @@ export class CommercialInnvoiceComponent implements OnInit {
   AssignFreightPrice(event: any) {
     this.FreightPrice = event.target.value
     this.GrantTotal = parseFloat(this.FreightPrice.toString()) + parseFloat(this.TotalPrice.toString())
-
   }
-  GenerateInvoice() {
+
+
+  async GenerateInvoice() {
+    if (this.ShipmentToUpdate._id != '') {
+      this.GenerateUpatedInvoice();
+    } else {
+      this.CreateInvoice();
+
+      this.CreateNewShipment();
+      let NewShipmentId: string = "Unavailable";
+      NewShipmentId = await this.PostShipment();
+
+      this.NewInvoice.ShipmentId = NewShipmentId;
+      await this.PostInvoice();
+
+      this.AdjustHtmlPageForFileDisplay();
+
+      let pdf = await this.GeneratePdfFile();
+      let file: File = this.CreateInvoiceFile(pdf);
+      await this.UploadInvoiceFile(file)
+      this.router.navigate(['/ISF'], { queryParams: { Pos: this.PosIds, ShipmentId: NewShipmentId } })
+    }
+  }
+  async GenerateUpatedInvoice() {
+    this.UpdateInvoice();
+    this.PostUpdateInvoice();
+
+    this.UpdateShipment();
+    this.PostUpdateShipment();
+
     this.AdjustHtmlPageForFileDisplay();
+
+    let pdf = await this.GeneratePdfFile();
+    let file: File = this.CreateInvoiceFile(pdf);
+    this.ShippingDocs = await this.GetShippingDocs();
+    let JsZipShippingDocs = await this.GetJSZipShippingDocs(this.ShippingDocs);
+    JsZipShippingDocs.remove('Invoice.pdf');
+    JsZipShippingDocs.file(file.name, file)
+    let NewShippingDocs = await GenerateZipBlob(JsZipShippingDocs);
+
+    this.spinner.WrapWithSpinner(
+      UploadFile(
+        ConstructFormDataFile(NewShippingDocs, 'SD_' + this.ShipmentToUpdate.Invoice.Number + '.zip'),
+        'SD_' + this.ShipmentToUpdate.Invoice.Number + '.zip', this.DIs)
+    )
+    this.router.navigate(['Invoices'])
+  }
+  async GetJSZipShippingDocs(ShippingDocs: File) {
+    let CopyOfShippingDocs = new JSZip();
+    let OldDocs = await ZipHandler.Unzip(ShippingDocs)
+
+    OldDocs.forEach(file => {
+      if (this.GetFileExtenstion(file) != 'zip') {
+        CopyOfShippingDocs.file(file.name, file)
+      }
+    })
+    return CopyOfShippingDocs
+  }
+  async GeneratePdfFile() {
     let HtmlPage = document.getElementById("PDF")
-    if (HtmlPage) html2canvas(HtmlPage).then(canvas => {
+    var pdf = new jsPDF('p', 'pt', [1600, 1600]);
 
-      var pdf = new jsPDF('p', 'pt', [1600, 1600]);
-
-      pdf.html(HtmlPage ? HtmlPage : '', {
-        callback: function () {
-          pdf.save('CommercialInvoice.pdf');
-        }
-      });
+    await pdf.html(HtmlPage ? HtmlPage : '', {
+      callback: function () {
+        pdf.save('CommercialInvoice.pdf');
+      }
     });
-    this.GenerateISF();
+    return pdf
+  }
+  CreateInvoiceFile(PdfFile: jsPDF) {
+    return new File([PdfFile.output('blob')], 'Invoice.pdf', { type: 'application/pdf' });
+  }
+  CreateInvoice() {
+    this.NewInvoice.Number = this.InvoiceForm.get('Number')?.value;
+    this.NewInvoice.ProductsPrice = this.TotalPrice;
+    this.NewInvoice.BankDetails = "ZIRAAT BANKASI / IZMIR COMMERCIAL BRANCH, IZMIR, TURKEY";
+    this.NewInvoice.Date = this.InvoiceDate;
+    this.NewInvoice.IBANNo = "TR350001001751532978585010";
+    this.NewInvoice.SwiftCode = "TCZBTR2A";
+    this.NewInvoice.FreightPrice = this.InvoiceForm.get('FreightPrice')?.value;
+    this.NewInvoice.PaymentMethod = this.InvoiceForm.get('PaymentMethod')?.value;
+    this.NewInvoice.ProductShippingDetails = this.PS_Details;
+  }
+  UpdateInvoice() {
+    this.InvoiceToUpdate._id = this.ShipmentToUpdate.Invoice._id;
+    this.InvoiceToUpdate.Number = this.InvoiceForm.get('Number')?.value;
+    this.InvoiceToUpdate.ProductsPrice = this.TotalPrice;
+    this.InvoiceToUpdate.BankDetails = "ZIRAAT BANKASI / IZMIR COMMERCIAL BRANCH, IZMIR, TURKEY";
+    this.InvoiceToUpdate.Date = this.InvoiceDate;
+    this.InvoiceToUpdate.IBANNo = "TR350001001751532978585010";
+    this.InvoiceToUpdate.SwiftCode = "TCZBTR2A";
+    this.InvoiceToUpdate.FreightPrice = this.InvoiceForm.get('FreightPrice')?.value;
+    this.InvoiceToUpdate.PaymentMethod = this.InvoiceForm.get('PaymentMethod')?.value;
+    this.InvoiceToUpdate.ProductShippingDetails = this.PS_Details;
+  }
+  PostUpdateInvoice() {
+    this.spinner.WrapWithSpinner(this.InvoiceService.UpdateInvoice(this.InvoiceToUpdate)
+      .then(
+        res => this.Notificationservice.OnSuccess("Invoice Created"),
+        err => Auth_error_handling(err, this.Notificationservice, this.router
+        )))
+  }
+  async PostInvoice() {
+    this.spinner.WrapWithSpinner(this.InvoiceService.CreateInvoice(this.NewInvoice)
+      .then(
+        res => this.Notificationservice.OnSuccess("Invoice Created"),
+        err => Auth_error_handling(err, this.Notificationservice, this.router
+        )))
+  }
+  async UploadInvoiceFile(file: File) {
+    let InvoiceZip = await CombineFilesInZip([file])
+    UploadFile(
+      ConstructFormDataFile(InvoiceZip, 'SD_' + this.NewInvoice.Number + '.zip'),
+      'SD_' + this.NewInvoice.Number + '.zip',
+      this.DIs)
+  }
+  async PostShipment() {
+    let NewShipmentId: string = '';
+    await this.ShipmentService.CreatShipment(this.NewShipment)
+      .then(
+        (ShipmentId: any) => {
+          this.Notificationservice.OnSuccess('Shipment Created')
+          NewShipmentId = ShipmentId;
+        },
+        err => Auth_error_handling(err, this.Notificationservice, this.router
+        ));
+
+    return NewShipmentId
+  }
+  PostUpdateShipment() {
+    this.ShipmentService.UpdateShipment(this.ShipmentToUpdate)
+      .then(
+        (ShipmentId: any) => {
+          this.Notificationservice.OnSuccess('Shipment Created')
+        },
+        err => Auth_error_handling(err, this.Notificationservice, this.router
+        ));
   }
   AdjustHtmlPageForFileDisplay() {
     Array.from(document.getElementsByClassName('Draft')).forEach(DraftElement => {
@@ -179,220 +394,23 @@ export class CommercialInnvoiceComponent implements OnInit {
       }
     })
   }
+  async GetShippingDocs() {
+    let ShippingDocsFile: any;
 
-  AddHeaderToISFSheet(sheet: ExcelJS.Worksheet) {
-    sheet.columns = [
-      { header: 'Shipment Header', key: 'Key', width: 40 },
-      { header: '', key: 'Value', width: 40 },
-    ]
+    let ResponseWithShippingDocsBlob = await fetch(APIURL + 'Assets/SD/' + 'SD_' + this.ShipmentToUpdate.Invoice.Number + '.zip')
+    let ShippingDocsBlob = await ResponseWithShippingDocsBlob.clone().blob();
+
+    ShippingDocsFile = ShippingDocsBlob;
+    ShippingDocsFile.name = this.ShipmentToUpdate.Invoice.Number + '.zip'
+    ShippingDocsFile.lastModifiedDate = new Date();
+
+    return ShippingDocsFile as File
   }
-  AddISFKeysAndValues(sheet: ExcelJS.Worksheet) {
-    sheet.addRows([
-      {
-        Key: {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': '1. SELLERS NAME\n ' },
-            { 'font': { 'color': { 'theme': 0 } }, 'text': 'Party that - according to commercial invoice - is seller of the shipped goods. ' },
-          ]
-        },
-        Value: "ALFEMO MOBILYA SAN.TIC.AS\n" +
-          "YEDI EYLUL MAH. CELAL UMUR CAD. NO:12 TORBALI IZMIR TURKEY\n" +
-          "TEL:090 232 999 3000 FAX:090 232 853 1075"
-      },
-      {
-        Key:
-        {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': '2. BUYERS NAME AND ADDRESS\n' },
-            { 'font': { 'color': { 'theme': 0 } }, 'text': 'Party in US that - according to commercial invoice - is buyer of the shipped goods.' },
-          ]
-        },
-        Value: "MACKS FURNITURE WAREHOUSE\n" +
-          "1809 DICKINSON AVENUE,GREENVILLE,NC 27858\n" +
-          "TEL: 252-329-0837"
-      },
-      {
-        Key:
-        {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': '3. MANUFACTURER/SUPPLIER\n' },
-            {
-              'font': { 'color': { 'theme': 0 } }, 'text': "Party that produced, assembled or cultivated\n" +
-                "the shipped goods (manufacturer) or company\n" +
-                "that supplied the goods as they are (supplier)."
-            },
-          ]
-        },
-        Value: "ALFEMO MOBILYA SAN.TIC.AS\n" +
-          "YEDI EYLUL MAH. CELAL UMUR CAD. NO:12 TORBALI IZMIR TURKEY\n" +
-          "TEL:090 232 999 3000 FAX:090 232 853 1075"
-      },
-      {
-        Key:
-        {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': '4. SHIP TO PARTY\n' },
-            {
-              'font': { 'color': { 'theme': 0 } }, 'text': "Party in the USA that actually receives the \n" +
-                "shipped goods - can be a different party from\n" +
-                " buyer.."
-            },
-          ]
-        },
-        Value: this.CostumerAddressPart1 + this.CostumerAddressPart2 + this.CostumerAddressPart3
-      },
-      {
-        Key:
-        {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': '5. COUNTRY OF ORIGIN\n' }]
-        },
-        Value: "TURKEY"
-      },
-      {
-        Key:
-        {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': '6. HTS NUMBER(S)\n' }]
-        },
-
-        Value: "940161"
-      },
-      {
-        Key: {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': '7. CONTAINER STUFFING LOCATION AND ADDRESS\n' }]
-        },
-
-        Value: "ALFEMO MOBILYA SAN.TIC.AS\n" +
-          "YEDI EYLUL MAH. CELAL UMUR CAD. NO:12 TORBALI IZMIR TURKEY"
-      },
-      {
-        Key: {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': '8. CONSOLIDATOR NAME AND ADDRESS\n' }]
-        },
-
-        Value: ""
-      },
-      {
-        Key: {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': 'MB/L # (incl. SCAC)\n' }]
-        },
-
-        Value: ""
-      },
-      {
-        Key: {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': 'AMS-HB/L # (incl. SCAC)\n' }]
-        },
-
-        Value: ""
-      },
-      {
-        Key: {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': 'VESSEL NAME AND VOYAGE (mother vessel to US)\n' }]
-        },
-
-        Value: ""
-      },
-      {
-        Key: {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': 'ETD\n' }]
-        },
-
-        Value: ""
-      },
-      {
-        Key: {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': 'ETA\n' }]
-        },
-
-        Value: ""
-      },
-      {
-        Key: {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': 'PORT OF DISCHARGE IN US\n' }]
-        },
-
-        Value: this.Port
-      },
-      {
-        Key: {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': 'CONTAINER NO(S)\n' }]
-        },
-
-        Value: ''
-      },
-      {
-        Key: {
-          'richText': [
-            { 'font': { 'color': { 'theme': 0 }, 'bold': 'true' }, 'text': 'PO NO.\n' }]
-        },
-        Value: this.CombinePosToString()
-      },
-    ])
+  GetFileExtenstion(file: File) {
+    let indexOExtention = file.name.indexOf('.') + 1;
+    return file.name.substring(indexOExtention, file.name.length)
   }
-  CombinePosToString(){
-    let StringOfAllPos: string = ""; 
-    this.POs.forEach(Po => StringOfAllPos += ' ' + Po)
-    return StringOfAllPos
-  }
-  StyleISF(sheet: ExcelJS.Worksheet) {
-    sheet.getRows(2, 12)?.forEach(row => row.height = 90)
-    sheet.getRows(2, 16)?.forEach(row => {
-      this.SetupISFAlignment(row);
-      this.SetupISFHeaderStyle(row);
-      this.SetUpISFBorder(row);
-    })
-  }
-
-  SetupISFHeaderStyle(row: ExcelJS.Row) {
-    row.getCell('A').fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'c0504d' }
-    };
-    row.getCell('A').font = {
-      color: { argb: 'FFFFFF' }
-    }
-  }
-  SetupISFAlignment(row: ExcelJS.Row) {
-    row.getCell('B').alignment = { wrapText: true, vertical: 'middle' };
-    row.getCell('A').alignment = { wrapText: true, vertical: 'middle' };
-  }
-  SetUpISFBorder(row: ExcelJS.Row) {
-    row.getCell('A').border = row.getCell('B').border = {
-      top: { style: 'thick' },
-      left: { style: 'thick' },
-      bottom: { style: 'thick' },
-      right: { style: 'thick' }
-    }
-  }
-
-  async GenerateISF() {
-    let workbook = new ExcelJS.Workbook();
-
-    workbook.creator = 'Me';
-    workbook.lastModifiedBy = 'Me';
-    workbook.created = new Date(1985, 8, 30);
-    workbook.modified = new Date();
-    workbook.lastPrinted = new Date(2016, 9, 27);
-
-    let sheet = workbook.addWorksheet('ISF');
-    this.AddHeaderToISFSheet(sheet);
-    this.AddISFKeysAndValues(sheet)
-    this.StyleISF(sheet)
-    workbook.xlsx.writeBuffer()
-      .then(buffer => FileSaver.saveAs(new Blob([buffer]), 'ISF.xlsx'))
-
-
+  ChangeProductQuantity(index: number, event: any) {
+    this.PS_Details[index].QTY = event.target.value
   }
 }

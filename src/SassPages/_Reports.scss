@@ -62,7 +62,9 @@
     align-items: flex-start;
     position: relative;
     padding: 1.5rem;
-    border: 1px solid darken($Primary-color,15) ;
+    // border: 1px solid darken($Primary-color,15) ;
+    border: 1px solid #E86D50 ;
+
     .PoPropertyListHeader{
         font-weight: bold;
         position: absolute;
@@ -103,7 +105,8 @@
     align-items: center;
     flex-wrap: wrap;
     position: relative;
-    border: 1px solid darken($Primary-color,15) ;
+    // border: 1px solid darken($Primary-color,15) ;
+    border: 1px solid #E86D50 ;
     padding: 1rem;
     max-width: 30rem;
     min-width: 10rem;
@@ -146,11 +149,14 @@
     position: relative;
 
     padding: 0.5rem;
-    border: 1px solid darken($Primary-color,15) ;
+    // border: 1px solid darken($Primary-color,15) ;
+    border: 1px solid #E86D50 ;
     .OptionsHeader{
         font-weight: bold;
+        font-size: 1.5rem;
         position: absolute;
-        top: -1rem;
+        // color: #402E32;
+        top: -1.2rem;
         z-index: 10;
         background-color: white;
     }

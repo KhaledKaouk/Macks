@@ -1,86 +1,92 @@
 <div class="PoDetails">
     <mat-dialog-content>
-    <div class="PoDetailsWraper">
-        <div class="Potest">
-            <div class="labels">
-                <label>Dealer Name</label>
-                <label>Delaer Email </label>
-                <label>Dealer Po</label>
-                <label>Corinthain Po</label>
-                <label>Created By</label>
-                <label>Container No</label>       
-                <label>Production Start Date</label>       
-                <label>Production Finish Date</label>       
+        <div class="PoDetailsWraper">
+            <div class="Potest">
+                <div class="labels">
+                    <label>Dealer Name</label>
+                    <label>Delaer Email </label>
+                    <label>Dealer Po</label>
+                    <label>Corinthain Po</label>
+                    <label>Created By</label>
+                    <label>Container No</label>
+                    <label>Production Start Date</label>
+                    <label>Production Finish Date</label>
+                </div>
+                <div class="labels">
+                    <a>{{Dealer.name | EmptyField}}</a>
+                    <a>{{Dealer.email | EmptyField}}</a>
+                    <a>{{ViewedPO.dealerPoNumber | EmptyField}}</a>
+                    <a>{{ViewedPO.corinthianPoNumber | EmptyField}}</a>
+                    <a>{{ViewedPO.userId | EmptyField}}</a>
+                    <a>{{ViewedPO.containerNumber | EmptyField}}</a>
+                    <a>{{ViewedPO.productionStartDate | date:"MM/dd/yyyy" | EmptyField}}</a>
+                    <a>{{ViewedPO.productionFinishDate | date:"MM/dd/yyyy" | EmptyField}}</a>
+                </div>
             </div>
-            <div class="labels">
-                <a>{{Dealer.name | EmptyField}}</a>
-                <a>{{Dealer.email | EmptyField}}</a>
-                <a>{{ViewedPO.dealerPoNumber | EmptyField}}</a>
-                <a>{{ViewedPO.corinthianPoNumber | EmptyField}}</a>
-                <a>{{ViewedPO.userId | EmptyField}}</a>
-                <a>{{ViewedPO.containerNumber | EmptyField}}</a> 
-                <a>{{ViewedPO.productionStartDate | date:"MM/dd/yyyy" | EmptyField}}</a> 
-                <a>{{ViewedPO.productionFinishDate | date:"MM/dd/yyyy" | EmptyField}}</a> 
+            <div class="Potest">
+                <div class="labels">
+                    <label>Factory ETA</label>
+                    <label>Factory ESA</label>
+                    <label>Ship By</label>
+                    <label>Port</label>
+                    <label>Status</label>
+                    <label>Approval Status</label>
+                    <label *ngIf="UserIsAdmin">Created On</label>
+                    <label *ngIf="CheckIfHolley()">Invoice Date</label>
+                    <label>Factory Load Date</label>
+                    <label>Date Of Departure</label>
+                </div>
+                <div class="labels">
+                    <a>{{ViewedPO.factoryEstimatedArrivalDate | date:"MM/dd/yyyy" | EmptyField }} </a>
+                    <a>{{ViewedPO.factoryEstimatedShipDate | date:"MM/dd/yyyy" | EmptyField }}</a>
+                    <a>{{ViewedPO.shipBy | date:"MM/dd/yyyy" | EmptyField }}</a>
+                    <a>{{ViewedPO.port | EmptyField }}</a>
+                    <a>{{ViewedPO.status | EmptyField}}</a>
+                    <a>{{AdjustingDataForDisplay(ViewedPO.approvalStatus) | EmptyField}}</a>
+                    <a *ngIf="UserIsAdmin">{{ViewedPO.dateReceived | date:"MM/dd/yyyy" | EmptyField}}</a>
+                    <a *ngIf="CheckIfHolley()">{{ViewedPO.invoiceDate | date:"MM/dd/yyyy" | EmptyField}}</a>
+                    <a>{{ViewedPO.factoryLoadDate | date:"MM/dd/yyyy" | EmptyField }}</a>
+                    <a>{{ViewedPO.dateOfDeparture | date:"MM/dd/yyyy" | EmptyField }}</a>
+                </div>
             </div>
         </div>
-        <div class="Potest">
-            <div class="labels">
-                <label>Factory ETA</label>
-                <label>Factory ESA</label>
-                <label>Ship By</label>
-                <label>Port</label>
-                <label>Status</label>
-                <label>Approval Status</label>
-                <label *ngIf ="UserIsAdmin" >Created On</label>
-                <label *ngIf ="CheckIfHolley()" >Invoice Date</label>
-                <label>Factory Load Date</label>
-                <label>Date Of Departure</label>
+        <div class="PoDetailsWraper">
+            <div class="Potest">
+                <label>Alfemo Comments</label>
+                <p>{{ViewedPO.alfemoComments | EmptyField}}</p>
             </div>
-            <div class="labels">
-                <a>{{ViewedPO.factoryEstimatedArrivalDate | date:"MM/dd/yyyy" | EmptyField }} </a>
-                <a>{{ViewedPO.factoryEstimatedShipDate | date:"MM/dd/yyyy" | EmptyField }}</a>
-                <a>{{ViewedPO.shipBy | date:"MM/dd/yyyy" | EmptyField }}</a>
-                <a>{{ViewedPO.port | EmptyField }}</a>
-                <a>{{ViewedPO.status | EmptyField}}</a>
-                <a>{{AdjustingDataForDisplay(ViewedPO.approvalStatus) | EmptyField}}</a>
-                <a *ngIf ="UserIsAdmin">{{ViewedPO.dateReceived | date:"MM/dd/yyyy" | EmptyField}}</a>
-                <a *ngIf ="CheckIfHolley()">{{ViewedPO.invoiceDate | date:"MM/dd/yyyy" | EmptyField}}</a>
-                <a>{{ViewedPO.factoryLoadDate | date:"MM/dd/yyyy" | EmptyField }}</a>
-                <a>{{ViewedPO.dateOfDeparture | date:"MM/dd/yyyy" | EmptyField }}</a>
+            <div class="Potest">
+                <label>Corinthain Comments</label>
+                <p>{{ViewedPO.corinthianComments | EmptyField}}</p>
             </div>
         </div>
-    </div>
-    <div class="PoDetailsWraper">
-        <div class="Potest">
-            <label>Alfemo Comments</label>
-            <p>{{ViewedPO.alfemoComments | EmptyField}}</p>
+        <div class="PoDetailsWraper">
+            <div class="ShippingDocsList">
+                <label>Shipping Documents:</label>
+                <p *ngFor="let FileName of ShippindDocsFileNames; index as i" (click)="ViewFile(FileName)">{{i + 1}}.
+                    {{FileName}}</p>
+            </div>
         </div>
-        <div class="Potest">
-            <label>Corinthain Comments</label>
-            <p>{{ViewedPO.corinthianComments | EmptyField}}</p>
-        </div>
-    </div>
-    <div  id="buttons-1" class="buttons">
-        <div name="MackUpload" class="element">
-            <label tabindex="-1" for="file">Upload Po</label>
-            <input tabindex="-1" type="file" id="file" (change)=UploadPo($event)>
-        </div>
+        <div id="buttons-1" class="buttons">
+            <div name="MackUpload" class="element">
+                <label tabindex="-1" for="file">Upload Po</label>
+                <input tabindex="-1" type="file" id="file" (change)=UploadPo($event)>
+            </div>
 
-    </div>
-    <div id="buttons-2" class="buttons">
-        <a name="MackPo" (click)=DownloadMackPo()>DownloadMackPo </a>
-        <a name="ShippingDocs" (click)=DownloadShippingDocument()>DownloadShippingDocs </a>
-        <a name="CorinthainPo" (click)=DownloadcorithainPo()>DownloadCorinthainPo </a>
-        <a name="Reject" (click)= RejectPo()>RejectPo </a>
-        <a name="Approve" (click)= ApprovePo()>ApprovePo </a>
-        <a name="Cancel" (click)= CancelPo()>Cancel Po </a>
-        <a name="Hold" (click)= HoldPo()>Hold Po </a>
-        <a name="Delete" (click)= ConfirmDeleteRequest()>DeletePo </a>
-        <a name="Update" (click)= "Update()">UpdatePo</a>
-        <a name="ApplyChanges" id= "SubmitButton" (click)=Submit()>ApplyChanges</a>
-    </div>
+        </div>
+        <div id="buttons-2" class="buttons">
+            <a name="MackPo" (click)=DownloadMackPo()>DownloadMackPo </a>
+            <a name="ShippingDocs" (click)=ViewShippingDocs()>ViewShippingDocs </a>
+            <a name="CorinthainPo" (click)=DownloadcorithainPo()>DownloadCorinthainPo </a>
+            <a name="Reject" (click)=RejectPo()>RejectPo </a>
+            <a name="Approve" (click)=ApprovePo()>ApprovePo </a>
+            <a name="Cancel" (click)=CancelPo()>Cancel Po </a>
+            <a name="Hold" (click)=HoldPo()>Hold Po </a>
+            <a name="Delete" (click)=ConfirmDeleteRequest()>DeletePo </a>
+            <a name="Update" (click)="Update()">UpdatePo</a>
+            <a name="ApplyChanges" id="SubmitButton" (click)=Submit()>ApplyChanges</a>
+        </div>
     </mat-dialog-content>
 </div>
 <ng-progress id="PoPopUProgress"></ng-progress>
 <simple-notifications></simple-notifications>
-

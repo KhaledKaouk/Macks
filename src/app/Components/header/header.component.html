@@ -95,6 +95,9 @@
         <li *ngIf="CheckRole() === 'alfemo'">
             <label routerLink="Alfemo" for="check">Alfemo</label>
         </li>
+        <li *ngIf="CheckRole() !== '' && CheckRole() !== null ">
+            <label routerLink="Invoices" for="check">Shipments</label>
+        </li>
         <li *ngIf="CheckRole() !== '' && CheckRole() !== null " id="DealerSubMenutitle">
             <label id="NormalCursor">Freight Prices</label>
             <ul id="DealerSubMenu">

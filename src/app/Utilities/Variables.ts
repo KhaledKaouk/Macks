@@ -30,3 +30,4 @@ export type Tools = {
 
 export let InDevMode = localStorage.getItem('DevMode')?.toLowerCase() === "true" ? true : false
 
+export let APIURL = InDevMode ? 'http://localhost:5000/' : 'https://macksdis.com/';

@@ -1,0 +1,105 @@
+<div class="Invoice" id="PDF">
+    <div class="InvoiceHeader">
+        <div class="SellerInfo">
+            <label>SELLER:</label>
+            <a>ALFEMO MOBILYA SAN. TIC.A.S.</a>
+            <a> YEDİ EYLÜL MAH. CELAL UMUR CAD.NO:12</a>
+            <a> TORBALI / IZMIR - TURKEY</a>
+            <a> TEL : +90 232 999 30 00</a>
+            <a> FAX : +90 232 853 10 75</a>
+        </div>
+        <div class="InvoiceInfo">
+            <a>COMMERCIAL INVOICE</a>
+            <div>
+                <a>INVOICE DATE: </a>
+                <a>{{Shipment.Invoice.Date}}</a>
+            </div>
+            <div>
+                <a>INVOICE NUMBER: </a>
+                <a>{{Shipment.Invoice.Number}}</a>
+            </div>
+        </div>
+        <div class="BuyerInfo">
+            <div>
+                <label>BUYER:</label>
+                <a>Macks Furniture Warehouse</a>
+                <a>1809 Dickinson Avenue, Greenville, NC</a>
+            </div>
+
+            <div>
+                <label>Ship to</label>
+                <a style="white-space: pre-wrap;">{{Format()}}</a>
+            </div>
+            <div>
+                <label>Port</label>
+                <a>{{Shipment.DischargePort}}</a>
+            </div>
+        </div>
+    </div>
+    <table class="ProductsDetails PackingList ">
+        <thead>
+            <tr>
+                <th>NO</th>
+                <th>PRODUCT CODE</th>
+                <th>PRODUCT</th>
+                <th>PO</th>
+                <th>QTY</th>
+                <th>PACKS</th>
+                <th>TOTAL PACKS</th>
+                <th>UNIT KG</th>
+                <th>TOTAL KG</th>
+                <th>UNIT CUBM</th>
+                <th>TOTAL CUBM</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let CommercialInvoiceRow of Shipment.Invoice.ProductShippingDetails; index as i'>
+                <td>{{i + 1}}</td>
+                <td>{{CommercialInvoiceRow.PRODUCT_CODE}}</td>
+                <td>{{CommercialInvoiceRow.PRODUCT}}</td>
+                <td>{{CommercialInvoiceRow.Po}}</td>
+                <td>{{CommercialInvoiceRow.QTY}}</td>
+                <td>{{CommercialInvoiceRow.PACKS}}</td>
+                <td>{{CommercialInvoiceRow.TOTAL_PACKS}}</td>
+                <td>{{CommercialInvoiceRow.UNIT_KG}}</td>
+                <td>{{CommercialInvoiceRow.TOTAL_KG}}</td>
+                <td>{{CommercialInvoiceRow.UNIT_CUBM}}</td>
+                <td>{{CommercialInvoiceRow.TOTAL_CUBM}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{TotalQuantity}}</td>
+                <td></td>
+                <td>{{TotalPacks}}</td>
+                <td></td>
+                <td>{{TotalKG}}</td>
+                <td></td>
+                <td>{{TotalCUBM}}</td>
+                <td></td>
+
+            </tr>
+        </tbody>
+    </table>
+    <div class="InvoiceFooter">
+        <div class="labels">
+            <label>TRADE TERMS :</label>
+            <label>TOTAL PACKAGES:</label>
+            <label>G. WEIGHT(KGS):</label>
+            <label *ngFor="let Container of Shipment.ContainerNumbers; index as i">{{i + 1}} CONTAINER NUMBER:</label>
+            <label>DESC.OF GOODS:</label>
+        </div>
+        <div class="values">
+            <a name="TRADE TERMS">C&F {{Shipment.DischargePort}}</a>
+            <a name="TOTAL PACKAGES">{{TotalPacks}}</a>
+            <a name="G. WEIGHT(KGS)">{{TotalKG}}</a>
+            <span *ngFor="let Container of Shipment.ContainerNumbers; index as i">
+                <label>{{Container}}</label>
+            </span>
+            <label> UPHOLSTERED FURNITURE</label>
+        </div>
+    </div>
+    <button class='generateInvoice Draft' (click)="GeneratePackingList()">Generate Packing List</button>
+</div>

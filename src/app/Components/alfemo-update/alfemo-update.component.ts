@@ -1,17 +1,15 @@
-import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, RequiredValidator, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import * as JSZip from 'jszip';
-import { zip } from 'rxjs';
 import { POs } from 'src/app/Models/Po-model';
 import { port } from 'src/app/Models/port';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { PortService } from 'src/app/Services/port.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
-import { DIs, FormatDate, GetCurrentDate, ReplaceBackSlashInDate, Spinner } from 'src/app/Utilities/Common';
+import { DIs, FormatDate, Spinner } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import * as FileHandler from 'src/app/Utilities/FileHandlers';
 import { Status } from 'src/app/Utilities/Variables';
@@ -191,7 +189,7 @@ export class AlfemoUpdateComponent implements OnInit {
 
   async GetShippingDocs() {
     let localApi = 'http://localhost:5000/Assets/';
-    let realapi = 'https://macksdistribution.com/Attatchments/SD/'
+    let realapi = 'https://macksdis.com/Assets/SD/'
 
     let ShippingDocsFile: any;
 

@@ -1,8 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { rejects } from 'assert';
-import { NgProgress } from 'ngx-progressbar';
 import { Dealers } from 'src/app/Models/Dealers';
 import { POs } from 'src/app/Models/Po-model';
 import { DealersService } from 'src/app/Services/dealers.service';
@@ -14,7 +12,8 @@ import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { DownLoadFile, UploadFile } from 'src/app/Utilities/FileHandlers';
 import { AdjustApprovalStatusForDisplay } from 'src/app/Utilities/PoHandlers';
-import { Directories, Functionalities, Status, Tools } from 'src/app/Utilities/Variables';
+import { APIURL, Directories, Functionalities, Status, Tools } from 'src/app/Utilities/Variables';
+import { Unzip } from 'src/app/Utilities/ZipHandlers';
 import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component';
 
 @Component({
@@ -25,10 +24,12 @@ import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component'
 export class PoDetailsComponent implements OnInit {
 
   ViewedPO: POs = new POs();
-  AllDealers: Dealers[] =[];
+  AllDealers: Dealers[] = [];
   Dealer: Dealers = new Dealers();
   SeletedFile: any;
   UserIsAdmin = this.CheckIfAdmin();
+  ShippindDocsFileNames: string[] = [];
+  ShippingDocsFiles: File[] = [];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: [POs, string[]],
     private dialogref: MatDialogRef<PoDetailsComponent>,
@@ -48,20 +49,19 @@ export class PoDetailsComponent implements OnInit {
     this.AlertMackOnUploadedPO();
     this.CheckFunctionalities();
     this.GetAllDealers();
-
   }
 
   AdjustingDataForDisplay(approvalStatus: boolean) {
     return AdjustApprovalStatusForDisplay(approvalStatus);
   }
-  GetAllDealers(){
+  GetAllDealers() {
     this.spinner.WrapWithSpinner(this.DealerService.GetAllDealers().then((Dealers: any) => {
       this.AllDealers = Dealers;
       this.DisplayDealerInfo();
-    }),this.dialogref)
+    }), this.dialogref)
   }
-  DisplayDealerInfo(){
-    this.Dealer = GetDealerById(this.AllDealers,this.ViewedPO.dealer_id)
+  DisplayDealerInfo() {
+    this.Dealer = GetDealerById(this.AllDealers, this.ViewedPO.dealer_id)
   }
   RemoveDownloadButtonsForNullFilesAndCreateDisclaimers(HtmlElementName: string) {
     document.getElementsByName(HtmlElementName)[0].remove();
@@ -72,9 +72,9 @@ export class PoDetailsComponent implements OnInit {
   CheckFunctionalities() {
     this.RemoveNotAllowedButtons();
     if (this.CheckPoFileAndDownLoadButton(this.ViewedPO.mackPOAttach, "MackPo"))
-    this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('MackPo')
+      this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('MackPo')
     if (this.CheckPoFileAndDownLoadButton(this.ViewedPO.shippingDocs, "ShippingDocs"))
-    this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('ShippingDocs')
+      this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('ShippingDocs')
     if (this.CheckPoFileAndDownLoadButton(this.ViewedPO.corinthianPOAttach, "CorinthainPo"))
       this.RemoveDownloadButtonsForNullFilesAndCreateDisclaimers('CorinthainPo')
   }
@@ -99,8 +99,28 @@ export class PoDetailsComponent implements OnInit {
   DownloadcorithainPo() {
     DownLoadFile(Directories.CorinthainPo, this.ViewedPO.corinthianPOAttach)
   }
+  async ViewShippingDocs() {
+    let ShippingDocsFile: any;
 
+    let ResponseWithShippingDocsBlob = await fetch(APIURL + 'Assets/SD/' + this.ViewedPO.shippingDocs)
+    // let ResponseWithShippingDocsBlob = await fetch(APIURL + 'Assets/SD/SD_1.zip')
+    let ShippingDocsBlob = await ResponseWithShippingDocsBlob.clone().blob();
 
+    ShippingDocsFile = ShippingDocsBlob;
+    ShippingDocsFile.name = "1.zip"
+    ShippingDocsFile.lastModifiedDate = new Date();
+
+    this.ShippingDocsFiles = await Unzip(ShippingDocsFile);
+
+    this.ShippingDocsFiles.forEach(file => {
+      this.ShippindDocsFileNames.push(file.name)
+    })
+    return ShippingDocsFile as File
+  }
+  ViewFile(FileName: string) {
+    let file = this.ShippingDocsFiles.find(file => file.name.toLowerCase().includes(FileName.toLowerCase())) || new File([],'empty')
+    window.open(URL.createObjectURL(file))
+  }
   RejectPo() {
     if (this.ViewedPO.status == "") {
       this.ViewedPO.approvalStatus = false;
@@ -115,14 +135,14 @@ export class PoDetailsComponent implements OnInit {
     this.ViewedPO.status = "";
     window.alert("you need to hit Apply changes to Complete the process");
   }
-  CancelPo(){
-    let StatusOption : Status;
+  CancelPo() {
+    let StatusOption: Status;
     StatusOption = 'Cancel Request';
     this.ViewedPO.status = StatusOption;
     this.MackUpdate();
   }
-  HoldPo(){
-    let StatusOption : Status;
+  HoldPo() {
+    let StatusOption: Status;
     StatusOption = 'Hold Request';
     this.ViewedPO.status = StatusOption;
     this.MackUpdate()

@@ -158,4 +158,9 @@ export class DIs {
     }
 }
 
+export function FormatUSAAddress(address:string){
+    // return address.replace(/,/g,'<br>')
+    return address.replace(/ *, */g, '\n')
+    // return """asdasdasdasdasd  asdasdasdasdasd asdasdasdasd"""
+}
 

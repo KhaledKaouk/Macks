@@ -12,15 +12,16 @@
                     <th >Email</th>
                     <th class="LargeScreenOnly">Customer #</th>
                     <th class="LargeScreenOnly">Address</th>
+                    <th class="LargeScreenOnly">Port</th>
+                    <th class="LargeScreenOnly">View</th>
                     <th>Edit</th>
                     <th class="LargeScreenOnly">Delete</th>
-                    <th class="LargeScreenOnly">View</th>
                 </tr>
             </thead>
             <tbody id="tbody">
                 <tr *ngFor="let D of DataOfCurrentPage index as i">
                     <td >
-                        {{D.name}}
+                        <b>{{D.name}}</b>
                     </td>
                     <td >
                         {{D.email}}
@@ -30,6 +31,9 @@
                     </td>
                     <td class="LargeScreenOnly">
                         {{D.address}}
+                    </td>
+                    <td class="LargeScreenOnly">
+                        {{GetPortName(D.PortId)}}
                     </td>
                     <td >
                         <a type="button" (click)=ViewDealerProfile(D)>ViewProfile</a>

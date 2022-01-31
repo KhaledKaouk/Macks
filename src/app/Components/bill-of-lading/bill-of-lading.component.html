@@ -1,0 +1,46 @@
+<!-- <div class="BOLWhiteBloker" ></div>
+<div class="BackGround">
+    <div class="BOLForm">
+        <div class="PageControl" (click)= NextStep()>
+            <label>Previous</label>
+        </div>
+        <div class="InputSection" *ngIf = "Step">
+            <label >Enter the bill of lading number</label>
+            <input type="text">
+        </div>
+        <div class="InputSection" *ngIf = "!Step">
+            <label >how many containers?</label>
+            <input type="text">
+        </div>
+        <div class="PageControl" (click)= NextStep()>
+            <label>Next</label>
+        </div>
+    </div>
+</div> -->
+
+<div class="CreatePo" [formGroup]="BOLForm">
+    <div class="InputWraper">
+        <input name="BOLNumber" type="text" formControlName="Number" aria-label="BOL Number" placeholder="BOL Number">
+    </div>
+    <div class="InputWraper">
+        <input name="BookingNumber" type="text" formControlName="BookingNumber" aria-label="Booking Number"
+            placeholder="Booking Number">
+    </div>
+    <div class="InputWraper">
+        <input name="Vessel" type="text" formControlName="Vessel" aria-label="Vessel" placeholder="Vessel">
+    </div>
+    <div class="InputWraper">
+        <input name="LoadingPort" type="text" formControlName="LoadingPort" aria-label="Loading Port"
+            placeholder="Loading Port">
+    </div>
+    <div class="InputWraper">
+        <label>{{FileName}}</label>
+        <button (click)=OpenFileBrowser()>Upload BOL File</button>
+    </div>
+    <div class="InputWraper" style="display: none;">
+        <input id="file" type="file"(change) = "SelectFile($event)">
+    </div>
+    <div class="InputWraper">
+        <button (click)=Submit() [disabled]="!BOLForm.valid? true: false">Submit</button>
+    </div>
+</div>

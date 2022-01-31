@@ -1,0 +1,105 @@
+.ISFForm {
+    border-collapse: collapse;
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    .SubmitButton {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 60rem;
+        padding: 1rem;
+    }
+    .ISFHeader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 60rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+    }
+    div {
+        display: block;
+    }
+    .row {
+        border: 1px solid black;
+        min-height: 1.3rem;
+        display: flex;
+        align-items: center;
+        max-width: 60rem;
+        .input {
+            border-left: 1px solid black;
+            input {
+                outline: none;
+                border: none;
+                padding-left: 1rem;
+                min-width: 40rem;
+            }
+            label{
+                padding-left: 1rem;
+            }
+            input[type="date"]::-webkit-inner-spin-button,
+            input[type="date"]::-webkit-calendar-picker-indicator {
+                display: none;
+                -webkit-appearance: none;
+            }
+        }
+        .key {
+            min-width: 12rem;
+            padding-left: 0.2rem;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .VerticalKeys {
+            width: 50%;
+            border: 1px solid black;
+            padding-left: 0.5rem;
+        }
+        .VerticalValues {
+            border: 1px solid black;
+            width: 50%;
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        .VerticalNotes {
+            width: 50%;
+            border: 1px solid black;
+            font-size: 0.6rem;
+            padding-left: 0.5rem;
+            height: inherit;
+        }
+    }
+
+    .TableTest {
+        display: table;
+        border-collapse: collapse;
+        max-width: 60rem;
+
+        .row {
+            display: table-row;
+            .VerticalKeys {
+                display: table-cell;
+            }
+            .VerticalNotes {
+                display: table-cell;
+            }
+            .VerticalValues {
+                display: table-cell;
+            }
+        }
+        input {
+            min-width: none;
+            outline: none;
+            border: none;
+        }
+    }
+    .ISFFooter {
+        display: table-cell;
+        align-content: center;
+        text-align: center;
+        color: blue;
+        max-width: 60rem;
+    }
+}

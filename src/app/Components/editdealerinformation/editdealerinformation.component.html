@@ -15,6 +15,12 @@
     <div class="InputWraper">
         <input type="text" placeholder="Dealer Address" formControlName = "DealerAddress">
     </div>
+    <div class="InputWraper">
+        <label for="port">Port Name</label>
+        <select name="port" type="text" id="port" formControlName="DealerPort" aria-label="port Name" placeholder="port Name">
+            <option *ngFor="let Port of Ports index as i" value={{Port._id}}>{{Port.portName}}</option>
+        </select>
+    </div>
     <div>
         <button (click) = "UpdateDealer()" [disabled] = "(!DealerForm.valid || Loading)? true: false">Submit</button>
     </div>

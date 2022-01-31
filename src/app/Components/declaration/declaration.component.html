@@ -1,0 +1,340 @@
+<div class="DeclarationForm" id="PDF">
+    <div class="DeclarationHeader">
+        <div class="row">
+            <div class="Note">
+                According to the Paperwork Reduction Act of 1995, an agency may not conduct or sponsor, and a person is
+                not
+                required to respond to, a collection of information unless it displays a valid OMB control
+                number. The valid OMB control number for this information collection is 0579-0349 The time required to
+                complete
+                this information collection is estimated to average 0.5 hours per response, including
+                the time for reviewing instructions, searching existing data sources, gathering and maintaining the data
+                needed,
+                and completing and reviewing the collection of information.
+            </div>
+            <div class="FormNumber">
+                <label>
+                    <b>OMB APPROVED</b>
+                </label>
+                <label>
+                    0579-0349
+                </label>
+                <label>
+                    EXP.: 04/2022
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="Title right">UNITED STATES DEPARTMENT OF AGRICULTURE
+                ANIMAL AND PLANT HEALTH INSPECTION SERVICE
+                PLANT PROTECTION AND QUARANTINE</div>
+            <div class="Title Focus"><b>PLANT AND PLANT PRODUCT DECLARATION</b></div>
+        </div>
+    </div>
+    <div class="FirstSection">
+        <div>
+            <label class="FirstSectionTitle"><b>SECTION 1 - Shipment Information</b></label>
+        </div>
+        <div class="FirstSectionContainer">
+            <span class="Spliter"></span>
+            <div class="row">
+                <div>
+                    <div>1. ESTIMATED DATE OF ARRIVAL (MM/DD/YYYY)</div>
+                    <label>{{Shipment.ETA}}</label>
+                </div>
+                <div>
+                    <div>2. ENTRY NUMBER</div>
+                    <input type="text">
+                </div>
+            </div>
+            <div class="row LeftCellMerge">
+                <div>
+                    <div>3. CONTAINER NUMBER(S)</div>
+                    <label>{{ContainerNumbers}}</label>
+                </div>
+                <div>
+                    <div>4. BILL OF LADING</div>
+                    <label>{{Shipment.BOLNumber}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="EmptyCell"></div>
+                <div>
+                    <div>5. MANUFACTURER IDENTIFICATION CODE (MID)</div>
+                    <label>ALFEMO MOBILYA SAN. TIC.A.S.</label>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div>6. IMPORTER'S NAME</div>
+                    <label>MACKS FURNITURE WAREHOUSE</label>
+                </div>
+                <div>
+                    <div>7. CONSIGNEE'S NAME</div>
+                    <label>{{DealerName}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div>8. IMPORTER'S ADDRESS</div>
+                    <label>MACKS FURNITURE WAREHOUSE <br>
+                        1809 DICKINSON AVENUE GREENVILLE, NC 27834 UNITED STATES <br>
+                        PHONE: 252- 2583595 </label>
+                </div>
+                <div>
+                    <div>9. CONSIGNEE'S ADDRESS</div>
+                    <label style="white-space: pre-wrap;">{{FormatAddress()}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div>10. DESCRIPTION OF MERCHANDISE</div>
+                <label>UPHOLSTERY FURNITURE SECTIONAL</label>
+                <input type="text">
+            </div>
+        </div>
+    </div>
+    <div class="SecondSection">
+        <div class="SecondSectionHeader">SECTION 2 - Compliance with Lacey Act Requirements (16 U.S.C. 3372(f))</div>
+        <div class="Note">For each article or component of an article, provide the following:</div>
+        <table>
+            <thead>
+                <th>11. HTS NUMBER
+                    (no dashes/symbols)</th>
+                <th>12. ENTERED
+                    VALUE</th>
+                <th>13. ARTICLE/COMPONENT OF
+                    ARTICLE</th>
+                <th>14. PLANT SCIENTIFIC NAME
+                    Genus
+                    Species</th>
+                <th>15. COUNTRY
+                    OF HARVEST</th>
+                <th>16. QUANTITY
+                    OF PLANT
+                    MATERIAL</th>
+                <th>17. UNIT</th>
+                <th>18. PERCENT
+                    RECYCLED</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><label>{{Shipment.HTS}}</label> </td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="Note">I certify under penalty of perjury that, to the best of my knowledge and belief, the
+            information furnished
+            is true and correct.</div>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <div>PREPARER'S NAME (printed)</div>
+                        <input type="text">
+                    </td>
+                    <td>
+                        <div>PREPARER'S SIGNATURE</div>
+                        <input type="text">
+                    </td>
+                    <td>
+                        <div>EMAIL ADDRESS</div>
+                        <input type="text">
+                    </td>
+                    <td>
+                        <div>TELEPHONE NUMBER</div>
+                        <input type="text">
+                    </td>
+                    <td>
+                        <div>DATE (MM/DD/YYYY )</div>
+                        <input type="text">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="SecondSectionFooter">
+            <div>PPQ FORM 505<br>
+                APR 2020</div>
+            <div>(<b>NOTE</b>: Knowingly making any false statement in this Declaration for importation may subject the
+                declarant to criminal penalties in accordance with 16 U.S.C. 3373(d)).</div>
+        </div>
+        <div>(Previous editions are obsolete.)</div>
+    </div>
+    <div class="Instructions">
+        <div class="InstructionsHeader">INSTRUCTIONS FOR PPQ FORM 505 - PLANT AND PLANT PRODUCT DECLARATION</div>
+        <p>1 . <b>Estimated Date of Arrival:</b> Enter the date (MM/DD/YYYY) that the product is expected to enter the
+            United
+            States of America.</p>
+        <p>2 .<b> Entry Number:</b> Enter the U.S. Customs and Boarder Protection (CBP) entry number assigned to this
+            shipment.
+            (Format: xxx-xxxxxxx-x)</p>
+        <p>3 . <b> Container Number:</b> Enter the number of the shipping container in which the product is being
+            shipped -
+            available from your shipping company. If you have more than one
+            container number in your shipment, check the "See Attachment" box and list all of the containers on a
+            separate sheet. Attach the container list to the PPQ 505. If there is no
+            container number, please leave this section blank.</p>
+        <p>4 . <b>Bill of Lading:</b> Enter the Bill of Lading (BOL) number assigned to this shipment - available from
+            the shipping
+            company. If there is no Bill of Lading number, please leave this
+            section blank.</p>
+        <p>5 . <b>Manufacturer Identification Code (MID):</b> Available from the manufacturer or customs broker (19 CFR
+            Appendix to
+            Part 102).</p>
+        <p>6 . <b>Importer's Name:</b> Enter the name of the Import Company or individual for the product.</p>
+        <p>7 . <b>Consignee's Name:</b> Name of the individual or company who ordered and will ultimately receive the
+            shipment.</p>
+        <p>8 . <b>Importer's Address:</b> Enter the address of the Import Company or individual in block 6.</p>
+        <p>9 . <b>Consignee's Address:</b> Enter the address of the individual or company in block 7.</p>
+        <p>10 . <b>Description of the Merchandise:</b> Enter the name of the plant or plant product, and its use
+            (example: wooden
+            spoons for kitchenware). If the use is unknown, enter only the
+            name of the product (example: lumber).</p>
+        <p>11 . <b>HTS Number:</b> Enter the Harmonized Tariff Code for the merchandise described in #10 - available at
+            https://www.usitc.gov/</p>
+        <p>12 . <b>Entered Value:</b> In U.S. dollars, enter the value of the imported merchandise described in #10.</p>
+        <p>13 . <b>Article/Component of Article:</b> Enter a brief description of each article, or component of an
+            article, that is
+            manufactured from plants or plant parts. (Example: A decorative
+            item including a wood frame and 100% recycled paperboard - enter the frame as a line item and record the
+            percent of recycled material in the paperboard in block 18.)</p>
+        <p>14 . <b>Plant Scientific Name:</b> For each article/component in block 13, enter the scientific name (see
+            example below).
+            If the species of plant used to produce the product varies,
+            and the species used to produce the product is unknown, enter each species that may have been used to
+            produce the product. If the product was manufactured prior to the
+            Amendment and you</p>
+        <p>15 . <b>Country of Harvest:</b> Enter the country where the plant was harvested (see example below). If the
+            country of
+            harvest varies, and/or is unknown, enter all countries from
+            which the plant material in the product may have been harvested. NOTE: This is NOT the country of
+            manufacture/origin.</p>
+        <p>16 . <b>Quantity of Plant Material:</b> Enter the quantity of plant material for every line that contains a
+            different
+            country of harvest and species pair. (see example below).</p>
+        <p>17 . <b>Unit:</b> This is the Unit of Measure of the Plant Material. Use one of the following (see example
+            below):
+            Kilograms=kg, Grams=g, Centigrams=cg, Milligrams=mg, Kiloliter=kl,
+            Liters=l, Milliliters=ml, Millimeters=mm, Square Millimeters=</p>
+        <p>18 . <b>Percent Recycled:</b> If the product is paper or paperboard, enter the percentage of recycled
+            material it
+            contains (0 - 100%). If the percentage of recycled material varies,
+            enter the average percentage of recycled material used in the product (Example: If the percentage of
+            recycled material used is between 25% and 45%, enter 35%). <b> NOTE:
+                Do not complete this field if your imported product is NOT paper or paperboard. 
+            </b></p>
+            <p><b>Example</b></p>
+        <table>
+            <thead>
+                <th>11. HTS NUMBER
+                    (no dashes/symbols)</th>
+                <th>12. ENTERED
+                    VALUE</th>
+                <th>13. ARTICLE/COMPONENT OF
+                    ARTICLE</th>
+                <th>14. PLANT SCIENTIFIC NAME
+                    Genus
+                    Species</th>
+                <th>15. COUNTRY
+                    OF HARVEST</th>
+                <th>16. QUANTITY
+                    OF PLANT
+                    MATERIAL</th>
+                <th>17. UNIT</th>
+                <th>18. PERCENT
+                    RECYCLED</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>9401692010</td>
+                    <td>1354</td>
+                    <td>Bentwood Seats Made of Oak</td>
+                    <td>Quercus lineata</td>
+                    <td>Indonesia</td>
+                    <td>500</td>
+                    <td>kg</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>4407950000</td>
+                    <td>8442</td>
+                    <td>European ash lumber (2" x 4")</td>
+                    <td>Fraxinus excelsior</td>
+                    <td>Switzerland</td>
+                    <td>52</td>
+                    <td>m 3</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+        <p><b>SUBMISSION OF PAPER DECLARATION:</b> Importers should have a copy of the form available for CBP to review at the
+            port of entry. After CBP clears the shipment, the importer must mail the
+            original form to the U.S. Department of Agriculture at the following address: The Lacey Act, c/o
+            USDA/APHIS/PPQ, Box 10, 4700 River Road, Riverdale, MD 20737</p>
+        <p><b> NOTE: You may use a continuation sheet, PPQ FORM 505B, should more space be required. Make as many copies as
+            necessary. Failure to include any and all of the required
+            information will result in the rejection of your declaration.</b></p>
+        <p><b> SPECIAL NOTE: IF YOU HAVE FILED A LACEY ACT PLANT AND PLANT PRODUCT DECLARATION ELECTRONICALLY, THERE IS NO
+            NEED TO FILE A PAPER DECLARATION.</b></p>
+    </div>
+    <div class="Submitbutton">
+        <a class="button Draft" (click) = "Submit()">Generate Declaration</a>
+    </div>
+</div>

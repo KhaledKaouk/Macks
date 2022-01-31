@@ -19,7 +19,8 @@
 
         </div>
         <div class="CheckItem">
-            <input id="corinthianPoNumber" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <input id="corinthianPoNumber" type="checkbox" name="CheckBox" checked
+                (input)="AddOrDeleteIntoReport($event)">
             <label for="corinthianPoNumber">Corinthian Po </label>
 
         </div>
@@ -29,7 +30,8 @@
 
         </div>
         <div class="CheckItem">
-            <input id="corinthianComments" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <input id="corinthianComments" type="checkbox" name="CheckBox" checked
+                (input)="AddOrDeleteIntoReport($event)">
             <label for="corinthianComments">Corinthian Comments </label>
         </div>
         <div class="CheckItem">
@@ -41,15 +43,18 @@
             <label for="status">Status </label>
         </div>
         <div class="CheckItem">
-            <input id="factoryEstimatedShipDate" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <input id="factoryEstimatedShipDate" type="checkbox" name="CheckBox" checked
+                (input)="AddOrDeleteIntoReport($event)">
             <label for="factoryEstimatedShipDate">Factory ESA </label>
         </div>
         <div class="CheckItem">
-            <input id="factoryEstimatedArrivalDate" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <input id="factoryEstimatedArrivalDate" type="checkbox" name="CheckBox" checked
+                (input)="AddOrDeleteIntoReport($event)">
             <label for="factoryEstimatedArrivalDate">Facroty ETA </label>
         </div>
         <div class="CheckItem">
-            <input id="finalDestLocation" type="checkbox" name="CheckBox" checked (input)="AddOrDeleteIntoReport($event)">
+            <input id="finalDestLocation" type="checkbox" name="CheckBox" checked
+                (input)="AddOrDeleteIntoReport($event)">
             <label for="finalDestLocation">Final Destination </label>
         </div>
         <div class="CheckItem">
@@ -68,7 +73,7 @@
     </div>
     <div class="FilterSection">
         <label class="OptionsHeader">Search By</label>
-        <div class="Options" [formGroup] = "Options">
+        <div class="Options" [formGroup]="Options">
             <div class="InputWraper">
                 <label for="DealerName">Dealer Name</label>
                 <select name="DealerName" type="text" id="DealerName" formControlName="DealerId"
@@ -87,8 +92,8 @@
             </div>
             <div class="InputWraper">
                 <label for="FromShipDate">From ESA</label>
-                <input name="FromShipDate" type="date" formControlName="FromShipDate" class="input" aria-label="FromShipDate"
-                     placeholder="From Ship Date">
+                <input name="FromShipDate" type="date" formControlName="FromShipDate" class="input"
+                    aria-label="FromShipDate" placeholder="From Ship Date">
             </div>
             <div class="InputWraper">
                 <label for="ToShipDate">To ESA</label>
@@ -99,8 +104,8 @@
         <div id="Dealers">
             <label class="SearcHeader">Selected Filters</label>
         </div>
-        <a class="button" (click)= GenerateReport()>Generate Filtered Report</a>
-        <a class="button" (click)= GenerateWeeklyReport()>Generate weekly Report</a>
-        <a class="button DefaultReport" (click)= GenerateDefaultReport()>Generate Default Report</a>
+        <a class="button" (click)=GenerateReport()>Generate <b>Filtered</b> Report</a>
+        <a class="button" (click)=GenerateWeeklyReport()>Generate <b>weekly</b> Report</a>
+        <a class="button" (click)=GenerateDefaultReport()>Generate <b>Default</b> Report</a>
     </div>
 </div>

@@ -14,6 +14,7 @@ import { ExportPosToXLSX } from 'src/app/Utilities/ReportsHandlers';
 import { DealersService } from 'src/app/Services/dealers.service';
 import { Dealers } from 'src/app/Models/Dealers';
 import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-admin',
@@ -69,13 +70,13 @@ export class AdminComponent implements OnInit {
     }))
   }
 
-  GetAllDealers(){
+  GetAllDealers() {
     this.spinner.WrapWithSpinner(this.dealerService.GetAllDealers().then((Dealers: any) => {
       this.AllDealers = Dealers
     }))
   }
-  DisplayDealerName(dealerId: string){
-    return GetDealerById(this.AllDealers,dealerId).name
+  DisplayDealerName(dealerId: string) {
+    return GetDealerById(this.AllDealers, dealerId).name
   }
   VeiwPoDetails(P: POs) {
     let dialogRef = this.dialog.open(PoDetailsComponent, {
@@ -111,7 +112,7 @@ export class AdminComponent implements OnInit {
     return AdjustApprovalStatusForDisplay(approvalStatus);
   }
   SearchPos(event: any) {
-    this.SliceDataForPaginantion(0, FilterPosBy(this.AllPos,this.AllDealers, event.target.value))
+    this.SliceDataForPaginantion(0, FilterPosBy(this.AllPos, this.AllDealers, event.target.value))
   }
   ExportPosToExcel() {
     ExportPosToXLSX(this.AllPos)
@@ -124,29 +125,48 @@ export class AdminComponent implements OnInit {
     this.router.navigate(['/DealerProfile', dealer_Id])
   }
   ViewInvoiceForm() {
-    this.router.navigate(['/Invoice'], {queryParams:{IP:this.GetCorinthianPoFileNames(),Port:this.InvoicePOs[0].port}})
+    this.router.navigate(['/Invoice'], { queryParams: { IP: this.GetCorinthianPoFileNames(), Port: this.InvoicePOs[0].port,PosIds:this.GetPoIds() } })
   }
+  GetPoIds() {
+    let PoIds: string[] = [];
+    this.InvoicePOs.forEach(Po => PoIds.push(Po._id))
 
-  GetCorinthianPoFileNames(){
+    return PoIds;
+  }
+  GetCorinthianPoFileNames() {
     let PoFileNames: string[] = []
-    this.InvoicePOs.forEach(Po =>PoFileNames.push(Po.corinthianPOAttach))
+    this.InvoicePOs.forEach(Po => PoFileNames.push(Po.corinthianPOAttach))
     return PoFileNames
   }
   AddPoToInvoice(Po: POs) {
     if (!this.CheckPoInInvoice(Po) && this.CheckPortOfPo(Po)) {
       this.InvoicePOs.push(Po)
       this.notification.DisplayInfo('You have added Po of: ' + Po.dealerPONumber + ' to the invoice')
-    }else{
+    } else {
       this.notification.OnError('you have added this Po or the port of the Po doesnot match')
     }
   }
-  CheckPortOfPo(Po: POs){
+  CheckPortOfPo(Po: POs) {
     return this.InvoicePOs.length == 0 || this.InvoicePOs[0].port == Po.port
   }
   CheckPoInInvoice(Po: POs) {
     return this.InvoicePOs.includes(Po)
   }
-  removePoFromInvoice(Po: POs){
-    this.InvoicePOs.splice(this.InvoicePOs.indexOf(Po),1)
+  removePoFromInvoice(Po: POs) {
+    this.InvoicePOs.splice(this.InvoicePOs.indexOf(Po), 1)
+  }
+  ArchivePo(Po: POs){
+    Po.Archived = true;
+    this.spinner.WrapWithSpinner(this.poservice.UpdatePo(Po).toPromise().then(
+      res => this.notification.OnSuccess('Po has been archived'),
+      err => Auth_error_handling(err,this.notification,this.router)
+    ))
+  }
+  UnArchivePo(Po: POs){
+    Po.Archived = false;
+    this.spinner.WrapWithSpinner(this.poservice.UpdatePo(Po).toPromise().then(
+      res => this.notification.OnSuccess('Po has been Unarchived'),
+      err => Auth_error_handling(err,this.notification,this.router)
+    ))
   }
 }

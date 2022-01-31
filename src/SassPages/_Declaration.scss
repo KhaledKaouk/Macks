@@ -1,0 +1,196 @@
+.DeclarationForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem;
+    .DeclarationHeader {
+        display: flex;
+        flex-direction: column;
+        border-top: 2px solid black;
+        .row {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid black;
+            .Note {
+                padding: 0.5rem;
+                font-size: 0.65rem;
+                line-height: 90%;
+            }
+            .FormNumber {
+                text-align: center;
+                border-left: 1px solid black;
+                padding: 0.5rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                label {
+                    white-space: nowrap;
+                }
+            }
+            .Title {
+                padding: 0.5rem;
+                width: 50%;
+                font-size: 0.8rem;
+            }
+            .right {
+                padding-left: 10rem;
+                padding-right: 3rem;
+                text-align: center;
+            }
+            .Focus {
+                font-size: 1.2rem;
+            }
+        }
+    }
+    .FirstSection {
+        input{
+            outline: none;
+            border: none;
+            &:hover{
+                outline: none;
+                border: none;
+            }
+        }
+        .FirstSectionContainer {
+            position: relative;
+            .Spliter {
+                position: absolute;
+                height: 100%;
+                right: 51%;
+                border-right: 1px solid black;
+            }
+        }
+        .row {
+            position: relative;
+            display: flex;
+            border-bottom: 1px solid black;
+            div {
+                width: 50%;
+                font-weight: bold;
+                font-size: 0.8rem;
+                padding-left: 0.4rem;
+            }
+            label {
+                font-weight: normal;
+                padding: 0rem;
+            }
+        }
+        .LeftCellMerge::before{
+            content: '';
+            position: absolute;
+            background-color: white;
+            height: 2px;
+            width: 49%;
+            bottom: -2px;
+            left: 0;
+        }
+        .FirstSectionTitle {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 1px solid black;
+        }
+    }
+    .SecondSection{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        .SecondSectionHeader{
+            font-weight: bold;
+            border-bottom: 1px solid black;
+        }
+        .Note{
+            text-align: left;
+            border-bottom: 1px solid black;
+        }
+        table{
+            display: table;
+            border-collapse: collapse;
+            tr,thead{
+                td,th{
+                    height: 2.2rem;
+                    border: 1px solid black;
+                    input{
+                        width: 100%;
+                        outline: none;
+                        border: none;
+                        &:hover{
+                            outline: none;
+                            border: none;
+                        }
+                    }
+                }
+                td:first-of-type{
+                    border-left: none;
+                }
+                td:last-of-type{
+                    border-right: none;
+                }
+                th:first-of-type{
+                    border-left: none;
+                }
+                th:last-of-type{
+                    border-right: none;
+                }
+            }
+        }
+        .SecondSectionFooter{
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+            font-size: 0.8rem;
+        }
+    }
+    .Instructions{
+        display: flex;
+        flex-direction: column;
+        padding-top: 3rem;
+        .InstructionsHeader{
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            text-decoration: underline;
+            padding: 2rem;
+        }
+        p{
+            font-size: 0.8rem;
+            margin-bottom: 0.1rem;
+        }
+        table{
+            text-align: center;
+            display: table;
+            border-collapse: collapse;
+            tr,thead{
+                td,th{
+                    height: 2.2rem;
+                    border: 1px solid black;
+                    input{
+                        width: 100%;
+                        outline: none;
+                        border: none;
+                        &:hover{
+                            outline: none;
+                            border: none;
+                        }
+                    }
+                }
+                td:first-of-type{
+                    border-left: none;
+                }
+                td:last-of-type{
+                    border-right: none;
+                }
+                th:first-of-type{
+                    border-left: none;
+                }
+                th:last-of-type{
+                    border-right: none;
+                }
+            }
+        }
+    }
+    .Submitbutton{
+        padding: 2rem;
+        align-self: center;
+    }
+}

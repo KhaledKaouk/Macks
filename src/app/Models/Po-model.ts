@@ -25,8 +25,10 @@ export class POs {
     productionRequestTime: string;
     approvalStatus: boolean;
     deleted: boolean;
+    Archived: boolean;
     invoiceDate: string;
     port: string;
+    ShipmentId: string;
     [key:string]: string | boolean | number;
     constructor(){
             this._id = "";
@@ -57,6 +59,8 @@ export class POs {
             this.deleted = false;
             this.invoiceDate = "";
             this.port = "";
+            this.ShipmentId ="";
+            this.Archived = false;
     }
 
 }

@@ -1,0 +1,203 @@
+<div class="ShppingDocs">
+    <div class="Invoices">
+        <div class="SearchInput"><input type="text" placeholder="Search" (input)="SearchShipments($event)"></div>
+        <div class="DataTableWraper">
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="LargeScreenOnly">Invoice Number</th>
+                            <th class="LargeScreenOnly">Invoice Date</th>
+                            <th class="LargeScreenOnly">BOL Number</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <tr *ngFor="let Shipment of DataOfCurrentPage index as i">
+                            <td class="LargeScreenOnly ClickableTd" (click)="ShowShppingDocsDetails(Shipment)">
+                                {{Shipment.Invoice.Number}}
+                            </td>
+                            <td>
+                                {{Shipment.Invoice.Date | EmptyField}}
+                            </td>
+                            <td class="LargeScreenOnly ClickableTd" >
+                                {{Shipment.BOLNumber | EmptyField}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <nav class="pagination" aria-label="Page navigation example">
+                    <ul>
+                        <li><button (click)=PreviousPage()>Previous</button></li>
+                        <li *ngFor="let PC of PageCountArray index as i"><button (click)=SliceDataForPaginantion(i)
+                                [ngClass]="{'CurrentPage': CurrentPage === i}">{{i}}</button>
+                        </li>
+                        <li><button (click)=NextPage()>Next</button></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="InvoiceDetails" >
+        <div class="Blocker" *ngIf =  "SelectedShipment._id == ''">Select a shipment from the table </div>
+        <div class="POs" [ngClass]="{'DisabledSection': SelectedShipment._id == '' }">
+            <label (click)='ViewPOs()' [ngClass]="{'ActiveTab': !ShipmentOnDisplay}" class="SectionHeader Tab1">Shipment
+                Pos: {{PoIndex}}/{{SelectedShipment.POs.length}}</label>
+            <label (click)='ViewShipment()' [ngClass]="{'ActiveTab': ShipmentOnDisplay}"
+                class="SectionHeader Tab2">Shipment</label>
+            <i *ngIf="!ShipmentOnDisplay" class="fas fa-arrow-left fa-lg LeftArrow" (click)=PreviousPo()></i>
+            <i *ngIf="!ShipmentOnDisplay" class="fas fa-arrow-right fa-lg RightArrow" (click)=NextPo()></i>
+            <div *ngIf="!ShipmentOnDisplay" class="PoDetails">
+                <mat-dialog-content>
+                    <div class="PoDetailsWraper">
+                        <div class="Potest">
+                            <div class="labels">
+                                <label>Dealer Name</label>
+                                <label>Delaer Email </label>
+                                <label>Dealer Po</label>
+                                <label>Corinthain Po</label>
+                                <label>Created By</label>
+                                <label>Container No</label>
+                                <label>Production Start Date</label>
+                                <label>Production Finish Date</label>
+                            </div>
+                            <div class="labels">
+                                <a>{{Dealer.name | EmptyField}}</a>
+                                <a>{{Dealer.email | EmptyField}}</a>
+                                <a>{{ViewedPO.dealerPoNumber | EmptyField}}</a>
+                                <a>{{ViewedPO.corinthianPoNumber | EmptyField}}</a>
+                                <a>{{ViewedPO.userId | EmptyField}}</a>
+                                <a>{{ViewedPO.containerNumber | EmptyField}}</a>
+                                <a>{{ViewedPO.productionStartDate | date:"MM/dd/yyyy" | EmptyField}}</a>
+                                <a>{{ViewedPO.productionFinishDate | date:"MM/dd/yyyy" | EmptyField}}</a>
+                            </div>
+                        </div>
+                        <div class="Potest">
+                            <div class="labels">
+                                <label>Factory ETA</label>
+                                <label>Factory ESA</label>
+                                <label>Ship By</label>
+                                <label>Port</label>
+                                <label>Status</label>
+                                <label>Approval Status</label>
+                                <label *ngIf="UserIsAdmin">Created On</label>
+                                <label *ngIf="CheckIfHolley()">Invoice Date</label>
+                                <label>Factory Load Date</label>
+                                <label>Date Of Departure</label>
+                            </div>
+                            <div class="labels">
+                                <a>{{ViewedPO.factoryEstimatedArrivalDate | date:"MM/dd/yyyy" | EmptyField }} </a>
+                                <a>{{ViewedPO.factoryEstimatedShipDate | date:"MM/dd/yyyy" | EmptyField }}</a>
+                                <a>{{ViewedPO.shipBy | date:"MM/dd/yyyy" | EmptyField }}</a>
+                                <a>{{ViewedPO.port | EmptyField }}</a>
+                                <a>{{ViewedPO.status | EmptyField}}</a>
+                                <a>{{AdjustingDataForDisplay(ViewedPO.approvalStatus) | EmptyField}}</a>
+                                <a *ngIf="UserIsAdmin">{{ViewedPO.dateReceived | date:"MM/dd/yyyy" | EmptyField}}</a>
+                                <a *ngIf="CheckIfHolley()">{{ViewedPO.invoiceDate | date:"MM/dd/yyyy" | EmptyField}}</a>
+                                <a>{{ViewedPO.factoryLoadDate | date:"MM/dd/yyyy" | EmptyField }}</a>
+                                <a>{{ViewedPO.dateOfDeparture | date:"MM/dd/yyyy" | EmptyField }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="PoDetailsWraper">
+                        <div class="Potest">
+                            <label>Alfemo Comments</label>
+                            <p>{{ViewedPO.alfemoComments | EmptyField}}</p>
+                        </div>
+                        <div class="Potest">
+                            <label>Corinthain Comments</label>
+                            <p>{{ViewedPO.corinthianComments | EmptyField}}</p>
+                        </div>
+                    </div>
+                </mat-dialog-content>
+            </div>
+            <div *ngIf="ShipmentOnDisplay" class="PoDetails">
+                <mat-dialog-content>
+                    <div class="PoDetailsWraper">
+                        <div class="Potest">
+                            <div class="labels">
+                                <label>Dealer Name</label>
+                                <label>Delaer Email </label>
+                                <label>BOL Number</label>
+                                <label>Status</label>
+                                <label>Vessel</label>
+                                <label>Discharge Port</label>
+                            </div>
+                            <div class="labels">
+                                <a>{{Dealer.name | EmptyField}}</a>
+                                <a>{{Dealer.email | EmptyField}}</a>
+                                <a>{{SelectedShipment.BOLNumber | EmptyField}}</a>
+                                <a>{{SelectedShipment.Status | EmptyField}}</a>
+                                <a>{{SelectedShipment.Vessel | EmptyField}}</a>
+                                <a>{{SelectedShipment.DischargePort | EmptyField}}</a>
+                            </div>
+                        </div>
+                        <div class="Potest">
+                            <div class="labels">
+                                <!-- <label>Container Numbers</label> -->
+                                <label>ETA</label>
+                                <label>ETD</label>
+                                <label>Loading Date</label>
+                                <label>HBL</label>
+                                <label>MBL</label>
+                                <label>HTS</label>
+                            </div>
+                            <div class="labels">
+                                <!-- <a>{{SelectedShipment.ContainerNumbers | EmptyField }} </a> -->
+                                <a>{{SelectedShipment.ETA | date:"MM/dd/yyyy" | EmptyField }}</a>
+                                <a>{{SelectedShipment.ETD | date:"MM/dd/yyyy" | EmptyField }}</a>
+                                <a>{{SelectedShipment.LoadingDate | EmptyField }}</a>
+                                <a>{{SelectedShipment.HBL | EmptyField}}</a>
+                                <a>{{SelectedShipment.MBL | EmptyField }}</a>
+                                <a>{{SelectedShipment.HTS | EmptyField }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </mat-dialog-content>
+            </div>
+            <ng-progress id="PoPopUProgress"></ng-progress>
+        </div>
+        <div class="Docs" [ngClass]="{'DisabledSection': SelectedShipment._id == '' }">
+            <div class="File">
+                <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('Invoice')}"
+                    (click)="ViewFile('Invoice')">Invoice ( {{SelectedShipment.Invoice.Number}} )</a>
+                <a (click)='ViewInvoiceForm()' *ngIf= "CheckRole() === 'alfemo'" >Edit</a>
+            </div>
+            <div class="File">
+                <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('ISF')}" (click)="ViewFile('ISF')">ISF</a>
+                <a (click)='ViewISFForm()' *ngIf= "CheckRole() === 'alfemo'">Edit</a>
+            </div>
+            <div class="File">
+                <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('BOL')}" (click)="ViewFile('BOL')">BOL</a>
+                <a (click) = "UploadBOL()" *ngIf= "CheckRole() === 'alfemo'">Upload BOL</a>
+            </div>
+            <div class="File">                
+                <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('General Conformity Certificate')}"
+                    (click)="ViewFile('General Conformity Certificate')">General Conformity Certificate</a>
+                    <a (click) = "UploadFile('General Conformity Certificate')" *ngIf= "CheckRole() === 'alfemo'">Upload</a>
+
+            </div>
+            <div class="File">
+                <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('CERTIFICATE OF ORIGIN')}"
+                (click)="ViewFile('CERTIFICATE OF ORIGIN')">CERTIFICATE OF ORIGIN</a>
+                <a (click) = "UploadFile('CERTIFICATE OF ORIGIN')" *ngIf= "CheckRole() === 'alfemo'">Upload</a>
+            </div>
+            <div class="File">
+                <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('DECLARATION')}"
+                (click)="ViewFile('DECLARATION')">DECLARATION</a>
+                <a (click) = "GenerateDeclaration()" *ngIf= "CheckRole() === 'alfemo'">Generate</a>
+            </div>
+            <div class="File">
+                <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('PackingList')}"
+                (click)="ViewFile('PackingList')">PACKING LIST</a>
+                <a (click) = "OpenPackingListForm()" *ngIf= "CheckRole() === 'alfemo'">Generate</a>
+            </div>
+            <div class="File">
+                <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('TSCA_Certification')}"
+                (click)="ViewFile('TSCA_Certification')">TSCA_Certification</a>
+                <a (click) = "UploadFile('TSCA_Certification')" *ngIf= "CheckRole() === 'alfemo'">Upload</a>
+            </div>
+        </div>
+        <input type="file" id="File" style="display: none;" (change) = "SelectFile($event)">
+    </div>
+</div>
+<simple-notifications></simple-notifications>

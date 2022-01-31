@@ -1,0 +1,141 @@
+<div class="ISFForm" [formGroup] ="ISFForm" id="PDF">
+    <div class="ISFHeader">
+        <div>Importer Security Filing (10+2)</div>
+    </div>
+    <div class="row">
+        <div class="key">Sailing Date:</div>
+        <div class="input"><input type="date" class="Draft"></div>
+    </div>
+    <div class="row">
+        <div class="key">ETD</div>
+        <div class="input"><input class="Draft" formControlName= "ETD" type="date"></div>
+    </div>
+    <div class="row">
+        <div class="key">ETA</div>
+        <div class="input"><input class="Draft" formControlName= "ETA" type="date"></div>
+    </div>
+    <div class="row">
+        <div class="key">MB/L No:</div>
+        <div class="input"><input class="Draft" formControlName= "MBL" type="text"></div>
+    </div>
+    <div class="row">
+        <div class="key">AMS HB/L No:</div>
+        <div class="input"><input class="Draft" formControlName= "HBL" type="text"></div>
+    </div>
+    <div class="row">
+        <div class="key">Other HB/L No:</div>
+        <div class="input"><input class="Draft" formControlName= "OtherHBL" type="text"></div>
+    </div>
+    <div class="row">
+        <div class="key">CONTAINER NUMBER</div>
+        <div class="input" formControlName= "ContainerNumbers"><label>{{ContainerNumbers}}</label></div>
+    </div>
+    <div class="row">
+        <div class="key">PO#:</div>
+        <div class="input"><input class="Draft" formControlName= "Pos" type="text"></div>
+    </div>
+    <div class="TableTest">
+        <div class="row">
+            <div class="VerticalKeys bold"> Manufacturer (or supplier) name and address:</div>
+            <div class="VerticalKeys bold">
+                Seller name and address:
+            </div>
+        </div>
+        <div class="row">
+            <div class="VerticalNotes"> （the name and address to report are of the entity that last manufactures,
+                assembles, produces, or grows the commodity; if that is not known and cannot be determined through due
+                diligence, or may not apply, then report the name and address of the supplier of the finished goods in
+                the
+                country from which the goods are leaving. ）</div>
+            <div class="VerticalNotes">
+                （ the last known entity by whom the goods are sold or agreed to be sold; if no sale, then the name and
+                address of the owner is to be reported. ）
+            </div>
+        </div>
+        <div class="row">
+            <div class="VerticalValues"> ALFEMO MOBILYA SAN.TIC.ASYEDI EYLUL MAH. CELAL UMUR CAD. NO:12 TORBALI IZMIR
+                TURKEY
+                TEL:090 232 999 3000
+                FAX:090 232 853 1075</div>
+            <div class="VerticalValues">ALFEMO MOBILYA SAN.TIC.ASYEDI EYLUL MAH. CELAL UMUR CAD. NO:12 TORBALI IZMIR
+                TURKEY
+                TEL:090 232 999 3000
+                FAX:090 232 853 1075</div>
+        </div>
+        <div class="row">
+            <div class="VerticalKeys bold"> Buyer name and address:</div>
+            <div class="VerticalKeys bold">
+                Ship to name and address:
+            </div>
+        </div>
+        <div class="row">
+            <div class="VerticalNotes">（the last known entity to whom the goods are sold or agreed to be sold: again if
+                there is no sale, report the owner of the goods.）</div>
+            <div class="VerticalNotes">
+                （report the first deliver-to party scheduled to physically receive the goods after release from Customs’
+                custody. ）
+            </div>
+        </div>
+        <div class="row">
+            <div class="VerticalValues" style="white-space: pre-wrap;">
+                Macks Furniture Warehouse <br>
+                1809 Dickinson Avenue <br>
+                Greenville, Nc 27834 United States <br>
+                Phone: 252-2583595 <br>
+            </div>
+            <div class="VerticalValues" style="white-space: pre-wrap;">{{FormatAddress()}}</div>
+        </div>
+        <div class="row">
+            <div class="VerticalKeys bold"> Container stuffing location:</div>
+            <div class="VerticalKeys bold">
+                Consolidator (stuffer) name and address:
+            </div>
+        </div>
+        <div class="row">
+            <div class="VerticalNotes">（name and address of the physical location(s) where the goods were stuffed; for
+                break bulk goods it is the physical location(s) where the goods were made shipment ready. ）</div>
+            <div class="VerticalNotes">
+                ( the party who stuffed the container or arranged for its stuffing; for break bulk goods, it is again
+                the shipment ready party）
+            </div>
+        </div>
+        <div class="row">
+            <div class="VerticalValues">
+                ALFEMO MOBILYA SAN.TIC.ASYEDI EYLUL MAH. CELAL UMUR CAD. NO:12 TORBALI IZMIR TURKEY TEL:090 232 999 3000
+                FAX:090 232 853 1075
+            </div>
+            <div class="VerticalValues">ALFEMO MOBILYA SAN.TIC.ASYEDI EYLUL MAH. CELAL UMUR CAD. NO:12 TORBALI IZMIR
+                TURKEY TEL:090 232 999 3000 FAX:090 232 853 1075</div>
+        </div>
+        <div class="row">
+            <div class="VerticalKeys bold"> Country of origin:</div>
+            <div class="VerticalKeys bold">
+                Commodity HTS number:
+            </div>
+        </div>
+        <div class="row">
+            <div class="VerticalNotes"> （list the country of manufacture, production, or growth, based upon the import
+                laws, rules and regulations of the U.S）</div>
+            <div class="VerticalNotes">
+                （ required to the 6 digit level, but allowed to be reported to the 10 digit level; if multiple countries
+                of origin, multiple manufacturers or multiple sellers are involved, provide HTS detail and country of
+                origin per manufacturer or seller. ）
+            </div>
+        </div>
+        <div class="row">
+            <div class="VerticalValues">
+                TURKEY
+            </div>
+            <div class="VerticalValues"><input formControlName= "HTS" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"
+                    class="Draft" type="text"></div>
+        </div>
+    </div>
+    <div class="ISFFooter">
+        Please Complete All Fields.
+        All Information Above is Required By US Customs per ISF Regulations.
+        Return Form to Ascent Global Logistics No Later than 72 Hours Prior to Sailing.
+    </div>
+    <div class="SubmitButton">
+        <a class="button Draft" (click)="GenerateISF()">Generate ISF</a>
+    </div>
+</div>

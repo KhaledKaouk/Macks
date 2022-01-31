@@ -118,6 +118,7 @@ export class NewPoComponent implements OnInit {
 
   SaveFileInObject(event: any) {
     this.SeletedFile = event.target.files[0];
+    console.log(this.SeletedFile)
   }
   ExtractDealerName(Id: string) {
     return this.Dealers.find(Dealer => Dealer._id == Id)?.name || "Unavailable"
@@ -156,6 +157,11 @@ export class NewPoComponent implements OnInit {
       height: '30rem',
       width: '55rem',
     })
+  }
+  SetPortForPo(event: any){
+    let SelectedDealer = this.Dealers.find(dealer => dealer._id == event.target.value) || new Dealers()
+    let DealerPortName = this.Ports.find(port => port._id == SelectedDealer.PortId) || new port();
+    this.CreatePo.get('port')?.setValue(DealerPortName.portName);
   }
 }
 

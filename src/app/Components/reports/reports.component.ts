@@ -8,7 +8,7 @@ import { NotificationserService } from 'src/app/Services/notificationser.service
 import { POsService } from 'src/app/Services/pos.service';
 import { GetRole } from 'src/app/Utilities/CheckAuth';
 import { CompareDealerNames } from 'src/app/Utilities/DealersHandlers';
-import { FormatPoDateFields } from 'src/app/Utilities/PoHandlers';
+import { FormatPoDateFields, RemoveArchivedPos, RemoveDeletedPOs } from 'src/app/Utilities/PoHandlers';
 import { FilterPosByShipDate, GenerateDefaultReport, GenerateFilterdReport, GenerateWeeklyReport } from 'src/app/Utilities/ReportsHandlers';
 
 @Component({
@@ -133,7 +133,10 @@ export class ReportsComponent implements OnInit {
     GenerateDefaultReport(this.AllPos,this.Dealers)
   }
   GenerateWeeklyReport(){
-    GenerateWeeklyReport(this.AllPos,this.Dealers);
+    let ReportPos: POs[] = [];
+    ReportPos = RemoveDeletedPOs(this.AllPos);
+    ReportPos = RemoveArchivedPos(ReportPos);
+    GenerateWeeklyReport(ReportPos,this.Dealers);
   }
 
   AddDealerToFilter(event: any) {

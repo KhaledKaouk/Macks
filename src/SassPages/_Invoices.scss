@@ -1,0 +1,137 @@
+.ShppingDocs {
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    align-items: flex-start;
+    .DisabledSection{
+        opacity: 0.5;
+        pointer-events: none;
+    }
+    .Blocker{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top:50%;
+        color: $footer-color;
+        // background-color: red;
+        z-index: 5000;
+        font-size: 2rem;
+        font-weight: bold;
+        // opacity: 0.5;
+        text-align: center;
+        
+    }
+    .InvoiceDetails {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 2rem;
+ 
+        .POs{
+            position: relative;
+            margin-top: 1rem;
+            .PoDetails{
+                position: relative;
+                z-index: 10;
+            }
+            .SectionHeader{
+                position: absolute;
+                top: -1rem;
+                padding: 0.5rem;
+                background-color: beige;
+                border-top-left-radius: 25%;
+                border-top-right-radius: 25%;
+                font-weight: bold;
+                font-size: 1.1rem;
+                color: $footer-color;
+                z-index: 9;
+                &:hover{
+                    cursor: pointer;
+                }
+
+            }
+            .Tab2{
+                left: 10rem;
+            }
+            .ActiveTab{
+                z-index: 9;
+                border-top: 1px solid $footer-color;
+                border-left: 1px solid $footer-color;
+                border-right: 1px solid $footer-color;
+            }
+            .LeftArrow{
+                position: absolute;
+                z-index: 11;
+                top: 45%;
+                left: -2rem;
+                background-color: white;
+                padding: 1rem;
+                border-radius: 50%;
+                box-shadow: 3px 3px 8px 3px #888888 ;
+                &:hover{
+                    cursor: pointer;
+                }
+                &:active{
+                    transform: scale(90%);
+                }
+            }
+            .RightArrow{
+                position: absolute;
+                z-index: 11;
+                top: 45%;
+                right: -2rem;
+                background-color: white;
+                padding: 1rem;
+                border-radius: 50%;
+                box-shadow: 3px 3px 8px 3px #888888 ;
+                &:hover{
+                    cursor: pointer;
+                }
+                &:active{
+                    transform: scale(90%);
+                }
+            }
+        }
+        .Docs {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: flex-start;
+            gap: 0.5rem;
+            width: 100%;
+            position: relative;
+            .File{
+                width: 100%;
+            }
+            .SectionHeader{
+                position: absolute;
+                top: -1rem;
+                padding: 0.5rem;
+                background-color: beige;
+                border-top-left-radius: 25%;
+                border-top-right-radius: 25%;
+                font-weight: bold;
+                font-size: 1.1rem;
+                color: $footer-color;
+            }
+            a{
+                padding: 0.3rem;
+                background-color: beige;
+                width: 100%;
+                &:hover{
+                    cursor: pointer;
+                    color: lighten($Secondary-Color, 30%);
+                }
+            }
+        }
+    }
+    .UnAvailable{
+        color: red;
+    }
+    .Available{
+        color: green;
+    }
+
+}

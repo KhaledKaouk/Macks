@@ -85,6 +85,21 @@
     gap: 1rem;
     border: 0.01rem solid #e4e4e4;
     background-color: #f3f3f3;
+    .ShippingDocsList{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        p{
+            &:hover{
+                cursor: pointer;
+                color: $buttonhover;
+            }
+        }
+        label{
+            font-weight: bold;
+            padding-bottom: 1rem;
+        }
+    }
 }
 #SubmitButton {
     border: 0.2rem solid $footer-color;

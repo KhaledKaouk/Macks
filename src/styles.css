@@ -1777,6 +1777,61 @@
   position: absolute;
 }
 
+.BOLInput {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 2rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  z-index: 1000;
+  position: fixed;
+  top: 0%;
+  width: 100vw;
+  height: 100vh;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+}
+
+.BOLInput label {
+  font-size: larger;
+  color: black;
+  font-weight: bold;
+}
+
+.BOLInput input {
+  min-width: 20rem;
+  min-height: 2rem;
+}
+
+.BOLInput::before {
+  position: absolute;
+  background-image: url("./assets/ShippingBackGround.jpg") center center;
+  background-size: cover;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.75;
+}
+
+.BOLBackGround {
+  background-color: white;
+  opacity: 1;
+  position: fixed;
+  top: 0%;
+  width: 100vw;
+  height: 100vh;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;

@@ -1,0 +1,2782 @@
+.DataTableWraper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  position: relative;
+}
+
+.DataTableWraper .TableHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1rem;
+}
+
+.DataTableWraper .TableHeader label {
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.DataTableWraper .TableHeader .button {
+  border: 1px solid #3c2e25;
+  padding: 0.2rem;
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
+}
+
+.DataTableWraper .TableHeader .button:hover {
+  background-color: #b99b85;
+  color: #f5f5f5;
+  border-color: #b99b85;
+  cursor: pointer;
+}
+
+.DataTableWraper #InvoicePosSubMenutitle {
+  max-width: 5rem;
+  position: relative;
+}
+
+.DataTableWraper #InvoicePosSubMenutitle #InvoicePosSubMenu {
+  display: none;
+  position: absolute;
+  top: 1.2rem;
+  left: 1rem;
+  background-color: transparent;
+  -webkit-box-shadow: 0px 0px 3px #494949;
+          box-shadow: 0px 0px 3px #494949;
+}
+
+.DataTableWraper #InvoicePosSubMenutitle #InvoicePosSubMenu li {
+  background-color: #f5f5f5;
+  border: 1px solid #6f5948;
+  margin-bottom: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.DataTableWraper #InvoicePosSubMenutitle #InvoicePosSubMenu li a,
+.DataTableWraper #InvoicePosSubMenutitle #InvoicePosSubMenu li i {
+  padding: 0.5rem;
+}
+
+.DataTableWraper #InvoicePosSubMenutitle:hover #InvoicePosSubMenu {
+  display: block;
+}
+
+.DataTableWraper #InvoicePosSubMenutitle:hover #InvoicePosSubMenu li {
+  display: block;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+.DataTableWraper #InvoicePosSubMenutitle:hover #InvoicePosSubMenu li label:hover {
+  cursor: pointer;
+}
+
+.DataTableWraper .fa-trash-alt:hover {
+  cursor: pointer;
+}
+
+.DataTableWraper .table {
+  border-collapse: collapse;
+  margin: 1.5rem 0px;
+  font-size: 1.1rem;
+  min-width: 15rem;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  -webkit-box-shadow: 0 0 1.1rem rgba(0, 0, 0, 0.15);
+          box-shadow: 0 0 1.1rem rgba(0, 0, 0, 0.15);
+}
+
+.DataTableWraper .table thead tr {
+  background-color: #c2c2c2;
+  color: #3c2e25;
+  text-align: center;
+  font-weight: bold;
+}
+
+.DataTableWraper .table thead tr .fa-industry:hover {
+  cursor: pointer;
+}
+
+.DataTableWraper .table thead tr .fa-industry:hover ul {
+  z-index: 100;
+  padding: 0.5rem;
+  color: #3c2e25;
+  position: absolute;
+  display: block;
+}
+
+.DataTableWraper .table thead tr .fa-industry:hover ul li {
+  padding: 0.5rem;
+  background-color: #f5f5f5;
+  border: 1px solid #6f5948;
+  margin-bottom: 2px;
+}
+
+.DataTableWraper .table td {
+  padding: 0.8rem 0.9rem;
+  white-space: pre-wrap;
+}
+
+.DataTableWraper .table th {
+  padding: 0.8rem 0.9rem;
+}
+
+.DataTableWraper .table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.DataTableWraper .table tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.DataTableWraper .table tbody td {
+  text-align: center;
+  color: #3c2e25;
+}
+
+.DataTableWraper .table tbody tr:last-of-type {
+  border-bottom: 2px solid #3c2e25;
+}
+
+.DataTableWraper .table tbody a {
+  width: 100%;
+  border: 1px solid #3c2e25;
+  padding: 0.2rem;
+  white-space: nowrap;
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
+}
+
+.DataTableWraper .table tbody a:hover {
+  background-color: #b99b85;
+  color: #f5f5f5;
+  border-color: #b99b85;
+  cursor: pointer;
+}
+
+.DataTableWraper .table .ClickableHeader:hover,
+.DataTableWraper .table .ClickableTd:hover {
+  cursor: pointer;
+}
+
+.DataTableWraper .pagination ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.DataTableWraper .pagination ul button {
+  background-color: transparent;
+  border: 1px solid #3c2e25;
+  border-radius: 5px;
+  color: #3c2e25;
+  font-size: 1.1rem;
+  padding: 2px 4px;
+  margin: 1px;
+}
+
+.DataTableWraper .pagination ul button:hover {
+  cursor: pointer;
+  background-color: #b99b85;
+  color: white;
+}
+
+.DataTableWraper .pagination .CurrentPage {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.DataTableWraper .DownLoad {
+  color: #3c2e25;
+  -webkit-transition: width 0.5s ease-in;
+  transition: width 0.5s ease-in;
+}
+
+.DataTableWraper .DownLoad:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  cursor: pointer;
+}
+
+.SearchInput {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.SearchInput input {
+  font-size: 1.1rem;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #e4e4e4;
+  -webkit-transition: border 0.4s ease-in;
+  transition: border 0.4s ease-in;
+}
+
+.SearchInput input:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.topOfHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  font-size: 1rem;
+  padding: 1% 8%;
+}
+
+.topOfHeader img {
+  width: 5%;
+  height: 100%;
+  padding: 0% 1%;
+}
+
+.topOfHeader .left {
+  text-align: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.topOfHeader .right {
+  text-align: right;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.middleOfHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: 6rem;
+  border-bottom: 0.2px solid #e3dad3;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #f5f5f5;
+}
+
+.middleOfHeader button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #6f5948;
+  border-radius: 0 30px 30px 0;
+  border: none;
+  display: inline;
+  width: 53px;
+  height: 45px;
+}
+
+.middleOfHeader button:focus {
+  outline: none;
+}
+
+.middleOfHeader .InputField {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.middleOfHeader #Searchinput {
+  font-size: 1.1rem;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #afa4a4;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-right: none;
+}
+
+.middleOfHeader #Searchinput:focus {
+  outline: none;
+}
+
+.middleOfHeader .searchIcon {
+  width: 50%;
+  height: 50%;
+}
+
+.middleOfHeader .LogInIcon {
+  width: 40%;
+}
+
+.middleOfHeader .right {
+  text-align: right;
+  cursor: pointer;
+  -webkit-transition: size 0.1s ease-in;
+  transition: size 0.1s ease-in;
+}
+
+.middleOfHeader .right:hover {
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
+}
+
+.middleOfHeader a {
+  color: #6f5948;
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+
+.middleOfHeader a:hover {
+  color: #6f5948;
+}
+
+.bottomOfHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.bottomOfHeader ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.bottomOfHeader ul li {
+  position: relative;
+  padding: 0.83em 1.04em;
+  color: #6f5948;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.bottomOfHeader ul li label {
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.bottomOfHeader ul li label:hover {
+  cursor: pointer;
+  color: #bba695;
+}
+
+.bottomOfHeader #DealerSubMenutitle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.bottomOfHeader #DealerSubMenutitle #DealerSubMenu {
+  z-index: 1200;
+  display: none;
+  position: absolute;
+  top: 3rem;
+  left: 1rem;
+  background-color: transparent;
+  -webkit-box-shadow: 0px 0px 3px #494949;
+          box-shadow: 0px 0px 3px #494949;
+}
+
+.bottomOfHeader #DealerSubMenutitle #DealerSubMenu li {
+  background-color: #f5f5f5;
+  border: 1px solid #6f5948;
+  margin-bottom: 2px;
+}
+
+.bottomOfHeader #DealerSubMenutitle:hover #DealerSubMenu {
+  display: block;
+}
+
+.bottomOfHeader #DealerSubMenutitle:hover #DealerSubMenu li {
+  display: block;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+.bottomOfHeader #DealerSubMenutitle:hover #DealerSubMenu li label:hover {
+  cursor: pointer;
+}
+
+.bottomOfHeader #PortsSubMenuTitle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.bottomOfHeader #PortsSubMenuTitle #PortsSubMenu {
+  display: none;
+  z-index: 1200;
+  position: absolute;
+  top: 3rem;
+  left: 1rem;
+  background-color: transparent;
+  -webkit-box-shadow: 0px 0px 3px #494949;
+          box-shadow: 0px 0px 3px #494949;
+}
+
+.bottomOfHeader #PortsSubMenuTitle #PortsSubMenu li {
+  background-color: #f5f5f5;
+  border: 1px solid #6f5948;
+  margin-bottom: 2px;
+}
+
+.bottomOfHeader #PortsSubMenuTitle:hover #PortsSubMenu {
+  display: block;
+}
+
+.bottomOfHeader #PortsSubMenuTitle:hover #PortsSubMenu li {
+  display: block;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+.bottomOfHeader #PortsSubMenuTitle:hover #PortsSubMenu li label:hover {
+  cursor: pointer;
+}
+
+.bottomOfHeader #menuCheckBox {
+  display: none;
+}
+
+#NormalCursor:hover {
+  cursor: default;
+  color: #6f5948;
+}
+
+.footer {
+  background-color: #3c2e25;
+  padding: 7%;
+  margin: 3% 0%;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.footer .InfoCard {
+  text-align: center;
+  width: 30%;
+}
+
+.footer .InfoCard .Ptitle {
+  padding-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.footer .InfoCard a {
+  color: white;
+  text-decoration: none;
+  cursor: none;
+  margin-bottom: 20px;
+}
+
+.footer li {
+  color: white;
+  padding-bottom: 2%;
+}
+
+.ProductSamples {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 2rem;
+  padding: 5rem;
+}
+
+.ProductSamples img {
+  width: 18rem;
+  height: 18rem;
+  opacity: 1;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.ProductSamples button {
+  position: absolute;
+  height: 20%;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  font-size: 1.5rem;
+  background-color: #3c2e25;
+  color: white;
+  opacity: 0.4;
+  -webkit-transition: opacity 0.3s ease-in;
+  transition: opacity 0.3s ease-in;
+}
+
+.ProductSamples button:hover {
+  color: white;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.ProductSamples .card {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.ProductSamples .card .ProductImage {
+  position: relative;
+}
+
+.ProductSamples .card .ProductImage .SpecSheet {
+  bottom: 20%;
+}
+
+.ProductSamples .card #Section {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 2rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 1rem;
+}
+
+.ProductSamples .card #Section button {
+  width: 100%;
+}
+
+.ProductSamples .card #Section .childImage {
+  position: relative;
+}
+
+.ProductSamples .card #Section i {
+  position: absolute;
+  background-color: white;
+  opacity: 0.6;
+  padding: 0.5rem;
+  -webkit-transition: opacity 0.3s ease-in;
+  transition: opacity 0.3s ease-in;
+}
+
+.ProductSamples .card #Section i:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.ProductSamples .card #Section .fa-arrow-right {
+  top: 40%;
+  right: 0;
+}
+
+.ProductSamples .card #Section .fa-arrow-left {
+  top: 40%;
+  left: 0;
+}
+
+.ProductSamples .card #Section img {
+  position: relative;
+  height: 12rem;
+  width: 12rem;
+}
+
+.ProductSamples .card #Section #Info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1rem;
+  font-size: medium;
+}
+
+.AlfemoUpdateWraper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  position: relative;
+}
+
+.AlfemoUpdateWraper .Close {
+  position: absolute;
+  width: 3%;
+  background-color: transparent;
+  border: 1px solid #b11818;
+  color: #b11818;
+  text-align: center;
+  font-size: 1.1rem;
+  top: 0;
+  right: 0;
+}
+
+.AlfemoUpdateWraper .Close:hover {
+  background-color: #b11818;
+  color: white;
+  cursor: pointer;
+}
+
+.File {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+}
+
+.File i {
+  color: #3c2e25;
+  -webkit-transition: width 0.7s ease-in;
+  transition: width 0.7s ease-in;
+}
+
+.File i:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+#AlfemoUpdate {
+  margin: 0%;
+}
+
+.Product {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.Product img {
+  width: 100%;
+}
+
+.Product .details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Product .details ul {
+  margin: 10px;
+}
+
+.Product .details .Head {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e4e4e4;
+  color: #89684f;
+  font-size: 1.5rem;
+}
+
+.Product .details .Head label {
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
+
+.Product .details .description {
+  margin-left: 10px;
+  color: #89684f;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.Product .details .description p {
+  margin-left: 15px;
+  margin-bottom: 15px;
+}
+
+.Product .details .BuyingOptions {
+  margin-left: 10px;
+  margin-top: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.Product .details .BuyingOptions label {
+  margin-left: 15px;
+  color: #89684f;
+}
+
+.Product .details .BuyingOptions select {
+  margin-left: 15px;
+  width: 175px;
+  height: 30px;
+  border: none;
+  border-bottom: 1px solid #b99b85;
+}
+
+.Product .details .BuyingOptions select:hover {
+  cursor: pointer;
+}
+
+.PoDetails {
+  margin-top: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.PoDetails .buttons {
+  padding: 0.5rem;
+  margin-top: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.PoDetails .buttons a {
+  width: 12rem;
+  border: 0.1rem solid #3c2e25;
+  padding: 0.3rem;
+  text-align: center;
+  -webkit-transition: background-color 0.4s ease-in;
+  transition: background-color 0.4s ease-in;
+}
+
+.PoDetails .buttons a:hover {
+  background-color: #b99b85;
+  color: #f5f5f5;
+  border-color: #b99b85;
+  cursor: pointer;
+}
+
+.PoDetails .element {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1rem;
+}
+
+.PoDetails .element label {
+  font-size: 1rem;
+}
+
+.PoDetails .element input {
+  font-size: 1rem;
+  width: 15rem;
+  -webkit-padding-start: 1rem;
+          padding-inline-start: 1rem;
+  border: 0.1rem solid #e4e4e4;
+  -webkit-transition: border 0.4s ease-in;
+  transition: border 0.4s ease-in;
+}
+
+.PoDetails .element input:focus {
+  outline: none;
+  border: 1px solid #3c2e25;
+}
+
+.Potest {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.Potest label {
+  text-align: right;
+  margin: 0.5rem;
+  color: #3c2e25;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.Potest a {
+  text-align: left;
+  margin: 0.5rem;
+  color: #3c2e25;
+  font-size: 1.1rem;
+}
+
+.Potest .labels {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Potest p {
+  display: block;
+  padding: 1rem;
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.PoDetailsWraper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 1rem;
+  border: 0.01rem solid #e4e4e4;
+  background-color: #f3f3f3;
+}
+
+.PoDetailsWraper .ShippingDocsList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.PoDetailsWraper .ShippingDocsList p:hover {
+  cursor: pointer;
+  color: #b99b85;
+}
+
+.PoDetailsWraper .ShippingDocsList label {
+  font-weight: bold;
+  padding-bottom: 1rem;
+}
+
+#SubmitButton {
+  border: 0.2rem solid #3c2e25;
+}
+
+#SubmitButton:hover {
+  border-color: #b99b85;
+}
+
+.Slide {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.Slide img {
+  width: 86%;
+  height: 38rem;
+  position: relative;
+}
+
+.Slide .overslide {
+  position: absolute;
+  margin: 10%;
+  padding-top: 12%;
+}
+
+.Slide .overslide button {
+  width: 30%;
+  border: 1px solid white;
+  color: white;
+  background: transparent;
+  padding: 3%;
+  margin-top: 5%;
+  -webkit-transition: 0.4s ease-in;
+  transition: 0.4s ease-in;
+  font-size: 1.1rem;
+}
+
+.Slide .overslide button:hover {
+  cursor: pointer;
+  background-color: white;
+  color: #3c2e25;
+}
+
+.Slide .overslide p {
+  font-weight: 300;
+  font-size: 2rem;
+  color: white;
+}
+
+.AddressHeader {
+  padding: 0.2rem;
+  height: 5.5rem;
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: #f4f4f4;
+  color: #6f5948;
+}
+
+.AddressHeader h1 {
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+  margin: 8px;
+}
+
+.AddressHeader h2 {
+  font-size: 1.1rem;
+  word-spacing: 10px;
+}
+
+.CreatePo {
+  color: #3c2e25;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 1% 30%;
+}
+
+.CreatePo .InputWraper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 1%;
+}
+
+.CreatePo .InputWraper label {
+  font-size: 1.1rem;
+  margin-bottom: 2%;
+}
+
+.CreatePo select {
+  font-size: 1.1rem;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #e4e4e4;
+  -webkit-transition: border 0.4s ease-in;
+  transition: border 0.4s ease-in;
+}
+
+.CreatePo select:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.CreatePo input {
+  font-size: 1.1rem;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #e4e4e4;
+  -webkit-transition: border 0.4s ease-in;
+  transition: border 0.4s ease-in;
+}
+
+.CreatePo input:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.CreatePo textarea {
+  font-size: 1.1rem;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #e4e4e4;
+  -webkit-transition: border 0.4s ease-in;
+  transition: border 0.4s ease-in;
+}
+
+.CreatePo textarea:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.CreatePo .file {
+  border: none;
+}
+
+.CreatePo button {
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #3c2e25;
+  color: #3c2e25;
+  background: transparent;
+  -webkit-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+  font-size: 1.5rem;
+}
+
+.CreatePo button:hover {
+  cursor: pointer;
+  background-color: #b99b85;
+  border-color: #b99b85;
+  color: white;
+}
+
+.CreatePo button:disabled {
+  background-color: gray;
+  color: white;
+  border: gray;
+}
+
+.spinner-1 {
+  content: "";
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 4rem;
+  width: 4rem;
+  margin: -2rem;
+  border-radius: 50%;
+  border: 3px solid lightgray;
+  border-top-color: coral;
+  -webkit-animation: spinner 0.7s linear infinite;
+          animation: spinner 0.7s linear infinite;
+}
+
+.SpinnerContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  opacity: 0.6;
+}
+
+@-webkit-keyframes spinner {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.DealerDetailsWraper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 1rem;
+  border: 0.01rem solid #e4e4e4;
+  background-color: #f3f3f3;
+  margin-bottom: 10px;
+}
+
+.DealerCard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.DealerCard label {
+  text-align: right;
+  margin: 0.5rem;
+  color: #3c2e25;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.DealerCard a {
+  text-align: left;
+  margin: 0.5rem;
+  color: #3c2e25;
+  font-size: 1.1rem;
+}
+
+.DealerCard .labels {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.DealerCard p {
+  display: block;
+  padding: 1rem;
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.Report {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 3rem;
+  margin: 2rem;
+  color: #3c2e25;
+  font-size: 1.1rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.Report label {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  padding: 0.5rem;
+}
+
+.Report label:hover {
+  cursor: pointer;
+}
+
+.Report .InputWraper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 1%;
+}
+
+.Report .InputWraper label {
+  font-size: 1.1rem;
+  margin-bottom: 2%;
+}
+
+.Report select {
+  font-size: 1.1rem;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #e4e4e4;
+  -webkit-transition: border 0.4s ease-in;
+  transition: border 0.4s ease-in;
+}
+
+.Report select:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.Report .input {
+  font-size: 1.1rem;
+  -webkit-padding-start: 10px;
+          padding-inline-start: 10px;
+  width: 21rem;
+  height: 2.8rem;
+  border: 1px solid #e4e4e4;
+  -webkit-transition: border 0.4s ease-in;
+  transition: border 0.4s ease-in;
+}
+
+.Report .input:focus {
+  outline: none;
+  width: 360px;
+  border: 1px solid #3c2e25;
+}
+
+.PoFiledCheckList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  position: relative;
+  padding: 1.5rem;
+  border: 1px solid #E86D50;
+}
+
+.PoFiledCheckList .PoPropertyListHeader {
+  font-weight: bold;
+  position: absolute;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  top: -1rem;
+  z-index: 10;
+  background-color: white;
+}
+
+.CheckItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.5rem;
+}
+
+.CheckItem:hover {
+  background-color: #f5f5f5;
+}
+
+.CheckAll {
+  font-weight: bold;
+  border-bottom: 1px solid #cfc0b4;
+}
+
+.button {
+  border: 1px solid #3c2e25;
+  padding: 0.2rem;
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
+}
+
+.button:hover {
+  background-color: #b99b85;
+  color: #f5f5f5;
+  border-color: #b99b85;
+  cursor: pointer;
+}
+
+#Dealers {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  position: relative;
+  border: 1px solid #E86D50;
+  padding: 1rem;
+  max-width: 30rem;
+  min-width: 10rem;
+  min-height: 5rem;
+}
+
+#Dealers .SearcHeader {
+  font-weight: bold;
+  position: absolute;
+  top: -1rem;
+  z-index: 10;
+  background-color: white;
+}
+
+#Dealers .DealerId {
+  margin: 0.5rem;
+  border: 1px solid #6f5948;
+  padding-left: 0.2rem;
+}
+
+#Dealers .DealerId .RemoveDealer {
+  margin: 0.5rem;
+}
+
+#Dealers .DealerId .RemoveDealer:hover {
+  cursor: pointer;
+  background-color: #f5f5f5;
+}
+
+.Options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.FilterSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 2rem;
+  position: relative;
+  padding: 0.5rem;
+  border: 1px solid #E86D50;
+}
+
+.FilterSection .OptionsHeader {
+  font-weight: bold;
+  font-size: 1.5rem;
+  position: absolute;
+  top: -1.2rem;
+  z-index: 10;
+  background-color: white;
+}
+
+.FilterSection .DefaultReport {
+  border: 2px solid #3c2e25;
+}
+
+.FilterSection .DefaultReport:hover {
+  border: none;
+}
+
+.InvoiceHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 2rem;
+}
+
+.InvoiceHeader .SellerInfo,
+.InvoiceHeader .BuyerInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.4rem;
+  max-width: 20rem;
+}
+
+.InvoiceHeader .SellerInfo div,
+.InvoiceHeader .BuyerInfo div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.InvoiceHeader .SellerInfo label,
+.InvoiceHeader .BuyerInfo label {
+  font-weight: bold;
+}
+
+.InvoiceHeader .InvoiceInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: bold;
+}
+
+.ProductsDetails,
+.InvoiceFooter {
+  margin: 2rem;
+}
+
+.ProductsDetails .button,
+.InvoiceFooter .button {
+  border: 1px solid;
+  padding: 0.5rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.NumberField {
+  max-width: 3rem;
+}
+
+.InvoiceFooter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.InvoiceFooter .button {
+  padding: 0rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0;
+}
+
+.InvoiceFooter select {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+.InvoiceFooter select::-ms-expand {
+  display: none;
+}
+
+.InvoiceFooter input {
+  max-height: 1rem;
+}
+
+.InvoiceFooter .labels,
+.InvoiceFooter .values {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.5rem;
+}
+
+.InvoiceFooter .values {
+  margin-left: 3rem;
+}
+
+.InvoiceFooter .values .Close {
+  height: 1rem;
+  color: red;
+}
+
+.InvoiceFooter .values .Close:hover {
+  cursor: pointer;
+  color: #ff6666;
+}
+
+.InvoiceFooter .labels {
+  margin-left: 0.3rem;
+  font-weight: bold;
+}
+
+.Invoice {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.Invoice .table {
+  border-collapse: collapse;
+  margin: 1.5rem 1.5rem;
+  min-width: 15rem;
+  overflow: hidden;
+}
+
+.Invoice .table thead {
+  color: #3c2e25;
+  text-align: center;
+  font-weight: bold;
+}
+
+.Invoice .table thead th {
+  padding: 0.5rem 0.5rem;
+  border: 1px solid;
+}
+
+.Invoice .table tbody tr td:last-of-type {
+  border: none;
+}
+
+.Invoice .table tbody tr:nth-last-of-type(-n + 3) td {
+  border: none;
+}
+
+.Invoice .table tbody td {
+  text-align: center;
+  color: #3c2e25;
+  border: 1px solid;
+  padding: 0.5rem 0.5rem;
+  white-space: nowrap;
+}
+
+.Invoice .table tbody a {
+  width: 100%;
+  border: 1px solid #3c2e25;
+  padding: 0.2rem;
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
+}
+
+.Invoice .table tbody a:hover {
+  background-color: #b99b85;
+  color: #f5f5f5;
+  border-color: #b99b85;
+  cursor: pointer;
+}
+
+.Invoice .PackingList {
+  border-collapse: collapse;
+  margin: 1.5rem 1.5rem;
+  min-width: 15rem;
+  overflow: hidden;
+}
+
+.Invoice .PackingList thead {
+  color: #3c2e25;
+  text-align: center;
+  font-weight: bold;
+}
+
+.Invoice .PackingList thead th {
+  padding: 0.5rem 0.5rem;
+  border: 1px solid;
+}
+
+.Invoice .PackingList tbody tr:nth-last-of-type(-n + 1) td {
+  border: none;
+}
+
+.Invoice .PackingList tbody td {
+  text-align: center;
+  color: #3c2e25;
+  border: 1px solid;
+  padding: 0.5rem 0.5rem;
+  white-space: nowrap;
+}
+
+.Invoice .PackingList tbody a {
+  width: 100%;
+  border: 1px solid #3c2e25;
+  padding: 0.2rem;
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
+}
+
+.Invoice .PackingList tbody a:hover {
+  background-color: #b99b85;
+  color: #f5f5f5;
+  border-color: #b99b85;
+  cursor: pointer;
+}
+
+.Invoice .generateInvoice {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  padding: 0.5rem;
+  margin-right: 3rem;
+  border: 1px solid #3c2e25;
+  background-color: transparent;
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
+}
+
+.Invoice .generateInvoice:hover {
+  background-color: #b99b85;
+  color: #f5f5f5;
+  border-color: #b99b85;
+  cursor: pointer;
+}
+
+.Invoice .generateInvoice:disabled {
+  background-color: gray;
+  color: white;
+  border: gray;
+}
+
+.TotalPrice {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 0.3rem;
+}
+
+#ISF {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.PrdouctShippingDetails {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.commercialInvoice .InputWraper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.Tools {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.Tools .FlexBox {
+  display: block;
+  border: 1px dashed;
+  margin: 2rem;
+  min-width: 5rem;
+  min-height: 2rem;
+  position: absolute;
+}
+
+.BackGround {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  z-index: 1000;
+  position: fixed;
+  top: 0%;
+  width: 100vw;
+  height: 100vh;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+}
+
+.BackGround .BOLForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 2rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  z-index: 1000;
+  margin-left: 2rem;
+  background-color: white;
+  height: 180vh;
+  -webkit-transform: rotate(35deg);
+          transform: rotate(35deg);
+}
+
+.BackGround .BOLForm .InputSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 1rem;
+  -webkit-transform: rotate(-35deg);
+          transform: rotate(-35deg);
+}
+
+.BackGround .BOLForm .InputSection label {
+  position: relative;
+  font-size: 1.2rem;
+  color: #a10000;
+  font-weight: bold;
+}
+
+.BackGround .BOLForm .InputSection input {
+  position: relative;
+  min-width: 20rem;
+  min-height: 2rem;
+  border-radius: 1rem;
+  -webkit-padding-start: 0.5rem;
+          padding-inline-start: 0.5rem;
+}
+
+.BackGround .BOLForm .InputSection input:hover {
+  outline: none;
+}
+
+.BackGround .BOLForm .PageControl {
+  background-color: cadetblue;
+  padding: 0.5rem;
+  color: black;
+  font-size: 1.3rem;
+  z-index: 1000;
+  opacity: 0.8;
+  border: 0.1rem;
+  border-radius: 0.5rem;
+  -webkit-transition: background-color 0.2s ease-in;
+  transition: background-color 0.2s ease-in;
+  -webkit-transform: rotate(-35deg);
+          transform: rotate(-35deg);
+}
+
+.BackGround .BOLForm .PageControl:hover {
+  cursor: pointer;
+  border: solid 1px white;
+  opacity: 0.9;
+  background-color: #395f60;
+}
+
+.BackGround .BOLForm .PageControl label:hover {
+  cursor: pointer;
+}
+
+.BackGround::before {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  content: "";
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-image: url("../assets/ShippingBackGround.jpg");
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.9;
+}
+
+.BOLWhiteBloker {
+  background-color: white;
+  opacity: 1;
+  position: fixed;
+  top: 0%;
+  width: 100vw;
+  height: 100vh;
+}
+
+.ShppingDocs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 5rem;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.ShppingDocs .DisabledSection {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.ShppingDocs .Blocker {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 50%;
+  color: #3c2e25;
+  z-index: 5000;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.ShppingDocs .InvoiceDetails {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 2rem;
+}
+
+.ShppingDocs .InvoiceDetails .POs {
+  position: relative;
+  margin-top: 1rem;
+}
+
+.ShppingDocs .InvoiceDetails .POs .PoDetails {
+  position: relative;
+  z-index: 10;
+}
+
+.ShppingDocs .InvoiceDetails .POs .SectionHeader {
+  position: absolute;
+  top: -1rem;
+  padding: 0.5rem;
+  background-color: beige;
+  border-top-left-radius: 25%;
+  border-top-right-radius: 25%;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #3c2e25;
+  z-index: 9;
+}
+
+.ShppingDocs .InvoiceDetails .POs .SectionHeader:hover {
+  cursor: pointer;
+}
+
+.ShppingDocs .InvoiceDetails .POs .Tab2 {
+  left: 10rem;
+}
+
+.ShppingDocs .InvoiceDetails .POs .ActiveTab {
+  z-index: 9;
+  border-top: 1px solid #3c2e25;
+  border-left: 1px solid #3c2e25;
+  border-right: 1px solid #3c2e25;
+}
+
+.ShppingDocs .InvoiceDetails .POs .LeftArrow {
+  position: absolute;
+  z-index: 11;
+  top: 45%;
+  left: -2rem;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 50%;
+  -webkit-box-shadow: 3px 3px 8px 3px #888888;
+          box-shadow: 3px 3px 8px 3px #888888;
+}
+
+.ShppingDocs .InvoiceDetails .POs .LeftArrow:hover {
+  cursor: pointer;
+}
+
+.ShppingDocs .InvoiceDetails .POs .LeftArrow:active {
+  -webkit-transform: scale(90%);
+          transform: scale(90%);
+}
+
+.ShppingDocs .InvoiceDetails .POs .RightArrow {
+  position: absolute;
+  z-index: 11;
+  top: 45%;
+  right: -2rem;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 50%;
+  -webkit-box-shadow: 3px 3px 8px 3px #888888;
+          box-shadow: 3px 3px 8px 3px #888888;
+}
+
+.ShppingDocs .InvoiceDetails .POs .RightArrow:hover {
+  cursor: pointer;
+}
+
+.ShppingDocs .InvoiceDetails .POs .RightArrow:active {
+  -webkit-transform: scale(90%);
+          transform: scale(90%);
+}
+
+.ShppingDocs .InvoiceDetails .Docs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  position: relative;
+}
+
+.ShppingDocs .InvoiceDetails .Docs .File {
+  width: 100%;
+}
+
+.ShppingDocs .InvoiceDetails .Docs .SectionHeader {
+  position: absolute;
+  top: -1rem;
+  padding: 0.5rem;
+  background-color: beige;
+  border-top-left-radius: 25%;
+  border-top-right-radius: 25%;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #3c2e25;
+}
+
+.ShppingDocs .InvoiceDetails .Docs a {
+  padding: 0.3rem;
+  background-color: beige;
+  width: 100%;
+}
+
+.ShppingDocs .InvoiceDetails .Docs a:hover {
+  cursor: pointer;
+  color: #bba695;
+}
+
+.ShppingDocs .UnAvailable {
+  color: red;
+}
+
+.ShppingDocs .Available {
+  color: green;
+}
+
+.ISFForm {
+  border-collapse: collapse;
+  margin: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.ISFForm .SubmitButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 60rem;
+  padding: 1rem;
+}
+
+.ISFForm .ISFHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 60rem;
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+
+.ISFForm div {
+  display: block;
+}
+
+.ISFForm .row {
+  border: 1px solid black;
+  min-height: 1.3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 60rem;
+}
+
+.ISFForm .row .input {
+  border-left: 1px solid black;
+}
+
+.ISFForm .row .input input {
+  outline: none;
+  border: none;
+  padding-left: 1rem;
+  min-width: 40rem;
+}
+
+.ISFForm .row .input label {
+  padding-left: 1rem;
+}
+
+.ISFForm .row .input input[type="date"]::-webkit-inner-spin-button,
+.ISFForm .row .input input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+.ISFForm .row .key {
+  min-width: 12rem;
+  padding-left: 0.2rem;
+}
+
+.ISFForm .row .bold {
+  font-weight: bold;
+}
+
+.ISFForm .row .VerticalKeys {
+  width: 50%;
+  border: 1px solid black;
+  padding-left: 0.5rem;
+}
+
+.ISFForm .row .VerticalValues {
+  border: 1px solid black;
+  width: 50%;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.ISFForm .row .VerticalNotes {
+  width: 50%;
+  border: 1px solid black;
+  font-size: 0.6rem;
+  padding-left: 0.5rem;
+  height: inherit;
+}
+
+.ISFForm .TableTest {
+  display: table;
+  border-collapse: collapse;
+  max-width: 60rem;
+}
+
+.ISFForm .TableTest .row {
+  display: table-row;
+}
+
+.ISFForm .TableTest .row .VerticalKeys {
+  display: table-cell;
+}
+
+.ISFForm .TableTest .row .VerticalNotes {
+  display: table-cell;
+}
+
+.ISFForm .TableTest .row .VerticalValues {
+  display: table-cell;
+}
+
+.ISFForm .TableTest input {
+  min-width: none;
+  outline: none;
+  border: none;
+}
+
+.ISFForm .ISFFooter {
+  display: table-cell;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  text-align: center;
+  color: blue;
+  max-width: 60rem;
+}
+
+.DeclarationForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 5rem;
+}
+
+.DeclarationForm .DeclarationHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border-top: 2px solid black;
+}
+
+.DeclarationForm .DeclarationHeader .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.DeclarationForm .DeclarationHeader .row .Note {
+  padding: 0.5rem;
+  font-size: 0.65rem;
+  line-height: 90%;
+}
+
+.DeclarationForm .DeclarationHeader .row .FormNumber {
+  text-align: center;
+  border-left: 1px solid black;
+  padding: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.DeclarationForm .DeclarationHeader .row .FormNumber label {
+  white-space: nowrap;
+}
+
+.DeclarationForm .DeclarationHeader .row .Title {
+  padding: 0.5rem;
+  width: 50%;
+  font-size: 0.8rem;
+}
+
+.DeclarationForm .DeclarationHeader .row .right {
+  padding-left: 10rem;
+  padding-right: 3rem;
+  text-align: center;
+}
+
+.DeclarationForm .DeclarationHeader .row .Focus {
+  font-size: 1.2rem;
+}
+
+.DeclarationForm .FirstSection input {
+  outline: none;
+  border: none;
+}
+
+.DeclarationForm .FirstSection input:hover {
+  outline: none;
+  border: none;
+}
+
+.DeclarationForm .FirstSection .FirstSectionContainer {
+  position: relative;
+}
+
+.DeclarationForm .FirstSection .FirstSectionContainer .Spliter {
+  position: absolute;
+  height: 100%;
+  right: 51%;
+  border-right: 1px solid black;
+}
+
+.DeclarationForm .FirstSection .row {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-bottom: 1px solid black;
+}
+
+.DeclarationForm .FirstSection .row div {
+  width: 50%;
+  font-weight: bold;
+  font-size: 0.8rem;
+  padding-left: 0.4rem;
+}
+
+.DeclarationForm .FirstSection .row label {
+  font-weight: normal;
+  padding: 0rem;
+}
+
+.DeclarationForm .FirstSection .LeftCellMerge::before {
+  content: '';
+  position: absolute;
+  background-color: white;
+  height: 2px;
+  width: 49%;
+  bottom: -2px;
+  left: 0;
+}
+
+.DeclarationForm .FirstSection .FirstSectionTitle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  border-bottom: 1px solid black;
+}
+
+.DeclarationForm .SecondSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+}
+
+.DeclarationForm .SecondSection .SecondSectionHeader {
+  font-weight: bold;
+  border-bottom: 1px solid black;
+}
+
+.DeclarationForm .SecondSection .Note {
+  text-align: left;
+  border-bottom: 1px solid black;
+}
+
+.DeclarationForm .SecondSection table {
+  display: table;
+  border-collapse: collapse;
+}
+
+.DeclarationForm .SecondSection table tr td, .DeclarationForm .SecondSection table tr th, .DeclarationForm .SecondSection table thead td, .DeclarationForm .SecondSection table thead th {
+  height: 2.2rem;
+  border: 1px solid black;
+}
+
+.DeclarationForm .SecondSection table tr td input, .DeclarationForm .SecondSection table tr th input, .DeclarationForm .SecondSection table thead td input, .DeclarationForm .SecondSection table thead th input {
+  width: 100%;
+  outline: none;
+  border: none;
+}
+
+.DeclarationForm .SecondSection table tr td input:hover, .DeclarationForm .SecondSection table tr th input:hover, .DeclarationForm .SecondSection table thead td input:hover, .DeclarationForm .SecondSection table thead th input:hover {
+  outline: none;
+  border: none;
+}
+
+.DeclarationForm .SecondSection table tr td:first-of-type, .DeclarationForm .SecondSection table thead td:first-of-type {
+  border-left: none;
+}
+
+.DeclarationForm .SecondSection table tr td:last-of-type, .DeclarationForm .SecondSection table thead td:last-of-type {
+  border-right: none;
+}
+
+.DeclarationForm .SecondSection table tr th:first-of-type, .DeclarationForm .SecondSection table thead th:first-of-type {
+  border-left: none;
+}
+
+.DeclarationForm .SecondSection table tr th:last-of-type, .DeclarationForm .SecondSection table thead th:last-of-type {
+  border-right: none;
+}
+
+.DeclarationForm .SecondSection .SecondSectionFooter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-align: left;
+  font-size: 0.8rem;
+}
+
+.DeclarationForm .Instructions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-top: 3rem;
+}
+
+.DeclarationForm .Instructions .InstructionsHeader {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  text-decoration: underline;
+  padding: 2rem;
+}
+
+.DeclarationForm .Instructions p {
+  font-size: 0.8rem;
+  margin-bottom: 0.1rem;
+}
+
+.DeclarationForm .Instructions table {
+  text-align: center;
+  display: table;
+  border-collapse: collapse;
+}
+
+.DeclarationForm .Instructions table tr td, .DeclarationForm .Instructions table tr th, .DeclarationForm .Instructions table thead td, .DeclarationForm .Instructions table thead th {
+  height: 2.2rem;
+  border: 1px solid black;
+}
+
+.DeclarationForm .Instructions table tr td input, .DeclarationForm .Instructions table tr th input, .DeclarationForm .Instructions table thead td input, .DeclarationForm .Instructions table thead th input {
+  width: 100%;
+  outline: none;
+  border: none;
+}
+
+.DeclarationForm .Instructions table tr td input:hover, .DeclarationForm .Instructions table tr th input:hover, .DeclarationForm .Instructions table thead td input:hover, .DeclarationForm .Instructions table thead th input:hover {
+  outline: none;
+  border: none;
+}
+
+.DeclarationForm .Instructions table tr td:first-of-type, .DeclarationForm .Instructions table thead td:first-of-type {
+  border-left: none;
+}
+
+.DeclarationForm .Instructions table tr td:last-of-type, .DeclarationForm .Instructions table thead td:last-of-type {
+  border-right: none;
+}
+
+.DeclarationForm .Instructions table tr th:first-of-type, .DeclarationForm .Instructions table thead th:first-of-type {
+  border-left: none;
+}
+
+.DeclarationForm .Instructions table tr th:last-of-type, .DeclarationForm .Instructions table thead th:last-of-type {
+  border-right: none;
+}
+
+.DeclarationForm .Submitbutton {
+  padding: 2rem;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins";
+}
+
+ul {
+  list-style-type: none;
+}
+
+@media only screen and (max-width: 980px) {
+  .fadeshow1 {
+    display: none;
+  }
+  .fadeshow2 {
+    display: none;
+  }
+  .CreatePo {
+    margin: 2% 20%;
+  }
+  .Hide {
+    display: none;
+  }
+  #Hide {
+    display: none;
+  }
+  .ProductSamples {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .ProductSamples .card {
+    margin-top: 0.5rem;
+  }
+  .bottomOfHeader {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .bottomOfHeader #menuCheckBox {
+    display: block;
+  }
+  .bottomOfHeader #menuCheckBox #menuimg {
+    width: 32px;
+    display: block;
+    margin-left: 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+  .bottomOfHeader #menuCheckBox #menuimg:hover {
+    cursor: pointer;
+  }
+  .bottomOfHeader ul {
+    width: 100%;
+    display: none;
+  }
+  .bottomOfHeader #DealerSubMenu, .bottomOfHeader #PortsSubMenu {
+    position: relative !important;
+    color: red !important;
+    top: 0.7rem !important;
+    left: 2rem !important;
+    border: none !important;
+    -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+  }
+  .bottomOfHeader #DealerSubMenu li, .bottomOfHeader #PortsSubMenu li {
+    border: none !important;
+    background-color: white !important;
+  }
+  #check:checked + #test {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    z-index: 100;
+    left: 0;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .PoDetails .data {
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+  .PoDetailsWraper {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+  .PoDetailsWraper label {
+    text-align: left;
+  }
+  .PoDetailsWraper a {
+    text-align: right;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .LargeScreenOnly {
+    display: none;
+  }
+  .CreatePo {
+    margin: 1%;
+  }
+  .CreatePo input, .CreatePo button, .CreatePo select, .CreatePo textarea {
+    width: 15rem;
+  }
+  .CreatePo input:focus, .CreatePo button:focus, .CreatePo select:focus, .CreatePo textarea:focus {
+    width: 15.5rem;
+  }
+  .AddressHeader h1, .AddressHeader h2 {
+    font-size: 1rem;
+  }
+  .PoDetailsWraper label {
+    text-align: left;
+    font-size: 0.7rem;
+  }
+  .PoDetailsWraper a {
+    text-align: right;
+    font-size: 0.7rem;
+  }
+  .PoDetailsWraper p {
+    font-size: 0.7rem;
+  }
+  .Close {
+    display: block;
+    text-align: center;
+    min-width: 1rem;
+  }
+}
+/*# sourceMappingURL=styles.css.map */

@@ -31,6 +31,7 @@
                     <th class="LargeScreenOnly ClickableHeader" (click)="OrderPosByShipByDate()">Ship By</th>
                     <th>Details</th>
                     <th>Invoice</th>
+                    <th>Archive</th>
                 </tr>
             </thead>
             <tbody id="tbody">
@@ -57,7 +58,11 @@
                         <a type="button" (click)=VeiwPoDetails(P)>Details</a>
                     </td>
                     <td>
-                        <a type="button" (click)="AddPoToInvoice(P)">Add To Invoice</a>
+                        <a type="button" (click)="AddPoToInvoice(P)">Add To Shipment</a>
+                    </td>
+                    <td>
+                        <a type="button" *ngIf = "!P.Archived" (click)="ArchivePo(P)">Add To Archive</a>
+                        <a type="button" *ngIf = "P.Archived" (click)="UnArchivePo(P)"> UnArchive</a>
                     </td>
                 </tr>
             </tbody>

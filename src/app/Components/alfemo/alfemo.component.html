@@ -5,6 +5,20 @@
 <div class="SearchInput"><input type="text" placeholder="Search" (input) = "SearchPos($event)"></div>
 <div class="DataTableWraper">
     <div>
+        <div class="TableHeader">
+            <label class="button" (click) = "ViewInvoiceForm()">Generate Invoice & ISF</label>
+            <ul>
+                <li id="InvoicePosSubMenutitle">
+                    <label >Invoice Pos </label>
+                    <ul id ="InvoicePosSubMenu">
+                        <li *ngFor='let Po of InvoicePOs; index as i'>
+                            <a>{{i}}.   {{Po.dealerPoNumber}}</a> 
+                            <i class="far fa-trash-alt" (click)="removePoFromInvoice(Po)"></i>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
         <table class="table">
             <thead>
                 <tr class="tableheader">
@@ -22,6 +36,7 @@
                     <th class="LargeScreenOnly">Approved</th>
                     <th class=" ClickableHeader" (click) = "OrderPosByShipByDate()">Ship By</th>
                     <th >Details</th>
+                    <th>Invoice</th>
                 </tr>
             </thead>
             <tbody id="tbody">
@@ -49,6 +64,9 @@
                     </td>
                     <td class="td-btn">
                         <a (click)=VeiwPoDetails(P)>Details</a>
+                    </td>
+                    <td>
+                        <a type="button" (click)="AddPoToInvoice(P)">Add To Invoice</a>
                     </td>
                 </tr>
             </tbody>

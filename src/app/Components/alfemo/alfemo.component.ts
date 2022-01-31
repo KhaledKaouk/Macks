@@ -32,6 +32,7 @@ export class AlfemoComponent implements OnInit {
   PosForSlicing: POs[] = [];
   SelectionMode: Boolean = false;
   SelectedPos: POs[] = [];
+  InvoicePOs: POs[] = [];
 
 
   constructor(private dialog: MatDialog,
@@ -175,6 +176,37 @@ export class AlfemoComponent implements OnInit {
         this.notification.OnSuccess('You have Updated the Pos Successfully')
         location.reload()
       }))
+  }
+  ViewInvoiceForm(){
+    this.router.navigate(['/Invoice'], {queryParams:{IP:this.GetCorinthianPoFileNames(),Port:this.InvoicePOs[0].port,PosIds:this.GetPoIds()}})
+  }
+  GetPoIds() {
+    let PoIds: string[] = [];
+    this.InvoicePOs.forEach(Po => PoIds.push(Po._id))
+
+    return PoIds;
+  }
+  removePoFromInvoice(Po: POs){
+    this.InvoicePOs.splice(this.InvoicePOs.indexOf(Po),1)
+  }
+  AddPoToInvoice(Po: POs){
+    if (!this.CheckPoInInvoice(Po) && this.CheckPortOfPo(Po)) {
+      this.InvoicePOs.push(Po)
+      this.notification.DisplayInfo('You have added Po of: ' + Po.dealerPONumber + ' to the invoice')
+    }else{
+      this.notification.OnError('you have added this Po or the port of the Po doesnot match')
+    }
+  }
+  CheckPortOfPo(Po: POs){
+    return this.InvoicePOs.length == 0 || this.InvoicePOs[0].port == Po.port
+  }
+  CheckPoInInvoice(Po: POs) {
+    return this.InvoicePOs.includes(Po)
+  }
+  GetCorinthianPoFileNames(){
+    let PoFileNames: string[] = []
+    this.InvoicePOs.forEach(Po =>PoFileNames.push(Po.corinthianPOAttach))
+    return PoFileNames
   }
 
 }

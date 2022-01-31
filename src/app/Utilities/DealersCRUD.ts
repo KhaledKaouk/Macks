@@ -60,7 +60,7 @@ export async function CheckDealersToMatchOfflineDB(PoService: POsService) {
         console.log("Data Cleared")
     }
     for (let Po of AllPos) {
-        let NewDealer: Dealers = { _id: CreateDealerId(), name: 'Po.dealerName', email: 'Po.dealerEmail', mobile: "", address: "" };
+        let NewDealer: Dealers = { _id: CreateDealerId(), name: 'Po.dealerName', email: 'Po.dealerEmail', mobile: "", address: "" ,PortId:""};
         if (DBDealers.length == 0) {
              AddNewDealer(NewDealer);
             await PromiseAllDealers().then((res: any) => {

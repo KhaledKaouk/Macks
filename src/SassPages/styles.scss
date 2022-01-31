@@ -1,0 +1,160 @@
+@import "./variables";
+@import "./utilities";
+@import "./DataTableWraper";
+@import "./Header";
+@import "./Footer";
+@import "./Cataloge";
+@import "./AlfemoUpdate";
+@import "./ProductDetails";
+@import "./PoDetails";
+@import "./HomeSlide";
+@import "./AddressHeader";
+@import "./InputForm";
+@import "./Spinner";  
+@import "./DealerDetails"; 
+@import "./Reports";
+@import "./CommercialInvoice";
+@import "./PrdouctShippingDetails";
+@import "./FormGenerator";
+@import "./BOL";
+@import "./Invoices";
+@import "./ISF";
+@import "./Declaration";
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins";
+}
+ul{
+   list-style-type: none; 
+}
+
+@media only screen and (max-width: 980px) {
+    .fadeshow1 {
+        display: none;
+    }
+    .fadeshow2 {
+        display: none;
+    }
+    .CreatePo {
+        margin: 2% 20%;
+    }
+    .Hide {
+        display: none;
+    }
+    #Hide {
+        display: none;
+    }
+    .ProductSamples {
+        flex-direction: column;
+        .card {
+            margin-top: 0.5rem;
+        }
+    }
+    .bottomOfHeader {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        #menuCheckBox {
+            display: block;
+            #menuimg {
+                width: 32px;
+                display: block;
+                margin-left: 15px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+        ul {
+            width: 100%;
+            display: none;
+        }
+        #DealerSubMenu, #PortsSubMenu{
+            position: relative !important;
+            color: red !important;
+            top: 0.7rem !important;
+            left:  2rem !important;
+            border: none !important;
+            box-shadow: none !important;
+            li{
+                border: none !important;
+                background-color: white !important;
+
+            }
+            
+        }
+    }
+
+    #check:checked + #test {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        z-index: 100;
+        left: 0;
+    }
+
+    
+}
+
+@media screen and (max-width: 800px) {
+    .PoDetails {
+        .data {
+            justify-content: flex-start;
+        }
+    }
+    .PoDetailsWraper{
+        align-items: flex-start;
+        justify-content: flex-start;
+        label{
+            text-align: left;
+        }
+        a{
+            text-align: right;
+        }
+    }    
+}
+@media screen and (max-width: 650px) {
+    .LargeScreenOnly {
+        display: none;
+    }
+    .CreatePo{
+        margin: 1%;
+        input,button,select,textarea {
+            width: 15rem;
+            &:focus{
+                width: 15.5rem;
+            }
+        }
+    }
+    .AddressHeader{
+        h1,h2{
+            font-size: 1rem;
+        }
+    }
+    .PoDetailsWraper{
+        label{
+            text-align: left;
+            font-size: 0.7rem;
+        }
+        a{
+            text-align: right;
+            font-size: 0.7rem;
+        }
+        p{
+            font-size: 0.7rem;
+        }
+    }
+    .Close{
+        display: block;
+        text-align: center;
+        min-width: 1rem;
+    }
+    
+}
+

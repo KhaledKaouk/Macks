@@ -9,10 +9,10 @@ import { InDevMode } from '../Utilities/Variables';
 })
 export class POsService {
 
-   ApiURL: string = "https://macksdis.com/Po";
+  ApiURL: string = "https://macksdis.com/Po";
   constructor(private http: HttpClient,) {
     if (InDevMode) this.ApiURL = "http://localhost:5000/Po"
-   }
+  }
 
   GetPos() {
     return this.http.get<POs>(this.ApiURL + "/getAllPos").toPromise();
@@ -27,7 +27,7 @@ export class POsService {
   }
 
   UpdatePo(UpdatedPo: POs) {
-    return this.http.post(this.ApiURL + "/updatepo", UpdatedPo);
+    return this.http.post(this.ApiURL + "/updatepo", UpdatedPo)
   }
   GetProducts() {
     return this.http.get(this.ApiURL + "/GetCatalog");
@@ -37,7 +37,7 @@ export class POsService {
     Po.deleted = confirm("Are you Sure you Want To Delete this Po?")
     return this.http.post(this.ApiURL + "/deletepofromdb", Po);
   }
-  UpdatePosBulk(Pos: POs[]){
-    return this.http.post(this.ApiURL + "/UpdatePosStatusAndDates",Pos)
+  UpdatePosBulk(Pos: POs[]) {
+    return this.http.post(this.ApiURL + "/UpdatePosStatusAndDates", Pos)
   }
 }

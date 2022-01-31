@@ -101,6 +101,9 @@ export function CompareDates(FirstDate: string,SecondDate: string){
 export function RemoveDeletedPOs(POs: POs[]){
     return POs.filter(PO => PO.deleted != true)
 }
+export function RemoveArchivedPos(Pos: POs[]){
+    return Pos.filter(po => po.Archived != true)
+}
 export function SetUpPOsForDisplay(POs: POs[]){
     return RemoveDeletedPOs(POs).reverse();
 }

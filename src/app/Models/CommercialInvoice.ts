@@ -1,4 +1,5 @@
 export class ProductShippingDetails {
+    _id: string;
     NO: string;
     PRODUCT_CODE: string;
     PRODUCT: string;
@@ -14,18 +15,19 @@ export class ProductShippingDetails {
     TOTAL_PRICE: number;
 
     constructor() {
-        this.NO = '0',
-        this.PRODUCT_CODE = '',
-        this.PRODUCT = '',
-        this.Po = '',
-        this.QTY = 0,
-        this.PACKS = 0,
-        this.TOTAL_PACKS = this.QTY * this.PACKS,
-        this.UNIT_KG = 0,
-        this.TOTAL_KG = this.QTY * this.UNIT_KG,
-        this.UNIT_CUBM = 0,
-        this.TOTAL_CUBM = this.QTY * this.UNIT_CUBM,
-        this.UNIT_PRICE = 0,
+        this._id = ""
+        this.NO = '0'
+        this.PRODUCT_CODE = ''
+        this.PRODUCT = ''
+        this.Po = ''
+        this.QTY = 0
+        this.PACKS = 0
+        this.TOTAL_PACKS = this.QTY * this.PACKS
+        this.UNIT_KG = 0
+        this.TOTAL_KG = this.QTY * this.UNIT_KG
+        this.UNIT_CUBM = 0
+        this.TOTAL_CUBM = this.QTY * this.UNIT_CUBM
+        this.UNIT_PRICE = 0
         this.TOTAL_PRICE = this.QTY * this.UNIT_PRICE
     }
     CreatePropertyTR(tbody: HTMLElement) {
