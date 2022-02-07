@@ -1,0 +1,90 @@
+.GCC {
+    width: 70vw;
+    align-self: center;
+    padding: 2rem;
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    input{
+        border: 1px solid #e4e4e4;
+    }
+    input[type="date"]::-webkit-inner-spin-button,
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
+    .GCCTitle {
+        align-self: center;
+        font-size: 2rem;
+        font-weight: bold;
+        padding-bottom: 1rem;
+    }
+    .HeaderNote {
+        font-size: 0.8rem;
+        font-style: italic;
+    }
+    .FirstSection {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 1rem;
+        label {
+            font-weight: bold;
+        }
+        .Line {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+    }
+    .PartiesInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding-bottom: 0.5rem;
+        div {
+            display: flex;
+            flex-direction: column;
+            label {
+                font-weight: bold;
+            }
+        }
+    }
+    .ManufacturingInfo {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1rem;
+        .address {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: bold;
+        }
+        .SectionHeader {
+            font-weight: bold;
+            padding-bottom: 0.5rem;
+        }
+    }
+    .TestingInfo {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1rem;
+        .SectionHeader {
+            font-weight: bold;
+            padding-bottom: 0.5rem;
+        }
+    }
+    .SubmitButton {
+        align-self: center;
+        .button{
+            &:disabled {
+                cursor:auto;
+                background-color: gray;
+                color: white;
+                border: gray;
+            }
+        }
+    }
+}

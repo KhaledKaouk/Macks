@@ -6,18 +6,20 @@
 <div class="DataTableWraper">
     <div>
         <div class="TableHeader">
-            <label class="button" (click) = "ViewInvoiceForm()">Generate Invoice & ISF</label>
-            <ul>
-                <li id="InvoicePosSubMenutitle">
-                    <label >Invoice Pos </label>
-                    <ul id ="InvoicePosSubMenu">
-                        <li *ngFor='let Po of InvoicePOs; index as i'>
-                            <a>{{i}}.   {{Po.dealerPoNumber}}</a> 
-                            <i class="far fa-trash-alt" (click)="removePoFromInvoice(Po)"></i>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <div class="FirstSection">
+                <label class="button" (click) = "ViewInvoiceForm()">Generate Invoice & ISF</label>
+                <ul>
+                    <li id="InvoicePosSubMenutitle">
+                        <label >Invoice Pos </label>
+                        <ul id ="InvoicePosSubMenu">
+                            <li *ngFor='let Po of InvoicePOs; index as i'>
+                                <a>{{i}}.   {{Po.dealerPoNumber}}</a> 
+                                <i class="far fa-trash-alt" (click)="removePoFromInvoice(Po)"></i>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
         <table class="table">
             <thead>

@@ -20,7 +20,7 @@ export class FrightPriceUpdateComponent implements OnInit {
 
   UpdateFrightPriceForm = new FormGroup(
     {
-      Location: new FormControl({value: this.data.locations, disabled: true},Validators.required),
+      Location: new FormControl({value: this.data.City, disabled: true},Validators.required),
       Price: new FormControl('',Validators.required),
       DeliveryType: new FormControl('',Validators.required),
       Port: new FormControl('',Validators.required)
@@ -55,19 +55,19 @@ export class FrightPriceUpdateComponent implements OnInit {
   
   AssignFormValuesToFrightPriceObject(){
     this.ToUpdateFrightPrice._id = this.data._id;
-    this.ToUpdateFrightPrice.locations =  this.UpdateFrightPriceForm.get('Location')?.value;
-    this.ToUpdateFrightPrice.currentprice = this.UpdateFrightPriceForm.get('Price')?.value;
-    this.ToUpdateFrightPrice.deliveryType = this.UpdateFrightPriceForm.get('DeliveryType')?.value;
-    this.ToUpdateFrightPrice.oldprice = this.data.currentprice;
-    this.ToUpdateFrightPrice.port = this.UpdateFrightPriceForm.get('Port')?.value;
-    this.ToUpdateFrightPrice.changedon = new Date().toLocaleDateString()
+    this.ToUpdateFrightPrice.City =  this.UpdateFrightPriceForm.get('Location')?.value;
+    this.ToUpdateFrightPrice.PortToPortPrice = this.UpdateFrightPriceForm.get('Price')?.value;
+    // this.ToUpdateFrightPrice.deliveryType = this.UpdateFrightPriceForm.get('DeliveryType')?.value;
+    // this.ToUpdateFrightPrice.oldprice = this.data.currentprice;
+    this.ToUpdateFrightPrice.Port = this.UpdateFrightPriceForm.get('Port')?.value;
+    this.ToUpdateFrightPrice.Validty = ""
   }
   AssignFrightPriceInfoToForm(){
     this.UpdateFrightPriceForm.setValue({
-      Location: this.data.locations,
-      Price:  this.data.currentprice,
-      DeliveryType: this.data.deliveryType,
-      Port: this.data.port
+      Location: this.data.City,
+      Price:  this.data.PortToPortPrice,
+      DeliveryType: "Door Delivery",
+      Port: this.data.Port
     });
   }
   

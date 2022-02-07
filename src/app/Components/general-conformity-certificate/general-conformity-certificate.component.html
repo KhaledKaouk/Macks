@@ -1,0 +1,98 @@
+<div class="GCC" id="PDF" [formGroup]="GCCFrom">
+    <div class="GCCTitle">
+        <label>General Conformity Certificate</label>
+    </div>
+    <div class="HeaderNote">
+        <p><b>The manufacturer and importer of the product named below certify, based on a test of each product or upon
+                a
+                reasonable testing program, that such product complies with all rules, bans, standards, or regulations
+                applicable to the product under the Consumer Product Safety Act or other Act enforced by the Consumer
+                Product Safety Commission. The rules, bans, standard, or regulations applicable to the product are as
+                specified herein.</b></p>
+    </div>
+    <div class="FirstSection">
+        <div class="Line">
+            <div>
+                <label>Item Number(s):</label>
+                <input formControlName="ItemNumber"
+                    onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';" class="Draft" type="text">
+            </div>
+            <div>
+                <label>PO Number(s):</label>
+                <a>{{GetShipmentPos()}}</a>
+            </div>
+        </div>
+        <div class="Line">
+            <div>
+                <label>Item Description :</label>
+                <a>SECTIONAL</a>
+
+            </div>
+            <div>
+                <label>ETD Date:</label>
+                <a>{{Shipment.ETD}}</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="PartiesInfo">
+        <div>
+            <label>CPSC safety regulation(s) to which this product is being certified:</label>
+            <a>CPSC 16CFR 1303</a>
+        </div>
+        <div>
+            <label>Importer certifying compliance:</label>
+            <a>MACKS FURNITURE WAREHOUSE</a>
+        </div>
+        <div>
+            <label>Import contact information of individual maintaining records of test results:</label>
+            <a>MACKS FURNITURE WAREHOUSE <br>
+                1809 DICKINSON AVENUE GREENVILLE, NC 27834 UNITED STATES <br>
+                PHONE: 252- 2583595</a>
+        </div>
+        <div>
+            <label>Manufacture/Factory certifying compliance:</label>
+            <a>ALFEMO MOBILYA SAN. TIC.A.S. <br>
+                YEDİ EYLÜL MAH. CELAL UMUR CAD.NO:12 <br>
+                TORBALI / IZMIR - TURKEY <br>
+                PHONE : +90 232 999 30 00 </a>
+        </div>
+        <div>
+            <label>Ship To:</label>
+            <a style="white-space: pre-wrap;">{{FormatAddress()}}</a>
+        </div>
+    </div>
+    <div class="ManufacturingInfo">
+        <label class="SectionHeader">Date/place product was manufactured:</label>
+        <div class="date">
+            <label>Date (month/year):</label>
+            <input formControlName="ManufactureDate" class="Draft" type="date">
+        </div>
+        <div class="address">
+            <label>Factory name, location (full address) & telephone number:</label>
+            <a>ALFEMO MOBILYA SAN. TIC.A.S. <br>
+                YEDİ EYLÜL MAH. CELAL UMUR CAD.NO:12 <br>
+                TORBALI / IZMIR - TURKEY <br>
+                PHONE : +90 232 999 30 00</a>
+        </div>
+    </div>
+    <div class="TestingInfo">
+        <label class="SectionHeader">Date/place where product was tested for compliance with regulations cited
+            above:</label>
+        <div>
+            <label>Date tested:</label>
+            <input formControlName="TestingDate" class="Draft" type="Date">
+        </div>
+        <div>
+            <label>Lab name, location (full address) & telephone number:</label>
+            <input class="Draft" formControlName= "LabAddress" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';" type="text">
+        </div>
+    </div>
+    <div class="GCCFooter">
+        <p>This certificate must <b>accompany</b> each shipment for product (as listed above)
+            A copy of this certificate must be made available to the Commission and Customs <b>UPON REQUEST</b></p>
+    </div>
+    <div class="SubmitButton Draft">
+        <button class="button" [disabled]="!GCCFrom.valid" (click)="GenerateGCC()">Generate Document</button>
+    </div>
+</div>

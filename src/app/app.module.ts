@@ -55,6 +55,8 @@ import { InvoicesComponent } from './Components/invoices/invoices.component';
 import { ISFComponent } from './Components/isf/isf.component';
 import { PackingListComponent } from './Components/packing-list/packing-list.component';
 import { DeclarationComponent } from './Components/declaration/declaration.component';
+import { TSCACertificationComponent } from './Components/tsca-certification/tsca-certification.component';
+import { GeneralConformityCertificateComponent } from './Components/general-conformity-certificate/general-conformity-certificate.component';
 
 
 @NgModule({
@@ -100,6 +102,8 @@ import { DeclarationComponent } from './Components/declaration/declaration.compo
     ISFComponent,
     PackingListComponent,
     DeclarationComponent,
+    TSCACertificationComponent,
+    GeneralConformityCertificateComponent,
   ],
   imports: [
     BrowserModule,

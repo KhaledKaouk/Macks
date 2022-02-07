@@ -51,11 +51,11 @@ export class CreateFeightPriceComponent implements OnInit {
   }
   
   AssignFormValuesToFrightPriceObject(){
-    this.NewFreidghtPrice.locations =  this.CreateFreightPriceForm.get('Location')?.value;
-    this.NewFreidghtPrice.currentprice = this.CreateFreightPriceForm.get('Price')?.value;
-    this.NewFreidghtPrice.deliveryType = this.CreateFreightPriceForm.get('DeliveryType')?.value;
-    this.NewFreidghtPrice.port = this.CreateFreightPriceForm.get('Port')?.value;
-    this.NewFreidghtPrice.changedon = new Date().toLocaleDateString()
+    this.NewFreidghtPrice.City =  this.CreateFreightPriceForm.get('Location')?.value;
+    this.NewFreidghtPrice.PortToPortPrice = this.CreateFreightPriceForm.get('Price')?.value;
+    // this.NewFreidghtPrice.deliveryType = this.CreateFreightPriceForm.get('DeliveryType')?.value;
+    this.NewFreidghtPrice.Port = this.CreateFreightPriceForm.get('Port')?.value;
+    this.NewFreidghtPrice.Validty = ""
   }
 
   Close(){

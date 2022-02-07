@@ -4,15 +4,42 @@
     position: relative;
     .TableHeader {
         display: flex;
+        flex-direction: column;
         justify-content: flex-start;
-        align-items: center;
+        // align-items: center;
+        .fa-cog{
+            &:hover{
+                cursor: pointer;
+                transform: scale(0.9);
+            }
+        }
         gap: 1rem;
+        .FirstSection{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 1rem;
+            button{
+                &:disabled {
+                    background-color: gray;
+                    color: white;
+                    border: gray;
+                }
+            }
+        }
+        .SecondSection{
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        }
         label {
             font-size: 1.1rem;
             white-space: nowrap;
         }
         .button {
-            // width: 100%;
             border: 1px solid $footer-color;
             padding: 0.2rem;
             transition: background-color 0.3s ease-in;

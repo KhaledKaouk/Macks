@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { InDevMode } from './Utilities/Variables';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,10 @@ export class AppComponent implements OnInit{
   
   ngOnInit(): void {
    this.HideSpinner();
+   this.ChangeProtocolIntoHttps();
+  }
+  ChangeProtocolIntoHttps(){
+    if(!InDevMode && location.protocol == 'http:') location.protocol = 'https:' 
   }
   GoToLogIn(){
     this.router.navigateByUrl('/LogIn')

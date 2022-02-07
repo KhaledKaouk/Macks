@@ -1,9 +1,12 @@
+import { ProductOrder } from "./ProductOrder";
+
 export class POs {
     _id: string;
     dealer_id: string;
     dealerPoNumber: string;
     mackPoNumber: string;
     corinthianPoNumber: string;
+    // ProductsOrders: ProductOrder[] 
     mackPOAttach: string;
     corinthianPOAttach: string;
     userId: string;
@@ -29,13 +32,14 @@ export class POs {
     invoiceDate: string;
     port: string;
     ShipmentId: string;
-    [key:string]: string | boolean | number;
+    [key:string]: string | boolean | number | ProductOrder[];
     constructor(){
             this._id = "";
             this.dealer_id = "",
             this.dealerPoNumber = "";
             this.mackPoNumber = "";
             this.corinthianPoNumber = "";
+            // this.ProductsOrders = [];
             this.userId = "";
             this.mackPOAttach = "";
             this.corinthianPOAttach = "";

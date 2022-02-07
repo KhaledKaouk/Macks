@@ -22,7 +22,7 @@ export class FrightpricesService {
   }
 
   UpdateFrightPricesByBulk(UpdatedFrightPrices: freightPrices[]){
-    return this.http.post('',UpdatedFrightPrices).toPromise();
+    return this.http.post(this.ApiURL + '/CreateFreightsByBulk',UpdatedFrightPrices).toPromise();
   }
 
   UpdateSinglefrightPrice(UpdatedFrithPrice: freightPrices){

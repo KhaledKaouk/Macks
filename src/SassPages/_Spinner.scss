@@ -11,13 +11,16 @@
     border: 3px solid lightgray;
     border-top-color: coral;
     animation: spinner 0.7s linear infinite;
+    overflow: auto;
 }
 .SpinnerContainer{
-    position: absolute;
+    position: fixed;
+    background-color: gray;
     top: 0;
     left: 0;
     right: 0;
     height: 100vh;
+    overflow: auto;
     opacity: 0.6;
 }
 

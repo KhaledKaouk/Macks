@@ -3,9 +3,11 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { Dealers } from 'src/app/Models/Dealers';
 import { POs } from 'src/app/Models/Po-model';
+import { Shipment } from 'src/app/Models/Shipment';
 import { DealersService } from 'src/app/Services/dealers.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { POsService } from 'src/app/Services/pos.service';
+import { ShipmentService } from 'src/app/Services/shipment.service';
 import { CheckCorinthianUserPermissions } from 'src/app/Utilities/CheckAuth';
 import { AddPreffixAndExtention, DIs, RemoveSlashes, Spinner } from 'src/app/Utilities/Common';
 import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
@@ -30,11 +32,14 @@ export class PoDetailsComponent implements OnInit {
   UserIsAdmin = this.CheckIfAdmin();
   ShippindDocsFileNames: string[] = [];
   ShippingDocsFiles: File[] = [];
+  AllShipments: Shipment[] = [];
+  PoShipment: Shipment = new Shipment();
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: [POs, string[]],
     private dialogref: MatDialogRef<PoDetailsComponent>,
     private dialog: MatDialog,
     private PoService: POsService,
+    private ShipmentService: ShipmentService,
     private DealerService: DealersService,
     private Notification: NotificationserService,
     private router: Router,
@@ -46,11 +51,35 @@ export class PoDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.ViewedPO = this.data[0];
+    this.GetShipment();
     this.AlertMackOnUploadedPO();
     this.CheckFunctionalities();
     this.GetAllDealers();
   }
-
+  async GetShipment() {
+    if (this.CheckForShipmentValidation()) {
+      await this.ShipmentService.GetAllShipments()
+        .then(
+          (shipments: any) => {
+            this.AllShipments = shipments;
+            this.PoShipment = this.FindPoShipment()
+            this.AssignShipmentInfoToPo();
+          },
+          err => Auth_error_handling(err, this.Notification, this.router)
+        )
+    }
+  }
+  CheckForShipmentValidation() {
+    return this.ViewedPO.ShipmentId != '' && this.ViewedPO.ShipmentId
+  }
+  FindPoShipment() {
+    return this.AllShipments.find(shipment => shipment._id == this.ViewedPO.ShipmentId) || new Shipment()
+  }
+  AssignShipmentInfoToPo() {
+    this.ViewedPO.factoryEstimatedArrivalDate = this.PoShipment.ETA;
+    this.ViewedPO.factoryEstimatedShipDate = this.PoShipment.ETD;
+    this.ViewedPO.status = this.PoShipment.Status;
+  }
   AdjustingDataForDisplay(approvalStatus: boolean) {
     return AdjustApprovalStatusForDisplay(approvalStatus);
   }
@@ -118,7 +147,7 @@ export class PoDetailsComponent implements OnInit {
     return ShippingDocsFile as File
   }
   ViewFile(FileName: string) {
-    let file = this.ShippingDocsFiles.find(file => file.name.toLowerCase().includes(FileName.toLowerCase())) || new File([],'empty')
+    let file = this.ShippingDocsFiles.find(file => file.name.toLowerCase().includes(FileName.toLowerCase())) || new File([], 'empty')
     window.open(URL.createObjectURL(file))
   }
   RejectPo() {

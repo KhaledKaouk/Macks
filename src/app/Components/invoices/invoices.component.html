@@ -9,18 +9,25 @@
                             <th class="LargeScreenOnly">Invoice Number</th>
                             <th class="LargeScreenOnly">Invoice Date</th>
                             <th class="LargeScreenOnly">BOL Number</th>
+                            <th class="LargeScreenOnly" *ngIf = CheckIfAdmin()>Delete</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
                         <tr *ngFor="let Shipment of DataOfCurrentPage index as i">
-                            <td class="LargeScreenOnly ClickableTd" (click)="ShowShppingDocsDetails(Shipment)">
+                            <td class="LargeScreenOnly ClickableTd" (click)="ShowShppingDocsDetails(Shipment)"
+                                [ngClass]="{'Selected': SelectedShipment._id == Shipment._id}">
                                 {{Shipment.Invoice.Number}}
                             </td>
-                            <td>
+                            <td [ngClass]="{'Selected': SelectedShipment._id == Shipment._id}">
                                 {{Shipment.Invoice.Date | EmptyField}}
                             </td>
-                            <td class="LargeScreenOnly ClickableTd" >
+                            <td class="LargeScreenOnly ClickableTd"
+                                [ngClass]="{'Selected': SelectedShipment._id == Shipment._id}">
                                 {{Shipment.BOLNumber | EmptyField}}
+                            </td>
+                            <td *ngIf = CheckIfAdmin() class="LargeScreenOnly ClickableTd"
+                                [ngClass]="{'Selected': SelectedShipment._id == Shipment._id}">
+                                <i class="far fa-trash-alt"  (click)="DeleteShipment(Shipment)"></i>
                             </td>
                         </tr>
                     </tbody>
@@ -37,8 +44,8 @@
             </div>
         </div>
     </div>
-    <div class="InvoiceDetails" >
-        <div class="Blocker" *ngIf =  "SelectedShipment._id == ''">Select a shipment from the table </div>
+    <div class="InvoiceDetails">
+        <div class="Blocker" *ngIf="SelectedShipment._id == ''">Select a shipment from the table </div>
         <div class="POs" [ngClass]="{'DisabledSection': SelectedShipment._id == '' }">
             <label (click)='ViewPOs()' [ngClass]="{'ActiveTab': !ShipmentOnDisplay}" class="SectionHeader Tab1">Shipment
                 Pos: {{PoIndex}}/{{SelectedShipment.POs.length}}</label>
@@ -157,47 +164,56 @@
             <ng-progress id="PoPopUProgress"></ng-progress>
         </div>
         <div class="Docs" [ngClass]="{'DisabledSection': SelectedShipment._id == '' }">
+            <div class="ShipmentStatus">
+                <label>Shipment Status</label>
+                <select (change) = "UpdateShipmentStatus($event)" value = {{SelectedShipment.Status}}>
+                    <option value="">none</option>
+                    <option *ngFor= "let Status of ShipmentStatus; index as i" value= {{Status}}>{{Status}}</option>
+                </select>
+            </div>
             <div class="File">
                 <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('Invoice')}"
                     (click)="ViewFile('Invoice')">Invoice ( {{SelectedShipment.Invoice.Number}} )</a>
-                <a (click)='ViewInvoiceForm()' *ngIf= "CheckRole() === 'alfemo'" >Edit</a>
+                <a (click)='ViewInvoiceForm()' *ngIf="CheckRole() === 'alfemo'">Edit</a>
             </div>
             <div class="File">
-                <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('ISF')}" (click)="ViewFile('ISF')">ISF</a>
-                <a (click)='ViewISFForm()' *ngIf= "CheckRole() === 'alfemo'">Edit</a>
+                <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('ISF')}"
+                    (click)="ViewFile('ISF')">ISF</a>
+                <a (click)='ViewISFForm()' *ngIf="CheckRole() === 'alfemo'">Edit</a>
             </div>
             <div class="File">
-                <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('BOL')}" (click)="ViewFile('BOL')">BOL</a>
-                <a (click) = "UploadBOL()" *ngIf= "CheckRole() === 'alfemo'">Upload BOL</a>
+                <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('BOL')}"
+                    (click)="ViewFile('BOL')">BOL</a>
+                <a (click)="UploadBOL()" *ngIf="CheckRole() === 'alfemo'">Upload BOL</a>
             </div>
-            <div class="File">                
+            <div class="File">
                 <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('General Conformity Certificate')}"
                     (click)="ViewFile('General Conformity Certificate')">General Conformity Certificate</a>
-                    <a (click) = "UploadFile('General Conformity Certificate')" *ngIf= "CheckRole() === 'alfemo'">Upload</a>
-
+                <a (click)="GenerateGeneralConformityCertificate()" *ngIf="CheckRole() === 'alfemo'">Generate</a>
             </div>
             <div class="File">
                 <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('CERTIFICATE OF ORIGIN')}"
-                (click)="ViewFile('CERTIFICATE OF ORIGIN')">CERTIFICATE OF ORIGIN</a>
-                <a (click) = "UploadFile('CERTIFICATE OF ORIGIN')" *ngIf= "CheckRole() === 'alfemo'">Upload</a>
+                    (click)="ViewFile('CERTIFICATE OF ORIGIN')">CERTIFICATE OF ORIGIN</a>
+                <a (click)="UploadFile('CERTIFICATE OF ORIGIN')" *ngIf="CheckRole() === 'alfemo'">Upload</a>
             </div>
             <div class="File">
                 <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('DECLARATION')}"
-                (click)="ViewFile('DECLARATION')">DECLARATION</a>
-                <a (click) = "GenerateDeclaration()" *ngIf= "CheckRole() === 'alfemo'">Generate</a>
+                    (click)="ViewFile('DECLARATION')">DECLARATION</a>
+                <a (click)="GenerateDeclaration()" *ngIf="CheckRole() === 'alfemo'">Generate</a>
             </div>
             <div class="File">
                 <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('PackingList')}"
-                (click)="ViewFile('PackingList')">PACKING LIST</a>
-                <a (click) = "OpenPackingListForm()" *ngIf= "CheckRole() === 'alfemo'">Generate</a>
+                    (click)="ViewFile('PackingList')">PACKING LIST</a>
+                <a (click)="OpenPackingListForm()" *ngIf="CheckRole() === 'alfemo'">Generate</a>
             </div>
             <div class="File">
                 <a class="File UnAvailable" [ngClass]="{'Available': CheckFile('TSCA_Certification')}"
-                (click)="ViewFile('TSCA_Certification')">TSCA_Certification</a>
-                <a (click) = "UploadFile('TSCA_Certification')" *ngIf= "CheckRole() === 'alfemo'">Upload</a>
+                    (click)="ViewFile('TSCA_Certification')">TSCA_Certification</a>
+                <!-- <a (click) = "UploadFile('TSCA_Certification')" *ngIf= "CheckRole() === 'alfemo'">Upload</a> -->
+                <a (click)="GenerateTSCA()" *ngIf="CheckRole() === 'alfemo'">Generate</a>
             </div>
         </div>
-        <input type="file" id="File" style="display: none;" (change) = "SelectFile($event)">
+        <input type="file" id="File" style="display: none;" (change)="SelectFile($event)">
     </div>
 </div>
 <simple-notifications></simple-notifications>

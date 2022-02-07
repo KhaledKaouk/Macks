@@ -8,13 +8,12 @@ import { CheckToken } from 'src/app/Utilities/CheckAuth';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { PoDetailsComponent } from '../po-details/po-details.component';
 import { CalculatePageCount, ColorTR, InitPageCountArray, RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
-import { Functionalities } from 'src/app/Utilities/Variables';
+import { DataRowInPage, Functionalities } from 'src/app/Utilities/Variables';
 import { AdjustApprovalStatusForDisplay, FilterPosBy, SetUpPOsForDisplay, SortPosByShipByDate } from 'src/app/Utilities/PoHandlers';
 import { ExportPosToXLSX } from 'src/app/Utilities/ReportsHandlers';
 import { DealersService } from 'src/app/Services/dealers.service';
 import { Dealers } from 'src/app/Models/Dealers';
 import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
-import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-admin',
@@ -28,7 +27,7 @@ export class AdminComponent implements OnInit {
   AllDealers: Dealers[] = [];
   PageCountArray: number[] = [0];
   PagesCount: number = 1;
-  DataRowsInPage: number = 15;
+  DataRowsInPage: number = DataRowInPage;
   DataOfCurrentPage: POs[] = [];
   CurrentPage: number = 0;
   PosForSlicing: POs[] = [];
@@ -50,7 +49,6 @@ export class AdminComponent implements OnInit {
     CheckToken(this.router);
     this.GetAllDealers();
     this.GetAllPos();
-
   }
   ngAfterViewChecked() {
     ColorTR();
@@ -125,7 +123,7 @@ export class AdminComponent implements OnInit {
     this.router.navigate(['/DealerProfile', dealer_Id])
   }
   ViewInvoiceForm() {
-    this.router.navigate(['/Invoice'], { queryParams: { IP: this.GetCorinthianPoFileNames(), Port: this.InvoicePOs[0].port,PosIds:this.GetPoIds() } })
+    this.router.navigate(['/Invoice'], { queryParams: { IP: this.GetCorinthianPoFileNames(), Port: this.InvoicePOs[0].port, PosIds: this.GetPoIds() } })
   }
   GetPoIds() {
     let PoIds: string[] = [];
@@ -155,18 +153,33 @@ export class AdminComponent implements OnInit {
   removePoFromInvoice(Po: POs) {
     this.InvoicePOs.splice(this.InvoicePOs.indexOf(Po), 1)
   }
-  ArchivePo(Po: POs){
+  ArchivePo(Po: POs) {
     Po.Archived = true;
     this.spinner.WrapWithSpinner(this.poservice.UpdatePo(Po).toPromise().then(
       res => this.notification.OnSuccess('Po has been archived'),
-      err => Auth_error_handling(err,this.notification,this.router)
+      err => Auth_error_handling(err, this.notification, this.router)
     ))
   }
-  UnArchivePo(Po: POs){
+  UnArchivePo(Po: POs) {
     Po.Archived = false;
     this.spinner.WrapWithSpinner(this.poservice.UpdatePo(Po).toPromise().then(
       res => this.notification.OnSuccess('Po has been Unarchived'),
-      err => Auth_error_handling(err,this.notification,this.router)
+      err => Auth_error_handling(err, this.notification, this.router)
     ))
+  }
+  ShowTableSettings() {
+    let SettingsSectionHtmlElement = document.getElementById('SecondSection')
+    if (SettingsSectionHtmlElement) SettingsSectionHtmlElement.style.opacity = SettingsSectionHtmlElement.style.opacity == "1" ? "0" : "1"
+  }
+  ChangeRowPerPage(event: any) {
+    this.DataRowsInPage = parseInt(event.target.value)
+  }
+  ChangePageSettings() {
+    if (this.DataRowsInPage >= 5 && this.DataRowsInPage <= 50) {
+      localStorage.setItem('DataRowInPage', this.DataRowsInPage.toString())
+      location.reload()
+    } else {
+      this.notification.OnError('The Number Should be between 5 and 50')
+    }
   }
 }

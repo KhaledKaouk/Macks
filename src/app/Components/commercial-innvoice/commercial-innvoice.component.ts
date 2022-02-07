@@ -2,12 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PrdouctShippingDetailsComponent } from '../prdouct-shipping-details/prdouct-shipping-details.component';
 import * as XLSX from 'xlsx';
-import * as ExcelJS from 'exceljs';
-import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from "rxjs/operators";
-import * as FileSaver from 'file-saver';
 import { DIs, FormatDate, Spinner } from 'src/app/Utilities/Common';
 import { ProductShippingDetails } from 'src/app/Models/CommercialInvoice';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -15,7 +12,6 @@ import { Invoice } from 'src/app/Models/Invoice';
 import { InvoiceService } from 'src/app/Services/invoice.service';
 import { NotificationserService } from 'src/app/Services/notificationser.service';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
-import { PortService } from 'src/app/Services/port.service';
 import { POsService } from 'src/app/Services/pos.service';
 import { POs } from 'src/app/Models/Po-model';
 import { Shipment } from 'src/app/Models/Shipment';
@@ -24,7 +20,6 @@ import { CombineFilesInZip, ConstructFormDataFile, GenerateZipBlob, UploadFile }
 import { APIURL } from 'src/app/Utilities/Variables';
 import * as JSZip from 'jszip';
 import * as ZipHandler from 'src/app/Utilities/ZipHandlers'
-import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 
 
 @Component({
@@ -58,7 +53,6 @@ export class CommercialInnvoiceComponent implements OnInit {
   CostumerAddressPart2: string = "";
   CostumerAddressPart3: string = "";
   Port = "";
-  // Containers: string[] = []
   NewInvoice: Invoice = new Invoice();
   InvoiceToUpdate: Invoice = new Invoice();
   Containers = new FormArray([

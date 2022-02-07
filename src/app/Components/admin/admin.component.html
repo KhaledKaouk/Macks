@@ -6,19 +6,32 @@
 <div class="DataTableWraper">
     <div>
         <div class="TableHeader">
-            <i class="fas fa-file-export fa-lg DownLoad" (click)=ExportPosToExcel()></i>
-            <label class="button" (click) = "ViewInvoiceForm()">Generate Invoice & ISF</label>
-            <ul>
-                <li id="InvoicePosSubMenutitle">
-                    <label >Invoice Pos </label>
-                    <ul id ="InvoicePosSubMenu">
-                        <li *ngFor='let Po of InvoicePOs; index as i'>
-                            <a>{{i}}.   {{Po.dealerPoNumber}}</a> 
-                            <i class="far fa-trash-alt" (click)="removePoFromInvoice(Po)"></i>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <div class="FirstSection">
+                <i class="fas fa-file-export fa-lg DownLoad" (click)=ExportPosToExcel()></i>
+                <label class="button" (click)="ViewInvoiceForm()">Generate Invoice & ISF</label>
+                <ul>
+                    <li id="InvoicePosSubMenutitle">
+                        <label>Invoice Pos </label>
+                        <ul id="InvoicePosSubMenu">
+                            <li *ngFor='let Po of InvoicePOs; index as i'>
+                                <a>{{i}}. {{Po.dealerPoNumber}}</a>
+                                <i class="far fa-trash-alt" (click)="removePoFromInvoice(Po)"></i>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <i class="fas fa-cog fa-lg" (click)=ShowTableSettings()></i>
+            </div>
+            <div id="SecondSection" class="SecondSection">
+                <div>
+                    <label for="">Rows per Page: </label>
+                    <input min="0" max="50" 
+                        (input)="ChangeRowPerPage($event)" type="number">
+                </div>
+                <div>
+                    <a class="button" (click)=ChangePageSettings()>Submit</a>
+                </div>
+            </div>
         </div>
         <table class="table">
             <thead>
@@ -35,7 +48,7 @@
                 </tr>
             </thead>
             <tbody id="tbody">
-                <tr *ngFor="let P of DataOfCurrentPage index as i" >
+                <tr *ngFor="let P of DataOfCurrentPage index as i">
                     <td class="LargeScreenOnly ClickableTd" (click)="ShowDealerProfile(P.dealer_id)">
                         {{DisplayDealerName(P.dealer_id)}}
                     </td>
@@ -61,8 +74,8 @@
                         <a type="button" (click)="AddPoToInvoice(P)">Add To Shipment</a>
                     </td>
                     <td>
-                        <a type="button" *ngIf = "!P.Archived" (click)="ArchivePo(P)">Add To Archive</a>
-                        <a type="button" *ngIf = "P.Archived" (click)="UnArchivePo(P)"> UnArchive</a>
+                        <a type="button" *ngIf="!P.Archived" (click)="ArchivePo(P)">Add To Archive</a>
+                        <a type="button" *ngIf="P.Archived" (click)="UnArchivePo(P)"> UnArchive</a>
                     </td>
                 </tr>
             </tbody>

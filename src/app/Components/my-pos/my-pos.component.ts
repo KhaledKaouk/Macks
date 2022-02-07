@@ -15,7 +15,7 @@ import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { DownLoadFile } from 'src/app/Utilities/FileHandlers';
 import { AdjustApprovalStatusForDisplay, FilterPosBy, OrderPosByDate, SetUpPOsForDisplay, SortPosByShipByDate } from 'src/app/Utilities/PoHandlers';
-import { Directories, Functionalities } from 'src/app/Utilities/Variables';
+import { DataRowInPage, Directories, Functionalities } from 'src/app/Utilities/Variables';
 import { CorinthianUpdateComponent } from '../corinthian-update/corinthian-update.component';
 import { NewPoComponent } from '../new-po/new-po.component';
 import { PoDetailsComponent } from '../po-details/po-details.component';
@@ -31,7 +31,7 @@ export class MyPosComponent implements OnInit {
 
   mydata: POs[] = [];
   AllDealers: Dealers[] = [];
-  DataRowsInPage: number = 15;
+  DataRowsInPage: number = DataRowInPage;
   PagesCount: number = 1;
   PageCountArray: number[] = [0];
   DataOfCurrentPage: POs[] = [];

@@ -1,0 +1,81 @@
+<div class="TSCAForm" id="PDF">
+    <div class="TSCATitle">
+        <label>Toxic Substance Control Act (TSCA) Certification</label>
+    </div>
+    <div class="ShipmentSection">
+        <div>
+            <label>Date:</label>
+            <a>  {{Date}}</a>
+        </div>
+        <div>
+            <label>Waybill or reference number:</label>
+            <a>  {{Shipment.BOLNumber}}</a>
+        </div>
+    </div>
+    <div class="CertificationSection">
+        <label><b>Check only one</b></label>
+        <div class = "Certification">
+            <label><b>Positive Certification</b></label>
+            <div>
+                <input type="checkbox">
+                <p>I certify that all chemical substances in this shipment comply with all applicable rules or orders
+                    under
+                    TSCA and that I am not offering a chemical substance for entry in violation of TSCA or any
+                    applicable
+                    rule or order thereunder. <br><br>
+                    or
+                </p>
+            </div>
+        </div>
+        <div class = "Certification">
+            <label><b>Negative Certification</b></label>
+            <div>
+                <input type="checkbox">
+                <p>I certify that all chemicals in this shipment are not subject to TSCA.</p>
+            </div>
+        </div>
+    </div>
+    <div class="PersonalInfo">
+        <div>
+            <label>Company name:</label>
+            <a>Mack's Furniture Warehouse</a>
+        </div>
+        <div>
+            <label>Company address:</label>
+            <a>1809 Dickinsone Ave., Greenville, NC 27834</a>
+        </div>
+        <div>
+            <label>Certifier name:</label>
+            <a>Enji Abdo</a>
+        </div>
+        <div>
+            <label>Certifier title:</label>
+            <a>V.P.</a>
+        </div>
+        <div>
+            <label>Certifier phone number:</label>
+            <a>252-329-0837</a>
+        </div>
+        <div>
+            <label>Certifier email address:</label>
+            <a>macksfurniture@gmail.com</a>
+        </div>
+        <div>
+            <label>Certifier signature:</label>
+            <a></a>
+        </div>
+
+    </div>
+    <div class="ProductInfo">
+        <label>Product description</label>
+        <label class="ProductDesc" *ngFor = "let Product of Products; index as i">{{i + 1}}.  {{Product}}</label>
+    </div>
+    <div class="TSCAFooter">
+        <p>If the certifier is unsure if their chemical substance is subject to TSCA compliance, contact the
+            Environmental
+            Protection Agency, TSCA Assistance Office at 1.202.554.1404 between 8:30 a.m. and 5:00 p.m.</p>
+    </div>
+    <div class="GenerateTSCA">
+        <a class="button Draft" (click) = "GenerateTSCA()">Generate TSCA_Certification</a>
+    </div>
+</div>

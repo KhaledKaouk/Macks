@@ -2,6 +2,8 @@ import { POs } from "../Models/Po-model";
 import * as XLSX from 'xlsx';
 import { Dealers } from "../Models/Dealers";
 import { GetDealerById } from "./DealersHandlers";
+import { Shipment } from "../Models/Shipment";
+import { CheckShipmentBooking, GetShipment } from "./ShipmentHandlers";
 export function ExportPosToXLSX(Pos: POs[]) {
     let worksheet = XLSX.utils.json_to_sheet(Pos);
     let workbook = XLSX.utils.book_new();
@@ -58,13 +60,13 @@ export function GenerateFilterdReport(AllPos: POs[], WantedFields: string[]) {
         XLSX.writeFile(workbook, "macksdistribution_Pos_Report_" + new Date().toLocaleDateString() + ".xlsx")
     }
 }
-export function GenerateDefaultReport(AllPos: POs[],Dealers: Dealers[],) {
+export function GenerateDefaultReport(AllPos: POs[], Dealers: Dealers[],) {
     let Report = new Array();
     if (AllPos != []) {
         AllPos.forEach(Po => {
             let wantedFields = {
                 Shipper: 'ALFEMO',
-                Customer: GetDealerById(Dealers,Po.dealer_id).name,
+                Customer: GetDealerById(Dealers, Po.dealer_id).name,
                 'PO#': Po.dealerPoNumber,
                 'Delivery Destination': Po.finalDestLocation,
                 'Requested Ship Date': Po.shipBy,
@@ -81,13 +83,13 @@ export function GenerateDefaultReport(AllPos: POs[],Dealers: Dealers[],) {
         XLSX.writeFile(workbook, "macksdistribution_Pos_Report_" + new Date().toLocaleDateString() + ".xlsx")
     }
 }
-export function GenerateWeeklyReport(AllPos: POs[],Dealers: Dealers[]) {
+export function GenerateWeeklyReport(AllPos: POs[], Dealers: Dealers[]) {
     let Report = new Array();
     if (AllPos != []) {
         AllPos.forEach(Po => {
             let wantedFields = {
                 Shipper: 'ALFEMO',
-                Customer: GetDealerById(Dealers,Po.dealer_id).name,
+                Customer: GetDealerById(Dealers, Po.dealer_id).name,
                 'PO #': Po.dealerPoNumber,
                 'Delivery destination': Po.finalDestLocation,
                 'Requested ship date': Po.shipBy,
@@ -115,6 +117,40 @@ export function GenerateWeeklyReport(AllPos: POs[],Dealers: Dealers[]) {
         XLSX.writeFile(workbook, "macksdistribution_Pos_Report_" + new Date().toLocaleDateString() + ".xlsx")
     }
 }
-export function FilterPosByShipDate(POsList: POs[],FromShipDate: string, ToShipDate: string){
-    return POsList.filter(Po => (Po.factoryEstimatedShipDate > FromShipDate) && (Po.factoryEstimatedShipDate < ToShipDate) )
+export function GenerateWeeklyReportWithShipmentInfo(AllPos: POs[], Dealers: Dealers[], Shipments: Shipment[]) {
+    let Report = new Array();
+    if (AllPos != []) {
+        AllPos.forEach(Po => {
+            let Shipment = GetShipment(Shipments, Po.ShipmentId);
+            let wantedFields = {
+                Shipper: 'ALFEMO',
+                Customer: GetDealerById(Dealers, Po.dealer_id).name,
+                'PO #': Po.dealerPoNumber,
+                'Delivery destination': Po.finalDestLocation,
+                'Requested ship date': Po.shipBy,
+                Status: Po.status,
+                'Estimated ship date': Po.factoryEstimatedShipDate,
+                'Booking confirmation Y/N': CheckShipmentBooking(Shipment),
+                'ETA to POD': Shipment.ETA,
+                'Date of departure': Po.dateOfDeparture,
+                'Carrier': '',
+                'Container #': Po.containerNumber,
+                'Remarks (notes)': '',
+                'Style': '',
+                'Freight amount': '',
+                'Production start date': Po.productionStartDate,
+                'Production complete date': Po.productionFinishDate,
+                'Booking request date': '',
+                'Shipt to vessel date': '',
+            }
+            Report.push(wantedFields);
+        })
+        let worksheet = XLSX.utils.json_to_sheet(Report);
+        let workbook = XLSX.utils.book_new();
+        workbook = { Sheets: { 'Pos': worksheet }, SheetNames: ["Pos"] }
+        XLSX.writeFile(workbook, "macksdistribution_Pos_Report_" + new Date().toLocaleDateString() + ".xlsx")
+    }
+}
+export function FilterPosByShipDate(POsList: POs[], FromShipDate: string, ToShipDate: string) {
+    return POsList.filter(Po => (Po.factoryEstimatedShipDate > FromShipDate) && (Po.factoryEstimatedShipDate < ToShipDate))
 }

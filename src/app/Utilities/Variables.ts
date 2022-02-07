@@ -1,7 +1,5 @@
-import { Inject, Type } from "@angular/core"
-import { MatDialog, MatDialogRef } from "@angular/material/dialog"
+import { MatDialog } from "@angular/material/dialog"
 import { Router } from "@angular/router"
-import { NgProgress } from "ngx-progressbar"
 import { NotificationserService } from "../Services/notificationser.service"
 import { POsService } from "../Services/pos.service"
 import { Spinner } from "./Common"
@@ -28,6 +26,9 @@ export type Tools = {
 
 }
 
+export let ShipmentStatus: string[] = ['Container Booked','Loading','Shipped']
 export let InDevMode = localStorage.getItem('DevMode')?.toLowerCase() === "true" ? true : false
 
 export let APIURL = InDevMode ? 'http://localhost:5000/' : 'https://macksdis.com/';
+
+export let DataRowInPage: number = parseInt(localStorage.getItem('DataRowInPage') || '15')

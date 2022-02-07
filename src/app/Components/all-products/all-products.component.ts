@@ -8,6 +8,7 @@ import { RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/U
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { DownLoadFile } from 'src/app/Utilities/FileHandlers';
 import { FilterProductsByName } from 'src/app/Utilities/ProductsHandlers';
+import { DataRowInPage } from 'src/app/Utilities/Variables';
 import { UpdateProductComponent } from '../update-product/update-product.component';
 
 @Component({
@@ -20,7 +21,7 @@ export class AllProductsComponent implements OnInit {
   Products: Product[] = [];
   PageCountArray: number[] = [0]
   PagesCount: number = 1;
-  DataRowsInPage: number = 15;
+  DataRowsInPage: number = DataRowInPage;
   DataOfCurrentPage: Product[] = [];
   CurrentPage: number = 0;
 

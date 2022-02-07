@@ -1,0 +1,51 @@
+.TSCAForm {
+    padding: 4rem;
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    .TSCATitle {
+        align-self: center;
+        font-size: 1.2rem;
+    }
+    .ShipmentSection {
+        padding-bottom: 2.5rem;
+    }
+    .CertificationSection {
+        label {
+            padding-bottom: 0.5rem;
+        }
+    }
+    .Certification {
+        display: flex;
+        flex-direction: column;
+        div {
+            display: flex;
+            justify-content: flex-start;
+            margin-left: 1rem;
+            input {
+                margin-top: 0.1rem;
+                margin-right: 0.4rem;
+            }
+        }
+    }
+    .PersonalInfo {
+        div {
+            margin-bottom: 0.5rem;
+        }
+    }
+    .ProductInfo {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 2rem;
+        .ProductDesc {
+            border: 1px solid black;
+            text-align: left;
+            padding: 0.3rem;
+            padding-inline: 1rem;
+        }
+    }
+    .GenerateTSCA {
+        align-self: center;
+    }
+}

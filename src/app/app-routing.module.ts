@@ -10,6 +10,7 @@ import { DealerProfileComponent } from './Components/dealer-profile/dealer-profi
 import { DealersComponent } from './Components/dealers/dealers.component';
 import { DeclarationComponent } from './Components/declaration/declaration.component';
 import { FrightPricesComponent } from './Components/fright-prices/fright-prices.component';
+import { GeneralConformityCertificateComponent } from './Components/general-conformity-certificate/general-conformity-certificate.component';
 import { HomeComponent } from './Components/home/home.component';
 import { InvoicesComponent } from './Components/invoices/invoices.component';
 import { ISFComponent } from './Components/isf/isf.component';
@@ -20,6 +21,7 @@ import { NewPortComponent } from './Components/new-port/new-port.component';
 import { PackingListComponent } from './Components/packing-list/packing-list.component';
 import { PortsComponent } from './Components/ports/ports.component';
 import { ReportsComponent } from './Components/reports/reports.component';
+import { TSCACertificationComponent } from './Components/tsca-certification/tsca-certification.component';
 import { UsersComponent } from './Components/users/users.component';
 
 const routes: Routes = [
@@ -44,6 +46,8 @@ const routes: Routes = [
   { path: 'ISF', component: ISFComponent },
   { path: 'Packinglist', component: PackingListComponent },
   { path: 'Declaration', component: DeclarationComponent },
+  { path: 'TSCA', component: TSCACertificationComponent },
+  { path: 'GCC', component: GeneralConformityCertificateComponent },
 ];
 
 @NgModule({

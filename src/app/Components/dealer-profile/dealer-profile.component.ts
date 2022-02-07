@@ -10,7 +10,7 @@ import { RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/U
 import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AdjustApprovalStatusForDisplay, FilterPosBy, FilterPosByDealerId, SetUpPOsForDisplay } from 'src/app/Utilities/PoHandlers';
-import { Functionalities } from 'src/app/Utilities/Variables';
+import { DataRowInPage, Functionalities } from 'src/app/Utilities/Variables';
 import { PoDetailsComponent } from '../po-details/po-details.component';
 
 @Component({
@@ -26,7 +26,7 @@ export class DealerProfileComponent implements OnInit {
 
   PageCountArray: number[] = [0];
   PagesCount: number = 1;
-  DataRowsInPage: number = 15;
+  DataRowsInPage: number = DataRowInPage;
   DataOfCurrentPage: POs[] = [];
   CurrentPage: number = 0;
 

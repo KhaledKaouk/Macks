@@ -20,6 +20,8 @@
 @import "./Invoices";
 @import "./ISF";
 @import "./Declaration";
+@import "./TSCA";
+@import "./GCC";
 * {
     box-sizing: border-box;
     margin: 0;
@@ -29,7 +31,9 @@
 ul{
    list-style-type: none; 
 }
-
+input.ng-invalid {
+    border-color: red;
+  }
 @media only screen and (max-width: 980px) {
     .fadeshow1 {
         display: none;

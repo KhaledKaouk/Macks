@@ -1,28 +1,58 @@
 <div class="AddressHeader">
-    <h1>FreightPrices</h1>
-    <h2>Home / FreightPrices</h2>
+    <h1>Freight Prices</h1>
+    <h2>Home / Freight Prices</h2>
 </div>
+<div class="SearchInput"><input type="text" placeholder="Search" (input)="SearchFreights($event)"></div>
 <div class="DataTableWraper">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Location</th>
-                <th>Current Price</th>
-                <th class="LargeScreenOnly">Delivery Type</th>
-                <th class="LargeScreenOnly">Port</th>
-                <th>Edit</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor = "let FrightPrice of FrightPricesList index as i">
-                <td>{{FrightPrice.locations}}</td>
-                <td>$ {{FrightPrice.currentprice}}</td>
-                <td class="LargeScreenOnly">{{FrightPrice.deliveryType}}</td>
-                <td class="LargeScreenOnly">{{FrightPrice.port}}</td>
-                <td><a (click) =  UpdateSinglePrice(FrightPrice) *ngIf = CheckRole()>Edit</a></td>
-            </tr>
-        </tbody>
-    </table>
+    <div>
+        <div class="TableHeader">
+            <div class="FirstSection" [formGroup] = "Freight">
+                <button class="button" (click)=OpenFileBrowser() [disabled]="!Freight.valid" >Upload File</button>
+                <div>
+                    <label for="Carrier">Carrier Name: </label>
+                    <input type="text" name="Carrier" (input) = "SetUpCarrierName($event)" formControlName = "Carrier">
+                </div>
+                <div class="InputWraper" style="display: none;">
+                    <input id="file" type="file" (change)="SelectFile($event)">
+                </div>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Carrier</th>
+                    <th>Port</th>
+                    <th>City</th>
+                    <th>Port To Port Price</th>
+                    <th class="LargeScreenOnly">Truck Delivery Price</th>
+                    <th class="LargeScreenOnly">Rail Delivery Price</th>
+                    <th>Validity</th>
+                    <!-- <th>Edit</th> -->
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <tr *ngFor="let FrightPrice of DataOfCurrentPage index as i">
+                    <td>{{FrightPrice.Carrier}}</td>
+                    <td>{{FrightPrice.Port}}</td>
+                    <td>{{FrightPrice.City}}</td>
+                    <td>$ {{FrightPrice.PortToPortPrice}}</td>
+                    <td class="LargeScreenOnly">$ {{FrightPrice.TruckDeliveryPrice}}</td>
+                    <td class="LargeScreenOnly">$ {{FrightPrice.RailDeliveryPrice}}</td>
+                    <td>{{FrightPrice.Validty}}</td>
+                    <!-- <td><a (click)=UpdateSinglePrice(FrightPrice) *ngIf=CheckRole()>Edit</a></td> -->
+                </tr>
+            </tbody>
+        </table>
+        <nav class="pagination" aria-label="Page navigation example">
+            <ul>
+                <li><button (click)=PreviousPage()>Previous</button></li>
+                <li *ngFor="let PC of PageCountArray index as i"><button (click)=SliceDataForPaginantion(i)
+                        [ngClass]="{'CurrentPage': CurrentPage === i}">{{i}}</button>
+                </li>
+                <li><button (click)=NextPage()>Next</button></li>
+            </ul>
+        </nav>
+    </div>
 </div>
 <ng-progress id="myProgress"></ng-progress>
 <simple-notifications></simple-notifications>

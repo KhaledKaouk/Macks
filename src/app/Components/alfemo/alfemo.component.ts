@@ -10,7 +10,7 @@ import { CheckToken } from 'src/app/Utilities/CheckAuth';
 import { CalculatePageCount, ColorTR, InitPageCountArray, RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { AdjustApprovalStatusForDisplay, FilterPosBy, RemoveDissapprovedPos, SetUpPOsForDisplay, SortPosByShipByDate } from 'src/app/Utilities/PoHandlers';
-import { Functionalities } from 'src/app/Utilities/Variables';
+import { DataRowInPage, Functionalities } from 'src/app/Utilities/Variables';
 import { PoDetailsComponent } from '../po-details/po-details.component';
 import { DealersService } from 'src/app/Services/dealers.service';
 import { Dealers } from 'src/app/Models/Dealers';
@@ -24,7 +24,7 @@ export class AlfemoComponent implements OnInit {
 
   AllPos: POs[] = []
   AllDealers : Dealers[] = [];
-  DataRowsInPage: number = 15;
+  DataRowsInPage: number = DataRowInPage;
   PagesCount: number = 1;
   PageCountArray: number[] = [0];
   DataOfCurrentPage: POs[] = [];

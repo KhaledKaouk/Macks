@@ -10,6 +10,7 @@ import { RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/U
 import { CheckDealersToMatchOfflineDB, DeleteDealer, PromiseAllDealers } from 'src/app/Utilities/DealersCRUD';
 import { CompareDealerNames, FilterDealersByName } from 'src/app/Utilities/DealersHandlers';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
+import { DataRowInPage } from 'src/app/Utilities/Variables';
 import { EditdealerinformationComponent } from '../editdealerinformation/editdealerinformation.component';
 
 @Component({
@@ -23,7 +24,7 @@ export class DealersComponent implements OnInit {
   Dealers: Dealers[] = [];
   PageCountArray: number[] = [0]
   PagesCount: number = 1;
-  DataRowsInPage: number = 15;
+  DataRowsInPage: number = DataRowInPage;
   DataOfCurrentPage: Dealers[] = [];
   CurrentPage: number = 0;
 
@@ -56,7 +57,6 @@ export class DealersComponent implements OnInit {
       this.PagesCount = Math.ceil(this.Dealers.length / this.DataRowsInPage);
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
       this.SliceDataForPaginantion(0)
-      console.log(this.Dealers)
     }))
   }
 

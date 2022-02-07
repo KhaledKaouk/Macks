@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { port } from 'src/app/Models/port';
 import { PortService } from 'src/app/Services/port.service';
-import {  RemoveSearchDisclaimer, ShowSearchDisclaimer } from 'src/app/Utilities/Common';
+import {  RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
 import { FilterPortsByNameAndCity } from 'src/app/Utilities/PortHandlers';
+import { DataRowInPage } from 'src/app/Utilities/Variables';
 import { UpdatePortComponent } from '../update-port/update-port.component';
 
 @Component({
@@ -16,12 +17,14 @@ export class PortsComponent implements OnInit {
   Ports: port[] = [];
   PageCountArray: number[] = [0]
   PagesCount: number = 1;
-  DataRowsInPage: number = 15;
+  DataRowsInPage: number = DataRowInPage;
   DataOfCurrentPage: port[] = [];
   CurrentPage: number = 0;
 
-  constructor(private portService: PortService,
-    private MatDialog: MatDialog) { }
+  constructor(
+    private portService: PortService,
+    private MatDialog: MatDialog,
+    private spinner: Spinner) { }
 
   ngOnInit(): void {
     this.GetAllPorts();
@@ -29,12 +32,12 @@ export class PortsComponent implements OnInit {
   }
 
   GetAllPorts(){
-    this.portService.GetPorts().then((res: any) => {
+     this.spinner.WrapWithSpinner(this.portService.GetPorts().then((res: any) => {
       this.Ports = res;
       this.PagesCount = Math.ceil(this.Ports.length / this.DataRowsInPage);
       this.PageCountArray = Array(this.PagesCount).fill(0).map((x, i) => i)
       this.SliceDataForPaginantion(0)
-    })
+    }))
   }
   UpdatePort(port: port){
     this.MatDialog.open(UpdatePortComponent,{

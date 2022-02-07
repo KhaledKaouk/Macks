@@ -1,7 +1,5 @@
-import { BlockScrollStrategy } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { file } from 'jszip';
 import { Dealers } from 'src/app/Models/Dealers';
 import { Invoice } from 'src/app/Models/Invoice';
 import { POs } from 'src/app/Models/Po-model';
@@ -18,7 +16,7 @@ import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import { ConstructFormDataFile, UploadFile } from 'src/app/Utilities/FileHandlers';
 import { AdjustApprovalStatusForDisplay } from 'src/app/Utilities/PoHandlers';
 import { FilterByPOsNumberOrInvoiceNumber } from 'src/app/Utilities/ShipmentHandlers';
-import { APIURL } from 'src/app/Utilities/Variables';
+import { APIURL, ShipmentStatus } from 'src/app/Utilities/Variables';
 import * as ZipHandler from 'src/app/Utilities/ZipHandlers'
 
 @Component({
@@ -48,6 +46,7 @@ export class InvoicesComponent implements OnInit {
   ShipmentOnDisplay: boolean = true;
   SelectedFile: any;
   FileName: string = "";
+  ShipmentStatus: string[] = ShipmentStatus;
 
   constructor(
     private InvoiceService: InvoiceService,
@@ -252,7 +251,28 @@ export class InvoicesComponent implements OnInit {
   GenerateDeclaration() {
     this.router.navigate(['Declaration'], { queryParams: { ShipmentId: this.SelectedShipment._id } })
   }
+  GenerateTSCA() {
+    this.router.navigate(['TSCA'], { queryParams: { ShipmentId: this.SelectedShipment._id } })
+  }
+  GenerateGeneralConformityCertificate() {
+    this.router.navigate(['GCC'], { queryParams: { ShipmentId: this.SelectedShipment._id } })
+  }
   CheckRole() {
     return localStorage.getItem('Role')?.toLowerCase();
+  }
+  UpdateShipmentStatus(event: any) {
+    this.SelectedShipment.Status = event.target.value
+
+    this.spinner.WrapWithSpinner(this.ShipmentService.UpdateShipment(this.SelectedShipment)
+      .then(
+        res => this.NotificationService.OnSuccess('Status Updated'),
+        err => Auth_error_handling(err, this.NotificationService, this.router)))
+  }
+  DeleteShipment(Shipment: Shipment) {
+
+    if (confirm('Are You Sure You want To Delete This Shipment?')) this.ShipmentService.DeleteShipment(Shipment)
+      .then(
+        res => this.NotificationService.OnSuccess('Shipment Deleted'),
+        err => Auth_error_handling(err, this.NotificationService, this.router))
   }
 }

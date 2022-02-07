@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/Models/User';
 import { UserService } from 'src/app/Services/user.service';
 import { RemoveSearchDisclaimer, ShowSearchDisclaimer } from 'src/app/Utilities/Common';
+import { DataRowInPage } from 'src/app/Utilities/Variables';
 import { UpdateUserComponent } from '../update-user/update-user.component';
 
 @Component({
@@ -16,7 +17,7 @@ export class UsersComponent implements OnInit {
   Users: User[] = [];
   PageCountArray: number[] = [0]
   PagesCount: number = 1;
-  DataRowsInPage: number = 15;
+  DataRowsInPage: number = DataRowInPage;
   CurrentPage: number = 0;
 
   constructor(
