@@ -6,7 +6,7 @@ export class POs {
     dealerPoNumber: string;
     mackPoNumber: string;
     corinthianPoNumber: string;
-    // ProductsOrders: ProductOrder[] 
+    ProductsOrders: ProductOrder[] 
     mackPOAttach: string;
     corinthianPOAttach: string;
     userId: string;
@@ -39,7 +39,7 @@ export class POs {
             this.dealerPoNumber = "";
             this.mackPoNumber = "";
             this.corinthianPoNumber = "";
-            // this.ProductsOrders = [];
+            this.ProductsOrders = [];
             this.userId = "";
             this.mackPOAttach = "";
             this.corinthianPOAttach = "";

@@ -9,7 +9,7 @@ import { UpdateProductionDatesComponent } from 'src/app/Components/update-produc
 import { CheckToken } from 'src/app/Utilities/CheckAuth';
 import { CalculatePageCount, ColorTR, InitPageCountArray, RemoveSearchDisclaimer, ShowSearchDisclaimer, Spinner } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
-import { AdjustApprovalStatusForDisplay, FilterPosBy, RemoveDissapprovedPos, SetUpPOsForDisplay, SortPosByShipByDate } from 'src/app/Utilities/PoHandlers';
+import { AdjustApprovalStatusForDisplay, CompareDates, FilterPosBy, RemoveDissapprovedPos, SetUpPOsForDisplay, SortPosByShipByDate } from 'src/app/Utilities/PoHandlers';
 import { DataRowInPage, Functionalities } from 'src/app/Utilities/Variables';
 import { PoDetailsComponent } from '../po-details/po-details.component';
 import { DealersService } from 'src/app/Services/dealers.service';
@@ -23,7 +23,7 @@ import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
 export class AlfemoComponent implements OnInit {
 
   AllPos: POs[] = []
-  AllDealers : Dealers[] = [];
+  AllDealers: Dealers[] = [];
   DataRowsInPage: number = DataRowInPage;
   PagesCount: number = 1;
   PageCountArray: number[] = [0];
@@ -33,7 +33,7 @@ export class AlfemoComponent implements OnInit {
   SelectionMode: Boolean = false;
   SelectedPos: POs[] = [];
   InvoicePOs: POs[] = [];
-
+  ShipByDate: string = "Dec"
 
   constructor(private dialog: MatDialog,
     private poservice: POsService,
@@ -63,13 +63,13 @@ export class AlfemoComponent implements OnInit {
     }))
   }
 
-  GetAllDealers(){
+  GetAllDealers() {
     this.spinner.WrapWithSpinner(this.DealerService.GetAllDealers().then((Dealers: any) => {
       this.AllDealers = Dealers;
     }))
   }
-  DisplayDealerName(DealerId: string){
-    return GetDealerById(this.AllDealers,DealerId).name
+  DisplayDealerName(DealerId: string) {
+    return GetDealerById(this.AllDealers, DealerId).name
   }
   VeiwPoDetails(P: POs) {
     this.dialog.open(PoDetailsComponent, {
@@ -83,6 +83,8 @@ export class AlfemoComponent implements OnInit {
   SliceDataForPaginantion(PageNumber: number, SearchedPos?: POs[]) {
     this.PosForSlicing = this.AllPos;
     if (SearchedPos) this.PosForSlicing = SearchedPos;
+    this.PagesCount = CalculatePageCount(this.PosForSlicing.length, this.DataRowsInPage);
+    this.PageCountArray = InitPageCountArray(this.PagesCount)
     let SliceBegining = PageNumber * this.DataRowsInPage;
     if (this.PosForSlicing.slice(SliceBegining, SliceBegining + this.DataRowsInPage).length >= 1) {
       RemoveSearchDisclaimer();
@@ -95,11 +97,11 @@ export class AlfemoComponent implements OnInit {
     }
   }
   NextPage() {
-    this.SliceDataForPaginantion(this.CurrentPage + 1)
+    this.SliceDataForPaginantion(this.CurrentPage + 1,this.PosForSlicing)
 
   }
   PreviousPage() {
-    this.SliceDataForPaginantion(this.CurrentPage - 1)
+    this.SliceDataForPaginantion(this.CurrentPage - 1,this.PosForSlicing)
 
   }
 
@@ -108,7 +110,7 @@ export class AlfemoComponent implements OnInit {
     return AdjustApprovalStatusForDisplay(approvalStatus);
   }
   SearchPos(event: any) {
-    this.SliceDataForPaginantion(0, FilterPosBy(this.AllPos,this.AllDealers, event.target.value))
+    this.SliceDataForPaginantion(0, FilterPosBy(this.AllPos, this.AllDealers, event.target.value))
 
   }
 
@@ -127,14 +129,14 @@ export class AlfemoComponent implements OnInit {
     if (this.SelectionMode && this.SelectedPos.length >= 1) this.ViewProductionDatesForm()
     this.SelectionMode = !this.SelectionMode
   }
-  SelectPo(Po: POs,index: number, event: any) {
+  SelectPo(Po: POs, index: number, event: any) {
     let row = event.path[2] as HTMLTableRowElement
     if (this.SelectionMode) if (!this.CheckPoInSelectedPos(Po)) {
       (document.getElementById('CheckPo' + index) as HTMLInputElement).checked = true
       this.SelectedPos.push(Po)
       this.StyleSelectedPo(row);
     } else {
-      (document.getElementById('CheckPo'+ index) as HTMLInputElement).checked = false
+      (document.getElementById('CheckPo' + index) as HTMLInputElement).checked = false
       this.SelectedPos.splice(this.SelectedPos.indexOf(Po), 1)
       this.RemoveStyleOfUnSelectedPo(row)
     }
@@ -177,8 +179,8 @@ export class AlfemoComponent implements OnInit {
         location.reload()
       }))
   }
-  ViewInvoiceForm(){
-    this.router.navigate(['/Invoice'], {queryParams:{IP:this.GetCorinthianPoFileNames(),Port:this.InvoicePOs[0].port,PosIds:this.GetPoIds()}})
+  ViewInvoiceForm() {
+    this.router.navigate(['/Invoice'], { queryParams: { IP: this.GetCorinthianPoFileNames(), Port: this.InvoicePOs[0].port, PosIds: this.GetPoIds() } })
   }
   GetPoIds() {
     let PoIds: string[] = [];
@@ -186,27 +188,33 @@ export class AlfemoComponent implements OnInit {
 
     return PoIds;
   }
-  removePoFromInvoice(Po: POs){
-    this.InvoicePOs.splice(this.InvoicePOs.indexOf(Po),1)
+  removePoFromInvoice(Po: POs) {
+    this.InvoicePOs.splice(this.InvoicePOs.indexOf(Po), 1)
   }
-  AddPoToInvoice(Po: POs){
+  AddPoToInvoice(Po: POs) {
     if (!this.CheckPoInInvoice(Po) && this.CheckPortOfPo(Po)) {
       this.InvoicePOs.push(Po)
       this.notification.DisplayInfo('You have added Po of: ' + Po.dealerPONumber + ' to the invoice')
-    }else{
+    } else {
       this.notification.OnError('you have added this Po or the port of the Po doesnot match')
     }
   }
-  CheckPortOfPo(Po: POs){
+  CheckPortOfPo(Po: POs) {
     return this.InvoicePOs.length == 0 || this.InvoicePOs[0].port == Po.port
   }
   CheckPoInInvoice(Po: POs) {
     return this.InvoicePOs.includes(Po)
   }
-  GetCorinthianPoFileNames(){
+  GetCorinthianPoFileNames() {
     let PoFileNames: string[] = []
-    this.InvoicePOs.forEach(Po =>PoFileNames.push(Po.corinthianPOAttach))
+    this.InvoicePOs.forEach(Po => PoFileNames.push(Po.corinthianPOAttach))
     return PoFileNames
   }
+  FilterPosByShipeByDate(event: any) {
+    let date: Date = new Date(event.target.value);
+    
+    let Pos = this.AllPos.filter(po => (date.getTime() >= (new Date(po.shipBy)).getTime()) && (po.status.toLowerCase() != 'shipped'))
 
+    this.SliceDataForPaginantion(0,Pos)
+  }
 }

@@ -67,6 +67,26 @@
                     {{FileName}}</p>
             </div>
         </div>
+        <div class="DataTableWraper" *ngIf ="ProductDetails">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product Code</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Fabric</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor= "let ProductOrder of ViewedPO.ProductsOrders; index as i" >
+                        <td>{{ProductOrder.ProductCode}}</td>
+                        <td>{{ProductOrder.Product}}</td>
+                        <td>{{ProductOrder.QTY}}</td>
+                        <td>{{ProductOrder.Fabric}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div id="buttons-1" class="buttons">
             <div name="MackUpload" class="element">
                 <label tabindex="-1" for="file">Upload Po</label>
@@ -84,6 +104,7 @@
             <a name="Hold" (click)=HoldPo()>Hold Po </a>
             <a name="Delete" (click)=ConfirmDeleteRequest()>DeletePo </a>
             <a name="Update" (click)="Update()">UpdatePo</a>
+            <a name="MoreDetails" (click)="ProductDetails = !ProductDetails">More Details</a>
             <a name="ApplyChanges" id="SubmitButton" (click)=Submit()>ApplyChanges</a>
         </div>
     </mat-dialog-content>

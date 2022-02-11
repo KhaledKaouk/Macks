@@ -480,13 +480,16 @@
           flex-direction: column;
 }
 
+.bottomOfHeader #DealerSubMenutitle ul {
+  background-color: #f5f5f5;
+}
+
 .bottomOfHeader #DealerSubMenutitle #DealerSubMenu {
   z-index: 1200;
   display: none;
   position: absolute;
   top: 3rem;
   left: 1rem;
-  background-color: transparent;
   -webkit-box-shadow: 0px 0px 3px #494949;
           box-shadow: 0px 0px 3px #494949;
 }
@@ -494,7 +497,6 @@
 .bottomOfHeader #DealerSubMenutitle #DealerSubMenu li {
   background-color: #f5f5f5;
   border: 1px solid #6f5948;
-  margin-bottom: 2px;
 }
 
 .bottomOfHeader #DealerSubMenutitle:hover #DealerSubMenu {
@@ -527,13 +529,16 @@
           flex-direction: column;
 }
 
+.bottomOfHeader #PortsSubMenuTitle ul {
+  background-color: #f5f5f5;
+}
+
 .bottomOfHeader #PortsSubMenuTitle #PortsSubMenu {
   display: none;
   z-index: 1200;
   position: absolute;
   top: 3rem;
   left: 1rem;
-  background-color: transparent;
   -webkit-box-shadow: 0px 0px 3px #494949;
           box-shadow: 0px 0px 3px #494949;
 }
@@ -541,7 +546,6 @@
 .bottomOfHeader #PortsSubMenuTitle #PortsSubMenu li {
   background-color: #f5f5f5;
   border: 1px solid #6f5948;
-  margin-bottom: 2px;
 }
 
 .bottomOfHeader #PortsSubMenuTitle:hover #PortsSubMenu {
@@ -901,6 +905,23 @@
           flex-direction: column;
 }
 
+.PoDetails .Close {
+  position: absolute;
+  width: 3%;
+  background-color: transparent;
+  border: 1px solid #b11818;
+  color: #b11818;
+  text-align: center;
+  font-size: 1.1rem;
+  right: 0;
+}
+
+.PoDetails .Close:hover {
+  background-color: #b11818;
+  color: white;
+  cursor: pointer;
+}
+
 .PoDetails .buttons {
   padding: 0.5rem;
   margin-top: 1rem;
@@ -1014,6 +1035,7 @@
 }
 
 .PoDetailsWraper {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2923,6 +2945,19 @@
   font-family: "Poppins";
 }
 
+table {
+  border-collapse: collapse;
+  margin: 1.5rem 0px;
+  font-size: 1.1rem;
+  min-width: 15rem;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+
+table tbody tr {
+  border-bottom: 1px solid black;
+}
+
 ul {
   list-style-type: none;
 }
@@ -2992,7 +3027,8 @@ input.ng-invalid {
     width: 100%;
     display: none;
   }
-  .bottomOfHeader #DealerSubMenu, .bottomOfHeader #PortsSubMenu {
+  .bottomOfHeader #DealerSubMenu,
+  .bottomOfHeader #PortsSubMenu {
     position: relative !important;
     color: red !important;
     top: 0.7rem !important;
@@ -3001,7 +3037,8 @@ input.ng-invalid {
     -webkit-box-shadow: none !important;
             box-shadow: none !important;
   }
-  .bottomOfHeader #DealerSubMenu li, .bottomOfHeader #PortsSubMenu li {
+  .bottomOfHeader #DealerSubMenu li,
+  .bottomOfHeader #PortsSubMenu li {
     border: none !important;
     background-color: white !important;
   }
@@ -3050,13 +3087,20 @@ input.ng-invalid {
   .CreatePo {
     margin: 1%;
   }
-  .CreatePo input, .CreatePo button, .CreatePo select, .CreatePo textarea {
+  .CreatePo input,
+  .CreatePo button,
+  .CreatePo select,
+  .CreatePo textarea {
     width: 15rem;
   }
-  .CreatePo input:focus, .CreatePo button:focus, .CreatePo select:focus, .CreatePo textarea:focus {
+  .CreatePo input:focus,
+  .CreatePo button:focus,
+  .CreatePo select:focus,
+  .CreatePo textarea:focus {
     width: 15.5rem;
   }
-  .AddressHeader h1, .AddressHeader h2 {
+  .AddressHeader h1,
+  .AddressHeader h2 {
     font-size: 1rem;
   }
   .PoDetailsWraper label {

@@ -79,16 +79,15 @@ export function CreateDatabase() {
 export function ColorTR() {
     let DataTableRows = GetDataTableRows();
     if (DataTableRows) DataTableRows.forEach((Tr, index) => {
-        Tr.style.borderLeft = Tr.children[4].textContent?.toLowerCase().trim() == "pendding approval" ? '7px solid #800000' : '7px solid coral'
-        if (Tr.children[3].textContent?.toLowerCase().trim() == "shipped") Tr.style.borderLeft = '7px solid green'
+            Tr.style.borderLeft = Tr.children[4].textContent?.toLowerCase().trim() == "pendding approval" ? '7px solid #800000' : '7px solid coral'
+            if (Tr.children[3].textContent?.toLowerCase().trim() == "shipped") Tr.style.borderLeft = '7px solid green'
     })
 }
 export function GetDataTableRows() {
     let DisClaimerIsOff = document.getElementById('SearchDisclaimer') == null
     let Rows: HTMLTableRowElement[] = []
 
-    if (DisClaimerIsOff) Rows = Array.from(document.getElementsByTagName('tr'))
-    Rows.splice(0, 1)
+    if (DisClaimerIsOff) Rows = Array.from(document.getElementsByClassName('PoRow')) as HTMLTableRowElement[]
     return Rows
 }
 export function RemoveSlashes(ForTrming: string) {

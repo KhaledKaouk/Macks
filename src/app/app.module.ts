@@ -57,6 +57,7 @@ import { PackingListComponent } from './Components/packing-list/packing-list.com
 import { DeclarationComponent } from './Components/declaration/declaration.component';
 import { TSCACertificationComponent } from './Components/tsca-certification/tsca-certification.component';
 import { GeneralConformityCertificateComponent } from './Components/general-conformity-certificate/general-conformity-certificate.component';
+import { ExcelFileViewComponent } from './Components/excel-file-view/excel-file-view.component';
 
 
 @NgModule({
@@ -104,6 +105,7 @@ import { GeneralConformityCertificateComponent } from './Components/general-conf
     DeclarationComponent,
     TSCACertificationComponent,
     GeneralConformityCertificateComponent,
+    ExcelFileViewComponent,
   ],
   imports: [
     BrowserModule,

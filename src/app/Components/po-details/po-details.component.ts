@@ -12,11 +12,13 @@ import { CheckCorinthianUserPermissions } from 'src/app/Utilities/CheckAuth';
 import { AddPreffixAndExtention, DIs, RemoveSlashes, Spinner } from 'src/app/Utilities/Common';
 import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
+import { ConvertExcelFileIntoHtml, GetWorkSheet } from 'src/app/Utilities/ExcelHandlers';
 import { DownLoadFile, UploadFile } from 'src/app/Utilities/FileHandlers';
 import { AdjustApprovalStatusForDisplay } from 'src/app/Utilities/PoHandlers';
 import { APIURL, Directories, Functionalities, Status, Tools } from 'src/app/Utilities/Variables';
-import { Unzip } from 'src/app/Utilities/ZipHandlers';
+import { GetFileExtenstion, Unzip } from 'src/app/Utilities/ZipHandlers';
 import { AlfemoUpdateComponent } from '../alfemo-update/alfemo-update.component';
+import { ExcelFileViewComponent } from '../excel-file-view/excel-file-view.component';
 
 @Component({
   selector: 'app-po-details',
@@ -34,6 +36,8 @@ export class PoDetailsComponent implements OnInit {
   ShippingDocsFiles: File[] = [];
   AllShipments: Shipment[] = [];
   PoShipment: Shipment = new Shipment();
+  ProductDetails: boolean = false;
+  H: string = "";
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: [POs, string[]],
     private dialogref: MatDialogRef<PoDetailsComponent>,
@@ -146,9 +150,18 @@ export class PoDetailsComponent implements OnInit {
     })
     return ShippingDocsFile as File
   }
-  ViewFile(FileName: string) {
+  async ViewFile(FileName: string) {
     let file = this.ShippingDocsFiles.find(file => file.name.toLowerCase().includes(FileName.toLowerCase())) || new File([], 'empty')
-    window.open(URL.createObjectURL(file))
+    if (GetFileExtenstion(file) == 'xlsx' || 'xls'){
+      this.H = ConvertExcelFileIntoHtml(await GetWorkSheet(file))
+      this.dialog.open(ExcelFileViewComponent, {
+        height: '30rem',
+        width: '55rem',
+        data: this.H,
+      });
+    }else{
+      window.open(URL.createObjectURL(file))
+    }
   }
   RejectPo() {
     if (this.ViewedPO.status == "") {

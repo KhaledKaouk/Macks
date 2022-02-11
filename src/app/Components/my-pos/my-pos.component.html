@@ -2,9 +2,9 @@
     <h1>My Pos</h1>
     <h2>Home  /  My Pos</h2>
 </div>
+<!-- <a (click) = "UpdatePos()" *ngIf= "Dev">Update Pos</a> -->
 <div class="SearchInput"><input type="text" placeholder="Search" (input) = "SearchPos($event)"></div>
 <div class="DataTableWraper">
-
     <div>
         <table class="table">
             <thead>
@@ -20,11 +20,11 @@
                 </tr>
             </thead>
             <tbody id="tbody">
-                <tr *ngFor="let P of DataOfCurrentPage index as i">
+                <tr *ngFor="let P of DataOfCurrentPage index as i" class="PoRow">
                     <td class="LargeScreenOnly ClickableTd" (click) = "ShowDealerProfile(P.dealer_id)">
                         {{DisplayDealerName(P.dealer_id)}} 
                     </td>
-                    <td class="LargeScreenOnly">
+                    <td class="LargeScreenOnly" (click) = GetPoFile(P)>
                         {{P.dealerPoNumber}}
                     </td>
                     <td >

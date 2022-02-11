@@ -16,6 +16,10 @@ import { Auth_error_handling } from 'src/app/Utilities/Errorhadling'
 import * as FileHandlers from 'src/app/Utilities/FileHandlers';
 import { CreateMackPo } from 'src/app/Utilities/PoHandlers';
 import { NewDealerComponent } from '../new-dealer/new-dealer.component';
+import * as XLSX from 'xlsx';
+import { ProductOrder } from 'src/app/Models/ProductOrder';
+import { GetWorkSheet } from 'src/app/Utilities/ExcelHandlers';
+
 @Component({
   selector: 'app-new-po',
   templateUrl: './new-po.component.html',
@@ -67,11 +71,11 @@ export class NewPoComponent implements OnInit {
   async Submit() {
     this.DisableSubmitButton();
     this.AssignFormValuesToNewPoObject();
+    this.GetProductDetailsFromPoFile()
     if (this.SeletedFile) {
       let UploadProcess: any;
       let FileName = FileHandlers.ConstructFileName(this.NewPo, "MP_", this.SeletedFile.name)
       let MackPo: File;
-      let fd = new FormData();
 
       MackPo = await CreateMackPo(this.SeletedFile, FileName)
       this.AssignMackPoFileToPo(FileName)
@@ -89,6 +93,37 @@ export class NewPoComponent implements OnInit {
       this.EnableSubmitButton();
       this.Notification.OnError('Please Select A Po To Upload')
     }
+  }
+  async GetProductDetailsFromPoFile() {
+    let WorkSheet = await GetWorkSheet(this.SeletedFile)
+
+    let CellIndexEnd = this.GetLastProductIndex(WorkSheet)
+    let CellIndex: number = 18
+    
+    while (CellIndex <= CellIndexEnd) {
+      let NewProductOrder = new ProductOrder();
+
+      NewProductOrder.QTY = WorkSheet['A' + CellIndex.toString()].v
+      NewProductOrder.ProductCode = WorkSheet['D' + CellIndex.toString()].v
+      NewProductOrder.Product = WorkSheet['E' + CellIndex.toString()].v
+      NewProductOrder.Fabric = WorkSheet['I'+ CellIndex.toString()].v
+      NewProductOrder.Price = WorkSheet['J'+ CellIndex.toString()].v
+      NewProductOrder.Piece = WorkSheet['M'+ CellIndex.toString()].v
+
+
+      this.NewPo.ProductsOrders.push(NewProductOrder)
+
+      CellIndex += 1;
+    }
+  }
+  GetLastProductIndex(Worksheet: XLSX.WorkSheet) {
+    let QTY: string = ''
+    let CellIndex: number = 18;
+    while (QTY != null) {
+      QTY = Worksheet['A' + CellIndex.toString()] ? Worksheet['A' + CellIndex.toString()] : null
+      CellIndex += 1;
+    }
+    return CellIndex - 3
   }
   AssignMackPoFileToPo(FileName: string) {
     this.NewPo.mackPOAttach = FileName;
@@ -118,7 +153,6 @@ export class NewPoComponent implements OnInit {
 
   SaveFileInObject(event: any) {
     this.SeletedFile = event.target.files[0];
-    console.log(this.SeletedFile)
   }
   ExtractDealerName(Id: string) {
     return this.Dealers.find(Dealer => Dealer._id == Id)?.name || "Unavailable"

@@ -107,18 +107,19 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        ul{
+            background-color: $Primary-color;
+        }
         #DealerSubMenu {
             li {
                 background-color: $Primary-color;
                 border: 1px solid $Secondary-Color;
-                margin-bottom: 2px;
             }
             z-index: 1200;
             display: none;
             position: absolute;
             top: 3rem;
             left: 1rem;
-            background-color: transparent;
             box-shadow: 0px 0px 3px rgb(73, 73, 73);
         }
         &:hover {
@@ -141,18 +142,19 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        ul{
+            background-color: $Primary-color;
+        }
         #PortsSubMenu {
             li {
                 background-color: $Primary-color;
                 border: 1px solid $Secondary-Color;
-                margin-bottom: 2px;
             }
             display: none;
             z-index: 1200;
             position: absolute;
             top: 3rem;
             left: 1rem;
-            background-color: transparent;
             box-shadow: 0px 0px 3px rgb(73, 73, 73);
         }
         &:hover {

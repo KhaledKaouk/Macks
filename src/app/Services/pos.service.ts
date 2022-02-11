@@ -14,6 +14,10 @@ export class POsService {
     if (InDevMode) this.ApiURL = "http://localhost:5000/Po"
   }
 
+  FindPoFileName(Po: POs){
+    return this.http.post(this.ApiURL + '/FindPoFileName', Po).toPromise();
+  }
+
   GetPos() {
     return this.http.get<POs>(this.ApiURL + "/getAllPos").toPromise();
   }

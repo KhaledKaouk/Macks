@@ -10,8 +10,8 @@ export let Directories: { [key: string]: string } = {
     CorinthainPo: "NP/"
 }
 export let Functionalities: { [key: string]: string[] } = {
-    Admin: ["Approve", "MackPo", "ShippingDocs", "Reject", "CorinthainPo", "ApplyChanges", "MackUpload", "Delete", "Cancel", "Hold"],
-    Corinthain: ["ShippingDocs", "CorinthainPo", "ProductionRequestDate"],
+    Admin: ["MoreDetails","Approve", "MackPo", "ShippingDocs", "Reject", "CorinthainPo", "ApplyChanges", "MackUpload", "Delete", "Cancel", "Hold"],
+    Corinthain: ["MoreDetails","ShippingDocs", "CorinthainPo", "ProductionRequestDate"],
     Alfemo: ["MackPo", "Update"]
 }
 

@@ -40,7 +40,7 @@ export class AdminComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private notification: NotificationserService,
-    private spinner: Spinner
+    private spinner: Spinner,
   ) {
   }
 

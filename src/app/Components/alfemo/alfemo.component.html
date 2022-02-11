@@ -19,6 +19,10 @@
                         </ul>
                     </li>
                 </ul>
+                <div>
+                    <label for="ShipDateInput">Ship Date Filter: </label>
+                    <input name = "ShipDateInput"type="date" (input) = "FilterPosByShipeByDate($event)">
+                </div>
             </div>
         </div>
         <table class="table">
@@ -68,7 +72,7 @@
                         <a (click)=VeiwPoDetails(P)>Details</a>
                     </td>
                     <td>
-                        <a type="button" (click)="AddPoToInvoice(P)">Add To Invoice</a>
+                        <a type="button" (click)="AddPoToInvoice(P)">Add To Shipment</a>
                     </td>
                 </tr>
             </tbody>
@@ -77,7 +81,7 @@
             <ul>
                 <li><button (click)=PreviousPage()>Previous</button></li>
                 <li *ngFor="let PC of PageCountArray index as i" >
-                    <button (click)=SliceDataForPaginantion(i) [ngClass] = "{'CurrentPage': CurrentPage === i}">{{i}}</button>
+                    <button (click)=SliceDataForPaginantion(i,PosForSlicing) [ngClass] = "{'CurrentPage': CurrentPage === i}">{{i}}</button>
                 </li>
                 <li><button (click)=NextPage()>Next</button></li>
             </ul>
