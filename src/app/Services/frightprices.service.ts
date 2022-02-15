@@ -1,34 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { freightPrices } from '../Models/frightPrices';
-import { InDevMode } from '../Utilities/Variables';
+import { APIURL, InDevMode } from '../Utilities/Variables';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FrightpricesService {
 
-  ApiURL: string = "https://macksdis.com/FreightPrice";
-  constructor(private http: HttpClient) {
-    if (InDevMode) this.ApiURL = "http://localhost:5000/FreightPrice"
-   }
+  Route: string = "FreightPrice"
+  constructor(private http: HttpClient) { }
 
-  GetAllFrightPrices(){
-    return this.http.get(this.ApiURL +'/getfrightprices').toPromise();
+  GetAllFrightPrices() {
+    return this.http.get(APIURL + this.Route + '/getfrightprices').toPromise();
   }
 
-  AddFrightPrice(NewFrightPrice: freightPrices){
-    return this.http.post(this.ApiURL + '/createfrightprices',NewFrightPrice).toPromise();
+  AddFrightPrice(NewFrightPrice: freightPrices) {
+    return this.http.post(APIURL + this.Route + '/createfrightprices', NewFrightPrice).toPromise();
   }
 
-  UpdateFrightPricesByBulk(UpdatedFrightPrices: freightPrices[]){
-    return this.http.post(this.ApiURL + '/CreateFreightsByBulk',UpdatedFrightPrices).toPromise();
+  UpdateFrightPricesByBulk(UpdatedFrightPrices: freightPrices[]) {
+    return this.http.post(APIURL + this.Route + '/CreateFreightsByBulk', UpdatedFrightPrices).toPromise();
   }
 
-  UpdateSinglefrightPrice(UpdatedFrithPrice: freightPrices){
-    return this.http.post(this.ApiURL + '/Updatefrightprices',UpdatedFrithPrice).toPromise();
+  UpdateSinglefrightPrice(UpdatedFrithPrice: freightPrices) {
+    return this.http.post(APIURL + this.Route + '/Updatefrightprices', UpdatedFrithPrice).toPromise();
   }
-  DeleteFrightPrice(FrightPriceId: number){
-    return this.http.post('',FrightPriceId).toPromise();
+  DeleteFrightPrice(FrightPriceId: number) {
+    return this.http.post('', FrightPriceId).toPromise();
   }
 }

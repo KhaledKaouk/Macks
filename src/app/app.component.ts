@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SwPush } from '@angular/service-worker';
+import { ServerNotificationService } from './Services/server-notification.service';
 import { InDevMode } from './Utilities/Variables';
 
 @Component({
@@ -12,14 +14,19 @@ export class AppComponent implements OnInit{
   UserName: string = localStorage.getItem('username')?"":"";
   LogStatus: boolean = (localStorage.getItem('token'))? false:true;
   spinner: any;
-  constructor(private router: Router){}
+  constructor(
+    private router: Router,
+    private serverNotifications: ServerNotificationService,
+    ){}
   
   ngOnInit(): void {
    this.HideSpinner();
    this.ChangeProtocolIntoHttps();
+   this.serverNotifications.RigesterDeviceForNotifications();
   }
+
   ChangeProtocolIntoHttps(){
-    if(!InDevMode && location.protocol == 'http:') location.protocol = 'https:' 
+    // if(!InDevMode && location.protocol == 'http:') location.protocol = 'https:' 
   }
   GoToLogIn(){
     this.router.navigateByUrl('/LogIn')

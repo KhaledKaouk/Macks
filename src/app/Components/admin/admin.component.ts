@@ -14,6 +14,9 @@ import { ExportPosToXLSX } from 'src/app/Utilities/ReportsHandlers';
 import { DealersService } from 'src/app/Services/dealers.service';
 import { Dealers } from 'src/app/Models/Dealers';
 import { GetDealerById } from 'src/app/Utilities/DealersHandlers';
+import { SwPush } from '@angular/service-worker';
+import { ServerNotificationService } from 'src/app/Services/server-notification.service';
+import { EndPoint } from 'src/app/Models/EndPoint';
 
 @Component({
   selector: 'app-admin',
@@ -41,6 +44,7 @@ export class AdminComponent implements OnInit {
     private router: Router,
     private notification: NotificationserService,
     private spinner: Spinner,
+    private ServerNotification: ServerNotificationService
   ) {
   }
 

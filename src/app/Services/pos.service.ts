@@ -1,47 +1,44 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { POs } from '../Models/Po-model';
-import { InDevMode } from '../Utilities/Variables';
+import { APIURL } from '../Utilities/Variables';
 
 @Injectable({
   providedIn: 'root'
 })
 export class POsService {
 
-  ApiURL: string = "https://macksdis.com/Po";
-  constructor(private http: HttpClient,) {
-    if (InDevMode) this.ApiURL = "http://localhost:5000/Po"
-  }
+  Route: string = "Po"
+  constructor(private http: HttpClient,) { }
 
-  FindPoFileName(Po: POs){
-    return this.http.post(this.ApiURL + '/FindPoFileName', Po).toPromise();
+  FindPoFileName(Po: POs) {
+    return this.http.post(APIURL + this.Route + '/FindPoFileName', Po).toPromise();
   }
 
   GetPos() {
-    return this.http.get<POs>(this.ApiURL + "/getAllPos").toPromise();
+    return this.http.get<POs>(APIURL + this.Route + "/getAllPos").toPromise();
   }
 
   CreatePo(NewPo: POs) {
-    return this.http.post(this.ApiURL + "/CreatePO", NewPo);
+    return this.http.post(APIURL + this.Route + "/CreatePO", NewPo);
   }
 
   Uploadfile(formData: FormData, FileName: string) {
-    return this.http.post(this.ApiURL + '/UploadPO', formData, { 'params': { filename: FileName } });
+    return this.http.post(APIURL + this.Route + '/UploadPO', formData, { 'params': { filename: FileName } });
   }
 
   UpdatePo(UpdatedPo: POs) {
-    return this.http.post(this.ApiURL + "/updatepo", UpdatedPo)
+    return this.http.post(APIURL + this.Route + "/updatepo", UpdatedPo)
   }
   GetProducts() {
-    return this.http.get(this.ApiURL + "/GetCatalog");
+    return this.http.get(APIURL + this.Route + "/GetCatalog");
   }
 
   DeletePo(Po: POs) {
     Po.deleted = confirm("Are you Sure you Want To Delete this Po?")
-    return this.http.post(this.ApiURL + "/deletepofromdb", Po);
+    return this.http.post(APIURL + this.Route + "/deletepofromdb", Po);
   }
   UpdatePosBulk(Pos: POs[]) {
-    return this.http.post(this.ApiURL + "/UpdatePosStatusAndDates", Pos)
+    return this.http.post(APIURL + this.Route + "/UpdatePosStatusAndDates", Pos)
   }
 }

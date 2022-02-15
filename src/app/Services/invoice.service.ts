@@ -3,28 +3,26 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TouchSequence } from 'selenium-webdriver';
 import { Invoice } from '../Models/Invoice';
-import { InDevMode } from '../Utilities/Variables';
+import { APIURL, InDevMode } from '../Utilities/Variables';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvoiceService {
 
-  ApiUrl = "https://macksdis.com/Invoice";
-  constructor(private http: HttpClient) {
-    if (InDevMode) this.ApiUrl = "http://localhost:5000/Invoice"
-  }
+  Route: string = "Invoice"
+  constructor(private http: HttpClient) { }
 
-  GetInvoices(){
-    return this.http.get(this.ApiUrl + "/GetInvoices").toPromise();
+  GetInvoices() {
+    return this.http.get(APIURL + this.Route + "/GetInvoices").toPromise();
   }
   CreateInvoice(NewInvoice: Invoice) {
-    return this.http.post(this.ApiUrl + "/CreateInvoice" , NewInvoice).toPromise();
+    return this.http.post(APIURL + this.Route + "/CreateInvoice", NewInvoice).toPromise();
   }
-  UpdateInvoice(UpdatedInvoice: Invoice){
-    return this.http.post(this.ApiUrl + "/UpdateInvoice", UpdatedInvoice).toPromise();
+  UpdateInvoice(UpdatedInvoice: Invoice) {
+    return this.http.post(APIURL + this.Route + "/UpdateInvoice", UpdatedInvoice).toPromise();
   }
-  DeleteInvoice(DeletedInvoice: Invoice){
-    return this.http.post(this.ApiUrl + "/DeleteInvoice" , DeletedInvoice).toPromise();
+  DeleteInvoice(DeletedInvoice: Invoice) {
+    return this.http.post(APIURL + this.Route + "/DeleteInvoice", DeletedInvoice).toPromise();
   }
 }

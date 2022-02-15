@@ -295,113 +295,36 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   font-size: 1rem;
   padding: 1% 8%;
 }
 
-.topOfHeader img {
-  width: 5%;
-  height: 100%;
-  padding: 0% 1%;
-}
-
-.topOfHeader .left {
-  text-align: left;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-line-pack: center;
-      align-content: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-}
-
-.topOfHeader .right {
-  text-align: right;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-line-pack: center;
-      align-content: center;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+.topOfHeader i {
+  padding-right: 0.5rem;
+  color: #3c2e25;
 }
 
 .middleOfHeader {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  height: 6rem;
-  border-bottom: 0.2px solid #e3dad3;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding: 1% 8%;
+  height: 4rem;
+  border-bottom: 0.2px solid #e3dad3;
   background-color: #f5f5f5;
 }
 
-.middleOfHeader button {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: #6f5948;
-  border-radius: 0 30px 30px 0;
-  border: none;
-  display: inline;
-  width: 53px;
-  height: 45px;
-}
-
-.middleOfHeader button:focus {
-  outline: none;
-}
-
-.middleOfHeader .InputField {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.middleOfHeader #Searchinput {
-  font-size: 1.1rem;
-  -webkit-padding-start: 10px;
-          padding-inline-start: 10px;
-  width: 21rem;
-  height: 2.8rem;
-  border: 1px solid #afa4a4;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-  border-right: none;
-}
-
-.middleOfHeader #Searchinput:focus {
-  outline: none;
-}
-
-.middleOfHeader .searchIcon {
-  width: 50%;
-  height: 50%;
-}
-
-.middleOfHeader .LogInIcon {
-  width: 40%;
+.middleOfHeader i {
+  color: #3c2e25;
 }
 
 .middleOfHeader .right {
@@ -422,16 +345,18 @@
   font-size: 1.5rem;
 }
 
-.middleOfHeader a:hover {
-  color: #6f5948;
-}
-
 .bottomOfHeader {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 1% 8%;
+}
+
+.bottomOfHeader .CurrentPage {
+  text-decoration: underline;
 }
 
 .bottomOfHeader ul {
@@ -450,7 +375,7 @@
   position: relative;
   padding: 0.83em 1.04em;
   color: #6f5948;
-  font-size: 1.5rem;
+  font-size: 1.5em;
   font-weight: 400;
 }
 
@@ -464,7 +389,7 @@
   color: #bba695;
 }
 
-.bottomOfHeader #DealerSubMenutitle {
+.bottomOfHeader #SubMenutitle {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -480,11 +405,11 @@
           flex-direction: column;
 }
 
-.bottomOfHeader #DealerSubMenutitle ul {
+.bottomOfHeader #SubMenutitle ul {
   background-color: #f5f5f5;
 }
 
-.bottomOfHeader #DealerSubMenutitle #DealerSubMenu {
+.bottomOfHeader #SubMenutitle #SubMenu {
   z-index: 1200;
   display: none;
   position: absolute;
@@ -494,71 +419,22 @@
           box-shadow: 0px 0px 3px #494949;
 }
 
-.bottomOfHeader #DealerSubMenutitle #DealerSubMenu li {
+.bottomOfHeader #SubMenutitle #SubMenu li {
   background-color: #f5f5f5;
   border: 1px solid #6f5948;
 }
 
-.bottomOfHeader #DealerSubMenutitle:hover #DealerSubMenu {
+.bottomOfHeader #SubMenutitle:hover #SubMenu {
   display: block;
 }
 
-.bottomOfHeader #DealerSubMenutitle:hover #DealerSubMenu li {
+.bottomOfHeader #SubMenutitle:hover #SubMenu li {
   display: block;
   white-space: nowrap;
   font-size: 1rem;
 }
 
-.bottomOfHeader #DealerSubMenutitle:hover #DealerSubMenu li label:hover {
-  cursor: pointer;
-}
-
-.bottomOfHeader #PortsSubMenuTitle {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.bottomOfHeader #PortsSubMenuTitle ul {
-  background-color: #f5f5f5;
-}
-
-.bottomOfHeader #PortsSubMenuTitle #PortsSubMenu {
-  display: none;
-  z-index: 1200;
-  position: absolute;
-  top: 3rem;
-  left: 1rem;
-  -webkit-box-shadow: 0px 0px 3px #494949;
-          box-shadow: 0px 0px 3px #494949;
-}
-
-.bottomOfHeader #PortsSubMenuTitle #PortsSubMenu li {
-  background-color: #f5f5f5;
-  border: 1px solid #6f5948;
-}
-
-.bottomOfHeader #PortsSubMenuTitle:hover #PortsSubMenu {
-  display: block;
-}
-
-.bottomOfHeader #PortsSubMenuTitle:hover #PortsSubMenu li {
-  display: block;
-  white-space: nowrap;
-  font-size: 1rem;
-}
-
-.bottomOfHeader #PortsSubMenuTitle:hover #PortsSubMenu li label:hover {
+.bottomOfHeader #SubMenutitle:hover #SubMenu li label:hover {
   cursor: pointer;
 }
 
@@ -2935,6 +2811,43 @@
   background-color: gray;
   color: white;
   border: gray;
+}
+
+.NotificationBar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  max-width: 25vw;
+  position: fixed;
+}
+
+.NotificationBar .Notification {
+  border: 1px solid #3c2e25;
+  padding: 0.3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 0.2rem;
 }
 
 * {

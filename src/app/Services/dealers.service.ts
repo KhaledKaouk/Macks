@@ -1,25 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Dealers } from '../Models/Dealers';
-import { InDevMode } from '../Utilities/Variables';
+import { APIURL, InDevMode } from '../Utilities/Variables';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DealersService {
 
-  ApiUrl = "https://macksdis.com/Dealer";
-  constructor(private http: HttpClient) {
-    if (InDevMode) this.ApiUrl = "http://localhost:5000/Dealer"
-   }
+  Route: string = "Dealer";
+  constructor(private http: HttpClient) { }
 
-  CreateDealer(NewDealer: Dealers){
-    return this.http.post(this.ApiUrl + "/createdealer",NewDealer).toPromise();
+  CreateDealer(NewDealer: Dealers) {
+    return this.http.post(APIURL + this.Route + "/createdealer", NewDealer).toPromise();
   }
-  GetAllDealers(){
-    return this.http.get(this.ApiUrl + "/getdealers").toPromise();
+  GetAllDealers() {
+    return this.http.get(APIURL + this.Route + "/getdealers").toPromise();
   }
-  UpdateDealer(UpdatedDealer: Dealers){
-    return this.http.post(this.ApiUrl + "/updatedealer", UpdatedDealer).toPromise();
+  UpdateDealer(UpdatedDealer: Dealers) {
+    return this.http.post(APIURL + this.Route + "/updatedealer", UpdatedDealer).toPromise();
   }
 }

@@ -1,0 +1,18 @@
+.NotificationBar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 25vw;
+    position:fixed;
+    // height: 100vh;
+    .Notification{
+        border: 1px solid $footer-color;
+        padding: 0.3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 0.2rem;
+    }
+}

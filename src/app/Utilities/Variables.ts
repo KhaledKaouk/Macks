@@ -29,6 +29,7 @@ export type Tools = {
 export let ShipmentStatus: string[] = ['Container Booked','Loading','Shipped']
 export let InDevMode = localStorage.getItem('DevMode')?.toLowerCase() === "true" ? true : false
 
-export let APIURL = InDevMode ? 'http://localhost:5000/' : 'https://macksdis.com/';
+// export let APIURL = InDevMode ? 'http://localhost:5000/' : 'https://macksdis.com/';
+export let APIURL = 'http://localhost:5000/'
 
 export let DataRowInPage: number = parseInt(localStorage.getItem('DataRowInPage') || '15')

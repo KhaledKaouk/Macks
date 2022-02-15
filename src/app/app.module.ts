@@ -58,6 +58,9 @@ import { DeclarationComponent } from './Components/declaration/declaration.compo
 import { TSCACertificationComponent } from './Components/tsca-certification/tsca-certification.component';
 import { GeneralConformityCertificateComponent } from './Components/general-conformity-certificate/general-conformity-certificate.component';
 import { ExcelFileViewComponent } from './Components/excel-file-view/excel-file-view.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { NotificationBarComponent } from './Components/notification-bar/notification-bar.component';
 
 
 @NgModule({
@@ -106,6 +109,7 @@ import { ExcelFileViewComponent } from './Components/excel-file-view/excel-file-
     TSCACertificationComponent,
     GeneralConformityCertificateComponent,
     ExcelFileViewComponent,
+    NotificationBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -116,6 +120,10 @@ import { ExcelFileViewComponent } from './Components/excel-file-view/excel-file-
     ReactiveFormsModule,
     MatDialogModule,
     NgProgressModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', {
+      enabled: environment.production,
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
@@ -131,7 +139,7 @@ import { ExcelFileViewComponent } from './Components/excel-file-view/excel-file-
     AdminComponent,
     MyPosComponent,
     AlfemoComponent,
-    DIs
+    DIs,
   ],
   bootstrap: [AppComponent]
 })

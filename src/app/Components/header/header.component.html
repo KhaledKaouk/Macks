@@ -1,113 +1,109 @@
-<div class="topOfHeader fadeshow1">
-    <div class="left">
-        <img src="../assets/PhoneIcon.png" alt="">
-        <a>252-258-3595</a>
+<div class="Header">
+    <!-- <div class="topOfHeader fadeshow1">
+        <div>
+            <i class="fa-solid fa-phone fa-meduim"></i>
+            <a>252-258-3595</a>
+        </div>
+        <div>
+            <i class="fa-solid fa-envelope fa-meduim"></i>
+            <a>macksdistribution@gmail.com</a>
+        </div>
+    </div> -->
+    <div class="middleOfHeader">
+        <div>
+            <a>Mack Distribution</a>
+        </div>
+        <div class="right">
+            <i class="fa-solid fa-user fa-2x" routerLink="/LogIn" *ngIf="!Logged()"></i>
+            <a (click)=LogOut() *ngIf="Logged()">LogOut:</a>
+            <a (click)=LogOut() *ngIf="Logged()" >{{SetUserName()}}</a>
+        </div>
     </div>
-    <div class="right">
-        <img src="../assets/email.png" alt="">
-        <a>macksdistribution@gmail.com</a>
+    <div class="bottomOfHeader">
+        <label id="menuCheckBox" for="check">
+            <img id="menuimg" src="../assets/menu.png" alt="">
+        </label>
+        <input type="checkbox" hidden id="check">
+        <ul>
+            <li [ngClass]="{'CurrentPage': true }">
+                <label routerLink="" for="check">Home</label>
+            </li>
+            <li *ngIf="CheckRole() === 'corinthian' && CheckIfHolley()">
+                <label routerLink="CreatePO" for="check">Holley</label>
+            </li>
+            <li *ngIf="CheckRole() === 'admin'" id="SubMenutitle">
+                <label id="NormalCursor">Products</label>
+                <ul id="SubMenu">
+                    <li>
+                        <label routerLink="Products" for="check">All Products</label>
+                    </li>
+                    <li>
+                        <label (click)="OperNewProductForm()" for="check">Create New Product</label>
+                    </li>
+                </ul>
+            </li>
+            <li *ngIf="(CheckRole() === 'corinthian') || (CheckRole() === 'admin')" id="SubMenutitle">
+                <label id="NormalCursor">Dealers</label>
+                <ul id="SubMenu">
+                    <li>
+                        <label routerLink="Dealers" for="check">All Dealers</label>
+                    </li>
+                    <li>
+                        <label (click)="OperNewDealerForm()" for="check">Create New Dealer</label>
+                    </li>
+                </ul>
+            </li>
+            <li *ngIf="CheckRole() === 'admin'" id="SubMenutitle">
+                <label id="NormalCursor">Users</label>
+                <ul id="SubMenu">
+                    <li>
+                        <label routerLink="Users" for="check">All Users</label>
+                    </li>
+                    <li>
+                        <label (click)="OperNewUserForm()" for="check">Create New User</label>
+                    </li>
+                </ul>
+            </li>
+            <li *ngIf="CheckRole() === 'corinthian'" id="SubMenutitle">
+                <label id="NormalCursor">Ports</label>
+                <ul id="SubMenu">
+                    <li>
+                        <label routerLink="Ports" for="check">All Ports</label>
+                    </li>
+                    <li>
+                        <label (click)="OpenNewPort()" for="check">Create New Port</label>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label routerLink="Catalog" for="check">Catalog</label>
+            </li>
+            <li *ngIf="CheckRole() === 'corinthian'">
+                <label routerLink="MyPos" for="check">My Pos</label>
+            </li>
+            <li *ngIf="CheckRole() !== '' && CheckRole() !== null ">
+                <label routerLink="reports" for="check">Reports</label>
+            </li>
+            <li *ngIf="CheckRole() === 'admin'">
+                <label routerLink="Admin" for="check">Mack</label>
+            </li>
+            <li *ngIf="CheckRole() === 'alfemo'">
+                <label routerLink="Alfemo" for="check">Alfemo</label>
+            </li>
+            <li *ngIf="CheckRole() !== '' && CheckRole() !== null ">
+                <label routerLink="Invoices" for="check">Shipments</label>
+            </li>
+            <li *ngIf="CheckRole() !== '' && CheckRole() !== null " id="SubMenutitle">
+                <label id="NormalCursor">Freight Prices</label>
+                <ul id="SubMenu">
+                    <li>
+                        <label routerLink="FrightPrices" for="check">Freight Prices</label>
+                    </li>
+                    <li *ngIf="(CheckRole() === 'alfemo') || (CheckRole() === 'admin') ">
+                        <label (click)="OpenNewFreightPriceForm()" for="check">Create Freight Price</label>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </div>
-</div>
-<div class="middleOfHeader">
-    <div>
-        <a href="">Mack Distribution</a>
-    </div>
-    <div id="Hide" class="InputField">
-        <input class="Hide" id="Searchinput" type="text" placeholder="Search">
-        <button class="">
-            <img class="searchIcon" src="../assets/searchicon.jpg" alt="">
-        </button>
-    </div>
-    <div class="right">
-        <img class="LogInIcon " routerLink="/LogIn" src="../assets/LoginIcon.png" alt="" *ngIf="!Logged()">
-        <a class="" (click)=LogOut() style="margin: 0.5%;" *ngIf="Logged()">LogOut:</a>
-        <a class="" (click)=LogOut() *ngIf="Logged()" style="margin-left: 2px ;">{{SetUserName()}}</a>
-    </div>
-</div>
-<div class="bottomOfHeader">
-    <label id="menuCheckBox" for="check">
-        <img id="menuimg" src="../assets/menu.png" alt="">
-    </label>
-    <input type="checkbox" hidden id="check">
-    <ul id="test">
-        <li>
-            <label routerLink="" for="check">Home</label>
-        </li>
-        <li *ngIf="CheckRole() === 'corinthian' && CheckIfHolley()">
-            <label routerLink="CreatePO" for="check">Holley</label>
-        </li>
-        <li *ngIf="CheckRole() === 'admin'" id="DealerSubMenutitle">
-            <label id="NormalCursor">Products</label>
-            <ul id="DealerSubMenu">
-                <li>
-                    <label routerLink="Products" for="check">All Products</label>
-                </li>
-                <li>
-                    <label (click)="OperNewProductForm()" for="check">Create New Product</label>
-                </li>
-            </ul>
-        </li>
-        <li *ngIf="(CheckRole() === 'corinthian') || (CheckRole() === 'admin')" id="DealerSubMenutitle">
-            <label id="NormalCursor">Dealers</label>
-            <ul id="DealerSubMenu">
-                <li>
-                    <label routerLink="Dealers" for="check">All Dealers</label>
-                </li>
-                <li>
-                    <label (click)="OperNewDealerForm()" for="check">Create New Dealer</label>
-                </li>
-            </ul>
-        </li>
-        <li *ngIf="CheckRole() === 'admin'" id="DealerSubMenutitle">
-            <label id="NormalCursor">Users</label>
-            <ul id="DealerSubMenu">
-                <li>
-                    <label routerLink="Users" for="check">All Users</label>
-                </li>
-                <li>
-                    <label (click)="OperNewUserForm()" for="check">Create New User</label>
-                </li>
-            </ul>
-        </li>
-        <li *ngIf="CheckRole() === 'corinthian'" id="PortsSubMenuTitle">
-            <label id="NormalCursor">Ports</label>
-            <ul id="PortsSubMenu">
-                <li>
-                    <label routerLink="Ports" for="check">All Ports</label>
-                </li>
-                <li>
-                    <label (click)="OpenNewPort()" for="check">Create New Port</label>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <label routerLink="Catalog" for="check">Catalog</label>
-        </li>
-        <li *ngIf="CheckRole() === 'corinthian'">
-            <label routerLink="MyPos" for="check">My Pos</label>
-        </li>
-        <li *ngIf="CheckRole() !== '' && CheckRole() !== null ">
-            <label routerLink="reports" for="check">Reports</label>
-        </li>
-        <li *ngIf="CheckRole() === 'admin'">
-            <label routerLink="Admin" for="check">Mack</label>
-        </li>
-        <li *ngIf="CheckRole() === 'alfemo'">
-            <label routerLink="Alfemo" for="check">Alfemo</label>
-        </li>
-        <li *ngIf="CheckRole() !== '' && CheckRole() !== null ">
-            <label routerLink="Invoices" for="check">Shipments</label>
-        </li>
-        <li *ngIf="CheckRole() !== '' && CheckRole() !== null " id="DealerSubMenutitle">
-            <label id="NormalCursor">Freight Prices</label>
-            <ul id="DealerSubMenu">
-                <li>
-                    <label routerLink="FrightPrices" for="check">Freight Prices</label>
-                </li>
-                <li *ngIf="(CheckRole() === 'alfemo') || (CheckRole() === 'admin') ">
-                    <label (click)="OpenNewFreightPriceForm()" for="check">Create Freight Price</label>
-                </li>
-            </ul>
-        </li>
-    </ul>
 </div>

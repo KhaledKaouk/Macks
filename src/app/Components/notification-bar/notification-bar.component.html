@@ -1,0 +1,10 @@
+<div class="NotificationBar">
+    <div class="Notification" *ngFor= "let Notification of Notifications; index as i">
+        <i class="fa-solid fa-bell fa-lg"></i>
+        <label>{{Notification.Schema}}</label>
+        <p>{{Notification.Action}}</p>
+        <label>{{GetUserName(Notification.UserId)}}</label>
+        <label>{{Notification.Date}}</label>
+        <a class="button">View</a>
+    </div>
+</div>

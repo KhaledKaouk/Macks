@@ -12,7 +12,7 @@ import { CheckToken } from 'src/app/Utilities/CheckAuth';
 import { DIs, FormatDate, Spinner } from 'src/app/Utilities/Common';
 import { Auth_error_handling } from 'src/app/Utilities/Errorhadling';
 import * as FileHandler from 'src/app/Utilities/FileHandlers';
-import { Status } from 'src/app/Utilities/Variables';
+import { APIURL, Status } from 'src/app/Utilities/Variables';
 import * as ZipHandler from 'src/app/Utilities/ZipHandlers'
 @Component({
   selector: 'app-alfemo-update',
@@ -35,6 +35,7 @@ export class AlfemoUpdateComponent implements OnInit {
     port: new FormControl(''),
   })
 
+  Route: string = "Assets/SD/"
   PoToUpdate: POs = new POs();
   ShippingDocsAreEdited: boolean = false;
   SeletedFile: any;
@@ -68,7 +69,7 @@ export class AlfemoUpdateComponent implements OnInit {
     this.ConfigureShippingDocsForUserControl();
   }
   async GetPorts() {
-     await this.PortService.GetPorts().then((ports: any) =>  this.AllPorts = ports)
+    await this.PortService.GetPorts().then((ports: any) => this.AllPorts = ports)
   }
   AssignPoDataToForm() {
     this.UpdatedPo.setValue({
@@ -188,12 +189,9 @@ export class AlfemoUpdateComponent implements OnInit {
   }
 
   async GetShippingDocs() {
-    let localApi = 'http://localhost:5000/Assets/';
-    let realapi = 'https://macksdis.com/Assets/SD/'
-
     let ShippingDocsFile: any;
 
-    let ResponseWithShippingDocsBlob = await fetch(realapi + this.PoToUpdate.shippingDocs)
+    let ResponseWithShippingDocsBlob = await fetch(APIURL + this.Route + this.PoToUpdate.shippingDocs)
     let ShippingDocsBlob = await ResponseWithShippingDocsBlob.clone().blob();
 
     ShippingDocsFile = ShippingDocsBlob;

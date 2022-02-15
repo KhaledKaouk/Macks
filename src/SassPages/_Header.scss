@@ -1,66 +1,25 @@
 .topOfHeader {
-    @include FlexSpaceAround;
+    display: flex;
+    justify-content: space-between;
     font-size: 1rem;
     padding: 1% 8%;
-    img {
-        width: 5%;
-        height: 100%;
-        padding: 0% 1%;
-    }
-    .left {
-        text-align: left;
-        display: flex;
-        align-content: center;
-        justify-content: flex-start;
-    }
-    .right {
-        text-align: right;
-        display: flex;
-        align-content: center;
-        justify-content: flex-end;
+    i {
+        padding-right: 0.5rem;
+        color: $footer-color;
     }
 }
 
 .middleOfHeader {
-    @include FlexSpaceAround;
-    height: 6rem;
-    border-bottom: 0.2px solid lighten($Secondary-Color, 50);
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+    padding: 1% 8%;
+    height: 4rem;
+    border-bottom: 0.2px solid lighten($Secondary-Color, 50);
     background-color: $Primary-color;
-    button {
-        @include FlexAllCenter;
-        background-color: $Secondary-Color;
-        border-radius: 0 30px 30px 0;
-        border: none;
-        display: inline;
-        width: 53px;
-        height: 45px;
-        &:focus {
-            outline: none;
-        }
-    }
-    .InputField {
-        @include FlexAllCenter;
-    }
-    #Searchinput {
-        font-size: 1.1rem;
-        padding-inline-start: 10px;
-        @include InputFormElementsSize;
-        border: 1px solid #afa4a4;
-        border-top-left-radius: 30px;
-        border-bottom-left-radius: 30px;
-        border-right: none;
 
-        &:focus {
-            outline: none;
-        }
-    }
-    .searchIcon {
-        width: 50%;
-        height: 50%;
-    }
-    .LogInIcon {
-        width: 40%;
+    i {
+        color: $footer-color;
     }
     .right {
         text-align: right;
@@ -70,26 +29,27 @@
             transform: scale(0.95);
         }
     }
-
     a {
         color: $Secondary-Color;
         text-decoration: none;
         font-size: 1.5rem;
-        &:hover {
-            color: $Secondary-Color;
-        }
     }
 }
 
 .bottomOfHeader {
-    @include FlexSpaceAround;
+    display: flex;
+    justify-content: center;
+    padding: 1% 8%;
+    .CurrentPage{
+        text-decoration: underline
+    }
     ul {
         @include FlexAllCenter;
         li {
             position: relative;
             padding: 0.83em 1.04em;
             color: $Secondary-Color;
-            font-size: 1.5rem;
+            font-size: 1.5em;
             font-weight: 400;
             label {
                 cursor: pointer;
@@ -99,18 +59,17 @@
                     color: lighten($Secondary-Color, 30%);
                 }
             }
-
         }
     }
-    #DealerSubMenutitle {
+    #SubMenutitle {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        ul{
+        ul {
             background-color: $Primary-color;
         }
-        #DealerSubMenu {
+        #SubMenu {
             li {
                 background-color: $Primary-color;
                 border: 1px solid $Secondary-Color;
@@ -123,42 +82,7 @@
             box-shadow: 0px 0px 3px rgb(73, 73, 73);
         }
         &:hover {
-            #DealerSubMenu {
-                display: block;
-                li {
-                    display: block;
-                    white-space: nowrap;
-                    font-size: 1rem;
-                    // margin: 2px;
-                    label:hover {
-                        cursor: pointer;
-                    }
-                }
-            }
-        }
-    }
-    #PortsSubMenuTitle {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        ul{
-            background-color: $Primary-color;
-        }
-        #PortsSubMenu {
-            li {
-                background-color: $Primary-color;
-                border: 1px solid $Secondary-Color;
-            }
-            display: none;
-            z-index: 1200;
-            position: absolute;
-            top: 3rem;
-            left: 1rem;
-            box-shadow: 0px 0px 3px rgb(73, 73, 73);
-        }
-        &:hover {
-            #PortsSubMenu {
+            #SubMenu {
                 display: block;
                 li {
                     display: block;
@@ -177,9 +101,9 @@
     }
 }
 
-#NormalCursor{
-    &:hover{
-        cursor:default;
+#NormalCursor {
+    &:hover {
+        cursor: default;
         color: $Secondary-Color;
     }
 }

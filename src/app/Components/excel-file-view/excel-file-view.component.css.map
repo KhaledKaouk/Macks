@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "excel-file-view.component.sass"
+    ],
+    "names": [],
+    "file": "excel-file-view.component.css"
+}

@@ -1,35 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../Models/Product';
-import { InDevMode } from '../Utilities/Variables';
+import { APIURL, InDevMode } from '../Utilities/Variables';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  ApiURL: string = "https://macksdis.com/Product";
+  Route: string = "Product"
+  constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) {
-    if (InDevMode) this.ApiURL = "http://localhost:5000/Product"
-   }
-
-  GetProducts(){
-    return this.http.get(this.ApiURL + '/GetProducts').toPromise();
+  GetProducts() {
+    return this.http.get(APIURL + this.Route + '/GetProducts').toPromise();
   }
-  CreateProduct(NewProduct: Product){
-    return this.http.post(this.ApiURL + '/CreateProduct', NewProduct).toPromise();
+  CreateProduct(NewProduct: Product) {
+    return this.http.post(APIURL + this.Route + '/CreateProduct', NewProduct).toPromise();
   }
-  UpdateProduct(UpdatedProduct: Product){
-    return this.http.post(this.ApiURL + '/UpdateProduct',UpdatedProduct).toPromise();
+  UpdateProduct(UpdatedProduct: Product) {
+    return this.http.post(APIURL + this.Route + '/UpdateProduct', UpdatedProduct).toPromise();
   }
-  DeleteProduct(Product: Product){
-    return this.http.post(this.ApiURL  + '/Deleteproduct',Product ).toPromise();
+  DeleteProduct(Product: Product) {
+    return this.http.post(APIURL + this.Route + '/Deleteproduct', Product).toPromise();
   }
-  UploadProductImage(formData: FormData, FileName: string){
-    return this.http.post(this.ApiURL + '/ProductFiles', formData, { 'params': { filename: FileName } }).toPromise();
+  UploadProductImage(formData: FormData, FileName: string) {
+    return this.http.post(APIURL + this.Route + '/ProductFiles', formData, { 'params': { filename: FileName } }).toPromise();
   }
-  UploadDescriptionFile(formData: FormData, FileName: string){
-    return this.http.post(this.ApiURL + '/ProductFiles', formData, { 'params': { filename: FileName } }).toPromise();
+  UploadDescriptionFile(formData: FormData, FileName: string) {
+    return this.http.post(APIURL + this.Route + '/ProductFiles', formData, { 'params': { filename: FileName } }).toPromise();
   }
 }
